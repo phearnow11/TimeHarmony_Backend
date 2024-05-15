@@ -133,4 +133,9 @@ public class Members {
     public void setRole_id(int role_id) {
         this.role_id = role_id;
     }
+
+    @Override
+    public String toString() {
+        return member_id + " - " + member_name;
+    }
 }
