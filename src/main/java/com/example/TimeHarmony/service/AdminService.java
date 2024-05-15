@@ -15,6 +15,7 @@ public class AdminService implements IAdminService {
 
     @Autowired
     private MemberRepository MEMBER_REPOSITORY;
+    @Autowired
     private AdminRepository ADMIN_REPOSITORY;
 
     @Override

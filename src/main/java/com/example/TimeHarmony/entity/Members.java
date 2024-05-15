@@ -14,6 +14,8 @@ import jakarta.persistence.TemporalType;
 public class Members {
     @Id
     private String member_id;
+    private String username;
+    private String password;
     private String member_name;
     private String address;
     private String email;
@@ -23,6 +25,35 @@ public class Members {
     private Date last_login_date;
 
     private int role_id;
+
+    public Members(String member_id, String username, String password, String member_name, String address, String email,
+            String phone, Date last_login_date, int role_id) {
+        this.member_id = member_id;
+        this.username = username;
+        this.password = password;
+        this.member_name = member_name;
+        this.address = address;
+        this.email = email;
+        this.phone = phone;
+        this.last_login_date = last_login_date;
+        this.role_id = role_id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public Date getLast_login_date() {
         return last_login_date;
