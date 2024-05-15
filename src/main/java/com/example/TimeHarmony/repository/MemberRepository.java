@@ -7,8 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.example.TimeHarmony.entity.Members;
 
-public interface MemberRepository extends JpaRepository<Members, Long> {
-    @Query("select u from Members u where u.member_id = ?1")
-    Optional<Members> findMemberByID(String member_id);
+public interface MemberRepository extends JpaRepository<Members, String> {
 
 }

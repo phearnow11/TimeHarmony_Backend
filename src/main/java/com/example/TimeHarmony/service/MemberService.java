@@ -20,7 +20,7 @@ public class MemberService implements IMemberService {
         if (member_id.isEmpty())
             return null;
         Optional<Members> member = Optional.empty();
-        member = MEMBER_REPOSITORY.findMemberByID(member_id);
+        member = MEMBER_REPOSITORY.findById(member_id);
         if (member.isPresent())
             return member;
         return null;
