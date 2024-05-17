@@ -6,7 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Members;
+import com.example.TimeHarmony.repository.AddressesRepository;
 import com.example.TimeHarmony.repository.MemberRepository;
 
 @Service
@@ -14,6 +16,8 @@ public class MemberService implements IMemberService {
 
     @Autowired
     private MemberRepository MEMBER_REPOSITORY;
+    @Autowired
+    private AddressesRepository ADDRESS_REPOSITORY;
 
     @Override
     public Optional<Members> getMemberbyID(String member_id) {
@@ -24,6 +28,11 @@ public class MemberService implements IMemberService {
         if (member.isPresent())
             return member;
         return null;
+    }
+
+    @Override
+    public List<Addresses> getAddresses() {
+        return ADDRESS_REPOSITORY.findAll();
     }
 
 }
