@@ -1,6 +1,5 @@
 package com.example.TimeHarmony.entity;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import jakarta.persistence.Entity;
@@ -22,4 +21,14 @@ public class Admins extends Members {
                 last_login_date, last_logout_date, email_verification, role_id);
         this.key_pass = key_pass;
     }
+
+    public String getKey_pass() {
+        return key_pass;
+    }
+
+    public void setKey_pass(String key_pass) {
+        this.key_pass = key_pass;
+    }
+
+    
 }
