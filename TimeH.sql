@@ -30,8 +30,8 @@ create table Members (
 	primary key ([member_id]),
 	foreign key ([role_id]) references Roles([role_id])
 )
-insert Members (member_id, username, [password], last_name, email, role_id) values
-(N'000000', N'admin', N'1', N'Phien', N'thaiphiennn@gmail.com', 4)
+insert Members (member_id, username, [password], last_name, is_active, email, role_id) values
+(N'000000', N'admin', N'1', N'Phien', 0, N'thaiphiennn@gmail.com', 4)
 
 
 create table Addresses (
