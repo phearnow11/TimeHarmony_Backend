@@ -100,12 +100,14 @@ create table Appraiser (
 	foreign key (member_id) references Members([member_id])
 )
 
-insert Admins (member_id) values (N'000000')
+insert Admins (member_id, key_pass) values (N'000000', N'Few231Poes@a')
 
 drop table Members
 drop table Admins
 drop table Roles
 
 select * from Members join Roles on Members.role_id = Roles.role_id
-select * from Admins
+select * from Admins join Members on Members.member_id = Admins.member_id
 select * from Members
+
+delete Members where Members.member_id = N'000000'
