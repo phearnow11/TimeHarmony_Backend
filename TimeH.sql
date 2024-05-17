@@ -82,6 +82,41 @@ create table Watch(
 	primary key ([watch_id])
 )
 
+create table ReportType(
+	[report_type] tinyint,
+	[report_title] varchar(20),
+	primary key ([report_type])
+)
+
+insert ReportType(report_type, report_title) values(1, N'Product Report')
+insert ReportType(report_type, report_title) values(2, N'Member Report')
+insert ReportType(report_type, report_title) values(3, N'Website Feedback')
+insert ReportType(report_type, report_title) values(4, N'Appraisal Report')
+insert ReportType(report_type, report_title) values(5, N'Bug Report')
+insert ReportType(report_type, report_title) values(6, N'Transaction Report')
+insert ReportType(report_type, report_title) values(7, N'Issue Report')
+insert ReportType(report_type, report_title) values(8, N'Issue Reply')
+
+create table Report(
+	[report_id] char(6) not null, 
+	[member_id] char(6) null,
+	[watch_id] char(6) null, 
+	[report_content] varchar(max) null, 
+	[report_date] datetime null, 
+	[report_type] tinyint,
+	primary key ([report_id]),
+	foreign key (member_id) references Members([member_id]),
+	foreign key (watch_id) references Watch([watch_id]),
+	foreign key (report_type) references ReportType([report_type])
+)
+
+create table CustomerSupportAgents(
+	[member_id] char(6), 
+	[report_id] char(6)
+	foreign key (member_id) references Members([member_id]),
+	foreign key (report_id) references Report([report_id])
+)
+
 create table Admins (
 	[member_id] char(6) null,
 	[key_pass] varchar(15) null, 
@@ -94,7 +129,7 @@ create table Sellers (
 	foreign key (member_id) references Members([member_id])
 )
 
-create table Appraiser (
+create table Appraisers (
 	[member_id] char(6) null, 
 	[watch_id] char(6) null, 
 	foreign key (member_id) references Members([member_id])
