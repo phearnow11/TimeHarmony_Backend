@@ -11,9 +11,6 @@ public class CustomerSupportAgents extends Members {
     private String report_id;
 
     public CustomerSupportAgents() {
-
-    public CustomerSupportAgents() {
-
     }
 
     public CustomerSupportAgents(String member_id, String member_image, String username, String password,
