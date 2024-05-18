@@ -9,6 +9,7 @@ import com.example.TimeHarmony.entity.Admins;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.repository.AdminRepository;
 import com.example.TimeHarmony.repository.MemberRepository;
+import com.example.TimeHarmony.service.interfacepack.IAdminService;
 
 @Service
 public class AdminService implements IAdminService {

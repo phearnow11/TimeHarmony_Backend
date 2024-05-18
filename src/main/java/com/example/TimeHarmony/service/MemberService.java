@@ -10,6 +10,7 @@ import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.repository.AddressesRepository;
 import com.example.TimeHarmony.repository.MemberRepository;
+import com.example.TimeHarmony.service.interfacepack.IMemberService;
 
 @Service
 public class MemberService implements IMemberService {
