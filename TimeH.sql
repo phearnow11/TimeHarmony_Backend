@@ -45,6 +45,8 @@ create table Addresses (
 	foreign key ([member_id]) references Members([member_id])
 )
 
+select * from Addresses
+
 create table Watch(
 	[watch_id] char(6) not null, 
 	[watch_image] varchar(50) null, 
