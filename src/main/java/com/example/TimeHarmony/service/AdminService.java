@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.example.TimeHarmony.entity.Admins;
 import com.example.TimeHarmony.entity.Members;
+import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.repository.AdminRepository;
 import com.example.TimeHarmony.repository.MemberRepository;
+import com.example.TimeHarmony.repository.WatchRepository;
 import com.example.TimeHarmony.service.interfacepack.IAdminService;
 
 @Service
@@ -20,6 +22,9 @@ public class AdminService implements IAdminService {
     @Autowired
     private AdminRepository ADMIN_REPOSITORY;
 
+    @Autowired
+    private WatchRepository WATCH_REPOSITORY;
+
     @Override
     public List<Members> getMembers() {
         return MEMBER_REPOSITORY.findAll();
@@ -27,6 +32,11 @@ public class AdminService implements IAdminService {
 
     public List<Admins> getAdmins() {
         return ADMIN_REPOSITORY.findAll();
+    }
+
+    @Override
+    public List<Watch> getWatches() {
+        return WATCH_REPOSITORY.findAll();
     }
 
 }

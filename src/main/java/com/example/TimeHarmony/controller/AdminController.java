@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.TimeHarmony.entity.Admins;
 import com.example.TimeHarmony.entity.Members;
+import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.service.AdminService;
 
 @RestController
@@ -27,5 +28,10 @@ public class AdminController {
     @RequestMapping(value = "get-admins", method = RequestMethod.GET)
     public List<Admins> getAdmins() {
         return ADMIN_SERVICE.getAdmins();
+    }
+
+    @RequestMapping(value = "get-watches", method = RequestMethod.GET)
+    public List<Watch> getWatches() {
+        return ADMIN_SERVICE.getWatches();
     }
 }
