@@ -134,6 +134,7 @@ create table Sellers (
 create table Appraisers (
 	[member_id] char(6) null, 
 	[watch_id] char(6) null, 
+	[year_experience] tinyint,
 	foreign key (member_id) references Members([member_id])
 )
 
