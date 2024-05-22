@@ -147,5 +147,6 @@ drop table Roles
 select * from Members join Roles on Members.role_id = Roles.role_id
 select * from Admins join Members on Members.member_id = Admins.member_id
 select * from Members
+select * from Appraisers
 
 delete Members where Members.member_id = N'000000'

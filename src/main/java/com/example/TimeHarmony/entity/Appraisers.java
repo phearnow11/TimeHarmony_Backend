@@ -3,8 +3,10 @@ package com.example.TimeHarmony.entity;
 import java.sql.Timestamp;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "Appraisers")
 public class Appraisers extends Members {
 
     private String watch_id;
