@@ -13,8 +13,8 @@ import jakarta.persistence.TemporalType;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "Members")
-public class Members {
+@Table(name = "Users")
+public class Users {
     @Id
     private String member_id;
     private String member_image;
@@ -36,7 +36,7 @@ public class Members {
     private String email_verification;
     private int role_id;
 
-    public Members(String member_id, String member_image, String username, String password, String first_name,
+    public Users(String member_id, String member_image, String username, String password, String first_name,
             String last_name, int is_active, String address, String email, String phone, Timestamp last_login_date,
             Timestamp last_logout_date, String email_verification, int role_id) {
         this.member_id = member_id;
@@ -55,7 +55,7 @@ public class Members {
         this.role_id = role_id;
     }
 
-    public Members() {
+    public Users() {
     }
 
     public String getMember_id() {

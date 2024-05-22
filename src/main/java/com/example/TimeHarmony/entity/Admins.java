@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import jakarta.persistence.Entity;
 
 @Entity
-public class Admins extends Members {
+public class Admins extends Users {
 
     private String key_pass;
 
@@ -30,5 +30,4 @@ public class Admins extends Members {
         this.key_pass = key_pass;
     }
 
-    
 }

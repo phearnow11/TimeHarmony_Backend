@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.TimeHarmony.entity.Addresses;
-import com.example.TimeHarmony.entity.Members;
+import com.example.TimeHarmony.entity.Users;
 import com.example.TimeHarmony.service.MemberService;
 
 @RestController
@@ -23,7 +23,7 @@ public class MemberController {
     private MemberService MEMBER_SERVICE;
 
     @RequestMapping(value = "get-member", method = RequestMethod.GET)
-    public Optional<Members> getMember(@RequestParam("member_id") String member_id) {
+    public Optional<Users> getMember(@RequestParam("member_id") String member_id) {
         return MEMBER_SERVICE.getMemberbyID(member_id);
     }
 

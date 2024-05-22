@@ -2,7 +2,7 @@ package com.example.TimeHarmony.builder;
 
 import java.sql.Timestamp;
 
-import com.example.TimeHarmony.entity.Members;
+import com.example.TimeHarmony.entity.Users;
 
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -112,8 +112,8 @@ public class MemberBuilder implements IMemberBuilder {
     }
 
     @Override
-    public Members build() {
-        return new Members(member_id, member_image, username, password, first_name, last_name, is_active, address,
+    public Users build() {
+        return new Users(member_id, member_image, username, password, first_name, last_name, is_active, address,
                 email, phone, last_login_date, last_logout_date, email_verification, role_id);
     }
 }

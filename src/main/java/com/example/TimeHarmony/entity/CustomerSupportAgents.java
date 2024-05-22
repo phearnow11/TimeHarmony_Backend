@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Customer_Support_Agents")
-public class CustomerSupportAgents extends Members {
+public class CustomerSupportAgents extends Users {
 
     private String report_id;
 

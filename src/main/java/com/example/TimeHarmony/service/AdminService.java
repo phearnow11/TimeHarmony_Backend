@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.TimeHarmony.entity.Admins;
-import com.example.TimeHarmony.entity.Members;
+import com.example.TimeHarmony.entity.Users;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.repository.AdminRepository;
 import com.example.TimeHarmony.repository.MemberRepository;
@@ -26,7 +26,7 @@ public class AdminService implements IAdminService {
     private WatchRepository WATCH_REPOSITORY;
 
     @Override
-    public List<Members> getMembers() {
+    public List<Users> getMembers() {
         return MEMBER_REPOSITORY.findAll();
     }
 

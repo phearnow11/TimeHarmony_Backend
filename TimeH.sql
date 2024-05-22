@@ -1,18 +1,16 @@
 create database TimeHarmony
+drop database TimeHarmony
 
 create table Roles (
 	[role_id] tinyint not null, 
-	[role_name] varchar(50) null,
-	[security_level] tinyint null,
+	[authority] varchar(50) null,
 	primary key ([role_id])
 )
 
-insert Roles (role_id, role_name, security_level) values (1, N'Buyer', 0)
-insert Roles (role_id, role_name, security_level) values (2, N'Seller', 1)
-insert Roles (role_id, role_name, security_level) values (3, N'Appraiser', 1)
-insert Roles (role_id, role_name, security_level) values (4, N'Admin', 5)
+insert Roles (role_id, [authority]) values (1, N'ROLE_USER')
+insert Roles (role_id, [authority]) values (2, N'ROLE_ADMIN')
 
-create table Members (
+create table Users (
 	[member_id] char (6) not null, 
 	[member_image] varchar(50) null,
 	[username] varchar (50) null,
@@ -30,8 +28,8 @@ create table Members (
 	primary key ([member_id]),
 	foreign key ([role_id]) references Roles([role_id])
 )
-insert Members (member_id, username, [password], last_name, is_active, email, role_id) values
-(N'000000', N'admin', N'1', N'Phien', 0, N'thaiphiennn@gmail.com', 4)
+insert Users (member_id, username, [password], last_name, is_active, email, role_id) values
+(N'000000', N'admin', N'1', N'Phien', 0, N'thaiphiennn@gmail.com', 2)
 
 
 create table Addresses (
@@ -42,7 +40,7 @@ create table Addresses (
 	[address_type] tinyint, 
 	[is_default] tinyint 
 	primary key ([address_id]), 
-	foreign key ([member_id]) references Members([member_id])
+	foreign key ([member_id]) references Users([member_id])
 )
 
 select * from Addresses
@@ -107,46 +105,45 @@ create table Report(
 	[report_date] datetime null, 
 	[report_type] tinyint,
 	primary key ([report_id]),
-	foreign key (member_id) references Members([member_id]),
+	foreign key (member_id) references Users([member_id]),
 	foreign key (watch_id) references Watch([watch_id]),
 	foreign key (report_type) references ReportType([report_type])
 )
 
-create table CustomerSupportAgents(
+create table Customer_Support_Agents(
 	[member_id] char(6), 
 	[report_id] char(6)
-	foreign key (member_id) references Members([member_id]),
+	foreign key (member_id) references Users([member_id]),
 	foreign key (report_id) references Report([report_id])
 )
 
 create table Admins (
 	[member_id] char(6) null,
 	[key_pass] varchar(15) null, 
-	foreign key (member_id) references Members([member_id])
+	foreign key (member_id) references Users([member_id])
 )
 
 create table Sellers (
 	[member_id] char(6) null,
 	[watch_id] char(6) null,
-	foreign key (member_id) references Members([member_id])
+	foreign key (member_id) references Users([member_id])
 )
 
 create table Appraisers (
 	[member_id] char(6) null, 
 	[watch_id] char(6) null, 
 	[year_experience] tinyint,
-	foreign key (member_id) references Members([member_id])
+	foreign key (member_id) references Users([member_id])
 )
 
 insert Admins (member_id, key_pass) values (N'000000', N'Few231Poes@a')
 
 drop table Members
 drop table Admins
-drop table Roles
 
-select * from Members join Roles on Members.role_id = Roles.role_id
-select * from Admins join Members on Members.member_id = Admins.member_id
-select * from Members
+
+select * from Users
 select * from Appraisers
+select * from Customer_Support_Agents
 
 delete Members where Members.member_id = N'000000'

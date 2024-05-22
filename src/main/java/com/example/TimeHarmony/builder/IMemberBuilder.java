@@ -2,7 +2,7 @@ package com.example.TimeHarmony.builder;
 
 import java.sql.Timestamp;
 
-import com.example.TimeHarmony.entity.Members;
+import com.example.TimeHarmony.entity.Users;
 
 public interface IMemberBuilder {
     public IMemberBuilder setMemberId(String id);
@@ -33,5 +33,5 @@ public interface IMemberBuilder {
 
     public IMemberBuilder setRole(int role_id);
 
-    public Members build();
+    public Users build();
 }
