@@ -29,11 +29,12 @@ create table Users (
 	primary key ([member_id]),
 	foreign key ([role_id]) references Roles([role_id])
 )
-insert Users (member_id, username, [password], last_name, is_active, email, role_id) values
-(N'000000', N'admin', N'1', N'Phien', 0, N'thaiphiennn@gmail.com', 2)
 
-insert Users (member_id, username, [password], last_name, is_active, email, role_id) values
-(N'000001', N'user', N'1', N'PhienUser', 0, N'P@gmail.com', 1)
+insert Users (member_id, username, [password], last_name, is_active, email, role_id, [enabled]) values
+(N'000000', N'admin', N'1', N'Phien', 0, N'thaiphiennn@gmail.com', 2, 1)
+
+insert Users (member_id, username, [password], last_name, is_active, email, role_id, [enabled]) values
+(N'000001', N'user', N'1', N'PhienUser', 0, N'P@gmail.com', 1, 1)
 
 
 create table Addresses (
@@ -148,7 +149,9 @@ drop table Admins
 
 select * from Users
 select * from Appraisers
+select * from Admins
 select * from Customer_Support_Agents
 select username, [authority] from Users join Roles on Users.role_id = Roles.role_id 
 
-delete Members where Members.member_id = N'000000'
+delete Users where Users.member_id = N'000000'
+delete Admins
