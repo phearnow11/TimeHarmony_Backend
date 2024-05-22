@@ -5,11 +5,14 @@ import java.util.Optional;
 
 import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Users;
+import com.example.TimeHarmony.entity.Watch;
 
 public interface IMemberService {
 
     public Optional<Users> getMemberbyID(String member_id);
 
     public List<Addresses> getAddresses();
+
+    public Optional<Watch> getWatchByGender(String gender ); 
 
 }

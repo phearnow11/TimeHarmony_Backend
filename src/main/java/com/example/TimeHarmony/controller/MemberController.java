@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Users;
+import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.service.MemberService;
 
 @RestController
@@ -21,7 +22,8 @@ public class MemberController {
 
     @Autowired
     private MemberService MEMBER_SERVICE;
-
+    
+    
     @RequestMapping(value = "get-member", method = RequestMethod.GET)
     public Optional<Users> getMember(@RequestParam("member_id") String member_id) {
         return MEMBER_SERVICE.getMemberbyID(member_id);
@@ -30,5 +32,10 @@ public class MemberController {
     @RequestMapping(value = "get-addresses", method = RequestMethod.GET)
     public List<Addresses> getAddresses() {
         return MEMBER_SERVICE.getAddresses();
+    }
+
+    @RequestMapping(value = "get-watches", method= RequestMethod.GET)
+    public Optional<Watch> getWatch(@RequestParam("watch-gender") String gender) {
+        return MEMBER_SERVICE.getWatchByGender(gender);
     }
 }
