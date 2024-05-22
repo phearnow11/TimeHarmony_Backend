@@ -33,5 +33,7 @@ public interface IMemberBuilder {
 
     public IMemberBuilder setRole(int role_id);
 
+    public IMemberBuilder setEnabled(boolean status);
+
     public Users build();
 }

@@ -26,6 +26,7 @@ public class MemberBuilder implements IMemberBuilder {
 
     private String email_verification;
     private int role_id;
+    private boolean enabled;
 
     @Override
     public IMemberBuilder setMemberId(String id) {
@@ -112,8 +113,14 @@ public class MemberBuilder implements IMemberBuilder {
     }
 
     @Override
+    public IMemberBuilder setEnabled(boolean status) {
+        this.enabled = status;
+        return this;
+    }
+
+    @Override
     public Users build() {
-        return new Users(member_id, member_image, username, password, first_name, last_name, is_active, address,
-                email, phone, last_login_date, last_logout_date, email_verification, role_id);
+        return new Users(member_id, member_image, username, password, first_name, last_name, is_active, address, email,
+                phone, last_login_date, last_logout_date, email_verification, role_id, enabled);
     }
 }

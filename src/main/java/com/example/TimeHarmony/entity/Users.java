@@ -1,6 +1,5 @@
 package com.example.TimeHarmony.entity;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import jakarta.persistence.Entity;
@@ -35,10 +34,11 @@ public class Users {
 
     private String email_verification;
     private int role_id;
+    private boolean enable;
 
     public Users(String member_id, String member_image, String username, String password, String first_name,
             String last_name, int is_active, String address, String email, String phone, Timestamp last_login_date,
-            Timestamp last_logout_date, String email_verification, int role_id) {
+            Timestamp last_logout_date, String email_verification, int role_id, boolean enable) {
         this.member_id = member_id;
         this.member_image = member_image;
         this.username = username;
@@ -53,9 +53,18 @@ public class Users {
         this.last_logout_date = last_logout_date;
         this.email_verification = email_verification;
         this.role_id = role_id;
+        this.enable = enable;
     }
 
     public Users() {
+    }
+
+    public boolean isEnable() {
+        return enable;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
     }
 
     public String getMember_id() {

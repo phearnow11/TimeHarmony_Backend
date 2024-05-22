@@ -1,7 +1,5 @@
 package com.example.TimeHarmony.entity;
 
-import java.sql.Timestamp;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
