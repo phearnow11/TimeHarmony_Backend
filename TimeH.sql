@@ -55,7 +55,6 @@ create table Watch(
 	[watch_description] varchar(max) null, 
 	[watch_name] varchar(50) null, 
 	[watch_create_date] datetime null, 
-	[watch_create_date] datetime null, 
 	[state] tinyint null, 
 	[price] float null, 
 	[brand] varchar(50) null, 
