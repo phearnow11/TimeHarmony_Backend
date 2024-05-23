@@ -22,8 +22,7 @@ public class MemberController {
 
     @Autowired
     private MemberService MEMBER_SERVICE;
-    
-    
+
     @RequestMapping(value = "get-member", method = RequestMethod.GET)
     public Optional<Users> getMember(@RequestParam("member_id") String member_id) {
         return MEMBER_SERVICE.getMemberbyID(member_id);
@@ -34,8 +33,8 @@ public class MemberController {
         return MEMBER_SERVICE.getAddresses();
     }
 
-    @RequestMapping(value = "get-watches", method= RequestMethod.GET)
-    public Optional<Watch> getWatch(@RequestParam("watch-gender") String gender) {
+    @RequestMapping(value = "get-watche", method = RequestMethod.GET)
+    public Optional<Watch> getWatch(@RequestParam("gender") String gender) {
         return MEMBER_SERVICE.getWatchByGender(gender);
     }
 }

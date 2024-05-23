@@ -1,6 +1,6 @@
 package com.example.TimeHarmony.entity;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -10,21 +10,21 @@ import jakarta.persistence.TemporalType;
 @Entity
 public class Watch {
     @Id
-    private String watch_id ;
-    private String watch_image ; 
-    private String watch_description; 
-    private String watch_name; 
+    private String watch_id;
+    private String watch_image;
+    private String watch_description;
+    private String watch_name;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp watch_create_date; 
+    private Timestamp watch_create_date;
 
-    private byte state; 
-    private float price ; 
+    private byte state;
+    private float price;
     private String brand;
-    private String series; 
-    private String model; 
-    private String gender; 
-    private String style_type; 
+    private String series;
+    private String model;
+    private String gender;
+    private String style_type;
     private String sub_class;
     private String made_label;
     private String calender;
@@ -46,7 +46,6 @@ public class Watch {
     private String case_back;
     private String case_dimension;
     private String case_shape;
-    
 
     public Watch() {
     }
@@ -357,5 +356,4 @@ public class Watch {
         this.case_shape = case_shape;
     }
 
-    
 }

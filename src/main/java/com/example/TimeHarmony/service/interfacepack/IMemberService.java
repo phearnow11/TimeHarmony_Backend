@@ -13,6 +13,6 @@ public interface IMemberService {
 
     public List<Addresses> getAddresses();
 
-    public Optional<Watch> getWatchByGender(String gender ); 
+    public Optional<Watch> getWatchByGender(String gender);
 
 }

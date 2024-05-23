@@ -30,8 +30,8 @@ create table Users (
 	foreign key ([role_id]) references Roles([role_id])
 )
 
-insert Users (member_id, username, [password], last_name, is_active, email, role_id, [enabled]) values
-(N'000000', N'admin', N'1', N'Phien', 0, N'thaiphiennn@gmail.com', 2, 1)
+insert Users (member_id, username, [password], last_name, is_active, email, role_id, [enabled], last_login_date) values
+(N'000002', N'admin1', N'1', N'Phien', 0, N'thaiphiennn@gmail.com', 2, 1, CURRENT_TIMESTAMP)
 
 insert Users (member_id, username, [password], last_name, is_active, email, role_id, [enabled]) values
 (N'000001', N'user', N'1', N'PhienUser', 0, N'P@gmail.com', 1, 1)
@@ -54,7 +54,7 @@ create table Watch(
 	[watch_image] varchar(50) null, 
 	[watch_description] varchar(max) null, 
 	[watch_name] varchar(50) null, 
-	[watch_create_date] datetime null, 
+	[watch_create_date] datetime, 
 	[state] tinyint null, 
 	[price] float null, 
 	[brand] varchar(50) null, 
@@ -147,9 +147,9 @@ insert Admins (member_id, key_pass) values (N'000000', N'Few231Poes@a')
 alter table Watch drop column watch_create_date
 alter table Watch add watch_create_date datetime
 
-insert Watch (watch_id, watch_image, watch_description, watch_name, watch_create_date,state,price, brand, series, model, gender, style_type, 
+insert Watch (watch_id, watch_image, watch_description, watch_name, watch_create_date,[state],price, brand, series, model, gender, style_type, 
 sub_class, made_label, calender, feature, movement, functions, engine, water_resistant, band_color, band_type, clasp, bracelet, dial_type, 
-dial_color, crystal, second_makers, bezel, bezel_material, case_back, case_dimension, case_shape) values (N'W001',N'images','The beautiful Longines L38404966 watch features a 
+dial_color, crystal, second_makers, bezel, bezel_material, case_back, case_dimension, case_shape) values (N'W001',N'images', 'The beautiful Longines L38404966 watch features a 
 stainless steel 44mm case, with a uni-directional rotating bezel, and a blue dial covered by a scratch resistant sapphire crystal. The stylish wristwatch is equipped with an 
 exclusive 22mm stainless steel which combines comfort and sturdiness. This horological trendy device has date, hour, minute, second, e.o.l. indicator functions.', N'Longines L38404966 HydroConquest Men Quartz Watch',
 CURRENT_TIMESTAMP, 1, 791.99,N'Longines', N'HydroConquest', N'L38404966', N'Men', N'Dive Watch', N'Watches', N'Swiss Made', N'Date display at the 3 o''clock position','Stainless Steel', 'Quartz', 'Date, Hour, Minute, Second, E.O.L. Indicator'
@@ -160,8 +160,10 @@ select * from Users
 select * from Appraisers
 select * from Admins
 select * from Customer_Support_Agents
+select * from Watch
 select username, [authority] from Users join Roles on Users.role_id = Roles.role_id 
 select username, [password],[enabled] from Users where Users.username = N'admin'
 
+delete Watch
 delete Users where Users.member_id = N'000002'
 delete Admins

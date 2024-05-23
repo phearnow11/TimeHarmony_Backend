@@ -10,17 +10,18 @@ import jakarta.persistence.TemporalType;
 @Entity
 public class Report {
     @Id
-    private String report_id ; 
-    private String member_id ; 
-    private String watch_id ; 
-    private String report_content ; 
-    
+    private String report_id;
+    private String member_id;
+    private String watch_id;
+    private String report_content;
+
     @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp report_date ; 
+    private Timestamp report_date;
 
-    private byte report_type ; 
+    private byte report_type;
 
-    public Report(String member_id, String report_content, Timestamp report_date, String report_id, byte report_type, String watch_id) {
+    public Report(String member_id, String report_content, Timestamp report_date, String report_id, byte report_type,
+            String watch_id) {
         this.member_id = member_id;
         this.report_content = report_content;
         this.report_date = report_date;
@@ -29,7 +30,8 @@ public class Report {
         this.watch_id = watch_id;
     }
 
-    public Report(){}
+    public Report() {
+    }
 
     public String getReport_id() {
         return report_id;
@@ -78,7 +80,5 @@ public class Report {
     public void setReport_type(byte report_type) {
         this.report_type = report_type;
     }
-
-    
 
 }
