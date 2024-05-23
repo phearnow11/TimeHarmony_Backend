@@ -55,37 +55,39 @@ create table Watch(
 	[watch_description] varchar(max) null, 
 	[watch_name] varchar(50) null, 
 	[watch_create_date] datetime null, 
+	[watch_create_date] datetime null, 
 	[state] tinyint null, 
 	[price] float null, 
-	[brand] varchar(20) null, 
-	[series] varchar(20) null, 
-	[model] varchar(20) null, 
-	[gender] varchar(10) null, 
+	[brand] varchar(50) null, 
+	[series] varchar(50) null, 
+	[model] varchar(50) null, 
+	[gender] varchar(20) null, 
 	[style_type] varchar(50) null, 
 	[sub_class] varchar(50) null, 
 	[made_label] varchar(50) null, 
 	[calender] varchar(50) null, 
 	[feature] varchar(50) null, 
-	[movement] varchar(20) null, 
+	[movement] varchar(50) null, 
 	[functions] varchar(50) null, 
-	[engine] varchar(20) null, 
+	[engine] varchar(50) null, 
 	[water_resistant] varchar(50) null, 
-	[band_color] varchar(10) null, 
+	[band_color] varchar(50) null, 
 	[band_type] varchar(50) null, 
-	[clasp] varchar(20) null,
-	[bracelet] varchar(20) null, 
-	[dial_type] varchar(20) null, 
-	[dial_color] varchar(10) null, 
-	[crystal] varchar(20) null, 
-	[second_makers] varchar(20) null, 
-	[bezel] varchar(20) null, 
-	[bezel_material] varchar(20) null, 
-	[case_back] varchar(20) null, 
-	[case_dimension] varchar(20) null, 
-	[case_shape] varchar(20) null,
+	[clasp] varchar(50) null,
+	[bracelet] varchar(50) null, 
+	[dial_type] varchar(50) null, 
+	[dial_color] varchar(50) null, 
+	[crystal] varchar(50) null, 
+	[second_makers] varchar(100) null, 
+	[bezel] varchar(50) null, 
+	[bezel_material] varchar(50) null, 
+	[case_back] varchar(50) null, 
+	[case_dimension] varchar(50) null, 
+	[case_shape] varchar(50) null,
 	primary key ([watch_id])
 )
 
+drop table Watch
 
 create table ReportType(
 	[report_type] tinyint,
@@ -143,9 +145,17 @@ create table Appraisers (
 
 insert Admins (member_id, key_pass) values (N'000000', N'Few231Poes@a')
 
-drop table Members
-drop table Admins
+alter table Watch drop column watch_create_date
+alter table Watch add watch_create_date datetime
 
+insert Watch (watch_id, watch_image, watch_description, watch_name, watch_create_date,state,price, brand, series, model, gender, style_type, 
+sub_class, made_label, calender, feature, movement, functions, engine, water_resistant, band_color, band_type, clasp, bracelet, dial_type, 
+dial_color, crystal, second_makers, bezel, bezel_material, case_back, case_dimension, case_shape) values (N'W001',N'images','The beautiful Longines L38404966 watch features a 
+stainless steel 44mm case, with a uni-directional rotating bezel, and a blue dial covered by a scratch resistant sapphire crystal. The stylish wristwatch is equipped with an 
+exclusive 22mm stainless steel which combines comfort and sturdiness. This horological trendy device has date, hour, minute, second, e.o.l. indicator functions.', N'Longines L38404966 HydroConquest Men Quartz Watch',
+CURRENT_TIMESTAMP, 1, 791.99,N'Longines', N'HydroConquest', N'L38404966', N'Men', N'Dive Watch', N'Watches', N'Swiss Made', N'Date display at the 3 o''clock position','Stainless Steel', 'Quartz', 'Date, Hour, Minute, Second, E.O.L. Indicator'
+,'Longines Calibre L157', '300 meters / 1000 feet', 'Silver Tone', 'Bracelet', 'Fold Over with Safety Release', 'Stainless Steel', 'Analog', 'Blue', 'Scratch Resistant Sapphire','Arabic Numerals mark the 6 and 12 o''clock positions. Minute Markers around the outer rim'
+,'Uni-directional Rotating Coin Edge', 'Stainless Steel', 'Solid', '44 mm', 'Round')
 
 select * from Users
 select * from Appraisers
