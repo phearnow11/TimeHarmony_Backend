@@ -33,7 +33,7 @@ public class MemberController {
         return MEMBER_SERVICE.getAddresses();
     }
 
-    @RequestMapping(value = "get-watche", method = RequestMethod.GET)
+    @RequestMapping(value = "get-watch", method = RequestMethod.GET)
     public Optional<Watch> getWatch(@RequestParam("gender") String gender) {
         return MEMBER_SERVICE.getWatchByGender(gender);
     }
