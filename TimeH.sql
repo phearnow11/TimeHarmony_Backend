@@ -36,7 +36,6 @@ insert Users (member_id, username, [password], last_name, is_active, email, role
 insert Users (member_id, username, [password], last_name, is_active, email, role_id, [enabled]) values
 (N'000001', N'user', N'1', N'PhienUser', 0, N'P@gmail.com', 1, 1)
 
-
 create table Addresses (
 	[address_id] char(6) not null, 
 	[member_id] char(6) not null, 
@@ -55,7 +54,7 @@ create table Watch(
 	[watch_image] varchar(50) null, 
 	[watch_description] varchar(max) null, 
 	[watch_name] varchar(50) null, 
-	[watch_create_date] timestamp null, 
+	[watch_create_date] datetime null, 
 	[state] tinyint null, 
 	[price] float null, 
 	[brand] varchar(20) null, 
@@ -86,6 +85,7 @@ create table Watch(
 	[case_shape] varchar(20) null,
 	primary key ([watch_id])
 )
+
 
 create table ReportType(
 	[report_type] tinyint,
@@ -152,6 +152,7 @@ select * from Appraisers
 select * from Admins
 select * from Customer_Support_Agents
 select username, [authority] from Users join Roles on Users.role_id = Roles.role_id 
+select username, [password],[enabled] from Users where Users.username = N'admin'
 
-delete Users where Users.member_id = N'000000'
+delete Users where Users.member_id = N'000002'
 delete Admins
