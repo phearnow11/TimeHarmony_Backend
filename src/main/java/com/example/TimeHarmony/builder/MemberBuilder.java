@@ -1,6 +1,7 @@
 package com.example.TimeHarmony.builder;
 
 import java.sql.Timestamp;
+import java.util.UUID;
 
 import com.example.TimeHarmony.entity.Users;
 
@@ -8,7 +9,7 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 public class MemberBuilder implements IMemberBuilder {
-    private String member_id;
+    private UUID member_id;
     private String member_image;
     private String username;
     private String password;
@@ -29,7 +30,7 @@ public class MemberBuilder implements IMemberBuilder {
     private boolean enabled;
 
     @Override
-    public IMemberBuilder setMemberId(String id) {
+    public IMemberBuilder setMemberId(UUID id) {
         this.member_id = id;
         return this;
     }

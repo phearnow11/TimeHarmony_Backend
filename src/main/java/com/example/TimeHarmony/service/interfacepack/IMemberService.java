@@ -15,4 +15,6 @@ public interface IMemberService {
 
     public Optional<Watch> getWatchByGender(String gender);
 
+    public Users saveUser(Users user);
+
 }

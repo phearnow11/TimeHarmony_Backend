@@ -1,8 +1,10 @@
 package com.example.TimeHarmony.entity;
 
 import java.sql.Timestamp;
+import java.util.UUID;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
@@ -15,7 +17,8 @@ import jakarta.persistence.TemporalType;
 @Table(name = "Users")
 public class Users {
     @Id
-    private String member_id;
+    @GeneratedValue
+    private UUID member_id;
     private String member_image;
     private String username;
     private String password;
@@ -36,7 +39,7 @@ public class Users {
     private int role_id;
     private boolean enabled;
 
-    public Users(String member_id, String member_image, String username, String password, String first_name,
+    public Users(UUID member_id, String member_image, String username, String password, String first_name,
             String last_name, int is_active, String address, String email, String phone, Timestamp last_login_date,
             Timestamp last_logout_date, String email_verification, int role_id, boolean enabled) {
         this.member_id = member_id;
@@ -57,22 +60,6 @@ public class Users {
     }
 
     public Users() {
-    }
-
-    public boolean isEnable() {
-        return enabled;
-    }
-
-    public void setEnable(boolean enable) {
-        this.enabled = enable;
-    }
-
-    public String getMember_id() {
-        return member_id;
-    }
-
-    public void setMember_id(String member_id) {
-        this.member_id = member_id;
     }
 
     public String getMember_image() {
@@ -177,6 +164,22 @@ public class Users {
 
     public void setRole_id(int role_id) {
         this.role_id = role_id;
+    }
+
+    public UUID getMember_id() {
+        return member_id;
+    }
+
+    public void setMember_id(UUID member_id) {
+        this.member_id = member_id;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
 }

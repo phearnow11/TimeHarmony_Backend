@@ -1,11 +1,12 @@
 package com.example.TimeHarmony.builder;
 
 import java.sql.Timestamp;
+import java.util.UUID;
 
 import com.example.TimeHarmony.entity.Users;
 
 public interface IMemberBuilder {
-    public IMemberBuilder setMemberId(String id);
+    public IMemberBuilder setMemberId(UUID id);
 
     public IMemberBuilder setMemberImage(String url);
 

@@ -11,7 +11,7 @@ insert Roles (role_id, [authority]) values (1, N'ROLE_USER')
 insert Roles (role_id, [authority]) values (2, N'ROLE_ADMIN')
 
 create table Users (
-	[member_id] char (6) not null, 
+	[member_id] binary(16) not null, 
 	[member_image] varchar(50) null,
 	[username] varchar (50) null,
 	[password] varchar(50) null,
@@ -30,15 +30,9 @@ create table Users (
 	foreign key ([role_id]) references Roles([role_id])
 )
 
-insert Users (member_id, username, [password], last_name, is_active, email, role_id, [enabled], last_login_date) values
-(N'000002', N'admin1', N'1', N'Phien', 0, N'thaiphiennn@gmail.com', 2, 1, CURRENT_TIMESTAMP)
-
-insert Users (member_id, username, [password], last_name, is_active, email, role_id, [enabled]) values
-(N'000001', N'user', N'1', N'PhienUser', 0, N'P@gmail.com', 1, 1)
-
 create table Addresses (
 	[address_id] char(6) not null, 
-	[member_id] char(6) not null, 
+	[member_id] binary(16) not null, 
 	[phone] varchar(20) null, 
 	[address_detail] varchar(50) null, 
 	[address_type] tinyint, 
@@ -105,7 +99,7 @@ insert ReportType(report_type, report_title) values(8, N'Issue Reply')
 
 create table Report(
 	[report_id] char(6) not null, 
-	[member_id] char(6) null,
+	[member_id] binary(16) null,
 	[watch_id] char(6) null, 
 	[report_content] varchar(max) null, 
 	[report_date] datetime null, 
@@ -117,32 +111,31 @@ create table Report(
 )
 
 create table Customer_Support_Agents(
-	[member_id] char(6), 
+	[member_id] binary(16), 
 	[report_id] char(6)
 	foreign key (member_id) references Users([member_id]),
 	foreign key (report_id) references Report([report_id])
 )
 
 create table Admins (
-	[member_id] char(6) null,
+	[member_id] binary(16) null,
 	[key_pass] varchar(15) null, 
 	foreign key (member_id) references Users([member_id])
 )
 
 create table Sellers (
-	[member_id] char(6) null,
+	[member_id] binary(16) null,
 	[watch_id] char(6) null,
 	foreign key (member_id) references Users([member_id])
 )
 
 create table Appraisers (
-	[member_id] char(6) null, 
+	[member_id] binary(16) null, 
 	[watch_id] char(6) null, 
 	[year_experience] tinyint,
 	foreign key (member_id) references Users([member_id])
 )
 
-insert Admins (member_id, key_pass) values (N'000000', N'Few231Poes@a')
 
 alter table Watch drop column watch_create_date
 alter table Watch add watch_create_date datetime

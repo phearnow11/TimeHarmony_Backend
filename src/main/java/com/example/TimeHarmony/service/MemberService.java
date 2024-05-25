@@ -2,6 +2,7 @@ package com.example.TimeHarmony.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,14 +23,14 @@ public class MemberService implements IMemberService {
     @Autowired
     private AddressesRepository ADDRESS_REPOSITORY;
     @Autowired
-    private WatchRepository WATCH_REPOSITORY ; 
+    private WatchRepository WATCH_REPOSITORY;
 
     @Override
     public Optional<Users> getMemberbyID(String member_id) {
         if (member_id.isEmpty())
             return null;
         Optional<Users> member = Optional.empty();
-        member = MEMBER_REPOSITORY.findById(member_id);
+        member = MEMBER_REPOSITORY.findById(UUID.fromString(member_id));
         if (member.isPresent())
             return member;
         return null;
@@ -43,12 +44,17 @@ public class MemberService implements IMemberService {
     @Override
     public Optional<Watch> getWatchByGender(String gender) {
         if (gender.isEmpty())
-            return null ; 
-        Optional<Watch> watch = Optional.empty(); 
-        watch = Optional.of(WATCH_REPOSITORY.findWatchesByGender(gender)); 
+            return null;
+        Optional<Watch> watch = Optional.empty();
+        watch = Optional.of(WATCH_REPOSITORY.findWatchesByGender(gender));
         if (watch.isPresent())
-            return watch ; 
-        return null ; 
+            return watch;
+        return null;
+    }
+
+    @Override
+    public Users saveUser(Users user) {
+        return MEMBER_REPOSITORY.save(user);
     }
 
 }
