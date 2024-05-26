@@ -9,10 +9,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.TimeHarmony.entity.Addresses;
+import com.example.TimeHarmony.entity.Authorities;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Users;
 import com.example.TimeHarmony.entity.Watch;
+import com.example.TimeHarmony.enumf.Roles;
 import com.example.TimeHarmony.repository.AddressesRepository;
+import com.example.TimeHarmony.repository.AuthoritiesRepository;
 import com.example.TimeHarmony.repository.MemberRepository;
 import com.example.TimeHarmony.repository.UsersRepository;
 import com.example.TimeHarmony.repository.WatchRepository;
@@ -29,6 +32,8 @@ public class MemberService implements IMemberService {
     private WatchRepository WATCH_REPOSITORY;
     @Autowired
     private UsersRepository USER_REPOSOTORY;
+    @Autowired
+    private AuthoritiesRepository AUTHORITIES_REPOSITORY;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -67,6 +72,7 @@ public class MemberService implements IMemberService {
     public Members saveUser(Members member, Users logInfo) {
         logInfo.setPassword(passwordEncoder.encode(logInfo.getPassword()));
         USER_REPOSOTORY.save(logInfo);
+        AUTHORITIES_REPOSITORY.save(new Authorities(logInfo.getUsername(), Roles.ROLE_USER.name()));
         return MEMBER_REPOSITORY.save(member);
     }
 

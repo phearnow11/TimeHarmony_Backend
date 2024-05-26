@@ -11,14 +11,14 @@ import com.example.TimeHarmony.service.TokenService;
 @RequestMapping("api/auth")
 public class AuthController {
 
-    private final TokenService tokenService;
+    private final TokenService TOKEN_SERVIVE;
 
     public AuthController(TokenService tokenService) {
-        this.tokenService = tokenService;
+        this.TOKEN_SERVIVE = tokenService;
     }
 
     @PostMapping("token")
     public String token(Authentication authentication) {
-        return tokenService.generateToken(authentication);
+        return TOKEN_SERVIVE.generateToken(authentication);
     }
 }
