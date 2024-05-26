@@ -47,38 +47,38 @@ select * from Addresses
 
 create table Watch(
 	[watch_id] char(6) not null, 
-	[watch_image] varchar(50) null, 
+	[watch_image] varchar(max) null, 
 	[watch_description] varchar(max) null, 
-	[watch_name] varchar(50) null, 
+	[watch_name] varchar(100) null, 
 	[watch_create_date] datetime, 
 	[state] tinyint null, 
 	[price] float null, 
-	[brand] varchar(50) null, 
-	[series] varchar(50) null, 
-	[model] varchar(50) null, 
-	[gender] varchar(20) null, 
-	[style_type] varchar(50) null, 
-	[sub_class] varchar(50) null, 
-	[made_label] varchar(50) null, 
-	[calender] varchar(50) null, 
-	[feature] varchar(50) null, 
-	[movement] varchar(50) null, 
-	[functions] varchar(50) null, 
-	[engine] varchar(50) null, 
-	[water_resistant] varchar(50) null, 
-	[band_color] varchar(50) null, 
-	[band_type] varchar(50) null, 
-	[clasp] varchar(50) null,
-	[bracelet] varchar(50) null, 
-	[dial_type] varchar(50) null, 
-	[dial_color] varchar(50) null, 
-	[crystal] varchar(50) null, 
+	[brand] varchar(100) null, 
+	[series] varchar(100) null, 
+	[model] varchar(100) null, 
+	[gender] varchar(100) null, 
+	[style_type] varchar(100) null, 
+	[sub_class] varchar(100) null, 
+	[made_label] varchar(100) null, 
+	[calender] varchar(100) null, 
+	[feature] varchar(100) null, 
+	[movement] varchar(100) null, 
+	[functions] varchar(100) null, 
+	[engine] varchar(100) null, 
+	[water_resistant] varchar(100) null, 
+	[band_color] varchar(100) null, 
+	[band_type] varchar(100) null, 
+	[clasp] varchar(100) null,
+	[bracelet] varchar(100) null, 
+	[dial_type] varchar(100) null, 
+	[dial_color] varchar(100) null, 
+	[crystal] varchar(100) null, 
 	[second_makers] varchar(100) null, 
-	[bezel] varchar(50) null, 
-	[bezel_material] varchar(50) null, 
-	[case_back] varchar(50) null, 
-	[case_dimension] varchar(50) null, 
-	[case_shape] varchar(50) null,
+	[bezel] varchar(100) null, 
+	[bezel_material] varchar(100) null, 
+	[case_back] varchar(100) null, 
+	[case_dimension] varchar(100) null, 
+	[case_shape] varchar(100) null,
 	primary key ([watch_id])
 )
 
@@ -149,6 +149,25 @@ exclusive 22mm stainless steel which combines comfort and sturdiness. This horol
 CURRENT_TIMESTAMP, 1, 791.99,N'Longines', N'HydroConquest', N'L38404966', N'Men', N'Dive Watch', N'Watches', N'Swiss Made', N'Date display at the 3 o''clock position','Stainless Steel', 'Quartz', 'Date, Hour, Minute, Second, E.O.L. Indicator'
 ,'Longines Calibre L157', '300 meters / 1000 feet', 'Silver Tone', 'Bracelet', 'Fold Over with Safety Release', 'Stainless Steel', 'Analog', 'Blue', 'Scratch Resistant Sapphire','Arabic Numerals mark the 6 and 12 o''clock positions. Minute Markers around the outer rim'
 ,'Uni-directional Rotating Coin Edge', 'Stainless Steel', 'Solid', '44 mm', 'Round')
+
+insert Watch (watch_id, watch_image, watch_description, watch_name, watch_create_date,[state],price, brand, series, model, gender, style_type, 
+sub_class, made_label, calender, feature, movement, functions, engine, water_resistant, band_color, band_type, clasp, bracelet, dial_type, 
+dial_color, crystal, second_makers, bezel, bezel_material, case_back, case_dimension, case_shape) values (N'W002',N'images', 'The beautiful Hamilton H64455523 watch features a stainless steel 40mm case, with a fixed bezel, and a silvery beige dial covered by a scratch resistant sapphire crystal. The stylish wristwatch is equipped with an exclusive 20mm 
+leather which combines comfort and sturdiness. This horological trendy device has date, day, GMT, second time zone, hour, minute, second functions.At the heart of this timepiece is Hamilton Calibre H-40. The Automatic movement operates at 21600 A/h and keeps the hands revolving smoothly and accurately for precise, reliable timekeeping. It contains 25 Jewels,
+and picks up all the advantages of this high-performance ‘engine’, including an 80-hour power reserve.', N'Hamilton H64455523 Khaki Men''s Automatic Watch',CURRENT_TIMESTAMP, 1, 695.00,N'Hamilton', N'Khaki', N'H64455523', N'Men', N'Dress Watch', N'Watches', N'Swiss Made'
+, 'Day of the week and date display at the 12 o''clock position','Stainless Steel', 'Automatic', ' Date, Day, Hour, Minute, Second, 24 Hours'
+,'Hamilton Calibre H-40', ' 50 meters / 165 feet', 'Brown', 'Strap', 'Tang', 'Leather', 'Analog', 'Beige', 'Scratch Resistant Sapphire','Minute Markers around the outer rim, 24 Hour (GMT) scale around an inner ring'
+,'Fixed', 'Stainless Steel', 'Fixed', '40 mm', 'Round')
+
+insert Watch (watch_id, watch_image, watch_description, watch_name, watch_create_date,[state],price, brand, series, model, gender, style_type, 
+sub_class, made_label, calender, feature, movement, functions, engine, water_resistant, band_color, band_type, clasp, bracelet, dial_type, 
+dial_color, crystal, second_makers, bezel, bezel_material, case_back, case_dimension, case_shape) values (N'W003',N'images', 'Silver-tone Ion Plated Round Case Watch on Silver-tone Nougat Textured Bracelet Silver-tone 
+alloy case and bracelet. Fixed silver-tone alloy bezel. White dial with silver-tone hands and diamond hour markers. Dial Type: Analog. Quartz movement. Pull / push crown. Solid case back. Round case shape, case size: 37 mm,
+case thickness: 11 mm. Band width: 18 mm, band length: 6.75 inches. Buckle clasp. Water resistant at 30 meters / 100 feet. Functions: hour, minute, second. Womens Dress Series. Dress watch style. Akribos XXIV Womens Dress Quartz Diamond White Dial Ladies Watch P50147.'
+, N'Akribos XXIV P50147 Womens Dress Ladies Quartz Watch',CURRENT_TIMESTAMP, 1, 345.00,N'Akribos XXIV', N'Womens Dress', N'H64455523', N'Men', N'Dress Watch', N'Watches', N'Swiss Made'
+, 'Day of the week and date display at the 12 o''clock position','Stainless Steel', 'Automatic', ' Date, Day, Hour, Minute, Second, 24 Hours'
+,'Hamilton Calibre H-40', ' 50 meters / 165 feet', 'Brown', 'Strap', 'Tang', 'Leather', 'Analog', 'Beige', 'Scratch Resistant Sapphire','Minute Markers around the outer rim, 24 Hour (GMT) scale around an inner ring'
+,'Fixed', 'Stainless Steel', 'Fixed', '40 mm', 'Round')
 
 select * from Users
 select * from Appraisers

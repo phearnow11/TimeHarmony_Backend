@@ -69,6 +69,39 @@ public class MemberService implements IMemberService {
     }
 
     @Override
+    public Optional<Watch> getWatchBySeries(String series) {
+        if (series.isEmpty())
+        return null;
+    Optional<Watch> watch = Optional.empty();
+    watch = Optional.of(WATCH_REPOSITORY.findWatchesBySeries(series));
+    if (watch.isPresent())
+            return watch;
+        return null;
+    }
+
+    @Override
+    public Optional<Watch> getWatchByBrand(String brand) {
+        if (brand.isEmpty())
+            return null;
+        Optional<Watch> watch = Optional.empty();
+        watch = Optional.of(WATCH_REPOSITORY.findWatchesByBrand(brand));
+        if (watch.isPresent())
+            return watch;
+        return null;
+    }
+
+    @Override
+    public Optional<Watch> getWatchByStyle(String style) {
+        if (style.isEmpty())
+            return null;
+        Optional<Watch> watch = Optional.empty();
+        watch = Optional.of(WATCH_REPOSITORY.findWatchesByStyle(style));
+        if (watch.isPresent())
+            return watch;
+        return null;
+    }
+
+    @Override
     public Members saveUser(Members member, Users logInfo) {
         logInfo.setPassword(passwordEncoder.encode(logInfo.getPassword()));
         USER_REPOSOTORY.save(logInfo);
@@ -80,5 +113,7 @@ public class MemberService implements IMemberService {
     public boolean isExist(Users user) {
         return USER_REPOSOTORY.existsById(user.getUsername());
     }
+
+    
 
 }
