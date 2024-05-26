@@ -53,8 +53,8 @@ public class MemberService implements IMemberService {
     }
 
     @Override
-    public List<Addresses> getAddresses() {
-        return ADDRESS_REPOSITORY.findAll();
+    public List<Addresses> getAddresses(String member_id) {
+        return ADDRESS_REPOSITORY.getAddressesbyMember(member_id);
     }
 
     @Override

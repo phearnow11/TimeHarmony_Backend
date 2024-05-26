@@ -35,8 +35,8 @@ public class MemberController {
     }
 
     @RequestMapping(value = "get-addresses", method = RequestMethod.GET)
-    public List<Addresses> getAddresses() {
-        return MEMBER_SERVICE.getAddresses();
+    public List<Addresses> getAddresses(@RequestParam("member_id") String member_id) {
+        return MEMBER_SERVICE.getAddresses(member_id);
     }
 
     @RequestMapping(value = "get-watch", method = RequestMethod.GET)

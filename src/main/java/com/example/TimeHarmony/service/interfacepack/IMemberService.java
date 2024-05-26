@@ -12,7 +12,7 @@ public interface IMemberService {
 
     public Optional<Members> getMemberbyID(String member_id);
 
-    public List<Addresses> getAddresses();
+    public List<Addresses> getAddresses(String member_id);
 
     public Optional<Watch> getWatchByGender(String gender);
 
