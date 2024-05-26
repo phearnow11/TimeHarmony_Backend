@@ -46,7 +46,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/token").hasRole("USER")
                         .requestMatchers("/admin/**").authenticated()
-                        .requestMatchers(HttpMethod.POST).permitAll()
                         .requestMatchers(HttpMethod.GET).permitAll()
                         .anyRequest()
                         .hasAuthority("SCOPE_READ"))

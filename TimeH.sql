@@ -170,6 +170,8 @@ case thickness: 11 mm. Band width: 18 mm, band length: 6.75 inches. Buckle clasp
 ,'Fixed', 'Stainless Steel', 'Fixed', '40 mm', 'Round')
 
 select * from Users
+select * from Members
+select * from Authorities
 select * from Appraisers
 select * from Admins
 select * from Customer_Support_Agents
