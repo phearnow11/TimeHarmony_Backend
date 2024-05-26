@@ -1,20 +1,23 @@
 create database TimeHarmony
 drop database TimeHarmony
 
-create table Roles (
-	[role_id] tinyint not null, 
-	[authority] varchar(50) null,
-	primary key ([role_id])
-)
-
-insert Roles (role_id, [authority]) values (1, N'ROLE_USER')
-insert Roles (role_id, [authority]) values (2, N'ROLE_ADMIN')
 
 create table Users (
+	username varchar(100) primary key,
+	[password] varchar(100), 
+	[enabled] tinyint,
+)
+
+create table Authorities (
+	username varchar(100),
+	authority varchar(100),
+	foreign key (username) references Users(username)
+)
+
+create table Members (
 	[member_id] binary(16) not null, 
+	[username] varchar(100) not null,
 	[member_image] varchar(50) null,
-	[username] varchar (50) null,
-	[password] varchar(50) null,
 	[first_name] varchar(50) null, 
 	[last_name] varchar(50) null, 
 	[is_active] tinyint null, 
@@ -24,11 +27,10 @@ create table Users (
 	[last_login_date] datetime,
 	[last_logout_date] datetime,
 	[email_verification] varchar(6),
-	[role_id] tinyint null,
-	[enabled] bit null,
 	primary key ([member_id]),
-	foreign key ([role_id]) references Roles([role_id])
+	foreign key (username) references Users(username)
 )
+
 
 create table Addresses (
 	[address_id] char(6) not null, 
@@ -38,7 +40,7 @@ create table Addresses (
 	[address_type] tinyint, 
 	[is_default] tinyint 
 	primary key ([address_id]), 
-	foreign key ([member_id]) references Users([member_id])
+	foreign key ([member_id]) references Members([member_id])
 )
 
 select * from Addresses
@@ -80,7 +82,6 @@ create table Watch(
 	primary key ([watch_id])
 )
 
-drop table Watch
 
 create table ReportType(
 	[report_type] tinyint,
@@ -105,7 +106,7 @@ create table Report(
 	[report_date] datetime null, 
 	[report_type] tinyint,
 	primary key ([report_id]),
-	foreign key (member_id) references Users([member_id]),
+	foreign key (member_id) references Members([member_id]),
 	foreign key (watch_id) references Watch([watch_id]),
 	foreign key (report_type) references ReportType([report_type])
 )
@@ -113,27 +114,27 @@ create table Report(
 create table Customer_Support_Agents(
 	[member_id] binary(16), 
 	[report_id] char(6)
-	foreign key (member_id) references Users([member_id]),
+	foreign key (member_id) references Members([member_id]),
 	foreign key (report_id) references Report([report_id])
 )
 
 create table Admins (
 	[member_id] binary(16) null,
 	[key_pass] varchar(15) null, 
-	foreign key (member_id) references Users([member_id])
+	foreign key (member_id) references Members([member_id])
 )
 
 create table Sellers (
 	[member_id] binary(16) null,
 	[watch_id] char(6) null,
-	foreign key (member_id) references Users([member_id])
+	foreign key (member_id) references Members([member_id])
 )
 
 create table Appraisers (
 	[member_id] binary(16) null, 
 	[watch_id] char(6) null, 
 	[year_experience] tinyint,
-	foreign key (member_id) references Users([member_id])
+	foreign key (member_id) references Members([member_id])
 )
 
 

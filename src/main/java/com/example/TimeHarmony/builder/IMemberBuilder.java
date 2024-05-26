@@ -3,16 +3,14 @@ package com.example.TimeHarmony.builder;
 import java.sql.Timestamp;
 import java.util.UUID;
 
-import com.example.TimeHarmony.entity.Users;
+import com.example.TimeHarmony.entity.Members;
 
 public interface IMemberBuilder {
     public IMemberBuilder setMemberId(UUID id);
 
-    public IMemberBuilder setMemberImage(String url);
-
     public IMemberBuilder setUsername(String username);
 
-    public IMemberBuilder setPassword(String pwd);
+    public IMemberBuilder setMemberImage(String url);
 
     public IMemberBuilder setFirstName(String fname);
 
@@ -32,9 +30,5 @@ public interface IMemberBuilder {
 
     public IMemberBuilder setEmailVerify(String code);
 
-    public IMemberBuilder setRole(int role_id);
-
-    public IMemberBuilder setEnabled(boolean status);
-
-    public Users build();
+    public Members build();
 }

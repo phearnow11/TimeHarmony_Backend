@@ -1,6 +1,8 @@
 package com.example.TimeHarmony.configuration;
 
 import javax.crypto.spec.SecretKeySpec;
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,14 +13,14 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
@@ -32,12 +34,9 @@ public class SecurityConfig {
     private String jwtKey;
 
     @Bean
-    public UserDetailsService userDetailsService() {
-        return new InMemoryUserDetailsManager(
-                User.withUsername("phien")
-                        .password("{noop}password")
-                        .authorities("READ", "ROLE_USER")
-                        .build());
+    JdbcUserDetailsManager user(DataSource dataSource, PasswordEncoder passwordEncoder) {
+        JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
+        return jdbcUserDetailsManager;
     }
 
     @Bean
@@ -47,6 +46,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/token").hasRole("USER")
                         .requestMatchers("/admin/**").authenticated()
+                        .requestMatchers(HttpMethod.POST).permitAll()
                         .requestMatchers(HttpMethod.GET).permitAll()
                         .anyRequest()
                         .hasAuthority("SCOPE_READ"))
@@ -66,6 +66,11 @@ public class SecurityConfig {
         byte[] bytes = jwtKey.getBytes();
         SecretKeySpec originalKey = new SecretKeySpec(bytes, 0, bytes.length, "RSA");
         return NimbusJwtDecoder.withSecretKey(originalKey).macAlgorithm(MacAlgorithm.HS512).build();
+    }
+
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 }

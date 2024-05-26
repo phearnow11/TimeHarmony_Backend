@@ -5,13 +5,16 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.TimeHarmony.entity.Addresses;
+import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Users;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.repository.AddressesRepository;
 import com.example.TimeHarmony.repository.MemberRepository;
+import com.example.TimeHarmony.repository.UsersRepository;
 import com.example.TimeHarmony.repository.WatchRepository;
 import com.example.TimeHarmony.service.interfacepack.IMemberService;
 
@@ -24,12 +27,20 @@ public class MemberService implements IMemberService {
     private AddressesRepository ADDRESS_REPOSITORY;
     @Autowired
     private WatchRepository WATCH_REPOSITORY;
+    @Autowired
+    private UsersRepository USER_REPOSOTORY;
+
+    private final PasswordEncoder passwordEncoder;
+
+    public MemberService(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
-    public Optional<Users> getMemberbyID(String member_id) {
+    public Optional<Members> getMemberbyID(String member_id) {
         if (member_id.isEmpty())
             return null;
-        Optional<Users> member = Optional.empty();
+        Optional<Members> member = Optional.empty();
         member = MEMBER_REPOSITORY.findById(UUID.fromString(member_id));
         if (member.isPresent())
             return member;
@@ -53,8 +64,10 @@ public class MemberService implements IMemberService {
     }
 
     @Override
-    public Users saveUser(Users user) {
-        return MEMBER_REPOSITORY.save(user);
+    public Members saveUser(Members member, Users logInfo) {
+        logInfo.setPassword(passwordEncoder.encode(logInfo.getPassword()));
+        USER_REPOSOTORY.save(logInfo);
+        return MEMBER_REPOSITORY.save(member);
     }
 
 }
