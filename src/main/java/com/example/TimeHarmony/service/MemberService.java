@@ -76,4 +76,9 @@ public class MemberService implements IMemberService {
         return MEMBER_REPOSITORY.save(member);
     }
 
+    @Override
+    public boolean isExist(Users user) {
+        return USER_REPOSOTORY.existsById(user.getUsername());
+    }
+
 }

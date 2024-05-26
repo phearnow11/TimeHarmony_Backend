@@ -45,10 +45,13 @@ public class MemberController {
     }
 
     @RequestMapping(value = "save-user", method = RequestMethod.POST)
-    public Members saveUser(@RequestBody String data) {
+    public String saveUser(@RequestBody String data) {
+        String res = "Member is created";
+
         JSONArray jsarrdata = new JSONArray(data);
         JSONObject UserJSdata = jsarrdata.getJSONObject(0);
-        Members user = new MemberBuilder()
+
+        Members member = new MemberBuilder()
                 .setUsername(jsarrdata.getJSONObject(1).optString("username"))
                 .setMemberImage(UserJSdata.optString("image"))
                 .setFirstName(UserJSdata.optString("Fname"))
@@ -58,8 +61,15 @@ public class MemberController {
                 .setPhone(UserJSdata.optString("phone"))
                 .setEmail(UserJSdata.optString("email"))
                 .build();
+
         Users logInfo = new Users(jsarrdata.getJSONObject(1).optString("username"),
                 jsarrdata.getJSONObject(1).optString("password"), ACTIVATE);
-        return MEMBER_SERVICE.saveUser(user, logInfo);
+
+        if (MEMBER_SERVICE.isExist(logInfo))
+            res = "Member is already exist";
+        else
+            MEMBER_SERVICE.saveUser(member, logInfo);
+
+        return res;
     }
 }

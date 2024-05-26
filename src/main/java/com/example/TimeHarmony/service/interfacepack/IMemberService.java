@@ -16,6 +16,8 @@ public interface IMemberService {
 
     public Optional<Watch> getWatchByGender(String gender);
 
+    public boolean isExist(Users user);
+
     public Members saveUser(Members user, Users loginInfo);
 
 }
