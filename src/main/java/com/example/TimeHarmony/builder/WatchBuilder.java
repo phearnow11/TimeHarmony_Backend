@@ -2,6 +2,7 @@ package com.example.TimeHarmony.builder;
 
 import java.sql.Timestamp;
 
+import com.example.TimeHarmony.builder.interfacepack.IWatchBuilder;
 import com.example.TimeHarmony.entity.Watch;
 
 import jakarta.persistence.Temporal;
