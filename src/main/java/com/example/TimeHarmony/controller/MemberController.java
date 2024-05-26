@@ -27,6 +27,7 @@ public class MemberController {
 
     @Autowired
     private MemberService MEMBER_SERVICE;
+    private final byte ACTIVATE = 1;
 
     @RequestMapping(value = "get-member", method = RequestMethod.GET)
     public Optional<Members> getMember(@RequestParam("member_id") String member_id) {
@@ -57,9 +58,8 @@ public class MemberController {
                 .setPhone(UserJSdata.optString("phone"))
                 .setEmail(UserJSdata.optString("email"))
                 .build();
-
         Users logInfo = new Users(jsarrdata.getJSONObject(1).optString("username"),
-                jsarrdata.getJSONObject(1).optString("password"));
+                jsarrdata.getJSONObject(1).optString("password"), ACTIVATE);
         return MEMBER_SERVICE.saveUser(user, logInfo);
     }
 }

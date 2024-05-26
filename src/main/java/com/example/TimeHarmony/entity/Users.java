@@ -9,18 +9,28 @@ public class Users {
     @Id
     private String username;
     private String password;
+    private byte enabled;
+
+    public Users(String username, String password, byte enabled) {
+        this.username = username;
+        this.password = password;
+        this.enabled = enabled;
+    }
+
+    public Users() {
+    }
+
+    public byte getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(byte enabled) {
+        this.enabled = enabled;
+    }
 
     @Override
     public String toString() {
         return "Users [username=" + username + ", password=" + password + "]";
-    }
-
-    public Users(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
-    public Users() {
     }
 
     public String getUsername() {
