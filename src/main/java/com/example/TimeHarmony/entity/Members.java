@@ -21,16 +21,16 @@ public class Members {
     private UUID member_id;
     private String username;
     private String member_image;
+
     private String first_name;
+
     private String last_name;
     private int is_active;
     private String address;
     private String email;
     private String phone;
-
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp last_login_date;
-
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp last_logout_date;
 
@@ -54,6 +54,14 @@ public class Members {
     }
 
     public Members() {
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
