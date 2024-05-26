@@ -151,6 +151,8 @@ CURRENT_TIMESTAMP, 1, 791.99,N'Longines', N'HydroConquest', N'L38404966', N'Men'
 ,'Uni-directional Rotating Coin Edge', 'Stainless Steel', 'Solid', '44 mm', 'Round')
 
 select * from Users
+select * from Members
+select * from Authorities
 select * from Appraisers
 select * from Admins
 select * from Customer_Support_Agents

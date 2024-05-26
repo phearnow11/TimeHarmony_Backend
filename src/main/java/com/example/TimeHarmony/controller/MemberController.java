@@ -27,7 +27,8 @@ public class MemberController {
 
     @Autowired
     private MemberService MEMBER_SERVICE;
-    private final byte ACTIVATE = 1;
+    private final byte MEMBER_ACTIVATE = 1;
+    private final byte DEFAULT_ACTIVE_STATUS = 1;
 
     @RequestMapping(value = "get-member", method = RequestMethod.GET)
     public Optional<Members> getMember(@RequestParam("member_id") String member_id) {
@@ -56,14 +57,14 @@ public class MemberController {
                 .setMemberImage(UserJSdata.optString("image"))
                 .setFirstName(UserJSdata.optString("Fname"))
                 .setLastName(UserJSdata.optString("Lname"))
-                .setActive(1)
+                .setActive(DEFAULT_ACTIVE_STATUS)
                 .setDefaultAddress(UserJSdata.optString("address"))
                 .setPhone(UserJSdata.optString("phone"))
                 .setEmail(UserJSdata.optString("email"))
                 .build();
 
         Users logInfo = new Users(jsarrdata.getJSONObject(1).optString("username"),
-                jsarrdata.getJSONObject(1).optString("password"), ACTIVATE);
+                jsarrdata.getJSONObject(1).optString("password"), MEMBER_ACTIVATE);
 
         if (MEMBER_SERVICE.isExist(logInfo))
             res = "Member is already exist";
