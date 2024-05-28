@@ -41,22 +41,22 @@ public class MemberController {
     }
 
     @RequestMapping(value = "get-watch-by-gender", method = RequestMethod.GET)
-    public Optional<Watch> getWatchByGender(@RequestParam("gender") String gender) {
+    public List<Watch> getWatchByGender(@RequestParam("gender") String gender) {
         return MEMBER_SERVICE.getWatchByGender(gender);
     }
 
     @RequestMapping(value = "get-watch-by-series", method = RequestMethod.GET)
-    public Optional<Watch> getWatchBySeries(@RequestParam("series") String series) {
+    public List<Watch> getWatchBySeries(@RequestParam("series") String series) {
         return MEMBER_SERVICE.getWatchBySeries(series);
     }
 
     @RequestMapping(value = "get-watch-by-brand", method = RequestMethod.GET)
-    public Optional<Watch> getWatchByBrand(@RequestParam("brand") String brand) {
+    public List<Watch> getWatchByBrand(@RequestParam("brand") String brand) {
         return MEMBER_SERVICE.getWatchByBrand(brand);
     }
 
     @RequestMapping(value = "get-watch-by-style", method = RequestMethod.GET)
-    public Optional<Watch> getWatchByStyle(@RequestParam("style") String style) {
+    public List<Watch> getWatchByStyle(@RequestParam("style") String style) {
         return MEMBER_SERVICE.getWatchByStyle(style);
     }
 

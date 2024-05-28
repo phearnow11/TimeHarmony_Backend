@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -58,47 +59,23 @@ public class MemberService implements IMemberService {
     }
 
     @Override
-    public Optional<Watch> getWatchByGender(String gender) {
-        if (gender.isEmpty())
-            return null;
-        Optional<Watch> watch = Optional.empty();
-        watch = Optional.of(WATCH_REPOSITORY.findWatchesByGender(gender));
-        if (watch.isPresent())
-            return watch;
-        return null;
+    public List<Watch> getWatchByGender(String gender) {
+        return WATCH_REPOSITORY.findWatchesByGender(gender); 
     }
 
     @Override
-    public Optional<Watch> getWatchBySeries(String series) {
-        if (series.isEmpty())
-        return null;
-    Optional<Watch> watch = Optional.empty();
-    watch = Optional.of(WATCH_REPOSITORY.findWatchesBySeries(series));
-    if (watch.isPresent())
-            return watch;
-        return null;
+    public List<Watch> getWatchBySeries(String series) {
+        return WATCH_REPOSITORY.findWatchesBySeries(series);
     }
 
     @Override
-    public Optional<Watch> getWatchByBrand(String brand) {
-        if (brand.isEmpty())
-            return null;
-        Optional<Watch> watch = Optional.empty();
-        watch = Optional.of(WATCH_REPOSITORY.findWatchesByBrand(brand));
-        if (watch.isPresent())
-            return watch;
-        return null;
+    public List<Watch> getWatchByBrand(String brand) {
+        return WATCH_REPOSITORY.findWatchesByBrand(brand);
     }
 
     @Override
-    public Optional<Watch> getWatchByStyle(String style) {
-        if (style.isEmpty())
-            return null;
-        Optional<Watch> watch = Optional.empty();
-        watch = Optional.of(WATCH_REPOSITORY.findWatchesByStyle(style));
-        if (watch.isPresent())
-            return watch;
-        return null;
+    public List<Watch> getWatchByStyle(String style) {
+        return WATCH_REPOSITORY.findWatchesByStyle(style);
     }
 
     @Override
@@ -112,6 +89,11 @@ public class MemberService implements IMemberService {
     @Override
     public boolean isExist(Users user) {
         return USER_REPOSOTORY.existsById(user.getUsername());
+    }
+
+    @Override
+    public List<Watch> getListWatchDECS() {
+        return WATCH_REPOSITORY.findAll(Sort.by(Sort.Direction.DESC, "watch_id")); 
     }
 
     
