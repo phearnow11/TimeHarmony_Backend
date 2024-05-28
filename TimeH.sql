@@ -182,3 +182,5 @@ select username, [password],[enabled] from Users where Users.username = N'admin'
 delete Watch
 delete Users where Users.member_id = N'000002'
 delete Admins
+
+drop table Watch

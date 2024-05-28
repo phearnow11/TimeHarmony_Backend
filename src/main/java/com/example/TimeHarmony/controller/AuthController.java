@@ -1,5 +1,8 @@
 package com.example.TimeHarmony.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +21,10 @@ public class AuthController {
     }
 
     @PostMapping("token")
-    public String token(Authentication authentication) {
-        return TOKEN_SERVIVE.generateToken(authentication);
+    public Map<String, String> token(Authentication authentication) {
+        Map<String, String> data = new HashMap<>();
+        data.put("token", TOKEN_SERVIVE.generateToken(authentication));
+        data.put("user", null);
+        return data;
     }
 }
