@@ -5,13 +5,14 @@ import java.util.UUID;
 
 import com.example.TimeHarmony.builder.interfacepack.IMemberBuilder;
 import com.example.TimeHarmony.entity.Members;
+import com.example.TimeHarmony.entity.Users;
 
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 public class MemberBuilder implements IMemberBuilder {
     private UUID member_id;
-    private String username;
+    private Users user;
     private String member_image;
     private String first_name;
     private String last_name;
@@ -94,14 +95,14 @@ public class MemberBuilder implements IMemberBuilder {
     }
 
     @Override
-    public IMemberBuilder setUsername(String username) {
-        this.username = username;
+    public IMemberBuilder setUserLogInfo(Users user) {
+        this.user = user;
         return this;
     }
 
     @Override
     public Members build() {
-        return new Members(member_id, username, member_image, first_name, last_name, is_active, address, email, phone,
+        return new Members(member_id, user, member_image, first_name, last_name, is_active, address, email, phone,
                 last_login_date, last_logout_date, email_verification);
     }
 

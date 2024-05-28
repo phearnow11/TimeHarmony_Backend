@@ -8,6 +8,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -19,7 +21,11 @@ public class Members {
     @Id
     @GeneratedValue
     private UUID member_id;
-    private String username;
+
+    @OneToOne
+    @JoinColumn(name = "username")
+    private Users user_log_info;
+
     private String member_image;
 
     private String first_name;
@@ -36,11 +42,14 @@ public class Members {
 
     private String email_verification;
 
-    public Members(UUID member_id, String username, String member_image, String first_name, String last_name,
+    public Members() {
+    }
+
+    public Members(UUID member_id, Users user_log_info, String member_image, String first_name, String last_name,
             int is_active, String address, String email, String phone, Timestamp last_login_date,
             Timestamp last_logout_date, String email_verification) {
         this.member_id = member_id;
-        this.username = username;
+        this.user_log_info = user_log_info;
         this.member_image = member_image;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -51,17 +60,6 @@ public class Members {
         this.last_login_date = last_login_date;
         this.last_logout_date = last_logout_date;
         this.email_verification = email_verification;
-    }
-
-    public Members() {
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     @Override
@@ -158,6 +156,14 @@ public class Members {
 
     public void setMember_id(UUID member_id) {
         this.member_id = member_id;
+    }
+
+    public Users getUser_log_info() {
+        return user_log_info;
+    }
+
+    public void setUser_log_info(Users user_log_info) {
+        this.user_log_info = user_log_info;
     }
 
 }

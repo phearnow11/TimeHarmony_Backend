@@ -67,8 +67,11 @@ public class MemberController {
         JSONArray jsarrdata = new JSONArray(data);
         JSONObject UserJSdata = jsarrdata.getJSONObject(0);
 
+        Users logInfo = new Users(jsarrdata.getJSONObject(1).optString("username"),
+                jsarrdata.getJSONObject(1).optString("password"), MEMBER_ACTIVATE);
+
         Members member = new MemberBuilder()
-                .setUsername(jsarrdata.getJSONObject(1).optString("username"))
+                .setUserLogInfo(logInfo)
                 .setMemberImage(UserJSdata.optString("image"))
                 .setFirstName(UserJSdata.optString("Fname"))
                 .setLastName(UserJSdata.optString("Lname"))
@@ -77,9 +80,6 @@ public class MemberController {
                 .setPhone(UserJSdata.optString("phone"))
                 .setEmail(UserJSdata.optString("email"))
                 .build();
-
-        Users logInfo = new Users(jsarrdata.getJSONObject(1).optString("username"),
-                jsarrdata.getJSONObject(1).optString("password"), MEMBER_ACTIVATE);
 
         if (MEMBER_SERVICE.isExist(logInfo))
             res = "Member is already exist";

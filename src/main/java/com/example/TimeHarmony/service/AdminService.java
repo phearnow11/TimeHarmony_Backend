@@ -1,6 +1,7 @@
 package com.example.TimeHarmony.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,13 +44,13 @@ public class AdminService implements IAdminService {
     @Override
     public boolean deleteWatch(String id) {
         if (id != null) {
-            Watch watch = WATCH_REPOSITORY.getById(id); 
-            if (watch != null) {
-                WATCH_REPOSITORY.delete(watch);
-                return true ; 
+            Optional<Watch> watch = WATCH_REPOSITORY.findById(id);
+            if (watch.isPresent()) {
+                WATCH_REPOSITORY.delete(watch.get());
+                return true;
             }
         }
-        return false ; 
+        return false;
     }
 
 }
