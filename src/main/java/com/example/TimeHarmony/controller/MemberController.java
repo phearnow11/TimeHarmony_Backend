@@ -1,6 +1,7 @@
 package com.example.TimeHarmony.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.json.JSONArray;
@@ -87,5 +88,12 @@ public class MemberController {
             MEMBER_SERVICE.saveUser(member, logInfo);
 
         return res;
+    }
+
+    @RequestMapping(value = "get-member/username", method = RequestMethod.GET)
+    public Members getMemberbyUsername(@RequestBody Map<String, String> data) {
+        System.out.println(data);
+        Users user = MEMBER_SERVICE.getUserbyUsername(data.get("username"));
+        return MEMBER_SERVICE.getMemberbyUserLogInfo(user);
     }
 }

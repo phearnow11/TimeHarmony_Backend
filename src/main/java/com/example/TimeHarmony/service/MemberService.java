@@ -97,7 +97,19 @@ public class MemberService implements IMemberService {
     }
 
     @Override
-    public Members getMemberbyUsername(String username) {
+    public Members getMemberbyUserLogInfo(Users userLogInfo) {
+        Optional<Members> member = MEMBER_REPOSITORY.getMemberbyUserLogInfo(userLogInfo);
+        if (member.isPresent())
+            return member.get();
+        return null;
+    }
+
+    @Override
+    public Users getUserbyUsername(String username) {
+        Optional<Users> user = Optional.empty();
+        user = USER_REPOSOTORY.getUserbyUsername(username);
+        if (user.isPresent())
+            return user.get();
         return null;
     }
 

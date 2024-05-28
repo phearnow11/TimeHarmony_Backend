@@ -24,8 +24,7 @@ public class AuthController {
     public Map<String, Object> token(Authentication authentication) {
         Map<String, Object> data = new HashMap<>();
         data.put("token", TOKEN_SERVIVE.generateToken(authentication));
-        data.put("user", null);
-        System.out.println(authentication.getPrincipal());
+        data.put("user", authentication.getPrincipal());
         return data;
     }
 }

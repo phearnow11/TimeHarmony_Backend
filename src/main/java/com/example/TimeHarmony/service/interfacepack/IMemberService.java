@@ -14,7 +14,7 @@ public interface IMemberService {
 
     public List<Addresses> getAddresses(String member_id);
 
-    public List<Watch> getListWatchDECS(); 
+    public List<Watch> getListWatchDECS();
 
     public List<Watch> getWatchByGender(String gender);
 
@@ -28,6 +28,8 @@ public interface IMemberService {
 
     public Members saveUser(Members user, Users loginInfo);
 
-    public Members getMemberbyUsername(String username);
+    public Users getUserbyUsername(String username);
+
+    public Members getMemberbyUserLogInfo(Users username);
 
 }
