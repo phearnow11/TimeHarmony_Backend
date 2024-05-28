@@ -71,10 +71,10 @@ public class MemberService implements IMemberService {
     @Override
     public Optional<Watch> getWatchBySeries(String series) {
         if (series.isEmpty())
-        return null;
-    Optional<Watch> watch = Optional.empty();
-    watch = Optional.of(WATCH_REPOSITORY.findWatchesBySeries(series));
-    if (watch.isPresent())
+            return null;
+        Optional<Watch> watch = Optional.empty();
+        watch = Optional.of(WATCH_REPOSITORY.findWatchesBySeries(series));
+        if (watch.isPresent())
             return watch;
         return null;
     }
@@ -114,6 +114,9 @@ public class MemberService implements IMemberService {
         return USER_REPOSOTORY.existsById(user.getUsername());
     }
 
-    
+    @Override
+    public Members getMemberbyUsername(String username) {
+        return MEMBER_REPOSITORY.getMemberbyUsername(username);
+    }
 
 }

@@ -26,4 +26,6 @@ public interface IMemberService {
 
     public Members saveUser(Members user, Users loginInfo);
 
+    public Members getMemberbyUsername(String username);
+
 }
