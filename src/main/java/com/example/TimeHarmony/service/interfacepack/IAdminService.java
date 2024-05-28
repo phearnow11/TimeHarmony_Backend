@@ -14,4 +14,6 @@ public interface IAdminService {
 
     public List<Watch> getWatches();
 
+    public boolean deleteWatch(String id); 
+
 }

@@ -14,13 +14,15 @@ public interface IMemberService {
 
     public List<Addresses> getAddresses(String member_id);
 
-    public Optional<Watch> getWatchByGender(String gender);
+    public List<Watch> getListWatchDECS(); 
 
-    public Optional<Watch> getWatchBySeries(String series);
+    public List<Watch> getWatchByGender(String gender);
 
-    public Optional<Watch> getWatchByBrand(String brand);
+    public List<Watch> getWatchBySeries(String series);
 
-    public Optional<Watch> getWatchByStyle(String style);
+    public List<Watch> getWatchByBrand(String brand);
+
+    public List<Watch> getWatchByStyle(String style);
 
     public boolean isExist(Users user);
 

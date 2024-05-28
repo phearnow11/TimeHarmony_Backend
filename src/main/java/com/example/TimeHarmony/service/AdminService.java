@@ -30,6 +30,7 @@ public class AdminService implements IAdminService {
         return MEMBER_REPOSITORY.findAll();
     }
 
+    @Override
     public List<Admins> getAdmins() {
         return ADMIN_REPOSITORY.findAll();
     }
@@ -37,6 +38,18 @@ public class AdminService implements IAdminService {
     @Override
     public List<Watch> getWatches() {
         return WATCH_REPOSITORY.findAll();
+    }
+
+    @Override
+    public boolean deleteWatch(String id) {
+        if (id != null) {
+            Watch watch = WATCH_REPOSITORY.getById(id); 
+            if (watch != null) {
+                WATCH_REPOSITORY.delete(watch);
+                return true ; 
+            }
+        }
+        return false ; 
     }
 
 }
