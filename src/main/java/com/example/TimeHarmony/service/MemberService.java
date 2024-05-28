@@ -98,7 +98,7 @@ public class MemberService implements IMemberService {
 
     @Override
     public Members getMemberbyUsername(String username) {
-        return MEMBER_REPOSITORY.getMemberbyUsername(username);
+        return null;
     }
 
 }

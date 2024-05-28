@@ -21,8 +21,8 @@ public class AuthController {
     }
 
     @PostMapping("token")
-    public Map<String, String> token(Authentication authentication) {
-        Map<String, String> data = new HashMap<>();
+    public Map<String, Object> token(Authentication authentication) {
+        Map<String, Object> data = new HashMap<>();
         data.put("token", TOKEN_SERVIVE.generateToken(authentication));
         data.put("user", null);
         System.out.println(authentication.getPrincipal());

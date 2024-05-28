@@ -36,24 +36,26 @@ public class SecurityConfig {
     @Bean
     JdbcUserDetailsManager user(DataSource dataSource, PasswordEncoder passwordEncoder) {
         JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
-        jdbcUserDetailsManager.setUsersByUsernameQuery("select username, password, enabled from users where username = ?");
-        jdbcUserDetailsManager.setAuthoritiesByUsernameQuery("select username, authority from authorities where username = ?");
+        jdbcUserDetailsManager
+                .setUsersByUsernameQuery("select username, password, enabled from users where username = ?");
+        jdbcUserDetailsManager
+                .setAuthoritiesByUsernameQuery("select username, authority from authorities where username = ?");
         return jdbcUserDetailsManager;
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.cors(Customizer.withDefaults())  // Enable CORS
-            .csrf(AbstractHttpConfigurer::disable)
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/token").permitAll()  // Allow access to the token endpoint without authentication
-                .requestMatchers("/admin/**").authenticated()
-                .requestMatchers(HttpMethod.POST).permitAll()
-                .requestMatchers(HttpMethod.GET).permitAll()
-                .anyRequest().hasAuthority("SCOPE_READ"))
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
-            .httpBasic(Customizer.withDefaults());
+        http.cors(Customizer.withDefaults())
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/auth/token").permitAll()
+                        .requestMatchers("/admin/**").authenticated()
+                        .requestMatchers(HttpMethod.POST).permitAll()
+                        .requestMatchers(HttpMethod.GET).permitAll()
+                        .anyRequest().hasAuthority("SCOPE_READ"))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
+                .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }
