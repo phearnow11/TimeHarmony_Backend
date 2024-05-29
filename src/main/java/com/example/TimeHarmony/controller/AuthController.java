@@ -29,7 +29,8 @@ public class AuthController {
     @PostMapping("login")
     public Map<String, Object> token(Authentication authentication) {
         Map<String, Object> data = new HashMap<>();
-        data.put("token", TOKEN_SERVIVE.generateToken(authentication));
+        String token = TOKEN_SERVIVE.generateToken(authentication);
+        data.put("token", token);
         data.put("user", MEMBER_SERVICE
                 .getMemberbyUserLogInfo(MEMBER_SERVICE.getUserbyUsername(authentication.getName())));
         MEMBER_SERVICE.login(MEMBER_SERVICE
