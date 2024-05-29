@@ -1,13 +1,13 @@
 package com.example.TimeHarmony.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.TimeHarmony.entity.Admins;
 import com.example.TimeHarmony.entity.Members;
+import com.example.TimeHarmony.entity.Report;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.repository.AdminRepository;
 import com.example.TimeHarmony.repository.MemberRepository;
@@ -42,15 +42,38 @@ public class AdminService implements IAdminService {
     }
 
     @Override
-    public boolean deleteWatch(String id) {
-        if (id != null) {
-            Optional<Watch> watch = WATCH_REPOSITORY.findById(id);
-            if (watch.isPresent()) {
-                WATCH_REPOSITORY.delete(watch.get());
-                return true;
-            }
-        }
-        return false;
+    public void deleteWatch(String id) {
+        WATCH_REPOSITORY.deleteById(id);
+    }
+
+    @Override
+    public void deleteMemberbyId(String id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteMemberbyId'");
+    }
+
+    @Override
+    public void banMemberbyId(String id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'banMemberbyId'");
+    }
+
+    @Override
+    public void unbanMemberbyId(String id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'unbanMemberbyId'");
+    }
+
+    @Override
+    public List<Watch> viewWatchCreationHistory() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'viewWatchCreateHistory'");
+    }
+
+    @Override
+    public List<Report> viewReports() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'viewReports'");
     }
 
 }

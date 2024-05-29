@@ -2,6 +2,8 @@ package com.example.TimeHarmony.entity;
 
 import java.security.Timestamp;
 
+import com.example.TimeHarmony.enumf.Reports;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Temporal;
@@ -18,16 +20,16 @@ public class Report {
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp report_date;
 
-    private byte report_type;
+    private Reports report_type;
 
-    public Report(String member_id, String report_content, Timestamp report_date, String report_id, byte report_type,
-            String watch_id) {
+    public Report(String report_id, String member_id, String watch_id, String report_content, Timestamp report_date,
+            Reports report_type) {
+        this.report_id = report_id;
         this.member_id = member_id;
+        this.watch_id = watch_id;
         this.report_content = report_content;
         this.report_date = report_date;
-        this.report_id = report_id;
         this.report_type = report_type;
-        this.watch_id = watch_id;
     }
 
     public Report() {
@@ -73,11 +75,11 @@ public class Report {
         this.report_date = report_date;
     }
 
-    public byte getReport_type() {
+    public Reports getReport_type() {
         return report_type;
     }
 
-    public void setReport_type(byte report_type) {
+    public void setReport_type(Reports report_type) {
         this.report_type = report_type;
     }
 
