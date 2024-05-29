@@ -3,11 +3,14 @@ package com.example.TimeHarmony.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.TimeHarmony.service.MemberService;
 import com.example.TimeHarmony.service.TokenService;
 
 @RestController
@@ -16,6 +19,9 @@ public class AuthController {
 
     private final TokenService TOKEN_SERVIVE;
 
+    @Autowired
+    private MemberService MEMBER_SERVICE;
+
     public AuthController(TokenService tokenService) {
         this.TOKEN_SERVIVE = tokenService;
     }
@@ -23,8 +29,10 @@ public class AuthController {
     @PostMapping("token")
     public Map<String, Object> token(Authentication authentication) {
         Map<String, Object> data = new HashMap<>();
+        JSONObject userAuthData = new JSONObject(authentication.getPrincipal());
         data.put("token", TOKEN_SERVIVE.generateToken(authentication));
-        data.put("user", authentication.getPrincipal());
+        data.put("user", MEMBER_SERVICE
+                .getMemberbyUserLogInfo(MEMBER_SERVICE.getUserbyUsername(userAuthData.optString("username"))));
         return data;
     }
 }

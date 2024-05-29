@@ -1,7 +1,6 @@
 package com.example.TimeHarmony.controller;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.json.JSONArray;
@@ -41,22 +40,22 @@ public class MemberController {
         return MEMBER_SERVICE.getAddresses(member_id);
     }
 
-    @RequestMapping(value = "get-watch-by-gender", method = RequestMethod.GET)
+    @RequestMapping(value = "get-watch/gender", method = RequestMethod.GET)
     public List<Watch> getWatchByGender(@RequestParam("gender") String gender) {
         return MEMBER_SERVICE.getWatchByGender(gender);
     }
 
-    @RequestMapping(value = "get-watch-by-series", method = RequestMethod.GET)
+    @RequestMapping(value = "get-watch/series", method = RequestMethod.GET)
     public List<Watch> getWatchBySeries(@RequestParam("series") String series) {
         return MEMBER_SERVICE.getWatchBySeries(series);
     }
 
-    @RequestMapping(value = "get-watch-by-brand", method = RequestMethod.GET)
+    @RequestMapping(value = "get-watch/brand", method = RequestMethod.GET)
     public List<Watch> getWatchByBrand(@RequestParam("brand") String brand) {
         return MEMBER_SERVICE.getWatchByBrand(brand);
     }
 
-    @RequestMapping(value = "get-watch-by-style", method = RequestMethod.GET)
+    @RequestMapping(value = "get-watch/style", method = RequestMethod.GET)
     public List<Watch> getWatchByStyle(@RequestParam("style") String style) {
         return MEMBER_SERVICE.getWatchByStyle(style);
     }
@@ -88,12 +87,5 @@ public class MemberController {
             MEMBER_SERVICE.saveUser(member, logInfo);
 
         return res;
-    }
-
-    @RequestMapping(value = "get-member/username", method = RequestMethod.GET)
-    public Members getMemberbyUsername(@RequestBody Map<String, String> data) {
-        System.out.println(data);
-        Users user = MEMBER_SERVICE.getUserbyUsername(data.get("username"));
-        return MEMBER_SERVICE.getMemberbyUserLogInfo(user);
     }
 }
