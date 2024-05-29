@@ -1,5 +1,7 @@
 package com.example.TimeHarmony.controller;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +30,7 @@ public class MemberController {
     private MemberService MEMBER_SERVICE;
     private final byte MEMBER_ACTIVATE = 1;
     private final byte DEFAULT_ACTIVE_STATUS = 1;
+    private final byte DEFAULT_INACTIVE_STATUS = 0;
 
     @RequestMapping(value = "get-member", method = RequestMethod.GET)
     public Optional<Members> getMember(@RequestParam("member_id") String member_id) {
@@ -54,10 +57,12 @@ public class MemberController {
                 .setMemberImage(UserJSdata.optString("image"))
                 .setFirstName(UserJSdata.optString("Fname"))
                 .setLastName(UserJSdata.optString("Lname"))
-                .setActive(DEFAULT_ACTIVE_STATUS)
+                .setActive(DEFAULT_INACTIVE_STATUS)
                 .setDefaultAddress(UserJSdata.optString("address"))
                 .setPhone(UserJSdata.optString("phone"))
                 .setEmail(UserJSdata.optString("email"))
+                .setLastLoginDate(Timestamp.valueOf(LocalDateTime.now()))
+                .setEmailVerify(MEMBER_SERVICE.autoEmailVerificationGenerate())
                 .build();
 
         if (MEMBER_SERVICE.isExist(logInfo))

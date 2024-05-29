@@ -2,6 +2,7 @@ package com.example.TimeHarmony.service.interfacepack;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Members;
@@ -20,5 +21,11 @@ public interface IMemberService {
     public Users getUserbyUsername(String username);
 
     public Members getMemberbyUserLogInfo(Users username);
+
+    public String autoEmailVerificationGenerate();
+
+    public void login(String member_id);
+
+    public void logout(String member_id);
 
 }

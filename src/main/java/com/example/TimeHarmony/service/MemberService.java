@@ -1,7 +1,10 @@
 package com.example.TimeHarmony.service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,9 @@ import com.example.TimeHarmony.service.interfacepack.IMemberService;
 
 @Service
 public class MemberService implements IMemberService {
+
+    private final byte DEFAULT_ACTIVE_STATUS = 1;
+    private final byte DEFAULT_INACTIVE_STATUS = 0;
 
     @Autowired
     private MemberRepository MEMBER_REPOSITORY;
@@ -81,6 +87,31 @@ public class MemberService implements IMemberService {
         if (user.isPresent())
             return user.get();
         return null;
+    }
+
+    @Override
+    public String autoEmailVerificationGenerate() {
+        int leftlimit = 48, rightlimit = 122, stringlength = 6;
+        String code = "";
+        Random random = new Random();
+        code = random.ints(leftlimit, rightlimit + 1)
+                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .limit(stringlength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+        return code;
+    }
+
+    @Override
+    public void login(String id) {
+        MEMBER_REPOSITORY.setLastLoginDate(Timestamp.valueOf(LocalDateTime.now()), UUID.fromString(id));
+        MEMBER_REPOSITORY.setActiveStatus(DEFAULT_ACTIVE_STATUS, UUID.fromString(id));
+    }
+
+    @Override
+    public void logout(String id) {
+        MEMBER_REPOSITORY.setLastLogoutDate(Timestamp.valueOf(LocalDateTime.now()), UUID.fromString(id));
+        MEMBER_REPOSITORY.setActiveStatus(DEFAULT_INACTIVE_STATUS, UUID.fromString(id));
     }
 
 }
