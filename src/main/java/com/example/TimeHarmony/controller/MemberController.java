@@ -17,7 +17,6 @@ import com.example.TimeHarmony.builder.MemberBuilder;
 import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Users;
-import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.service.MemberService;
 
 @RestController
@@ -38,26 +37,6 @@ public class MemberController {
     @RequestMapping(value = "get-addresses", method = RequestMethod.GET)
     public List<Addresses> getAddresses(@RequestParam("member_id") String member_id) {
         return MEMBER_SERVICE.getAddresses(member_id);
-    }
-
-    @RequestMapping(value = "get-watch/gender", method = RequestMethod.GET)
-    public List<Watch> getWatchByGender(@RequestParam("gender") String gender) {
-        return MEMBER_SERVICE.getWatchByGender(gender);
-    }
-
-    @RequestMapping(value = "get-watch/series", method = RequestMethod.GET)
-    public List<Watch> getWatchBySeries(@RequestParam("series") String series) {
-        return MEMBER_SERVICE.getWatchBySeries(series);
-    }
-
-    @RequestMapping(value = "get-watch/brand", method = RequestMethod.GET)
-    public List<Watch> getWatchByBrand(@RequestParam("brand") String brand) {
-        return MEMBER_SERVICE.getWatchByBrand(brand);
-    }
-
-    @RequestMapping(value = "get-watch/style", method = RequestMethod.GET)
-    public List<Watch> getWatchByStyle(@RequestParam("style") String style) {
-        return MEMBER_SERVICE.getWatchByStyle(style);
     }
 
     @RequestMapping(value = "save-user", method = RequestMethod.POST)
