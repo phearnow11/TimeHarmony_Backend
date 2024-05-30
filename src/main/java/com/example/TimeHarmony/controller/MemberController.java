@@ -62,7 +62,7 @@ public class MemberController {
                 .setPhone(UserJSdata.optString("phone"))
                 .setEmail(UserJSdata.optString("email"))
                 .setLastLoginDate(Timestamp.valueOf(LocalDateTime.now()))
-                .setEmailVerify(MEMBER_SERVICE.autoEmailVerificationGenerate())
+                .setEmailVerify(MEMBER_SERVICE.autoVerificationCodeGenerate())
                 .build();
 
         if (MEMBER_SERVICE.isExist(logInfo))
@@ -71,5 +71,32 @@ public class MemberController {
             MEMBER_SERVICE.saveUser(member, logInfo);
 
         return res;
+    }
+
+    @RequestMapping(value = "verify/google", method = RequestMethod.GET)
+    public String updateEmailVerificationCode(@RequestParam("member_id") String member_id) {
+        String code = MEMBER_SERVICE.updateEmailCode(member_id);
+        Members user = MEMBER_SERVICE.getMemberbyID(member_id).get();
+        if (user.getEmail().isEmpty())
+            return "User does not have an email";
+        // send to email
+        return code;
+    }
+
+    @RequestMapping(value = "verify/password", method = RequestMethod.GET)
+    public String generateForgotPasswordCode(@RequestParam("member_id") String member_id) {
+        String code = MEMBER_SERVICE.autoVerificationCodeGenerate();
+        Members user = MEMBER_SERVICE.getMemberbyID(member_id).get();
+        if (user.getEmail().isEmpty())
+            return "User does not have an email";
+        // send to email
+        return code;
+    }
+
+    @RequestMapping(value = "update/email", method = RequestMethod.PUT)
+    public String updateEmail(@RequestParam("member_id") String member_id,
+            @RequestParam("email") String new_email) {
+
+        return MEMBER_SERVICE.updateEmail(member_id, new_email);
     }
 }

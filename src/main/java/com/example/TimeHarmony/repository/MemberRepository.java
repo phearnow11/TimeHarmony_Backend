@@ -20,15 +20,25 @@ public interface MemberRepository extends JpaRepository<Members, UUID> {
     @Modifying
     @Transactional
     @Query("update Members m set m.last_login_date = :date where m.member_id = :id")
-    void setLastLoginDate(@Param("date") Timestamp date, @Param("id") UUID id);
+    void updateLastLoginDate(@Param("date") Timestamp date, @Param("id") UUID id);
 
     @Modifying
     @Transactional
     @Query("update Members m set m.last_logout_date = :date where m.member_id = :id")
-    void setLastLogoutDate(@Param("date") Timestamp date, @Param("id") UUID id);
+    void updateLastLogoutDate(@Param("date") Timestamp date, @Param("id") UUID id);
 
     @Modifying
     @Transactional
     @Query("update Members m set m.is_active = :status where m.member_id = :id")
-    void setActiveStatus(@Param("status") int status, @Param("id") UUID id);
+    void updateActiveStatus(@Param("status") int status, @Param("id") UUID id);
+
+    @Modifying
+    @Transactional
+    @Query("update Members m set m.email_verification = :code where m.member_id = :id")
+    void updateEmailVerificationCode(@Param("code") String code, @Param("id") UUID id);
+
+    @Modifying
+    @Transactional
+    @Query("update Members m set m.email = :email where m.member_id = :id")
+    void updateMemberEmail(@Param("email") String email, @Param("id") UUID id);
 }

@@ -21,10 +21,16 @@ public interface IMemberService {
 
     public Members getMemberbyUserLogInfo(Users username);
 
-    public String autoEmailVerificationGenerate();
+    public String autoVerificationCodeGenerate();
 
     public void login(String member_id);
 
     public void logout(String member_id);
+
+    public String updateEmailCode(String member_id);
+
+    public String changeUserPassword(String username, String new_password);
+
+    public String updateEmail(String member_id, String new_email);
 
 }

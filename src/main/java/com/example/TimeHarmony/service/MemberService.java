@@ -90,7 +90,7 @@ public class MemberService implements IMemberService {
     }
 
     @Override
-    public String autoEmailVerificationGenerate() {
+    public String autoVerificationCodeGenerate() {
         int leftlimit = 48, rightlimit = 122, stringlength = 6;
         String code = "";
         Random random = new Random();
@@ -104,14 +104,33 @@ public class MemberService implements IMemberService {
 
     @Override
     public void login(String id) {
-        MEMBER_REPOSITORY.setLastLoginDate(Timestamp.valueOf(LocalDateTime.now()), UUID.fromString(id));
-        MEMBER_REPOSITORY.setActiveStatus(DEFAULT_ACTIVE_STATUS, UUID.fromString(id));
+        MEMBER_REPOSITORY.updateLastLoginDate(Timestamp.valueOf(LocalDateTime.now()), UUID.fromString(id));
+        MEMBER_REPOSITORY.updateActiveStatus(DEFAULT_ACTIVE_STATUS, UUID.fromString(id));
     }
 
     @Override
     public void logout(String id) {
-        MEMBER_REPOSITORY.setLastLogoutDate(Timestamp.valueOf(LocalDateTime.now()), UUID.fromString(id));
-        MEMBER_REPOSITORY.setActiveStatus(DEFAULT_INACTIVE_STATUS, UUID.fromString(id));
+        MEMBER_REPOSITORY.updateLastLogoutDate(Timestamp.valueOf(LocalDateTime.now()), UUID.fromString(id));
+        MEMBER_REPOSITORY.updateActiveStatus(DEFAULT_INACTIVE_STATUS, UUID.fromString(id));
+    }
+
+    @Override
+    public String updateEmailCode(String member_id) {
+        String code = autoVerificationCodeGenerate();
+        MEMBER_REPOSITORY.updateEmailVerificationCode(code, UUID.fromString(member_id));
+        return code;
+    }
+
+    @Override
+    public String changeUserPassword(String username, String new_password) {
+        USER_REPOSOTORY.updateUserPassword(passwordEncoder.encode(new_password), username);
+        return new_password;
+    }
+
+    @Override
+    public String updateEmail(String member_id, String new_email) {
+        MEMBER_REPOSITORY.updateMemberEmail(new_email, UUID.fromString(member_id));
+        return new_email;
     }
 
 }
