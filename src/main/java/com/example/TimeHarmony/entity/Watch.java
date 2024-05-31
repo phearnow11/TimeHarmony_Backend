@@ -9,16 +9,20 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
-@Table(name ="Watch")
+@Table(name = "Watch")
 public class Watch {
     @Id
     private String watch_id;
+    private String member_id;
     private String watch_image;
     private String watch_description;
     private String watch_name;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp watch_create_date;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Timestamp watch_approval_date;
 
     private byte state;
     private float price;
@@ -52,18 +56,20 @@ public class Watch {
     public Watch() {
     }
 
-    public Watch(String watch_id, String watch_image, String watch_description, String watch_name,
-            Timestamp watch_create_date, byte state, float price, String brand, String series, String model,
-            String gender, String style_type, String sub_class, String made_label, String calender, String feature,
-            String movement, String functions, String engine, String water_resistant, String band_color,
-            String band_type, String clasp, String bracelet, String dial_type, String dial_color, String crystal,
-            String second_makers, String bezel, String bezel_material, String case_back, String case_dimension,
-            String case_shape) {
+    public Watch(String watch_id, String member_id, String watch_image, String watch_description, String watch_name,
+            Timestamp watch_create_date, Timestamp watch_approval_date, byte state, float price, String brand,
+            String series, String model, String gender, String style_type, String sub_class, String made_label,
+            String calender, String feature, String movement, String functions, String engine, String water_resistant,
+            String band_color, String band_type, String clasp, String bracelet, String dial_type, String dial_color,
+            String crystal, String second_makers, String bezel, String bezel_material, String case_back,
+            String case_dimension, String case_shape) {
         this.watch_id = watch_id;
+        this.member_id = member_id;
         this.watch_image = watch_image;
         this.watch_description = watch_description;
         this.watch_name = watch_name;
         this.watch_create_date = watch_create_date;
+        this.watch_approval_date = watch_approval_date;
         this.state = state;
         this.price = price;
         this.brand = brand;
@@ -356,6 +362,22 @@ public class Watch {
 
     public void setCase_shape(String case_shape) {
         this.case_shape = case_shape;
+    }
+
+    public String getMember_id() {
+        return member_id;
+    }
+
+    public void setMember_id(String member_id) {
+        this.member_id = member_id;
+    }
+
+    public Timestamp getWatch_approval_date() {
+        return watch_approval_date;
+    }
+
+    public void setWatch_approval_date(Timestamp watch_approval_date) {
+        this.watch_approval_date = watch_approval_date;
     }
 
 }

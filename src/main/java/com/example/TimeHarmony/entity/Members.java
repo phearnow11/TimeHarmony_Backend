@@ -22,6 +22,8 @@ public class Members {
     @GeneratedValue
     private UUID member_id;
 
+    private String google_id;
+
     @OneToOne
     @JoinColumn(name = "username")
     private Users user_log_info;
@@ -45,10 +47,11 @@ public class Members {
     public Members() {
     }
 
-    public Members(UUID member_id, Users user_log_info, String member_image, String first_name, String last_name,
-            int is_active, String address, String email, String phone, Timestamp last_login_date,
+    public Members(UUID member_id, String google_id, Users user_log_info, String member_image, String first_name,
+            String last_name, int is_active, String address, String email, String phone, Timestamp last_login_date,
             Timestamp last_logout_date, String email_verification) {
         this.member_id = member_id;
+        this.google_id = google_id;
         this.user_log_info = user_log_info;
         this.member_image = member_image;
         this.first_name = first_name;
@@ -164,6 +167,14 @@ public class Members {
 
     public void setUser_log_info(Users user_log_info) {
         this.user_log_info = user_log_info;
+    }
+
+    public String getGoogle_id() {
+        return google_id;
+    }
+
+    public void setGoogle_id(String google_id) {
+        this.google_id = google_id;
     }
 
 }

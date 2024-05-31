@@ -12,6 +12,7 @@ import jakarta.persistence.TemporalType;
 
 public class MemberBuilder implements IMemberBuilder {
     private UUID member_id;
+    private String google_id;
     private Users user;
     private String member_image;
     private String first_name;
@@ -101,9 +102,15 @@ public class MemberBuilder implements IMemberBuilder {
     }
 
     @Override
+    public IMemberBuilder setGoogle(String google_id) {
+        this.google_id = google_id;
+        return this;
+    }
+
+    @Override
     public Members build() {
-        return new Members(member_id, user, member_image, first_name, last_name, is_active, address, email, phone,
-                last_login_date, last_logout_date, email_verification);
+        return new Members(member_id, google_id, user, member_image, first_name, last_name, is_active, address, email,
+                phone, last_login_date, last_logout_date, email_verification);
     }
 
 }

@@ -10,12 +10,17 @@ import jakarta.persistence.TemporalType;
 
 public class WatchBuilder implements IWatchBuilder {
     private String watch_id;
+    private String member_id;
     private String watch_image;
     private String watch_description;
     private String watch_name;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp watch_create_date;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Timestamp watch_approval_date;
+
     private byte state;
     private float price;
     private String brand;
@@ -244,12 +249,24 @@ public class WatchBuilder implements IWatchBuilder {
     }
 
     @Override
+    public IWatchBuilder setOwner(String member_id) {
+        this.member_id = member_id;
+        return this;
+    }
+
+    @Override
+    public IWatchBuilder setWatchApprovalDate(Timestamp wapprovaldate) {
+        this.watch_approval_date = wapprovaldate;
+        return this;
+    }
+
+    @Override
     public Watch build() {
-        return new Watch(watch_id, watch_image, watch_description, watch_name, watch_create_date, state, price, brand,
-                series, model, gender, style_type, sub_class, made_label, calender, feature, movement, functions,
-                engine, water_resistant,
-                band_color, band_type, clasp, bracelet, dial_type, dial_color, crystal, second_makers, bezel,
-                bezel_material, case_back, case_dimension, case_shape);
+        return new Watch(watch_id, member_id, watch_image, watch_description, watch_name, watch_create_date,
+                watch_approval_date, state, price, brand, series, model, gender, style_type, sub_class, made_label,
+                calender, feature, movement, functions, engine, water_resistant, band_color, band_type, clasp, bracelet,
+                dial_type, dial_color, crystal, second_makers, bezel, bezel_material, case_back, case_dimension,
+                case_shape);
 
     }
 

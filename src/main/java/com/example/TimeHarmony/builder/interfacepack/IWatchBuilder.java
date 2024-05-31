@@ -9,11 +9,15 @@ public interface IWatchBuilder {
 
     public IWatchBuilder setWatchImage(String image);
 
+    public IWatchBuilder setOwner(String member_id);
+
     public IWatchBuilder setWatchDescription(String wdescription);
 
     public IWatchBuilder setWatchName(String wname);
 
     public IWatchBuilder setWatchCreateDate(Timestamp wcreatedate);
+
+    public IWatchBuilder setWatchApprovalDate(Timestamp wapprovaldate);
 
     public IWatchBuilder setState(byte state);
 

@@ -9,6 +9,8 @@ import com.example.TimeHarmony.entity.Users;
 public interface IMemberBuilder {
     public IMemberBuilder setMemberId(UUID id);
 
+    public IMemberBuilder setGoogle(String google_id);
+
     public IMemberBuilder setUserLogInfo(Users user);
 
     public IMemberBuilder setMemberImage(String url);

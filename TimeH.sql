@@ -15,7 +15,8 @@ create table Authorities (
 )
 
 create table Members (
-	[member_id] binary(16) not null, 
+	[member_id] binary(16) not null,
+	[google_id] varchar(100) null,
 	[username] varchar(100) not null,
 	[member_image] varchar(50) null,
 	[first_name] varchar(50) null, 
@@ -47,10 +48,12 @@ select * from Addresses
 
 create table Watch(
 	[watch_id] char(6) not null, 
+	[member_id] binary(16) not null,
 	[watch_image] varchar(max) null, 
 	[watch_description] varchar(max) null, 
 	[watch_name] varchar(100) null, 
-	[watch_create_date] datetime, 
+	[watch_create_date] datetime,
+	[watch_approval_date] datetime,
 	[state] tinyint null, 
 	[price] float null, 
 	[brand] varchar(100) null, 
