@@ -14,4 +14,10 @@ public interface IWatchService {
     public List<Watch> getWatchByBrand(String brand);
 
     public List<Watch> getWatchByStyle(String style);
+
+    public List<Watch> getWatchByMaterial(String material);
+
+    public List<Watch> get30WatchesSortedByCreationDate();
+
+    public List<Watch> loadMoreWatchesSortedByCreationDate(List<Watch> old_watch_list);
 }

@@ -40,4 +40,19 @@ public class WatchService implements IWatchService {
     public List<Watch> getListWatchDECS() {
         return WATCH_REPOSITORY.findAll(Sort.by(Sort.Direction.DESC, "watch_id"));
     }
+
+    @Override
+    public List<Watch> getWatchByMaterial(String material) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public List<Watch> get30WatchesSortedByCreationDate() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public List<Watch> loadMoreWatchesSortedByCreationDate(List<Watch> old_watch_list) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
