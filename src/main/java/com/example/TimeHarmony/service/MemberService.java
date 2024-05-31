@@ -73,8 +73,8 @@ public class MemberService implements IMemberService {
         List<Members> members = MEMBER_REPOSITORY.getMemberbyEmail(email);
         System.out.println(members);
         if (members.isEmpty() && !res)
-            return true;
-        return false;
+            return false;
+        return true;
     }
 
     @Override
