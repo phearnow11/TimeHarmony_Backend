@@ -68,8 +68,13 @@ public class MemberService implements IMemberService {
     }
 
     @Override
-    public boolean isExist(Users user) {
-        return USER_REPOSOTORY.existsById(user.getUsername());
+    public boolean isExist(Users user, String email) {
+        boolean res = USER_REPOSOTORY.existsById(user.getUsername());
+        List<Members> members = MEMBER_REPOSITORY.getMemberbyEmail(email);
+        System.out.println(members);
+        if (members.isEmpty() && !res)
+            return true;
+        return false;
     }
 
     @Override

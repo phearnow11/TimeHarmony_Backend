@@ -65,7 +65,7 @@ public class MemberController {
                 .setEmailVerify(MEMBER_SERVICE.autoVerificationCodeGenerate())
                 .build();
 
-        if (MEMBER_SERVICE.isExist(logInfo))
+        if (MEMBER_SERVICE.isExist(logInfo, member.getEmail()))
             res = "Member is already exist";
         else
             MEMBER_SERVICE.saveUser(member, logInfo);

@@ -13,7 +13,7 @@ public interface IMemberService {
 
     public List<Addresses> getAddresses(String member_id);
 
-    public boolean isExist(Users user);
+    public boolean isExist(Users user, String email);
 
     public Members saveUser(Members user, Users loginInfo);
 

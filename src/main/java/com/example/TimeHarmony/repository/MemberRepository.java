@@ -1,6 +1,7 @@
 package com.example.TimeHarmony.repository;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -16,6 +17,9 @@ import com.example.TimeHarmony.entity.Users;
 public interface MemberRepository extends JpaRepository<Members, UUID> {
     @Query("select m from Members m where m.user_log_info = ?1")
     Optional<Members> getMemberbyUserLogInfo(Users user);
+
+    @Query("select m from Members m where m.email = :email")
+    List<Members> getMemberbyEmail(@Param("email") String email);
 
     @Modifying
     @Transactional

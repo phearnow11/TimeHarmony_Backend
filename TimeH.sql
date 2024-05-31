@@ -137,9 +137,14 @@ create table Appraisers (
 	foreign key (member_id) references Members([member_id])
 )
 
+create table Access_History(
+	[member_id] binary(16) not null,
+	[url] varchar(50) not null,
+	[access_time] datetime not null
+	foreign key (member_id) references Members([member_id])
+)
 
-alter table Watch drop column watch_create_date
-alter table Watch add watch_create_date datetime
+
 
 insert Watch (watch_id, watch_image, watch_description, watch_name, watch_create_date,[state],price, brand, series, model, gender, style_type, 
 sub_class, made_label, calender, feature, movement, functions, engine, water_resistant, band_color, band_type, clasp, bracelet, dial_type, 
@@ -182,5 +187,8 @@ select username, [password],[enabled] from Users where Users.username = N'admin'
 delete Watch
 delete Users where Users.member_id = N'000002'
 delete Admins
+delete Users where Users.username = N'phien'
+drop table Users
 
-drop table Watch
+alter table Watch drop column watch_create_date
+alter table Watch add watch_create_date datetime
