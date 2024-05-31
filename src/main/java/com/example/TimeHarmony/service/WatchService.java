@@ -1,11 +1,13 @@
 package com.example.TimeHarmony.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.example.TimeHarmony.entity.Filter;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.repository.WatchRepository;
 import com.example.TimeHarmony.service.interfacepack.IWatchService;
@@ -43,16 +45,28 @@ public class WatchService implements IWatchService {
 
     @Override
     public List<Watch> getWatchByFeatures(String features) {
-       return WATCH_REPOSITORY.findWatchesByFeatures(features); 
+        return WATCH_REPOSITORY.findWatchesByFeatures(features);
     }
 
     @Override
     public List<Watch> get30WatchesSortedByCreationDate() {
-       return WATCH_REPOSITORY.find30watchesByDESCDate(); 
+        return WATCH_REPOSITORY.find30watchesByDESCDate();
     }
 
     @Override
     public List<Watch> loadMoreWatchesSortedByCreationDate(List<Watch> old_watch_list) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Optional<Watch> getWatchById(String id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getWatchById'");
+    }
+
+    @Override
+    public List<Watch> getWatchByFilter(Filter filter) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getWatchByFilter'");
     }
 }

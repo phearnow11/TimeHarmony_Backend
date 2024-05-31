@@ -76,4 +76,10 @@ public class AdminService implements IAdminService {
         throw new UnsupportedOperationException("Unimplemented method 'viewReports'");
     }
 
+    @Override
+    public String updateMemberRole(String member_id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateMemberRole'");
+    }
+
 }
