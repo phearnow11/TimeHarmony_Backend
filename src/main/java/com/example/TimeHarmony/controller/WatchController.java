@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.service.WatchService;
 
@@ -44,5 +45,10 @@ public class WatchController {
     @RequestMapping(value = "filter", method = RequestMethod.GET)
     public Map<String, String> filterChain(@RequestParam Map<String, String> data) {
         return data;
+    }
+
+    @RequestMapping(value = "get-30-watches", method = RequestMethod.GET)
+        public List<Watch> get30watchesbyDESCdate() {
+        return WATCH_SERVICE.get30WatchesSortedByCreationDate(); 
     }
 }

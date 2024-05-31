@@ -15,7 +15,7 @@ public interface IWatchService {
 
     public List<Watch> getWatchByStyle(String style);
 
-    public List<Watch> getWatchByMaterial(String material);
+    public List<Watch> getWatchByFeatures(String features);
 
     public List<Watch> get30WatchesSortedByCreationDate();
 

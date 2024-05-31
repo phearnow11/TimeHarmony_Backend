@@ -42,13 +42,13 @@ public class WatchService implements IWatchService {
     }
 
     @Override
-    public List<Watch> getWatchByMaterial(String material) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public List<Watch> getWatchByFeatures(String features) {
+       return WATCH_REPOSITORY.findWatchesByFeatures(features); 
     }
 
     @Override
     public List<Watch> get30WatchesSortedByCreationDate() {
-        throw new UnsupportedOperationException("Not supported yet.");
+       return WATCH_REPOSITORY.find30watchesByDESCDate(); 
     }
 
     @Override
