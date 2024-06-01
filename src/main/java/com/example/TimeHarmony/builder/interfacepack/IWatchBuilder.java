@@ -2,6 +2,7 @@ package com.example.TimeHarmony.builder.interfacepack;
 
 import java.sql.Timestamp;
 
+import com.example.TimeHarmony.entity.Sellers;
 import com.example.TimeHarmony.entity.Watch;
 
 public interface IWatchBuilder {
@@ -9,7 +10,7 @@ public interface IWatchBuilder {
 
     public IWatchBuilder setWatchImage(String image);
 
-    public IWatchBuilder setOwner(String member_id);
+    public IWatchBuilder setOwner(Sellers seller);
 
     public IWatchBuilder setWatchDescription(String wdescription);
 
