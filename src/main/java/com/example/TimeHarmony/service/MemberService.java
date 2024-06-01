@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.TimeHarmony.dtos.AccessHistory;
 import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Authorities;
 import com.example.TimeHarmony.entity.Members;
@@ -143,6 +144,17 @@ public class MemberService implements IMemberService {
     public Report createReport(Report report) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createReport'");
+    }
+
+    @Override
+    public List<AccessHistory> getAllAccessHistories(String member_id) {
+        return MEMBER_REPOSITORY.getAllAccessHistoriesFromMember(UUID.fromString(member_id));
+    }
+
+    @Override
+    public String updateAccessHistories(String member_id, List<String> urls, List<Timestamp> times) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateAccessHistories'");
     }
 
 }

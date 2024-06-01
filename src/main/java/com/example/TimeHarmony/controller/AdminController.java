@@ -20,17 +20,17 @@ public class AdminController {
     @Autowired
     private AdminService ADMIN_SERVICE;
 
-    @RequestMapping(value = "get-members", method = RequestMethod.GET)
+    @RequestMapping(value = "get/members", method = RequestMethod.GET)
     public List<Members> getaMembers() {
         return ADMIN_SERVICE.getMembers();
     }
 
-    @RequestMapping(value = "get-admins", method = RequestMethod.GET)
+    @RequestMapping(value = "get/admins", method = RequestMethod.GET)
     public List<Admins> getAdmins() {
         return ADMIN_SERVICE.getAdmins();
     }
 
-    @RequestMapping(value = "get-watches", method = RequestMethod.GET)
+    @RequestMapping(value = "get/watches", method = RequestMethod.GET)
     public List<Watch> getWatches() {
         return ADMIN_SERVICE.getWatches();
     }

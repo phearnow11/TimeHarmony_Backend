@@ -3,6 +3,7 @@ package com.example.TimeHarmony.controller;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.json.JSONArray;
@@ -105,5 +106,12 @@ public class MemberController {
             @RequestParam("email") String new_email) {
 
         return MEMBER_SERVICE.updateEmail(member_id, new_email);
+    }
+
+    @RequestMapping(value = "update/history", method = RequestMethod.POST)
+    public String updateHistories(@RequestBody Map<String, Object> data) {
+        System.out.println(data.get("url"));
+        System.out.println(LocalDateTime.now());
+        return "Hi";
     }
 }

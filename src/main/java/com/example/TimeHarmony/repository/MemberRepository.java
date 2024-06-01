@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.TimeHarmony.dtos.AccessHistory;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Users;
 
@@ -20,6 +21,15 @@ public interface MemberRepository extends JpaRepository<Members, UUID> {
 
     @Query("select m from Members m where m.email = :email")
     List<Members> getMemberbyEmail(@Param("email") String email);
+
+    @Query(value = "select * from Access_History h where h.member_id = :id", nativeQuery = true)
+    List<AccessHistory> getAllAccessHistoriesFromMember(@Param("id") UUID id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "insert Access_History(member_id, url, access_time) values (:id , :url , :access_time)", nativeQuery = true)
+    void insertAccessHistory(@Param("id") UUID id, @Param("url") String url,
+            @Param("access_time") Timestamp access_time);
 
     @Modifying
     @Transactional

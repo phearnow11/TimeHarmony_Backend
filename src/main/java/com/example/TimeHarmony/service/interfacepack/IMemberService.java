@@ -1,8 +1,10 @@
 package com.example.TimeHarmony.service.interfacepack;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.TimeHarmony.dtos.AccessHistory;
 import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Report;
@@ -35,5 +37,9 @@ public interface IMemberService {
     public String updateEmail(String member_id, String new_email);
 
     public Report createReport(Report report);
+
+    public List<AccessHistory> getAllAccessHistories(String member_id);
+
+    public String updateAccessHistories(String member_id, List<String> urls, List<Timestamp> times);
 
 }
