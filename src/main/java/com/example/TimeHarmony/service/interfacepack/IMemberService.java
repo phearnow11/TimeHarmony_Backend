@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Members;
+import com.example.TimeHarmony.entity.Report;
 import com.example.TimeHarmony.entity.Users;
 
 public interface IMemberService {
@@ -32,5 +33,7 @@ public interface IMemberService {
     public String changeUserPassword(String username, String new_password);
 
     public String updateEmail(String member_id, String new_email);
+
+    public Report createReport(Report report);
 
 }

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Authorities;
 import com.example.TimeHarmony.entity.Members;
+import com.example.TimeHarmony.entity.Report;
 import com.example.TimeHarmony.entity.Users;
 import com.example.TimeHarmony.enumf.Roles;
 import com.example.TimeHarmony.repository.AddressesRepository;
@@ -136,6 +137,12 @@ public class MemberService implements IMemberService {
     public String updateEmail(String member_id, String new_email) {
         MEMBER_REPOSITORY.updateMemberEmail(new_email, UUID.fromString(member_id));
         return new_email;
+    }
+
+    @Override
+    public Report createReport(Report report) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'createReport'");
     }
 
 }
