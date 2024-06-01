@@ -39,17 +39,17 @@ public class MemberController {
     private final String DEFAULT_MAIL_SUBJECT_VERIFY_GOOGLE = "Email Verification Code";
     private final String DEFAULT_MAIL_SUBJECT_VERIFY_PASSWORD = "Password Changing Verification Code";
 
-    @RequestMapping(value = "get-member", method = RequestMethod.GET)
+    @RequestMapping(value = "get/member", method = RequestMethod.GET)
     public Optional<Members> getMember(@RequestParam("member_id") String member_id) {
         return MEMBER_SERVICE.getMemberbyID(member_id);
     }
 
-    @RequestMapping(value = "get-addresses", method = RequestMethod.GET)
+    @RequestMapping(value = "get/addresses", method = RequestMethod.GET)
     public List<Addresses> getAddresses(@RequestParam("member_id") String member_id) {
         return MEMBER_SERVICE.getAddresses(member_id);
     }
 
-    @RequestMapping(value = "save-user", method = RequestMethod.POST)
+    @RequestMapping(value = "save/user", method = RequestMethod.POST)
     public String saveUser(@RequestBody String data) {
         String res = "Member is created";
 

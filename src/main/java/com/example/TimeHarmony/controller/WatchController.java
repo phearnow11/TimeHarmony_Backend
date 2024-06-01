@@ -21,22 +21,22 @@ public class WatchController {
     @Autowired
     private WatchService WATCH_SERVICE;
 
-    @RequestMapping(value = "get-watch/gender", method = RequestMethod.GET)
+    @RequestMapping(value = "get/gender", method = RequestMethod.GET)
     public List<Watch> getWatchByGender(@RequestParam("gender") String gender) {
         return WATCH_SERVICE.getWatchByGender(gender);
     }
 
-    @RequestMapping(value = "get-watch/series", method = RequestMethod.GET)
+    @RequestMapping(value = "get/series", method = RequestMethod.GET)
     public List<Watch> getWatchBySeries(@RequestParam("series") String series) {
         return WATCH_SERVICE.getWatchBySeries(series);
     }
 
-    @RequestMapping(value = "get-watch/brand", method = RequestMethod.GET)
+    @RequestMapping(value = "get/brand", method = RequestMethod.GET)
     public List<Watch> getWatchByBrand(@RequestParam("brand") String brand) {
         return WATCH_SERVICE.getWatchByBrand(brand);
     }
 
-    @RequestMapping(value = "get-watch/style", method = RequestMethod.GET)
+    @RequestMapping(value = "get/style", method = RequestMethod.GET)
     public List<Watch> getWatchByStyle(@RequestParam("style") String style) {
         return WATCH_SERVICE.getWatchByStyle(style);
     }
@@ -46,7 +46,7 @@ public class WatchController {
         return data;
     }
 
-    @RequestMapping(value = "get-30-watches", method = RequestMethod.GET)
+    @RequestMapping(value = "get/30-watches", method = RequestMethod.GET)
     public List<Watch> get30watchesbyDESCdate() {
         return WATCH_SERVICE.get30WatchesSortedByCreationDate();
     }
