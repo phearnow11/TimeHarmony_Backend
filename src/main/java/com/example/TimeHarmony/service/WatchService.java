@@ -65,8 +65,38 @@ public class WatchService implements IWatchService {
     }
 
     @Override
-    public List<Watch> getWatchByFilter(Filter filter) {
+    public List<Watch> getWatchesByFilter(Filter filter) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getWatchByFilter'");
+        throw new UnsupportedOperationException("Unimplemented method 'getWatchesByFilter'");
+    }
+
+    @Override
+    public List<Watch> getWatchesByPriceRange(float leftlimit, float rightlimit) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getWatchesByPriceRange'");
+    }
+
+    @Override
+    public List<Watch> getWatchesByDialColor(String color) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getWatchesByDialColor'");
+    }
+
+    @Override
+    public List<Watch> getWatchesByCaseShape(String case_shape) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getWatchesByCaseShape'");
+    }
+
+    @Override
+    public List<Watch> getWatchesByBandType(String band) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getWatchesByBandType'");
+    }
+
+    @Override
+    public List<Watch> getWatchesByMovement(String movement) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getWatchesByMovement'");
     }
 }

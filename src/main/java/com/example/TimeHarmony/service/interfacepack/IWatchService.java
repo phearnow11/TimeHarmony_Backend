@@ -25,5 +25,15 @@ public interface IWatchService {
 
     public Optional<Watch> getWatchById(String id);
 
-    public List<Watch> getWatchByFilter(Filter filter);
+    public List<Watch> getWatchesByFilter(Filter filter);
+
+    public List<Watch> getWatchesByPriceRange(float leftlimit, float rightlimit);
+
+    public List<Watch> getWatchesByDialColor(String color);
+
+    public List<Watch> getWatchesByCaseShape(String case_shape);
+
+    public List<Watch> getWatchesByBandType(String band);
+
+    public List<Watch> getWatchesByMovement(String movement);
 }
