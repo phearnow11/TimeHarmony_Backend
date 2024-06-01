@@ -11,6 +11,8 @@ import jakarta.persistence.TemporalType;
 
 public class WatchBuilder implements IWatchBuilder {
     private String watch_id;
+
+     
     private Sellers seller;
     private String watch_image;
     private String watch_description;
@@ -56,6 +58,13 @@ public class WatchBuilder implements IWatchBuilder {
         this.watch_id = id;
         return this;
     }
+
+    @Override
+    public IWatchBuilder setSellers(Sellers s) {
+       this.seller = s ; 
+       return this; 
+    }
+    
 
     @Override
     public IWatchBuilder setWatchImage(String image) {
@@ -270,5 +279,12 @@ public class WatchBuilder implements IWatchBuilder {
                 case_shape);
 
     }
+
+
+
+
+    
+
+   
 
 }

@@ -2,6 +2,7 @@ package com.example.TimeHarmony.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -17,6 +18,22 @@ public class WatchService implements IWatchService {
 
     @Autowired
     private WatchRepository WATCH_REPOSITORY;
+
+    @Override
+    public String generateWatchId() {
+        int leftLimit = 48; // '0'
+        int rightLimit = 57; // '9'
+        int targetStringLength = 6;
+
+        Random random = new Random();
+
+        String randomNumberString = random.ints(leftLimit, rightLimit + 1)
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+
+        return randomNumberString;
+    }
 
     @Override
     public List<Watch> getWatchByGender(String gender) {
@@ -101,4 +118,5 @@ public class WatchService implements IWatchService {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getWatchesByMovement'");
     }
+
 }

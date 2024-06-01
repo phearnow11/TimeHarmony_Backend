@@ -9,6 +9,8 @@ import com.example.TimeHarmony.entity.Watch;
 public interface IWatchService {
     public List<Watch> getListWatchDECS();
 
+    public String generateWatchId(); 
+
     public List<Watch> getWatchByGender(String gender);
 
     public List<Watch> getWatchBySeries(String series);
