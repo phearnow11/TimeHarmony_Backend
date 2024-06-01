@@ -17,7 +17,7 @@ create table Authorities (
 create table Members (
 	[member_id] binary(16) not null,
 	[google_id] varchar(100) null,
-	[username] varchar(100) not null,
+	[username] varchar(100) null,
 	[member_image] varchar(50) null,
 	[first_name] varchar(50) null, 
 	[last_name] varchar(50) null, 
@@ -129,7 +129,6 @@ create table Admins (
 
 create table Sellers (
 	[member_id] binary(16) null,
-	[watch_id] char(6) null,
 	foreign key (member_id) references Members([member_id])
 )
 
@@ -184,6 +183,7 @@ select * from Appraisers
 select * from Admins
 select * from Customer_Support_Agents
 select * from Watch
+select * from Sellers
 select username, [authority] from Users join Roles on Users.role_id = Roles.role_id 
 select username, [password],[enabled] from Users where Users.username = N'admin'
 
