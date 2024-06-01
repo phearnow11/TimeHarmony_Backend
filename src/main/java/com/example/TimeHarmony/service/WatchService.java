@@ -66,7 +66,9 @@ public class WatchService implements IWatchService {
 
     @Override
     public List<Watch> getWatchesByFilter(Filter filter) {
-        // TODO Auto-generated method stub
+
+        // chưa cần làm
+
         throw new UnsupportedOperationException("Unimplemented method 'getWatchesByFilter'");
     }
 

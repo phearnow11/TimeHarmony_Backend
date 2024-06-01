@@ -7,20 +7,22 @@ public class SellerService implements ISellerService {
 
     @Override
     public Watch createWatch(Watch watch) {
-        // TODO Auto-generated method stub
+
+        // tạo xong rồi return lại Watch đã tạo
+
         throw new UnsupportedOperationException("Unimplemented method 'createWatch'");
     }
 
     @Override
     public String deleteWatchById(String watch_id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteWatchById'");
+
+        return watch_id + " Deleted";
     }
 
     @Override
     public Watch updateWatch(Watch watch) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateWatch'");
+        // update bên query đi
+        return watch;
     }
 
 }
