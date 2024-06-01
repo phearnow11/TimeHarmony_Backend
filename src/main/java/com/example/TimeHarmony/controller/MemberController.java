@@ -22,6 +22,7 @@ import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Users;
 import com.example.TimeHarmony.service.EmailService;
 import com.example.TimeHarmony.service.MemberService;
+import com.example.TimeHarmony.service.StringService;
 
 @RestController
 @RequestMapping("/member")
@@ -33,6 +34,9 @@ public class MemberController {
 
     @Autowired
     private EmailService EMAIL_SERVICE;
+
+    @Autowired
+    private StringService STRING_SERVICE;
 
     private final byte MEMBER_ACTIVATE = 1;
     private final byte DEFAULT_ACTIVE_STATUS = 1;
@@ -111,7 +115,7 @@ public class MemberController {
     @RequestMapping(value = "update/history", method = RequestMethod.POST)
     public String updateHistories(@RequestBody Map<String, Object> data) {
         System.out.println(data.get("url"));
-        System.out.println(LocalDateTime.now());
+        System.out.println(STRING_SERVICE.jsonArrToStringList(data.get("url")).get(0));
         return "Hi";
     }
 }

@@ -1,6 +1,7 @@
 package com.example.TimeHarmony.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.TimeHarmony.entity.Sellers;
 import com.example.TimeHarmony.entity.Watch;
@@ -9,19 +10,19 @@ import com.example.TimeHarmony.repository.SellerRepository;
 import com.example.TimeHarmony.repository.WatchRepository;
 import com.example.TimeHarmony.service.interfacepack.ISellerService;
 
+@Service
 public class SellerService implements ISellerService {
 
     @Autowired
-    private WatchRepository WATCH_REPOSITORY; 
+    private WatchRepository WATCH_REPOSITORY;
     @Autowired
-    private MemberRepository MEMBER_REPOSITORY; 
+    private MemberRepository MEMBER_REPOSITORY;
     @Autowired
-    private SellerRepository SELLER_REPOSITORY; 
-
+    private SellerRepository SELLER_REPOSITORY;
 
     @Override
     public Watch createWatch(Watch watch) {
-        return WATCH_REPOSITORY.save(watch); 
+        return WATCH_REPOSITORY.save(watch);
     }
 
     @Override
