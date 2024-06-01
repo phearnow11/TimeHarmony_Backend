@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.example.TimeHarmony.entity.Filter;
+import com.example.TimeHarmony.dtos.Filter;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.repository.WatchRepository;
 import com.example.TimeHarmony.service.interfacepack.IWatchService;

@@ -3,7 +3,7 @@ package com.example.TimeHarmony.service.interfacepack;
 import java.util.List;
 import java.util.Optional;
 
-import com.example.TimeHarmony.entity.Filter;
+import com.example.TimeHarmony.dtos.Filter;
 import com.example.TimeHarmony.entity.Watch;
 
 public interface IWatchService {
