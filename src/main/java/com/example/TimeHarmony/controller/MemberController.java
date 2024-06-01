@@ -19,6 +19,7 @@ import com.example.TimeHarmony.builder.MemberBuilder;
 import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Users;
+import com.example.TimeHarmony.service.EmailService;
 import com.example.TimeHarmony.service.MemberService;
 
 @RestController
@@ -28,9 +29,15 @@ public class MemberController {
 
     @Autowired
     private MemberService MEMBER_SERVICE;
+
+    @Autowired
+    private EmailService EMAIL_SERVICE;
+
     private final byte MEMBER_ACTIVATE = 1;
     private final byte DEFAULT_ACTIVE_STATUS = 1;
     private final byte DEFAULT_INACTIVE_STATUS = 0;
+    private final String DEFAULT_MAIL_SUBJECT_VERIFY_GOOGLE = "Email Verification Code";
+    private final String DEFAULT_MAIL_SUBJECT_VERIFY_PASSWORD = "Password Changing Verification Code";
 
     @RequestMapping(value = "get-member", method = RequestMethod.GET)
     public Optional<Members> getMember(@RequestParam("member_id") String member_id) {
@@ -73,23 +80,23 @@ public class MemberController {
         return res;
     }
 
-    @RequestMapping(value = "verify/google", method = RequestMethod.GET)
+    @RequestMapping(value = "verify/google/getcode", method = RequestMethod.GET)
     public String updateEmailVerificationCode(@RequestParam("member_id") String member_id) {
         String code = MEMBER_SERVICE.updateEmailCode(member_id);
         Members user = MEMBER_SERVICE.getMemberbyID(member_id).get();
         if (user.getEmail().isEmpty())
             return "User does not have an email";
-        // send to email
+        EMAIL_SERVICE.sendSimpleMessage(user.getEmail(), DEFAULT_MAIL_SUBJECT_VERIFY_GOOGLE, code);
         return code;
     }
 
-    @RequestMapping(value = "verify/password", method = RequestMethod.GET)
+    @RequestMapping(value = "verify/password/getcode", method = RequestMethod.GET)
     public String generateForgotPasswordCode(@RequestParam("member_id") String member_id) {
         String code = MEMBER_SERVICE.autoVerificationCodeGenerate();
         Members user = MEMBER_SERVICE.getMemberbyID(member_id).get();
         if (user.getEmail().isEmpty())
             return "User does not have an email";
-        // send to email
+        EMAIL_SERVICE.sendSimpleMessage(user.getEmail(), DEFAULT_MAIL_SUBJECT_VERIFY_PASSWORD, code);
         return code;
     }
 
