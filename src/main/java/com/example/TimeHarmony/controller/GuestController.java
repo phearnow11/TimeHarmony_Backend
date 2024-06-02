@@ -80,7 +80,6 @@ public class GuestController {
                 .setDefaultAddress(detail_info.get("address"))
                 .setPhone(detail_info.get("phone"))
                 .setEmail(detail_info.get("email"))
-                .setEmailVerify(MEMBER_SERVICE.autoVerificationCodeGenerate())
                 .build();
 
         Sellers s = new Sellers();
