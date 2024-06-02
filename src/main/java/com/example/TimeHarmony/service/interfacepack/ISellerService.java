@@ -8,7 +8,7 @@ public interface ISellerService {
 
     public Sellers saveSeller(Sellers seller, Users logInfo);
 
-    public Watch createWatch(Watch watch);
+    public Watch createWatch(Watch watch, String seller_id);
 
     public String deleteWatchById(String watch_id);
 

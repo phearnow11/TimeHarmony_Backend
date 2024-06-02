@@ -1,5 +1,7 @@
 package com.example.TimeHarmony.service;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,7 +36,9 @@ public class SellerService implements ISellerService {
     private AuthoritiesRepository AUTHORITIES_REPOSITORY;
 
     @Override
-    public Watch createWatch(Watch watch) {
+    public Watch createWatch(Watch watch, String seller_id) {
+        Sellers s = SELLER_REPOSITORY.findById(UUID.fromString(seller_id)).get();
+        watch.setSeller(s);
         return WATCH_REPOSITORY.save(watch);
     }
 

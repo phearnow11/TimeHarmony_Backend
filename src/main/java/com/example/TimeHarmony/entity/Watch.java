@@ -2,6 +2,9 @@ package com.example.TimeHarmony.entity;
 
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -24,6 +27,7 @@ public class Watch {
     private String watch_id;
 
     @ManyToOne
+    @JsonIgnoreProperties(value = { "watches", "handler", "hibernateLazyInitializer" }, allowSetters = true)
     @JoinColumn(name = "member_id")
     private Sellers seller;
 

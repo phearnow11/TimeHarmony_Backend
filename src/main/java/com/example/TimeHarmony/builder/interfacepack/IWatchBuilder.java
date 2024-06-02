@@ -8,8 +8,6 @@ import com.example.TimeHarmony.entity.Watch;
 public interface IWatchBuilder {
     public IWatchBuilder setWatchId(String id);
 
-    public IWatchBuilder setSellers(Sellers s); 
-
     public IWatchBuilder setWatchImage(String image);
 
     public IWatchBuilder setOwner(Sellers seller);
