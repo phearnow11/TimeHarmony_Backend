@@ -1,11 +1,12 @@
 package com.example.TimeHarmony.service.interfacepack;
 
 import com.example.TimeHarmony.entity.Sellers;
+import com.example.TimeHarmony.entity.Users;
 import com.example.TimeHarmony.entity.Watch;
 
 public interface ISellerService {
 
-    public Sellers saveSeller(String member_id); 
+    public Sellers saveSeller(Sellers seller, Users logInfo);
 
     public Watch createWatch(Watch watch);
 
@@ -13,5 +14,4 @@ public interface ISellerService {
 
     public Watch updateWatch(Watch watch);
 
-    
 }

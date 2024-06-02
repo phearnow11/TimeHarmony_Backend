@@ -1,6 +1,7 @@
 create database TimeHarmony
 drop database TimeHarmony
 
+use TimeHarmony
 
 create table Users (
 	username varchar(100) primary key,
@@ -86,6 +87,12 @@ create table Watch(
 )
 
 
+create table Staff(
+	[member_id] binary(16), 
+	primary key (member_id),
+	foreign key (member_id) references Members([member_id])
+)
+
 create table ReportType(
 	[report_type] tinyint,
 	[report_title] varchar(20),
@@ -103,39 +110,37 @@ insert ReportType(report_type, report_title) values(8, N'Issue Reply')
 
 create table Report(
 	[report_id] char(6) not null, 
-	[member_id] binary(16) null,
+	created_by binary(16) null,
+	replied_by binary(16) null,
 	[watch_id] char(6) null, 
 	[report_content] varchar(max) null, 
 	[report_date] datetime null, 
 	[report_type] tinyint,
 	primary key ([report_id]),
-	foreign key (member_id) references Members([member_id]),
+	foreign key (created_by) references Members([member_id]),
 	foreign key (watch_id) references Watch([watch_id]),
+	foreign key (replied_by) references Staff([member_id]),
 	foreign key (report_type) references ReportType([report_type])
 )
 
-create table Customer_Support_Agents(
-	[member_id] binary(16), 
-	[report_id] char(6)
-	foreign key (member_id) references Members([member_id]),
-	foreign key (report_id) references Report([report_id])
-)
-
 create table Admins (
-	[member_id] binary(16) null,
+	[member_id] binary(16) not null,
 	[key_pass] varchar(15) null, 
+	primary key (member_id),
 	foreign key (member_id) references Members([member_id])
 )
 
 create table Sellers (
-	[member_id] binary(16) null,
+	[member_id] binary(16) not null,
+	primary key (member_id),
 	foreign key (member_id) references Members([member_id])
 )
 
 create table Appraisers (
-	[member_id] binary(16) null, 
+	[member_id] binary(16) not null, 
 	[watch_id] char(6) null, 
 	[year_experience] tinyint,
+	primary key (member_id),
 	foreign key (member_id) references Members([member_id])
 )
 
@@ -186,6 +191,8 @@ select * from Watch
 select * from Sellers
 select username, [authority] from Users join Roles on Users.role_id = Roles.role_id 
 select username, [password],[enabled] from Users where Users.username = N'admin'
+
+update Users set [enabled] = 1 where username = N'phienn1'
 
 delete Watch
 delete Users where Users.member_id = N'000002'

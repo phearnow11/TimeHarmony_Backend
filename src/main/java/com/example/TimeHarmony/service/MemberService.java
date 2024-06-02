@@ -73,7 +73,6 @@ public class MemberService implements IMemberService {
     public boolean isExist(Users user, String email) {
         boolean res = USER_REPOSOTORY.existsById(user.getUsername());
         List<Members> members = MEMBER_REPOSITORY.getMemberbyEmail(email);
-        System.out.println(members);
         if (members.isEmpty() && !res)
             return false;
         return true;

@@ -11,10 +11,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-@Table(name = "Customer_Support_Agents")
+@Table(name = "Staff")
 @PrimaryKeyJoinColumn(name = "member_id")
-public class CustomerSupportAgents extends Members {
-
-    private String report_id;
+public class Staff extends Members {
 
 }
