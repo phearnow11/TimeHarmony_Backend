@@ -62,6 +62,7 @@ public class WatchService implements IWatchService {
 
     @Override
     public List<Watch> getWatchByFeatures(String features) {
+        
         return WATCH_REPOSITORY.findWatchesByFeatures(features);
     }
 
@@ -72,13 +73,22 @@ public class WatchService implements IWatchService {
 
     @Override
     public List<Watch> loadMoreWatchesSortedByCreationDate(List<Watch> old_watch_list) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
+        List<Watch> newWatches = WATCH_REPOSITORY.findNext18WatchesbyDESCDate(old_watch_list.size() - 1); 
+
+        old_watch_list.addAll(newWatches);
+        return old_watch_list ; 
     }
 
     @Override
     public Optional<Watch> getWatchById(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getWatchById'");
+        if (id.isEmpty())
+            return null;
+        Optional<Watch> watch = Optional.empty();
+        watch = WATCH_REPOSITORY.findById(id);
+        if (watch.isPresent())
+            return watch;
+        return null;
     }
 
     @Override
