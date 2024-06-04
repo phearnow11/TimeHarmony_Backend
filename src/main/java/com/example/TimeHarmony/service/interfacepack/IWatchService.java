@@ -1,7 +1,6 @@
 package com.example.TimeHarmony.service.interfacepack;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.example.TimeHarmony.dtos.Filter;
 import com.example.TimeHarmony.entity.Watch;
@@ -24,6 +23,10 @@ public interface IWatchService {
     public List<Watch> get30WatchesSortedByCreationDate();
 
     public List<Watch> loadMoreWatchesSortedByCreationDate(List<Watch> old_watch_list);
+
+    public List<Watch> nextPage(int numpage); 
+
+    public List<Watch> getPage01(); 
 
     public Watch getWatchById(String id);
 

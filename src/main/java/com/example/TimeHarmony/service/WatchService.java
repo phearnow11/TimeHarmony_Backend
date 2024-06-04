@@ -81,6 +81,17 @@ public class WatchService implements IWatchService {
     }
 
     @Override
+    public List<Watch> nextPage(int numpage) {
+        
+       return WATCH_REPOSITORY.findNextPageDESCDate(numpage*60 - 1);
+    }
+
+    @Override
+    public List<Watch> getPage01() {
+       return WATCH_REPOSITORY.get1pageOfWatchByDESCDate(); 
+    }
+
+    @Override
     public Watch getWatchById(String id) {
         if (id.isEmpty())
             return null;
@@ -101,32 +112,31 @@ public class WatchService implements IWatchService {
 
     @Override
     public List<Watch> getWatchesByPriceRange(float leftlimit, float rightlimit) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getWatchesByPriceRange'");
+        return WATCH_REPOSITORY.findWatchByRangePrice(leftlimit, rightlimit); 
     }
 
     @Override
     public List<Watch> getWatchesByDialColor(String color) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getWatchesByDialColor'");
+       return WATCH_REPOSITORY.findWatchesByDialColor(color);
     }
 
     @Override
     public List<Watch> getWatchesByCaseShape(String case_shape) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getWatchesByCaseShape'");
+        return WATCH_REPOSITORY.findWatchesByCaseShape(case_shape);
     }
 
     @Override
     public List<Watch> getWatchesByBandType(String band) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getWatchesByBandType'");
+        return WATCH_REPOSITORY.findWatchesByBandType(band);
     }
 
     @Override
     public List<Watch> getWatchesByMovement(String movement) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getWatchesByMovement'");
+       return WATCH_REPOSITORY.findWatchesByMovement(movement);
     }
+
+   
+
+   
 
 }
