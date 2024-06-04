@@ -38,6 +38,8 @@ public interface IMemberService {
 
     public List<AccessHistory> getAllAccessHistories(String member_id);
 
+    public Addresses addAddress(Addresses address);
+
     public String updateAccessHistories(String member_id, List<String> urls, List<Timestamp> times);
 
 }

@@ -14,7 +14,7 @@ import jakarta.transaction.Transactional;
 public interface AddressRepository extends JpaRepository<Addresses, String> {
     @Modifying
     @Transactional
-    @Query(value = "insert Addresses([address_id], [member_id], [name], [phone], [address_detail], [is_default]) values (:id , :m_id , :name , :phone , :detail )", nativeQuery = true)
+    @Query(value = "insert Addresses([address_id], [member_id], [name], [phone], [address_detail], [is_default]) values (:id , :m_id , :name , :phone , :detail, :default )", nativeQuery = true)
     void insertAddress(@Param("id") String id, @Param("m_id") UUID m_id, @Param("name") String name,
-            @Param("detail") String detail);
+            @Param("detail") String detail, @Param("default") boolean is_default);
 }

@@ -18,6 +18,7 @@ import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Report;
 import com.example.TimeHarmony.entity.Users;
 import com.example.TimeHarmony.enumf.Roles;
+import com.example.TimeHarmony.repository.AddressRepository;
 import com.example.TimeHarmony.repository.AuthoritiesRepository;
 import com.example.TimeHarmony.repository.MemberRepository;
 import com.example.TimeHarmony.repository.UsersRepository;
@@ -35,6 +36,8 @@ public class MemberService implements IMemberService {
     private UsersRepository USER_REPOSOTORY;
     @Autowired
     private AuthoritiesRepository AUTHORITIES_REPOSITORY;
+    @Autowired
+    private AddressRepository ADDRESS_REPOSITORY;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -144,6 +147,11 @@ public class MemberService implements IMemberService {
     public String updateAccessHistories(String member_id, List<String> urls, List<Timestamp> times) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateAccessHistories'");
+    }
+
+    @Override
+    public Addresses addAddress(Addresses address) {
+        return ADDRESS_REPOSITORY.save(address);
     }
 
 }

@@ -149,7 +149,7 @@ create table Access_History(
 	foreign key (member_id) references Members([member_id])
 )
 
-create Orders(
+create table Orders(
 	[order_id] char(12) not null,
 	[member_id] binary(16) null,
 	[create_time] datetime null,

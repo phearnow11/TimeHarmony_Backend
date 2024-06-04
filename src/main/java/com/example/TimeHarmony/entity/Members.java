@@ -44,8 +44,10 @@ public class Members {
     private int is_active;
     private String email;
     private String phone;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp last_login_date;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp last_logout_date;
 

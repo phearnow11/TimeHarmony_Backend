@@ -18,7 +18,6 @@ public class MemberBuilder implements IMemberBuilder {
     private String first_name;
     private String last_name;
     private int is_active;
-    private String address;
     private String email;
     private String phone;
     @Temporal(TemporalType.TIMESTAMP)
