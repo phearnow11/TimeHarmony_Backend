@@ -1,5 +1,6 @@
 package com.example.TimeHarmony.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,11 @@ public class SellerService implements ISellerService {
         USER_REPOSITORY.save(logInfo);
         AUTHORITIES_REPOSITORY.save(new Authorities(logInfo.getUsername(), Roles.ROLE_SELLER.name()));
         return SELLER_REPOSITORY.save(seller);
+    }
+
+    @Override
+    public List<Watch> findAllWatchBySeller(Sellers s) {
+        return s.getWatches();
     }
 
 }

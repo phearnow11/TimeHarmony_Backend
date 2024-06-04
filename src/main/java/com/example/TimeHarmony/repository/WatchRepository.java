@@ -50,4 +50,5 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
 
     @Query(value = "select * from Watch where price BETWEEN :start AND :end", nativeQuery=true)
     List<Watch> findWatchByRangePrice(@Param("start") float start, @Param ("end") float end);
+
 }

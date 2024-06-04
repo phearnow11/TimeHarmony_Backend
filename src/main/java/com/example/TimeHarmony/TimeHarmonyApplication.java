@@ -23,6 +23,7 @@ public class TimeHarmonyApplication {
 	@EventListener(ApplicationReadyEvent.class)
 	public void testF() {
 		System.out.println(test.getAllAccessHistories("de75cc33-a556-490b-a140-9d618d461569"));
+		
 	}
 
 }
