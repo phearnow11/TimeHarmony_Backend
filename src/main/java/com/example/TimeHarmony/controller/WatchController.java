@@ -52,6 +52,21 @@ public class WatchController {
         return WATCH_SERVICE.get30WatchesSortedByCreationDate();
     }
 
+    @RequestMapping(value = "get/watch-page_01", method = RequestMethod.GET)
+    public List<Watch> get60watchesbyDESCdate() {
+        return WATCH_SERVICE.getPage01();
+    }
+
+    @RequestMapping(value = "get/watch-page", method = RequestMethod.GET)
+    public List<Watch> getNextPage(@RequestParam("pagenum") int pagenum) {
+        return WATCH_SERVICE.nextPage(pagenum);
+    }
+
+    @RequestMapping(value = "get/watch-in-range-price", method= RequestMethod.GET)
+    public List<Watch> getWatchInRange(@RequestParam("leftlimit") float leftlimit, @RequestParam("rightlimit") float rightlimit){
+        return WATCH_SERVICE.getWatchesByPriceRange(leftlimit, rightlimit);
+    }
+
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
     public Watch getWatchbyId(@PathVariable("id") String id) {
         return WATCH_SERVICE.getWatchById(id);
