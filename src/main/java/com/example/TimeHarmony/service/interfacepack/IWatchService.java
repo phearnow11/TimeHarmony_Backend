@@ -26,6 +26,8 @@ public interface IWatchService {
 
     public List<Watch> nextPage(int numpage); 
 
+    public List<Watch> getPage01(); 
+
     public Watch getWatchById(String id);
 
     public List<Watch> getWatchesByFilter(Filter filter);
