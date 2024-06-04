@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.service.MemberService;
 import com.example.TimeHarmony.service.TokenService;
 
@@ -28,15 +29,12 @@ public class AuthController {
 
     @PostMapping("login")
     public Map<String, Object> token(Authentication authentication) {
+        Members m = MEMBER_SERVICE.getMemberbyUserLogInfo(MEMBER_SERVICE.getUserbyUsername(authentication.getName()));
         Map<String, Object> data = new HashMap<>();
         String token = TOKEN_SERVIVE.generateToken(authentication);
         data.put("token", token);
-        data.put("user", MEMBER_SERVICE
-                .getMemberbyUserLogInfo(MEMBER_SERVICE.getUserbyUsername(authentication.getName())));
-        MEMBER_SERVICE.login(MEMBER_SERVICE
-                .getMemberbyUserLogInfo(MEMBER_SERVICE.getUserbyUsername(authentication.getName()))
-                .getMember_id()
-                .toString());
+        data.put("user", m.getMember_id());
+        MEMBER_SERVICE.login(m.getMember_id().toString());
         return data;
     }
 

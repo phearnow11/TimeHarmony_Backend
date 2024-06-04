@@ -1,7 +1,6 @@
 package com.example.TimeHarmony.service.interfacepack;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.example.TimeHarmony.dtos.Filter;
 import com.example.TimeHarmony.entity.Watch;
@@ -9,7 +8,7 @@ import com.example.TimeHarmony.entity.Watch;
 public interface IWatchService {
     public List<Watch> getListWatchDECS();
 
-    public String generateWatchId(); 
+    public String generateWatchId();
 
     public List<Watch> getWatchByGender(String gender);
 
@@ -27,7 +26,7 @@ public interface IWatchService {
 
     public List<Watch> nextPage(int numpage); 
 
-    public Optional<Watch> getWatchById(String id);
+    public Watch getWatchById(String id);
 
     public List<Watch> getWatchesByFilter(Filter filter);
 

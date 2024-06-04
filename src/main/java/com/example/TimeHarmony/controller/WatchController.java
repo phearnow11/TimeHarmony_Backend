@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,5 +50,10 @@ public class WatchController {
     @RequestMapping(value = "get/30-watches", method = RequestMethod.GET)
     public List<Watch> get30watchesbyDESCdate() {
         return WATCH_SERVICE.get30WatchesSortedByCreationDate();
+    }
+
+    @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
+    public Watch getWatchbyId(@PathVariable("id") String id) {
+        return WATCH_SERVICE.getWatchById(id);
     }
 }
