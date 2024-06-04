@@ -25,6 +25,8 @@ public interface IWatchService {
 
     public List<Watch> loadMoreWatchesSortedByCreationDate(List<Watch> old_watch_list);
 
+    public List<Watch> nextPage(int numpage); 
+
     public Optional<Watch> getWatchById(String id);
 
     public List<Watch> getWatchesByFilter(Filter filter);

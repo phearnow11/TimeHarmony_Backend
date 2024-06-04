@@ -61,8 +61,7 @@ public class WatchService implements IWatchService {
     }
 
     @Override
-    public List<Watch> getWatchByFeatures(String features) {
-        
+    public List<Watch> getWatchByFeatures(String features) { 
         return WATCH_REPOSITORY.findWatchesByFeatures(features);
     }
 
@@ -78,6 +77,12 @@ public class WatchService implements IWatchService {
 
         old_watch_list.addAll(newWatches);
         return old_watch_list ; 
+    }
+
+    @Override
+    public List<Watch> nextPage(int numpage) {
+        //lay so trang nhan voi 60 - 1 
+        throw new UnsupportedOperationException("Unimplemented method 'nextPage'");
     }
 
     @Override
@@ -128,5 +133,7 @@ public class WatchService implements IWatchService {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getWatchesByMovement'");
     }
+
+   
 
 }

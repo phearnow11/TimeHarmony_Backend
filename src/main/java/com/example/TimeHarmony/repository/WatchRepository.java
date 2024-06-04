@@ -21,12 +21,18 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
     @Query("select w from Watch w where w.style_type = ?1")
     List<Watch> findWatchesByStyle(String style);
 
-    @Query("select w from Watch w where w.feature = ?1")
-    List<Watch> findWatchesByFeatures(String feature);
+    /*@Query("select w from Watch w where w.feature = ?1")
+    List<Watch> findWatchesByFeatures(String feature);*/
 
     @Query(value = "select top (30) * from Watch order by watch_create_date desc", nativeQuery = true)
     List<Watch> find30watchesByDESCDate();
 
+    @Query(value = "select top (60) * from Watch order by watch_create_date desc", nativeQuery = true)
+    List<Watch> get1pageOfWatchByDESCDate();
+
     @Query(value = "select * from Watch order by watch_create_date desc OFFSET :start rows fetch next 18 rows only", nativeQuery = true)
     List<Watch> findNext18WatchesbyDESCDate(@Param("start") int start);
+
+    @Query(value = "select * from Watch where feature like %:start% ", nativeQuery= true)
+    List<Watch> findWatchesByFeatures(@Param("start") String feature);
 }
