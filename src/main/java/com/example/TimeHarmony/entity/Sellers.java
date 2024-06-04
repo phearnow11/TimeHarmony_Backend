@@ -23,10 +23,10 @@ public class Sellers extends Members {
     }
 
     public Sellers(UUID member_id, String google_id, Users user_log_info, String member_image, String first_name,
-            String last_name, int is_active, String address, String email, String phone, Timestamp last_login_date,
-            Timestamp last_logout_date, String email_verification, List<Watch> watches) {
-        super(member_id, google_id, user_log_info, member_image, first_name, last_name, is_active, address, email,
-                phone, last_login_date, last_logout_date, email_verification);
+            String last_name, int is_active, String email, String phone, Timestamp last_login_date,
+            Timestamp last_logout_date, List<Addresses> addresses, List<Watch> watches) {
+        super(member_id, google_id, user_log_info, member_image, first_name, last_name, is_active, email, phone,
+                last_login_date, last_logout_date, addresses);
         this.watches = watches;
     }
 

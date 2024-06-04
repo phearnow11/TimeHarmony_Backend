@@ -21,8 +21,6 @@ public interface IMemberBuilder {
 
     public IMemberBuilder setActive(int is_active);
 
-    public IMemberBuilder setDefaultAddress(String address);
-
     public IMemberBuilder setEmail(String email);
 
     public IMemberBuilder setPhone(String phone);
@@ -30,8 +28,6 @@ public interface IMemberBuilder {
     public IMemberBuilder setLastLoginDate(Timestamp last_login);
 
     public IMemberBuilder setLastLogoutDate(Timestamp last_logout);
-
-    public IMemberBuilder setEmailVerify(String code);
 
     public Members build();
 }

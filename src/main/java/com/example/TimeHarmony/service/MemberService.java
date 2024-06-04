@@ -18,7 +18,6 @@ import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Report;
 import com.example.TimeHarmony.entity.Users;
 import com.example.TimeHarmony.enumf.Roles;
-import com.example.TimeHarmony.repository.AddressesRepository;
 import com.example.TimeHarmony.repository.AuthoritiesRepository;
 import com.example.TimeHarmony.repository.MemberRepository;
 import com.example.TimeHarmony.repository.UsersRepository;
@@ -32,8 +31,6 @@ public class MemberService implements IMemberService {
 
     @Autowired
     private MemberRepository MEMBER_REPOSITORY;
-    @Autowired
-    private AddressesRepository ADDRESS_REPOSITORY;
     @Autowired
     private UsersRepository USER_REPOSOTORY;
     @Autowired
@@ -58,7 +55,7 @@ public class MemberService implements IMemberService {
 
     @Override
     public List<Addresses> getAddresses(String member_id) {
-        return ADDRESS_REPOSITORY.getAddressesbyMember(member_id);
+        return null;
     }
 
     @Override
@@ -118,13 +115,6 @@ public class MemberService implements IMemberService {
     public void logout(String id) {
         MEMBER_REPOSITORY.updateLastLogoutDate(Timestamp.valueOf(LocalDateTime.now()), UUID.fromString(id));
         MEMBER_REPOSITORY.updateActiveStatus(DEFAULT_INACTIVE_STATUS, UUID.fromString(id));
-    }
-
-    @Override
-    public String updateEmailCode(String member_id) {
-        String code = autoVerificationCodeGenerate();
-        MEMBER_REPOSITORY.updateEmailVerificationCode(code, UUID.fromString(member_id));
-        return code;
     }
 
     @Override

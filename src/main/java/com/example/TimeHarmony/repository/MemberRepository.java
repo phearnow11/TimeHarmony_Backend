@@ -17,7 +17,7 @@ import com.example.TimeHarmony.entity.Users;
 
 public interface MemberRepository extends JpaRepository<Members, UUID> {
     @Query("select m from Members m where m.member_id = ?1")
-    Optional<Members> getMemberById(String member_id); 
+    Optional<Members> getMemberById(String member_id);
 
     @Query("select m from Members m where m.user_log_info = ?1")
     Optional<Members> getMemberbyUserLogInfo(Users user);
@@ -48,11 +48,6 @@ public interface MemberRepository extends JpaRepository<Members, UUID> {
     @Transactional
     @Query("update Members m set m.is_active = :status where m.member_id = :id")
     void updateActiveStatus(@Param("status") int status, @Param("id") UUID id);
-
-    @Modifying
-    @Transactional
-    @Query("update Members m set m.email_verification = :code where m.member_id = :id")
-    void updateEmailVerificationCode(@Param("code") String code, @Param("id") UUID id);
 
     @Modifying
     @Transactional

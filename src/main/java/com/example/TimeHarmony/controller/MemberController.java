@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,38 +36,42 @@ public class MemberController {
     private final String DEFAULT_MAIL_SUBJECT_VERIFY_GOOGLE = "Email Verification Code";
     private final String DEFAULT_MAIL_SUBJECT_VERIFY_PASSWORD = "Password Changing Verification Code";
 
-    @RequestMapping(value = "get/member", method = RequestMethod.GET)
-    public Optional<Members> getMember(@RequestParam("member_id") String member_id) {
+    @RequestMapping(value = "get/member/{id}", method = RequestMethod.GET)
+    public Optional<Members> getMember(@PathVariable("id") String member_id) {
         return MEMBER_SERVICE.getMemberbyID(member_id);
     }
 
-    @RequestMapping(value = "get/addresses", method = RequestMethod.GET)
-    public List<Addresses> getAddresses(@RequestParam("member_id") String member_id) {
+    @RequestMapping(value = "get/addresses/{id}", method = RequestMethod.GET)
+    public List<Addresses> getAddresses(@PathVariable("id") String member_id) {
         return MEMBER_SERVICE.getAddresses(member_id);
     }
 
-    @RequestMapping(value = "verify/google/getcode", method = RequestMethod.GET)
-    public String updateEmailVerificationCode(@RequestParam("member_id") String member_id) {
-        String code = MEMBER_SERVICE.updateEmailCode(member_id);
-        Members user = MEMBER_SERVICE.getMemberbyID(member_id).get();
-        if (user.getEmail().isEmpty())
-            return "User does not have an email";
-        EMAIL_SERVICE.sendSimpleMessage(user.getEmail(), DEFAULT_MAIL_SUBJECT_VERIFY_GOOGLE, code);
-        return code;
-    }
-
-    @RequestMapping(value = "verify/password/getcode", method = RequestMethod.GET)
-    public String generateForgotPasswordCode(@RequestParam("member_id") String member_id) {
+    @RequestMapping(value = "verify/{type}/getcode/{id}", method = RequestMethod.GET)
+    public String updateEmailVerificationCode(@PathVariable("id") String member_id, @PathVariable("type") String type) {
         String code = MEMBER_SERVICE.autoVerificationCodeGenerate();
         Members user = MEMBER_SERVICE.getMemberbyID(member_id).get();
+
         if (user.getEmail().isEmpty())
             return "User does not have an email";
-        EMAIL_SERVICE.sendSimpleMessage(user.getEmail(), DEFAULT_MAIL_SUBJECT_VERIFY_PASSWORD, code);
+
+        String subject_mail = "";
+        switch (type) {
+            case "google":
+                subject_mail = DEFAULT_MAIL_SUBJECT_VERIFY_GOOGLE;
+                break;
+            case "password":
+                subject_mail = DEFAULT_MAIL_SUBJECT_VERIFY_PASSWORD;
+                break;
+            default:
+                break;
+        }
+
+        EMAIL_SERVICE.sendSimpleMessage(user.getEmail(), subject_mail, code);
         return code;
     }
 
-    @RequestMapping(value = "update/email", method = RequestMethod.PUT)
-    public String updateEmail(@RequestParam("member_id") String member_id,
+    @RequestMapping(value = "update/email/{id}", method = RequestMethod.PUT)
+    public String updateEmail(@PathVariable("id") String member_id,
             @RequestParam("email") String new_email) {
 
         return MEMBER_SERVICE.updateEmail(member_id, new_email);

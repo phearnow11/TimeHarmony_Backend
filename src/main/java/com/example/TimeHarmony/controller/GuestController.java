@@ -49,10 +49,8 @@ public class GuestController {
                 .setFirstName(UserJSdata.optString("Fname"))
                 .setLastName(UserJSdata.optString("Lname"))
                 .setActive(DEFAULT_INACTIVE_STATUS)
-                .setDefaultAddress(UserJSdata.optString("address"))
                 .setPhone(UserJSdata.optString("phone"))
                 .setEmail(UserJSdata.optString("email"))
-                .setEmailVerify(MEMBER_SERVICE.autoVerificationCodeGenerate())
                 .build();
 
         if (MEMBER_SERVICE.isExist(logInfo, member.getEmail()))
@@ -77,7 +75,6 @@ public class GuestController {
                 .setFirstName(detail_info.get("Fname"))
                 .setLastName(detail_info.get("Lname"))
                 .setActive(DEFAULT_INACTIVE_STATUS)
-                .setDefaultAddress(detail_info.get("address"))
                 .setPhone(detail_info.get("phone"))
                 .setEmail(detail_info.get("email"))
                 .build();

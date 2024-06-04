@@ -27,8 +27,6 @@ public class MemberBuilder implements IMemberBuilder {
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp last_logout_date;
 
-    private String email_verification;
-
     @Override
     public IMemberBuilder setMemberId(UUID id) {
         this.member_id = id;
@@ -60,12 +58,6 @@ public class MemberBuilder implements IMemberBuilder {
     }
 
     @Override
-    public IMemberBuilder setDefaultAddress(String address) {
-        this.address = address;
-        return this;
-    }
-
-    @Override
     public IMemberBuilder setEmail(String email) {
         this.email = email;
         return this;
@@ -90,12 +82,6 @@ public class MemberBuilder implements IMemberBuilder {
     }
 
     @Override
-    public IMemberBuilder setEmailVerify(String code) {
-        this.email_verification = code;
-        return this;
-    }
-
-    @Override
     public IMemberBuilder setUserLogInfo(Users user) {
         this.user = user;
         return this;
@@ -109,8 +95,8 @@ public class MemberBuilder implements IMemberBuilder {
 
     @Override
     public Members build() {
-        return new Members(member_id, google_id, user, member_image, first_name, last_name, is_active, address, email,
-                phone, last_login_date, last_logout_date, email_verification);
+        return new Members(member_id, google_id, user, member_image, first_name, last_name, is_active, email,
+                phone, last_login_date, last_logout_date, null);
     }
 
 }
