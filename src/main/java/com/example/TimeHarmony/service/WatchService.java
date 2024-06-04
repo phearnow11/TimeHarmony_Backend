@@ -82,13 +82,13 @@ public class WatchService implements IWatchService {
 
     @Override
     public List<Watch> nextPage(int numpage) {
-        
-       return WATCH_REPOSITORY.findNextPageDESCDate(numpage*60 - 1);
+
+        return WATCH_REPOSITORY.findNextPageDESCDate(numpage * 60 - 1);
     }
 
     @Override
     public List<Watch> getPage01() {
-       return WATCH_REPOSITORY.get1pageOfWatchByDESCDate(); 
+        return WATCH_REPOSITORY.get1pageOfWatchByDESCDate();
     }
 
     @Override
@@ -112,12 +112,12 @@ public class WatchService implements IWatchService {
 
     @Override
     public List<Watch> getWatchesByPriceRange(float leftlimit, float rightlimit) {
-        return WATCH_REPOSITORY.findWatchByRangePrice(leftlimit, rightlimit); 
+        return WATCH_REPOSITORY.findWatchByRangePrice(leftlimit, rightlimit);
     }
 
     @Override
     public List<Watch> getWatchesByDialColor(String color) {
-       return WATCH_REPOSITORY.findWatchesByDialColor(color);
+        return WATCH_REPOSITORY.findWatchesByDialColor(color);
     }
 
     @Override
@@ -132,11 +132,7 @@ public class WatchService implements IWatchService {
 
     @Override
     public List<Watch> getWatchesByMovement(String movement) {
-       return WATCH_REPOSITORY.findWatchesByMovement(movement);
+        return WATCH_REPOSITORY.findWatchesByMovement(movement);
     }
-
-   
-
-   
 
 }

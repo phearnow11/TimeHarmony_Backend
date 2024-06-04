@@ -46,9 +46,8 @@ create table Addresses (
 select * from Addresses
 
 create table Watch(
-	[watch_id] char(6) not null, 
+	[watch_id] char(12) not null, 
 	[member_id] binary(16) not null,
-	[watch_image] varchar(max) null, 
 	[watch_description] varchar(max) null, 
 	[watch_name] varchar(100) null, 
 	[watch_create_date] datetime,
@@ -84,6 +83,11 @@ create table Watch(
 	primary key ([watch_id])
 )
 
+create table Watch_images(
+	watch_image varchar(max) null, 
+	watch_id char(12) not null,
+	foreign key (watch_id) references Watch(watch_id) 
+)
 
 create table Staff(
 	[member_id] binary(16), 
@@ -176,6 +180,7 @@ select * from Admins
 select * from Customer_Support_Agents
 select * from Watch
 select * from Sellers
+select * from Addresses
 select username, [authority] from Users join Roles on Users.role_id = Roles.role_id 
 select username, [password],[enabled] from Users where Users.username = N'admin'
 
