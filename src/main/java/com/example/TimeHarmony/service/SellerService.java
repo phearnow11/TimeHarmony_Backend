@@ -1,11 +1,15 @@
 package com.example.TimeHarmony.service;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
 
 import com.example.TimeHarmony.entity.Authorities;
 import com.example.TimeHarmony.entity.Sellers;
@@ -49,11 +53,7 @@ public class SellerService implements ISellerService {
         return watch_id + " Deleted";
     }
 
-    @Override
-    public Watch updateWatch(Watch watch) {
-        // update bên query đi
-        return watch;
-    }
+   
 
     @Override
     public Sellers saveSeller(Sellers seller, Users logInfo) {
@@ -66,6 +66,21 @@ public class SellerService implements ISellerService {
     @Override
     public List<Watch> findAllWatchBySeller(Sellers s) {
         return s.getWatches();
+    }
+
+    @Override
+    public Watch updateWatchByFields( Map<String, Object> data, String watch_id) {
+        Optional<Watch> existingWatch = WATCH_REPOSITORY.findById(watch_id);
+
+        if (existingWatch.isPresent()) {
+            data.forEach((key, value)-> {
+                Field field = ReflectionUtils.findField(Watch.class, key);
+                field.setAccessible(true);
+                ReflectionUtils.setField(field, existingWatch.get(), value);
+            });
+            return WATCH_REPOSITORY.save(existingWatch.get()); 
+        }
+        return null ; 
     }
 
 }

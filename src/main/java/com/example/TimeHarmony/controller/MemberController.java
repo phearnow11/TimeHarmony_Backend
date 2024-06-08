@@ -84,7 +84,7 @@ public class MemberController {
         return "Hi";
     }
 
-    @RequestMapping(value = "save/address/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "save/address", method = RequestMethod.POST)
     public Addresses saveAddresses(@RequestBody Map<String, String> data, @PathVariable("id") String member_id) {
         Members cur_m = MEMBER_SERVICE.getMemberbyID(member_id).get();
         Addresses nAdd = new Addresses(data.get("address_id"), cur_m, data.get("name"),

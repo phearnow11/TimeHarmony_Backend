@@ -72,4 +72,21 @@ public class SellerController {
         SELLER_SERVICE.createWatch(watch, id);
         return res;
     }
+
+    @RequestMapping(value ="updateAll/watch", method = RequestMethod.PUT)
+    public String updateAllfield(@RequestBody Watch newWatch , @RequestParam("watch_id") String id){
+        String res = "Watch is updated";
+        return res ; 
+    }
+
+    @RequestMapping(value= "updatefields/watch", method = RequestMethod.PATCH)
+    public String updateWatch(@RequestBody Map<String,Object> data, @RequestParam("watch_id") String id){
+        String res = "Watch is updated";
+        
+        Watch watch = SELLER_SERVICE.updateWatchByFields(data, id);
+        if (watch!= null) {
+            return res ; 
+        }
+        return "Fail to update!"; 
+    }
 }

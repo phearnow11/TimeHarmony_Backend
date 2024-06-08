@@ -1,0 +1,22 @@
+package com.example.TimeHarmony.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.example.TimeHarmony.entity.Watch;
+import com.example.TimeHarmony.repository.WatchRepository;
+import com.example.TimeHarmony.service.interfacepack.IStaffService;
+
+public class StaffService implements IStaffService{
+    @Autowired
+    private WatchRepository WATCH_REPOSITORY;
+
+
+    @Override
+    public void approveWatch(String watch_id) {
+       Watch w = WATCH_REPOSITORY.findWatchById(watch_id); 
+       w.setState((byte)1); 
+    }
+
+    
+    
+}

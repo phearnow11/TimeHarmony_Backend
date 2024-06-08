@@ -8,5 +8,5 @@ public interface IAppraiserService {
 
     public Watch updateWatchProperties(String watch_id, Map<String, Object> data);
 
-    public int approveWatch(String watch_id);
+    public void approveWatch(String watch_id);
 }

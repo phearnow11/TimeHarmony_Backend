@@ -12,6 +12,9 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
     @Query("select w from Watch w where w.gender = ?1")
     List<Watch> findWatchesByGender(String gender);
 
+    @Query("select w from Watch where w.watch_id = ?1")
+    Watch findWatchById(String id); 
+    
     @Query("select w from Watch w where w.series = ?1")
     List<Watch> findWatchesBySeries(String series);
 

@@ -1,6 +1,7 @@
 package com.example.TimeHarmony.service.interfacepack;
 
 import java.util.List;
+import java.util.Map;
 
 import com.example.TimeHarmony.entity.Sellers;
 import com.example.TimeHarmony.entity.Users;
@@ -14,7 +15,7 @@ public interface ISellerService {
 
     public String deleteWatchById(String watch_id);
 
-    public Watch updateWatch(Watch watch);
+    public Watch updateWatchByFields(Map<String, Object> fields, String watch_id);
 
     public List<Watch> findAllWatchBySeller(Sellers s);
 }
