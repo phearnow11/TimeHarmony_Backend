@@ -84,7 +84,7 @@ create table Watch(
 )
 
 create table Watch_images(
-	watch_image varchar(max) null, 
+	image_url varchar(max) null, 
 	watch_id char(12) not null,
 	foreign key (watch_id) references Watch(watch_id) 
 )
@@ -114,7 +114,7 @@ create table Report(
 	[report_id] char(6) not null, 
 	created_by binary(16) null,
 	replied_by binary(16) null,
-	[watch_id] char(6) null, 
+	[watch_id] char(12) null, 
 	[report_content] varchar(max) null, 
 	[report_date] datetime null, 
 	[report_type] tinyint,
@@ -138,14 +138,6 @@ create table Sellers (
 	foreign key (member_id) references Members([member_id])
 )
 
-create table Appraisers (
-	[member_id] binary(16) not null, 
-	[watch_id] char(6) null, 
-	[year_experience] tinyint,
-	primary key (member_id),
-	foreign key (member_id) references Members([member_id])
-)
-
 create table Access_History(
 	[member_id] binary(16) not null,
 	[url] varchar(50) not null,
@@ -161,7 +153,7 @@ create table Orders(
 
 create table Cart(
 	[cart_id] char(10) not null, 
-	[watch_id] char(6) null, 
+	[watch_id] char(12) null, 
 	[member_id] binary(16) null,
 	[order_id] char(12) not null,
 	[add_date] datetime null, 
@@ -175,12 +167,11 @@ create table Cart(
 select * from Users
 select * from Members
 select * from Authorities
-select * from Appraisers
 select * from Admins
-select * from Customer_Support_Agents
 select * from Watch
 select * from Sellers
 select * from Addresses
+select * from Watch_images
 select username, [authority] from Users join Roles on Users.role_id = Roles.role_id 
 select username, [password],[enabled] from Users where Users.username = N'admin'
 

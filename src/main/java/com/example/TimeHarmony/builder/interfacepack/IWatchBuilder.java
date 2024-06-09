@@ -1,6 +1,7 @@
 package com.example.TimeHarmony.builder.interfacepack;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import com.example.TimeHarmony.entity.Sellers;
 import com.example.TimeHarmony.entity.Watch;
@@ -8,7 +9,7 @@ import com.example.TimeHarmony.entity.Watch;
 public interface IWatchBuilder {
     public IWatchBuilder setWatchId(String id);
 
-    public IWatchBuilder setWatchImage(String image);
+    public IWatchBuilder setWatchImage(List<String> image);
 
     public IWatchBuilder setOwner(Sellers seller);
 

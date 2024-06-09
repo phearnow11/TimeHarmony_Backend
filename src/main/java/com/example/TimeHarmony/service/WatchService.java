@@ -23,7 +23,7 @@ public class WatchService implements IWatchService {
     public String generateWatchId() {
         int leftLimit = 48; // '0'
         int rightLimit = 57; // '9'
-        int targetStringLength = 5;
+        int targetStringLength = 11;
 
         Random random = new Random();
 

@@ -62,8 +62,9 @@ public class WatchController {
         return WATCH_SERVICE.nextPage(pagenum);
     }
 
-    @RequestMapping(value = "get/watch-in-range-price", method= RequestMethod.GET)
-    public List<Watch> getWatchInRange(@RequestParam("leftlimit") float leftlimit, @RequestParam("rightlimit") float rightlimit){
+    @RequestMapping(value = "get/watch-in-range-price", method = RequestMethod.GET)
+    public List<Watch> getWatchInRange(@RequestParam("leftlimit") float leftlimit,
+            @RequestParam("rightlimit") float rightlimit) {
         return WATCH_SERVICE.getWatchesByPriceRange(leftlimit, rightlimit);
     }
 

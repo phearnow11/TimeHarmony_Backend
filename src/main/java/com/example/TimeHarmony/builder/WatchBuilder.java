@@ -1,6 +1,7 @@
 package com.example.TimeHarmony.builder;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import com.example.TimeHarmony.builder.interfacepack.IWatchBuilder;
 import com.example.TimeHarmony.entity.Sellers;
@@ -13,7 +14,7 @@ public class WatchBuilder implements IWatchBuilder {
     private String watch_id;
 
     private Sellers seller;
-    private String watch_image;
+    private List<String> images;
     private String watch_description;
     private String watch_name;
 
@@ -59,8 +60,8 @@ public class WatchBuilder implements IWatchBuilder {
     }
 
     @Override
-    public IWatchBuilder setWatchImage(String image) {
-        this.watch_image = image;
+    public IWatchBuilder setWatchImage(List<String> images) {
+        this.images = images;
         return this;
     }
 
@@ -264,7 +265,7 @@ public class WatchBuilder implements IWatchBuilder {
 
     @Override
     public Watch build() {
-        return new Watch(watch_id, seller, watch_image, watch_description, watch_name, watch_create_date,
+        return new Watch(watch_id, seller, watch_description, watch_name, images, watch_create_date,
                 watch_approval_date, state, price, brand, series, model, gender, style_type, sub_class, made_label,
                 calender, feature, movement, functions, engine, water_resistant, band_color, band_type, clasp, bracelet,
                 dial_type, dial_color, crystal, second_makers, bezel, bezel_material, case_back, case_dimension,

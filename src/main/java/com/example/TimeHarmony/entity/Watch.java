@@ -1,9 +1,13 @@
 package com.example.TimeHarmony.entity;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -30,9 +34,13 @@ public class Watch {
     @JoinColumn(name = "member_id")
     private Sellers seller;
 
-    private String watch_image;
     private String watch_description;
     private String watch_name;
+
+    @ElementCollection
+    @CollectionTable(name = "Watch_images", joinColumns = @JoinColumn(name = "watch_id"))
+    @Column(name = "image_url")
+    private List<String> image_url;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp watch_create_date;
@@ -74,7 +82,7 @@ public class Watch {
 
     @Override
     public String toString() {
-        return "Watch [watch_id=" + watch_id + ", seller=" + seller + ", watch_image=" + watch_image
+        return "Watch [watch_id=" + watch_id + ", seller=" + seller + ", watch_image="
                 + ", watch_description=" + watch_description + ", watch_name=" + watch_name + ", watch_create_date="
                 + watch_create_date + ", watch_approval_date=" + watch_approval_date + ", state=" + state + ", price="
                 + price + ", brand=" + brand + ", series=" + series + ", model=" + model + ", gender=" + gender

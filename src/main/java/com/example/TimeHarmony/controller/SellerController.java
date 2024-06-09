@@ -2,6 +2,7 @@ package com.example.TimeHarmony.controller;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class SellerController {
 
         Watch watch = new WatchBuilder()
                 .setWatchId(WATCH_SERVICE.generateWatchId())
-                .setWatchImage(data.get("image"))
+                .setWatchImage(new ArrayList<>())
                 .setWatchDescription(data.get("description"))
                 .setWatchName(data.get("name"))
                 .setWatchCreateDate(Timestamp.valueOf(LocalDateTime.now()))
