@@ -73,20 +73,20 @@ public class SellerController {
         return res;
     }
 
-    @RequestMapping(value ="updateAll/watch", method = RequestMethod.PUT)
-    public String updateAllfield(@RequestBody Watch newWatch , @RequestParam("watch_id") String id){
+    @RequestMapping(value = "update/all/{watch_id}", method = RequestMethod.PUT)
+    public String updateAllfield(@RequestBody Watch newWatch, @RequestParam("watch_id") String id) {
         String res = "Watch is updated";
-        return res ; 
+        return res;
     }
 
-    @RequestMapping(value= "updatefields/watch", method = RequestMethod.PATCH)
-    public String updateWatch(@RequestBody Map<String,Object> data, @RequestParam("watch_id") String id){
+    @RequestMapping(value = "update/fields/{watch_id}", method = RequestMethod.PATCH)
+    public String updateWatch(@RequestBody Map<String, Object> data, @RequestParam("watch_id") String id) {
         String res = "Watch is updated";
-        
+        System.out.println(data);
         Watch watch = SELLER_SERVICE.updateWatchByFields(data, id);
-        if (watch!= null) {
-            return res ; 
+        if (watch != null) {
+            return res;
         }
-        return "Fail to update!"; 
+        return "Fail to update!";
     }
 }

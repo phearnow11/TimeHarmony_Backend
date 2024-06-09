@@ -12,9 +12,6 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
     @Query("select w from Watch w where w.gender = ?1")
     List<Watch> findWatchesByGender(String gender);
 
-    @Query("select w from Watch where w.watch_id = ?1")
-    Watch findWatchById(String id); 
-    
     @Query("select w from Watch w where w.series = ?1")
     List<Watch> findWatchesBySeries(String series);
 
@@ -35,7 +32,7 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
 
     @Query("select w from Watch w where w.movement = ?1")
     List<Watch> findWatchesByMovement(String movement);
-    
+
     @Query(value = "select top (30) * from Watch order by watch_create_date desc", nativeQuery = true)
     List<Watch> find30watchesByDESCDate();
 
@@ -48,10 +45,10 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
     @Query(value = "select * from Watch order by watch_create_date desc OFFSET :start rows fetch next 60 rows only", nativeQuery = true)
     List<Watch> findNextPageDESCDate(@Param("start") int start);
 
-    @Query(value = "select * from Watch where feature like %:start% ", nativeQuery= true)
+    @Query(value = "select * from Watch where feature like %:start% ", nativeQuery = true)
     List<Watch> findWatchesByFeatures(@Param("start") String feature);
 
-    @Query(value = "select * from Watch where price BETWEEN :start AND :end", nativeQuery=true)
-    List<Watch> findWatchByRangePrice(@Param("start") float start, @Param ("end") float end);
+    @Query(value = "select * from Watch where price BETWEEN :start AND :end", nativeQuery = true)
+    List<Watch> findWatchByRangePrice(@Param("start") float start, @Param("end") float end);
 
 }
