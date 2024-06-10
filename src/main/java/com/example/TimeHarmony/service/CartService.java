@@ -2,6 +2,7 @@ package com.example.TimeHarmony.service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,18 @@ public class CartService implements ICartService {
         Cart cart = new Cart(STRING_SERVICE.autoGenerateString(10), watch_id, UUID.fromString(member_id), "",
                 Timestamp.valueOf(LocalDateTime.now()));
         return CART_REPOSITORY.save(cart);
+    }
+
+    @Override
+    public List<Cart> getAllCart(String member_id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getAllCart'");
+    }
+
+    @Override
+    public void deleteFromCart(String cart_id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteFromCart'");
     }
 
 }
