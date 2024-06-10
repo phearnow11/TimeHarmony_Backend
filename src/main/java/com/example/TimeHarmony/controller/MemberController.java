@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Members;
+import com.example.TimeHarmony.service.CartService;
 import com.example.TimeHarmony.service.EmailService;
 import com.example.TimeHarmony.service.MemberService;
 import com.example.TimeHarmony.service.StringService;
@@ -33,6 +34,9 @@ public class MemberController {
     @Autowired
     private StringService STRING_SERVICE;
 
+    @Autowired
+    private CartService CART_SERVICE;
+
     private final String DEFAULT_MAIL_SUBJECT_VERIFY_GOOGLE = "Email Verification Code";
     private final String DEFAULT_MAIL_SUBJECT_VERIFY_PASSWORD = "Password Changing Verification Code";
 
@@ -48,7 +52,7 @@ public class MemberController {
 
     @RequestMapping(value = "verify/{type}/getcode/{id}", method = RequestMethod.GET)
     public String updateEmailVerificationCode(@PathVariable("id") String member_id, @PathVariable("type") String type) {
-        String code = MEMBER_SERVICE.autoVerificationCodeGenerate();
+        String code = STRING_SERVICE.autoGenerateString(6);
         Members user = MEMBER_SERVICE.getMemberbyID(member_id).get();
 
         if (user.getEmail().isEmpty())
@@ -90,5 +94,13 @@ public class MemberController {
         Addresses nAdd = new Addresses(data.get("address_id"), cur_m, data.get("name"),
                 data.get("phone"), data.get("detail"), Boolean.valueOf(data.get("default")));
         return MEMBER_SERVICE.addAddress(nAdd);
+    }
+
+    @RequestMapping(value = "add/to-cart/{id}", method = RequestMethod.POST)
+    public String addToCart(@PathVariable("id") String member_id, @RequestParam("watch_id") String watch_id) {
+        if (CART_SERVICE.addToCart(watch_id, member_id) != null) {
+            return "Cart Added";
+        }
+        return "Failed to add to cart";
     }
 }

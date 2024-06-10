@@ -24,8 +24,6 @@ public interface IMemberService {
 
     public Members getMemberbyUserLogInfo(Users username);
 
-    public String autoVerificationCodeGenerate();
-
     public void login(String member_id);
 
     public void logout(String member_id);

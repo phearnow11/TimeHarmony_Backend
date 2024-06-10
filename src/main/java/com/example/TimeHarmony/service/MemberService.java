@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +37,8 @@ public class MemberService implements IMemberService {
     private AuthoritiesRepository AUTHORITIES_REPOSITORY;
     @Autowired
     private AddressRepository ADDRESS_REPOSITORY;
+    @Autowired
+    private StringService STRING_SERVICE;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -93,19 +94,6 @@ public class MemberService implements IMemberService {
         if (user.isPresent())
             return user.get();
         return null;
-    }
-
-    @Override
-    public String autoVerificationCodeGenerate() {
-        int leftlimit = 48, rightlimit = 122, stringlength = 6;
-        String code = "";
-        Random random = new Random();
-        code = random.ints(leftlimit, rightlimit + 1)
-                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-                .limit(stringlength)
-                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                .toString();
-        return code;
     }
 
     @Override

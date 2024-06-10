@@ -43,8 +43,6 @@ create table Addresses (
 	foreign key ([member_id]) references Members([member_id])
 )
 
-select * from Addresses
-
 create table Watch(
 	[watch_id] char(12) not null, 
 	[member_id] binary(16) not null,
@@ -153,15 +151,14 @@ create table Orders(
 
 create table Cart(
 	[cart_id] char(10) not null, 
-	[watch_id] char(12) null, 
-	[member_id] binary(16) null,
-	[order_id] char(12) not null,
+	[watch_id] char(12) not null, 
+	[member_id] binary(16) not null,
+	[order_id] char(12) null,
 	[add_date] datetime null, 
 	primary key ([cart_id]), 
 	foreign key (member_id) references Members(member_id),
 	foreign key (watch_id) references Watch(watch_id)
 )
-
 
 
 select * from Users
@@ -172,6 +169,7 @@ select * from Watch
 select * from Sellers
 select * from Addresses
 select * from Watch_images
+select * from Cart
 select username, [authority] from Users join Roles on Users.role_id = Roles.role_id 
 select username, [password],[enabled] from Users where Users.username = N'admin'
 
