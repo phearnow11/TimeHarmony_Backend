@@ -107,7 +107,6 @@ public class MemberController {
     @RequestMapping(value = "to-seller", method = RequestMethod.POST)
     public String saveSeller(@RequestParam("id") String id) {
 
-        MEMBER_SERVICE.toSeller(id);
-        return "Seller is created";
+        return MEMBER_SERVICE.toSeller(id);
     }
 }

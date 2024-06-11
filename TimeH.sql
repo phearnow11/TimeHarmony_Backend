@@ -51,7 +51,7 @@ create table Watch(
 	[watch_create_date] datetime,
 	[watch_approval_date] datetime,
 	[state] tinyint null, 
-	[price] float null, 
+	[price] bigint null, 
 	[brand] varchar(100) null, 
 	[series] varchar(100) null, 
 	[model] varchar(100) null, 
@@ -143,10 +143,33 @@ create table Access_History(
 	foreign key (member_id) references Members([member_id])
 )
 
+create table Vouchers(
+	[voucher_id] char(12) not null,		
+	[name] varchar(200) null,
+	[description] varchar(max) null, 
+	[value] int,
+	[value_percentage] float, 
+	[available] tinyint,
+	primary key (voucher_id)
+)
+
 create table Orders(
 	[order_id] char(12) not null,
-	[member_id] binary(16) null,
+	[member_id] binary(16) not null,
 	[create_time] datetime null,
+	[address] varchar(50) null,
+	[receive_name] varchar(50) null,
+	[phone] varchar(50) null,
+	[notice] varchar(500) null,
+	[total_price] bigint,
+	primary key (order_id),
+)
+
+create table Voucher_Applied (
+	voucher_id char(12) not null,
+	order_id char(12) not null,
+	foreign key (voucher_id) references Vouchers(voucher_id),
+	foreign key (order_id) references Orders(order_id)
 )
 
 create table Cart(

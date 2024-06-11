@@ -16,4 +16,10 @@ public class StaffService implements IStaffService {
         w.setState((byte) 1);
     }
 
+    @Override
+    public void createVoucher() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'createVoucer'");
+    }
+
 }

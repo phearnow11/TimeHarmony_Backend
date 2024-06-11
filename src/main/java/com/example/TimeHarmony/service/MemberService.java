@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,6 @@ import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Authorities;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Report;
-import com.example.TimeHarmony.entity.Sellers;
 import com.example.TimeHarmony.entity.Users;
 import com.example.TimeHarmony.enumf.Roles;
 import com.example.TimeHarmony.repository.AddressRepository;
@@ -147,7 +145,11 @@ public class MemberService implements IMemberService {
 
     @Override
     public String toSeller(String m_id) {
-        SELLER_REPOSITORY.toSeller(UUID.fromString(m_id));
+        try {
+            SELLER_REPOSITORY.toSeller(UUID.fromString(m_id));
+        } catch (Exception e) {
+            return "Seller is already existed";
+        }
         return "Success";
     }
 

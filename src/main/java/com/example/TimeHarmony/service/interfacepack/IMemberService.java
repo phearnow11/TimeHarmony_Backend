@@ -8,7 +8,6 @@ import com.example.TimeHarmony.dtos.AccessHistory;
 import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Report;
-import com.example.TimeHarmony.entity.Sellers;
 import com.example.TimeHarmony.entity.Users;
 
 public interface IMemberService {
