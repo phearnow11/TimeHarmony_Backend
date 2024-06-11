@@ -103,4 +103,11 @@ public class MemberController {
         }
         return "Failed to add to cart";
     }
+
+    @RequestMapping(value = "to-seller", method = RequestMethod.POST)
+    public String saveSeller(@RequestParam("id") String id) {
+
+        MEMBER_SERVICE.toSeller(id);
+        return "Seller is created";
+    }
 }

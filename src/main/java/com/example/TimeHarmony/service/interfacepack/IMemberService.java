@@ -8,6 +8,7 @@ import com.example.TimeHarmony.dtos.AccessHistory;
 import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Report;
+import com.example.TimeHarmony.entity.Sellers;
 import com.example.TimeHarmony.entity.Users;
 
 public interface IMemberService {
@@ -39,5 +40,7 @@ public interface IMemberService {
     public Addresses addAddress(Addresses address);
 
     public String updateAccessHistories(String member_id, List<String> urls, List<Timestamp> times);
+
+    public String toSeller(String m_id);
 
 }

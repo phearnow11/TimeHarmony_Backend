@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,11 +16,13 @@ import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Authorities;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Report;
+import com.example.TimeHarmony.entity.Sellers;
 import com.example.TimeHarmony.entity.Users;
 import com.example.TimeHarmony.enumf.Roles;
 import com.example.TimeHarmony.repository.AddressRepository;
 import com.example.TimeHarmony.repository.AuthoritiesRepository;
 import com.example.TimeHarmony.repository.MemberRepository;
+import com.example.TimeHarmony.repository.SellerRepository;
 import com.example.TimeHarmony.repository.UsersRepository;
 import com.example.TimeHarmony.service.interfacepack.IMemberService;
 
@@ -38,7 +41,7 @@ public class MemberService implements IMemberService {
     @Autowired
     private AddressRepository ADDRESS_REPOSITORY;
     @Autowired
-    private StringService STRING_SERVICE;
+    private SellerRepository SELLER_REPOSITORY;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -140,6 +143,12 @@ public class MemberService implements IMemberService {
     @Override
     public Addresses addAddress(Addresses address) {
         return ADDRESS_REPOSITORY.save(address);
+    }
+
+    @Override
+    public String toSeller(String m_id) {
+        SELLER_REPOSITORY.toSeller(UUID.fromString(m_id));
+        return "Success";
     }
 
 }
