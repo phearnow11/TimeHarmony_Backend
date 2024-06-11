@@ -105,8 +105,8 @@ public class MemberController {
     }
 
     @RequestMapping(value = "to-seller", method = RequestMethod.POST)
-    public String saveSeller(@RequestParam("id") String id) {
+    public String saveSeller(@RequestParam("id") String id, @RequestParam("username") String username) {
 
-        return MEMBER_SERVICE.toSeller(id);
+        return MEMBER_SERVICE.toSeller(id, username);
     }
 }

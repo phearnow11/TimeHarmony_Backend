@@ -1,6 +1,7 @@
 package com.example.TimeHarmony.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,8 +10,11 @@ import com.example.TimeHarmony.entity.Admins;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Report;
 import com.example.TimeHarmony.entity.Watch;
+import com.example.TimeHarmony.enumf.Roles;
 import com.example.TimeHarmony.repository.AdminRepository;
+import com.example.TimeHarmony.repository.AuthoritiesRepository;
 import com.example.TimeHarmony.repository.MemberRepository;
+import com.example.TimeHarmony.repository.StaffRepository;
 import com.example.TimeHarmony.repository.WatchRepository;
 import com.example.TimeHarmony.service.interfacepack.IAdminService;
 
@@ -25,6 +29,12 @@ public class AdminService implements IAdminService {
 
     @Autowired
     private WatchRepository WATCH_REPOSITORY;
+
+    @Autowired
+    private StaffRepository STAFF_REPOSITORY;
+
+    @Autowired
+    private AuthoritiesRepository AUTHORITIES_REPOSITORY;
 
     @Override
     public List<Members> getMembers() {
@@ -77,9 +87,15 @@ public class AdminService implements IAdminService {
     }
 
     @Override
-    public String updateMemberRole(String member_id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateMemberRole'");
+    public String toStaff(String id, String username) {
+        try {
+
+            STAFF_REPOSITORY.toStaff(UUID.fromString(id));
+            AUTHORITIES_REPOSITORY.updateRole(Roles.ROLE_STAFF.name(), username);
+        } catch (Exception e) {
+            return "Staff is already promoted!";
+        }
+        return "To staff success!";
     }
 
 }

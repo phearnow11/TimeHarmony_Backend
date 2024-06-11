@@ -144,9 +144,10 @@ public class MemberService implements IMemberService {
     }
 
     @Override
-    public String toSeller(String m_id) {
+    public String toSeller(String m_id, String username) {
         try {
             SELLER_REPOSITORY.toSeller(UUID.fromString(m_id));
+            AUTHORITIES_REPOSITORY.updateRole(Roles.ROLE_SELLER.name(), username);
         } catch (Exception e) {
             return "Seller is already existed";
         }

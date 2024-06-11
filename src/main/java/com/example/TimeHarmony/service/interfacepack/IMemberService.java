@@ -40,6 +40,6 @@ public interface IMemberService {
 
     public String updateAccessHistories(String member_id, List<String> urls, List<Timestamp> times);
 
-    public String toSeller(String m_id);
+    public String toSeller(String m_id, String username);
 
 }

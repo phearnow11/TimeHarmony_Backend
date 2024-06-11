@@ -27,6 +27,6 @@ public interface IAdminService {
 
     public List<Report> viewReports();
 
-    public String updateMemberRole(String member_id);
+    public String toStaff(String id, String username);
 
 }
