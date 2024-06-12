@@ -149,7 +149,11 @@ create table Vouchers(
 	[description] varchar(max) null, 
 	[value] int,
 	[value_percentage] float, 
-	[available] tinyint,
+	[limit] int,
+	[condition] int,
+	[created_date] datetime, 
+	[expired_date] datetime,
+	[quantity] tinyint,
 	primary key (voucher_id)
 )
 
@@ -195,7 +199,7 @@ select * from Watch_images
 select * from Cart
 select username, [authority] from Users join Roles on Users.role_id = Roles.role_id 
 select username, [password],[enabled] from Users where Users.username = N'admin'
-
+select username, authority from authorities where username = N'phienn'
 update Users set [enabled] = 0 where username = N'phienn1'
 
 delete Watch

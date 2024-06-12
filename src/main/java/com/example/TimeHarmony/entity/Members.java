@@ -29,7 +29,6 @@ public class Members {
     @Id
     @GeneratedValue
     private UUID member_id;
-
     private String google_id;
 
     @OneToOne
@@ -37,9 +36,7 @@ public class Members {
     private Users user_log_info;
 
     private String member_image;
-
     private String first_name;
-
     private String last_name;
     private int is_active;
     private String email;
@@ -53,6 +50,9 @@ public class Members {
 
     @OneToMany(mappedBy = "member")
     private List<Addresses> addresses;
+
+    @OneToMany(mappedBy = "member_created")
+    List<Orders> myOrders;
 
     public Members() {
     }
