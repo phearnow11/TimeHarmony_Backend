@@ -18,11 +18,13 @@ import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
+@ToString
 @Table(name = "Watch")
 public class Watch {
 
@@ -30,7 +32,7 @@ public class Watch {
     private String watch_id;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "watches", "handler", "hibernateLazyInitializer" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "watches", "handler", "hibernateLazyInitializer", "seller" }, allowSetters = true)
     @JoinColumn(name = "member_id")
     private Sellers seller;
 
@@ -79,21 +81,4 @@ public class Watch {
 
     public Watch() {
     }
-
-    @Override
-    public String toString() {
-        return "Watch [watch_id=" + watch_id + ", seller=" + seller + ", watch_image="
-                + ", watch_description=" + watch_description + ", watch_name=" + watch_name + ", watch_create_date="
-                + watch_create_date + ", watch_approval_date=" + watch_approval_date + ", state=" + state + ", price="
-                + price + ", brand=" + brand + ", series=" + series + ", model=" + model + ", gender=" + gender
-                + ", style_type=" + style_type + ", sub_class=" + sub_class + ", made_label=" + made_label
-                + ", calender=" + calender + ", feature=" + feature + ", movement=" + movement + ", functions="
-                + functions + ", engine=" + engine + ", water_resistant=" + water_resistant + ", band_color="
-                + band_color + ", band_type=" + band_type + ", clasp=" + clasp + ", bracelet=" + bracelet
-                + ", dial_type=" + dial_type + ", dial_color=" + dial_color + ", crystal=" + crystal
-                + ", second_makers=" + second_makers + ", bezel=" + bezel + ", bezel_material=" + bezel_material
-                + ", case_back=" + case_back + ", case_dimension=" + case_dimension + ", case_shape=" + case_shape
-                + "]";
-    }
-
 }
