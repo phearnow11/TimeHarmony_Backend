@@ -55,6 +55,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST).permitAll()
                         .requestMatchers(HttpMethod.GET).permitAll()
                         .requestMatchers(HttpMethod.PUT).permitAll()
+                        .requestMatchers(HttpMethod.PATCH).permitAll()
                         .requestMatchers(HttpMethod.DELETE).permitAll()
                         .anyRequest().hasAuthority("SCOPE_READ"))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
