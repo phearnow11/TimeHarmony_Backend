@@ -72,15 +72,14 @@ public class SellerController {
                 .build();
 
         return SELLER_SERVICE.createWatch(watch, id);
-        
-    }
 
-    
+    }
 
     @RequestMapping(value = "update/fields/{watch_id}", method = RequestMethod.PATCH)
     public Watch updateWatch(@RequestBody Map<String, String> data, @PathVariable String watch_id) {
-        Watch existingWatch =  WATCH_SERVICE.getWatchById(watch_id);
-        existingWatch = SELLER_SERVICE.updateWatchByFields(data, existingWatch); 
+        Watch existingWatch = WATCH_SERVICE.getWatchById(watch_id);
+        System.out.println(data.get("test"));
+        existingWatch = SELLER_SERVICE.updateWatchByFields(data, existingWatch);
         return existingWatch;
     }
 }

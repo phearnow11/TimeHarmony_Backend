@@ -19,7 +19,6 @@ import com.example.TimeHarmony.repository.UsersRepository;
 import com.example.TimeHarmony.repository.WatchRepository;
 import com.example.TimeHarmony.service.interfacepack.ISellerService;
 
-
 @Service
 public class SellerService implements ISellerService {
 
@@ -64,7 +63,6 @@ public class SellerService implements ISellerService {
         return s.getWatches();
     }
 
-   
     @Override
     public Watch updateWatch(Watch newWatch, Watch existingWatch) {
         // TODO Auto-generated method stub
@@ -73,15 +71,16 @@ public class SellerService implements ISellerService {
 
     @Override
     public Watch updateWatchByFields(Map<String, String> data, Watch existingWatch) {
-        
 
-        if (data.get("description") != null){
+        System.out.println(data);
+
+        if (data.get("description") != null) {
             existingWatch.setWatch_description(data.get("description"));
         }
         if (data.get("name") != null) {
             existingWatch.setWatch_name(data.get("name"));
         }
-        if (Long.parseLong(data.get("price")) != 0){
+        if (Long.parseLong(data.get("price")) != 0) {
             existingWatch.setPrice(Long.parseLong(data.get("price")));
         }
         if (data.get("brand") != null) {
@@ -93,7 +92,7 @@ public class SellerService implements ISellerService {
         if (data.get("model") != null) {
             existingWatch.setModel(data.get("model"));
         }
-        if (data.get("gender") != null ) {
+        if (data.get("gender") != null) {
             existingWatch.setGender(data.get("gender"));
         }
         if (data.get("style") != null) {
@@ -105,7 +104,7 @@ public class SellerService implements ISellerService {
         if (data.get("madelabel") != null) {
             existingWatch.setMade_label(data.get("madelabel"));
         }
-        if (data.get("calender") != null ) {
+        if (data.get("calender") != null) {
             existingWatch.setCalender(data.get("calender"));
         }
         if (data.get("feature") != null) {
@@ -114,7 +113,7 @@ public class SellerService implements ISellerService {
         if (data.get("movement") != null) {
             existingWatch.setMovement(data.get("movement"));
         }
-        if (data.get("function") != null){
+        if (data.get("function") != null) {
             existingWatch.setFunctions(data.get("function"));
         }
         if (data.get("engine") != null) {
@@ -123,13 +122,13 @@ public class SellerService implements ISellerService {
         if (data.get("waterresistant") != null) {
             existingWatch.setWater_resistant(data.get("waterresistant"));
         }
-        if (data.get("bandcolor") != null ) {
+        if (data.get("bandcolor") != null) {
             existingWatch.setBand_color(data.get("bandcolor"));
         }
-        if (data.get("bandtype") != null ) {
+        if (data.get("bandtype") != null) {
             existingWatch.setBand_type(data.get("bandtype"));
         }
-        if (data.get("clasp") != null ) {
+        if (data.get("clasp") != null) {
             existingWatch.setClasp(data.get("clasp"));
         }
         if (data.get("bracelet") != null) {
@@ -150,10 +149,10 @@ public class SellerService implements ISellerService {
         if (data.get("bezel") != null) {
             existingWatch.setBezel(data.get("bezel"));
         }
-        if (data.get("bezelmaterial") != null ){
+        if (data.get("bezelmaterial") != null) {
             existingWatch.setBezel(data.get("bezelmaterial"));
         }
-        if (data.get("caseback") != null){
+        if (data.get("caseback") != null) {
             existingWatch.setCase_back(data.get("caseback"));
         }
         if (data.get("casedimension") != null) {
@@ -163,8 +162,7 @@ public class SellerService implements ISellerService {
             existingWatch.setCase_shape(data.get("caseshape"));
         }
 
-        return existingWatch ; 
+        return existingWatch;
     }
 
-    
 }
