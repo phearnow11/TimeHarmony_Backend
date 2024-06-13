@@ -1,15 +1,12 @@
 package com.example.TimeHarmony.service;
 
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ReflectionUtils;
 
 import com.example.TimeHarmony.entity.Authorities;
 import com.example.TimeHarmony.entity.Sellers;
@@ -21,6 +18,7 @@ import com.example.TimeHarmony.repository.SellerRepository;
 import com.example.TimeHarmony.repository.UsersRepository;
 import com.example.TimeHarmony.repository.WatchRepository;
 import com.example.TimeHarmony.service.interfacepack.ISellerService;
+
 
 @Service
 public class SellerService implements ISellerService {
@@ -66,19 +64,107 @@ public class SellerService implements ISellerService {
         return s.getWatches();
     }
 
+   
     @Override
-    public Watch updateWatchByFields(Map<String, Object> data, String watch_id) {
-        Optional<Watch> existingWatch = WATCH_REPOSITORY.findById(watch_id);
-
-        if (existingWatch.isPresent()) {
-            data.forEach((key, value) -> {
-                Field field = ReflectionUtils.findField(Watch.class, key);
-                field.setAccessible(true);
-                ReflectionUtils.setField(field, existingWatch.get(), value);
-            });
-            return WATCH_REPOSITORY.save(existingWatch.get());
-        }
-        return null;
+    public Watch updateWatch(Watch newWatch, Watch existingWatch) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateWatch'");
     }
 
+    @Override
+    public Watch updateWatchByFields(Map<String, String> data, Watch existingWatch) {
+        
+
+        if (data.get("description") != null){
+            existingWatch.setWatch_description(data.get("description"));
+        }
+        if (data.get("name") != null) {
+            existingWatch.setWatch_name(data.get("name"));
+        }
+        if (Long.parseLong(data.get("price")) != 0){
+            existingWatch.setPrice(Long.parseLong(data.get("price")));
+        }
+        if (data.get("brand") != null) {
+            existingWatch.setBrand(data.get("brand"));
+        }
+        if (data.get("series") != null) {
+            existingWatch.setSeries(data.get("series"));
+        }
+        if (data.get("model") != null) {
+            existingWatch.setModel(data.get("model"));
+        }
+        if (data.get("gender") != null ) {
+            existingWatch.setGender(data.get("gender"));
+        }
+        if (data.get("style") != null) {
+            existingWatch.setStyle_type(data.get("style"));
+        }
+        if (data.get("subclass") != null) {
+            existingWatch.setSub_class(data.get("subclass"));
+        }
+        if (data.get("madelabel") != null) {
+            existingWatch.setMade_label(data.get("madelabel"));
+        }
+        if (data.get("calender") != null ) {
+            existingWatch.setCalender(data.get("calender"));
+        }
+        if (data.get("feature") != null) {
+            existingWatch.setFeature(data.get("feature"));
+        }
+        if (data.get("movement") != null) {
+            existingWatch.setMovement(data.get("movement"));
+        }
+        if (data.get("function") != null){
+            existingWatch.setFunctions(data.get("function"));
+        }
+        if (data.get("engine") != null) {
+            existingWatch.setEngine(data.get("engine"));
+        }
+        if (data.get("waterresistant") != null) {
+            existingWatch.setWater_resistant(data.get("waterresistant"));
+        }
+        if (data.get("bandcolor") != null ) {
+            existingWatch.setBand_color(data.get("bandcolor"));
+        }
+        if (data.get("bandtype") != null ) {
+            existingWatch.setBand_type(data.get("bandtype"));
+        }
+        if (data.get("clasp") != null ) {
+            existingWatch.setClasp(data.get("clasp"));
+        }
+        if (data.get("bracelet") != null) {
+            existingWatch.setBracelet(data.get("bracelet"));
+        }
+        if (data.get("dialtype") != null) {
+            existingWatch.setDial_type(data.get("dialtype"));
+        }
+        if (data.get("dialcolor") != null) {
+            existingWatch.setDial_color(data.get("dialcolor"));
+        }
+        if (data.get("crystal") != null) {
+            existingWatch.setCrystal(data.get("crystal"));
+        }
+        if (data.get("secondmaker") != null) {
+            existingWatch.setSecond_makers(data.get("secondmaker"));
+        }
+        if (data.get("bezel") != null) {
+            existingWatch.setBezel(data.get("bezel"));
+        }
+        if (data.get("bezelmaterial") != null ){
+            existingWatch.setBezel(data.get("bezelmaterial"));
+        }
+        if (data.get("caseback") != null){
+            existingWatch.setCase_back(data.get("caseback"));
+        }
+        if (data.get("casedimension") != null) {
+            existingWatch.setCase_dimension(data.get("casedimension"));
+        }
+        if (data.get("caseshape") != null) {
+            existingWatch.setCase_shape(data.get("caseshape"));
+        }
+
+        return existingWatch ; 
+    }
+
+    
 }

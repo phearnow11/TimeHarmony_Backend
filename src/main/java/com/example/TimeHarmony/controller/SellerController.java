@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,7 +32,7 @@ public class SellerController {
     private final byte DEFAULT_STATUS = 0;
 
     @RequestMapping(value = "create/watch", method = RequestMethod.POST)
-    public String createWatch(@RequestBody Map<String, String> data, @RequestParam("seller_id") String id) {
+    public Watch createWatch(@RequestBody Map<String, String> data, @RequestParam("seller_id") String id) {
         String res = "Watch is created";
 
         Watch watch = new WatchBuilder()
@@ -41,7 +42,7 @@ public class SellerController {
                 .setWatchName(data.get("name"))
                 .setWatchCreateDate(Timestamp.valueOf(LocalDateTime.now()))
                 .setState(DEFAULT_STATUS)
-                .setPrice(Float.parseFloat(data.get("price")))
+                .setPrice(Long.parseLong(data.get("price")))
                 .setBrand(data.get("brand"))
                 .setSeries(data.get("series"))
                 .setModel(data.get("model"))
@@ -70,24 +71,16 @@ public class SellerController {
                 .setCaseShape(data.get("caseshape"))
                 .build();
 
-        SELLER_SERVICE.createWatch(watch, id);
-        return res;
+        return SELLER_SERVICE.createWatch(watch, id);
+        
     }
 
-    @RequestMapping(value = "update/all/{watch_id}", method = RequestMethod.PUT)
-    public String updateAllfield(@RequestBody Watch newWatch, @RequestParam("watch_id") String id) {
-        String res = "Watch is updated";
-        return res;
-    }
+    
 
     @RequestMapping(value = "update/fields/{watch_id}", method = RequestMethod.PATCH)
-    public String updateWatch(@RequestBody Map<String, Object> data, @RequestParam("watch_id") String id) {
-        String res = "Watch is updated";
-        System.out.println(data);
-        Watch watch = SELLER_SERVICE.updateWatchByFields(data, id);
-        if (watch != null) {
-            return res;
-        }
-        return "Fail to update!";
+    public Watch updateWatch(@RequestBody Map<String, String> data, @PathVariable String watch_id) {
+        Watch existingWatch =  WATCH_SERVICE.getWatchById(watch_id);
+        existingWatch = SELLER_SERVICE.updateWatchByFields(data, existingWatch); 
+        return existingWatch;
     }
 }

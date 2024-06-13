@@ -25,7 +25,7 @@ public class WatchBuilder implements IWatchBuilder {
     private Timestamp watch_approval_date;
 
     private byte state;
-    private float price;
+    private long price;
     private String brand;
     private String series;
     private String model;
@@ -90,7 +90,7 @@ public class WatchBuilder implements IWatchBuilder {
     }
 
     @Override
-    public IWatchBuilder setPrice(float price) {
+    public IWatchBuilder setPrice(long price) {
         this.price = price;
         return this;
     }

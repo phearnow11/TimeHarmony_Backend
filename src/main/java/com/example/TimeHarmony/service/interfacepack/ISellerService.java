@@ -15,7 +15,9 @@ public interface ISellerService {
 
     public String deleteWatchById(String watch_id);
 
-    public Watch updateWatchByFields(Map<String, Object> fields, String watch_id);
+    public Watch updateWatchByFields(Map<String, String> data, Watch existingWatch);
+
+    public Watch updateWatch(Watch newWatch, Watch existingWatch); 
 
     public List<Watch> findAllWatchBySeller(Sellers s);
 }

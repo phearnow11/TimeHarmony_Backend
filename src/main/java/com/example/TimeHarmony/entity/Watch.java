@@ -51,7 +51,7 @@ public class Watch {
     private Timestamp watch_approval_date;
 
     private byte state;
-    private float price;
+    private long price;
     private String brand;
     private String series;
     private String model;

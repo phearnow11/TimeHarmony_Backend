@@ -23,7 +23,7 @@ public interface IWatchBuilder {
 
     public IWatchBuilder setState(byte state);
 
-    public IWatchBuilder setPrice(float price);
+    public IWatchBuilder setPrice(long price);
 
     public IWatchBuilder setBrand(String brand);
 
