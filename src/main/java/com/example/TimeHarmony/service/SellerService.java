@@ -80,7 +80,7 @@ public class SellerService implements ISellerService {
         if (data.get("name") != null) {
             existingWatch.setWatch_name(data.get("name"));
         }
-        if (Long.parseLong(data.get("price")) != 0) {
+        if (data.get("price") != null) {
             existingWatch.setPrice(Long.parseLong(data.get("price")));
         }
         if (data.get("brand") != null) {

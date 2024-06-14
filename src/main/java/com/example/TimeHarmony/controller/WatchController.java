@@ -52,13 +52,11 @@ public class WatchController {
         return WATCH_SERVICE.get30WatchesSortedByCreationDate();
     }
 
-    @RequestMapping(value = "get/watch-page_01", method = RequestMethod.GET)
-    public List<Watch> get60watchesbyDESCdate() {
-        return WATCH_SERVICE.getPage01();
-    }
-
     @RequestMapping(value = "get/watch-page", method = RequestMethod.GET)
     public List<Watch> getNextPage(@RequestParam("pagenum") int pagenum) {
+        if (pagenum == 0) {
+            return WATCH_SERVICE.getPage01(); 
+        }
         return WATCH_SERVICE.nextPage(pagenum);
     }
 
