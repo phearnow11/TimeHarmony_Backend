@@ -2,17 +2,8 @@ package com.example.TimeHarmony.dtos;
 
 import java.util.UUID;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+public interface Favorites {
+    UUID getMember_id();
 
-@Setter
-@Getter
-@AllArgsConstructor
-public class Favorites {
-    private UUID member_id;
-    private String watch_id;
-
-    public Favorites() {
-    }
+    String getWatch_id();
 }

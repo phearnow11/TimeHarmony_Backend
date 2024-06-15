@@ -1,16 +1,8 @@
 package com.example.TimeHarmony.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+public interface VoucherApplied {
+    String getVoucher_id();
 
-@Getter
-@Setter
-@AllArgsConstructor
-public class VoucherApplied {
-    private String voucher_id;
-    private String order_id;
+    String getOrder_id();
 
-    public VoucherApplied() {
-    }
 }

@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServic
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 
+import com.example.TimeHarmony.dtos.AccessHistory;
 import com.example.TimeHarmony.service.MemberService;
 
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class, UserDetailsServiceAutoConfiguration.class })
@@ -22,8 +23,9 @@ public class TimeHarmonyApplication {
 
 	@EventListener(ApplicationReadyEvent.class)
 	public void testF() {
-		System.out.println(test.getAllAccessHistories("de75cc33-a556-490b-a140-9d618d461569"));
-		
+		for (AccessHistory i : test.getAllAccessHistories("2b48f4ff-5284-4c09-9d0e-aa4ee3b169d4"))
+			System.out.println(i.getUrl());
+
 	}
 
 }
