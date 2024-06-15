@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.TimeHarmony.builder.WatchBuilder;
+import com.example.TimeHarmony.entity.Sellers;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.service.SellerService;
 import com.example.TimeHarmony.service.WatchService;
@@ -70,7 +71,8 @@ public class SellerController {
                 .setCaseShape(data.get("caseshape"))
                 .build();
 
-        return SELLER_SERVICE.createWatch(watch, id);
+        Sellers s = SELLER_SERVICE.getSellerbyId(id);
+        return SELLER_SERVICE.createWatch(watch, s);
 
     }
 

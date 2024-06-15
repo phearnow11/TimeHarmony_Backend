@@ -38,9 +38,8 @@ public class SellerService implements ISellerService {
     private AuthoritiesRepository AUTHORITIES_REPOSITORY;
 
     @Override
-    public Watch createWatch(Watch watch, String seller_id) {
-        Sellers s = SELLER_REPOSITORY.findById(UUID.fromString(seller_id)).get();
-        watch.setSeller(s);
+    public Watch createWatch(Watch watch, Sellers seller) {
+        watch.setSeller(seller);
         return WATCH_REPOSITORY.save(watch);
     }
 
@@ -163,6 +162,16 @@ public class SellerService implements ISellerService {
         }
 
         return existingWatch;
+    }
+
+    @Override
+    public Sellers getSellerbyId(String id) {
+        try {
+            return SELLER_REPOSITORY.findById(UUID.fromString(id)).get();
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
     }
 
 }

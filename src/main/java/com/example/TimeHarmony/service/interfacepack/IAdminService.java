@@ -31,7 +31,7 @@ public interface IAdminService {
 
     public String addMembers(List<Members> m);
 
-    public String addWatches(List<Watch> w) throws Exception;
+    public String addWatches(List<Watch> w, String s_id) throws Exception;
 
     public String testUser();
 
