@@ -83,7 +83,7 @@ public class MemberController {
         return MEMBER_SERVICE.updateEmail(member_id, new_email);
     }
 
-    @RequestMapping(value = "update/history{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "update/history/{id}", method = RequestMethod.POST)
     public String updateHistories(@PathVariable("id") String id, @RequestBody Map<String, List<String>> data) {
         List<String> urls = data.get("url");
         List<Timestamp> times = new ArrayList<>();

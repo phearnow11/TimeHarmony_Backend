@@ -206,6 +206,7 @@ select * from Sellers
 select * from Addresses
 select * from Watch_images
 select * from Cart
+select * from Access_History
 select username, [authority] from Users join Roles on Users.role_id = Roles.role_id 
 select username, [password],[enabled] from Users where Users.username = N'admin'
 select username, authority from authorities where username = N'phienn'
