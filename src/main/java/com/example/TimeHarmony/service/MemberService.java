@@ -139,8 +139,14 @@ public class MemberService implements IMemberService {
 
     @Override
     public String updateAccessHistories(String member_id, List<String> urls, List<Timestamp> times) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateAccessHistories'");
+        try {
+            for (int i = 0; i < urls.size(); i++) {
+                MEMBER_REPOSITORY.insertAccessHistory(UUID.fromString(member_id), urls.get(i), times.get(i));
+            }
+            return "Access History updated !";
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
 
     @Override

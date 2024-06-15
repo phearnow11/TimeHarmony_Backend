@@ -1,5 +1,7 @@
-create database TimeHarmony
+use master
 drop database TimeHarmony
+
+create database TimeHarmony
 
 use TimeHarmony
 
@@ -141,6 +143,13 @@ create table Access_History(
 	[url] varchar(50) not null,
 	[access_time] datetime not null
 	foreign key (member_id) references Members([member_id])
+)
+
+create table Favorites(
+	[member_id] binary(16) not null, 
+	[watch_id] char(12) not null, 
+	foreign key (member_id) references Members(member_id), 
+	foreign key (watch_id) references Watch(watch_id)
 )
 
 create table Vouchers(

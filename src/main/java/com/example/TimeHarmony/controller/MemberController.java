@@ -1,5 +1,7 @@
 package com.example.TimeHarmony.controller;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -81,11 +83,14 @@ public class MemberController {
         return MEMBER_SERVICE.updateEmail(member_id, new_email);
     }
 
-    @RequestMapping(value = "update/history", method = RequestMethod.POST)
-    public String updateHistories(@RequestBody Map<String, Object> data) {
-        System.out.println(data.get("url"));
-        System.out.println(STRING_SERVICE.jsonArrToStringList(data.get("url")).get(0));
-        return "Hi";
+    @RequestMapping(value = "update/history{id}", method = RequestMethod.POST)
+    public String updateHistories(@PathVariable("id") String id, @RequestBody Map<String, List<String>> data) {
+        List<String> urls = data.get("url");
+        List<Timestamp> times = new ArrayList<>();
+        for (String i : data.get("access_time")) {
+            times.add(Timestamp.valueOf(i));
+        }
+        return MEMBER_SERVICE.updateAccessHistories(id, urls, times);
     }
 
     @RequestMapping(value = "save/address", method = RequestMethod.POST)
@@ -108,5 +113,10 @@ public class MemberController {
     public String saveSeller(@RequestParam("id") String id, @RequestParam("username") String username) {
 
         return MEMBER_SERVICE.toSeller(id, username);
+    }
+
+    @RequestMapping(value = "add/favories/{id}", method = RequestMethod.POST)
+    public String addFavories(@PathVariable("id") String member_id, @RequestBody Map<String, List<String>> watchList) {
+        return "";
     }
 }
