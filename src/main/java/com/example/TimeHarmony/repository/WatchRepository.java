@@ -58,4 +58,9 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
     @Transactional
     @Query(value = "insert into Watch_images(watch_id, image_url) values (:id, :url)", nativeQuery = true)
     void saveWatch_Images(@Param("id") String id, @Param("url") String url);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update Watch set state = :state where watch_id = :id", nativeQuery = true)
+    void updateWatchState(@Param("state") byte state, String id);
 }
