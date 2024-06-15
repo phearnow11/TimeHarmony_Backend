@@ -74,7 +74,6 @@ public class AdminController {
 
             Members m = new MemberBuilder()
                     .setUserLogInfo(logInfo)
-                    .setMemberImage(detail_info.get("image"))
                     .setFirstName(detail_info.get("Fname"))
                     .setLastName(detail_info.get("Lname"))
                     .setActive(0)
