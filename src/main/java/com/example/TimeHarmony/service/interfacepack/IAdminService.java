@@ -1,6 +1,7 @@
 package com.example.TimeHarmony.service.interfacepack;
 
 import java.util.List;
+import java.util.Map;
 
 import com.example.TimeHarmony.entity.Admins;
 import com.example.TimeHarmony.entity.Members;
@@ -15,15 +16,15 @@ public interface IAdminService {
 
     public List<Watch> getWatches();
 
-    public void deleteWatch(String id);
+    public String deleteWatch(String id);
 
-    public void deleteMemberbyId(String id);
+    public String deleteMemberbyId(String id);
 
-    public void banMemberbyId(String id);
+    public String banMemberbyId(String id);
 
-    public void unbanMemberbyId(String id);
+    public String unbanMemberbyId(String id);
 
-    public List<Watch> viewWatchCreationHistory();
+    public List<Map<String, String>> viewWatchCreationHistory();
 
     public List<Report> viewReports();
 

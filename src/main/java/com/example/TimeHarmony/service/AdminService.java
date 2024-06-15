@@ -1,6 +1,7 @@
 package com.example.TimeHarmony.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,30 +66,52 @@ public class AdminService implements IAdminService {
     }
 
     @Override
-    public void deleteWatch(String id) {
-        WATCH_REPOSITORY.deleteById(id);
+    public String deleteWatch(String id) {
+        try {
+
+            WATCH_REPOSITORY.deleteById(id);
+            return "Watch deleted";
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
 
     @Override
-    public void deleteMemberbyId(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteMemberbyId'");
+    public String deleteMemberbyId(String id) {
+        try {
+            MEMBER_REPOSITORY.deleteById(UUID.fromString(id));
+            return "User deleted";
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
 
     @Override
-    public void banMemberbyId(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'banMemberbyId'");
+    public String banMemberbyId(String id) {
+        byte BANNED = 0;
+        try {
+            Members m = MEMBER_REPOSITORY.getMemberById(id).get();
+            USER_REPOSOTORY.updateUserState(BANNED, m.getUser_log_info().getUsername());
+            return "User banned";
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
 
     @Override
-    public void unbanMemberbyId(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'unbanMemberbyId'");
+    public String unbanMemberbyId(String id) {
+        byte BANNED = 1;
+        try {
+            Members m = MEMBER_REPOSITORY.getMemberById(id).get();
+            USER_REPOSOTORY.updateUserState(BANNED, m.getUser_log_info().getUsername());
+            return "User unbanned";
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
 
     @Override
-    public List<Watch> viewWatchCreationHistory() {
+    public List<Map<String, String>> viewWatchCreationHistory() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'viewWatchCreateHistory'");
     }
