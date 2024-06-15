@@ -127,11 +127,16 @@ public class AdminService implements IAdminService {
 
     @Override
     public String addWatches(List<Watch> w) throws Exception {
-        System.out.println(testUser());
-        String id = STRING_SERVICE.stringSpaceSplit(testUser()).get(testUser().length() - 1);
-        for (Watch i : w) {
+        try {
+            String s_id = STRING_SERVICE.stringSpaceSplit(testUser())
+                    .get(STRING_SERVICE.stringSpaceSplit(testUser()).size() - 1);
+            for (Watch i : w) {
+                SELLER_SERVICE.createWatch(i, s_id);
+            }
+            return "Succeed !";
+        } catch (Exception e) {
+            return e.toString();
         }
-        return id;
     }
 
     @Override
@@ -149,7 +154,7 @@ public class AdminService implements IAdminService {
                 return "Test User Created -- User id : " + m.getMember_id();
             }
             Members m = MEMBER_SERVICE.getMemberbyUserLogInfo(MEMBER_SERVICE.getUserbyUsername(TEST_USERNAME));
-            throw new Exception("Test User is already created --> User id : " + m.getMember_id());
+            return "Test User is already created --> User id : " + m.getMember_id();
         } catch (Exception e) {
             return e.toString();
         }

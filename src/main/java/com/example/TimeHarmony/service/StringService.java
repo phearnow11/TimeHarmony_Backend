@@ -35,7 +35,7 @@ public class StringService implements IStringService {
 
     @Override
     public List<String> stringSpaceSplit(String s) {
-        String[] str_split = s.split("\\s");
+        String[] str_split = s.split(" ");
         return Arrays.asList(str_split);
     }
 

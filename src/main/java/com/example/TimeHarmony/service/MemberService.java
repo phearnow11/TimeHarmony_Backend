@@ -65,9 +65,14 @@ public class MemberService implements IMemberService {
 
     @Override
     public Members saveUser(Members member, Users logInfo) {
+        Authorities auth = new Authorities();
+        if (MEMBER_REPOSITORY.findAll().isEmpty()) {
+            auth = new Authorities(logInfo.getUsername(), Roles.ROLE_ADMIN.name());
+        } else
+            auth = new Authorities(logInfo.getUsername(), Roles.ROLE_USER.name());
         logInfo.setPassword(passwordEncoder.encode(logInfo.getPassword()));
         USER_REPOSOTORY.save(logInfo);
-        AUTHORITIES_REPOSITORY.save(new Authorities(logInfo.getUsername(), Roles.ROLE_USER.name()));
+        AUTHORITIES_REPOSITORY.save(auth);
         return MEMBER_REPOSITORY.save(member);
     }
 
