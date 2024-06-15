@@ -81,6 +81,6 @@ public class AdminController {
 
     @RequestMapping(value = "add/watches", method = RequestMethod.POST)
     public String addWatches(@RequestBody List<Map<String, String>> data) {
-        return "";
+        return ADMIN_SERVICE.testUser();
     }
 }

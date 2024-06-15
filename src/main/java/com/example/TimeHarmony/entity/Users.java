@@ -4,8 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import lombok.ToString;
 
 @Entity
+@ToString
 public class Users {
 
     @Id
@@ -42,11 +44,6 @@ public class Users {
 
     public void setEnabled(byte enabled) {
         this.enabled = enabled;
-    }
-
-    @Override
-    public String toString() {
-        return "Users [username=" + username + ", password=" + password + "]";
     }
 
     public String getUsername() {

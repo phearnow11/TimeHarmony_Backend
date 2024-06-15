@@ -6,15 +6,18 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.TimeHarmony.builder.MemberBuilder;
 import com.example.TimeHarmony.entity.Admins;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Report;
+import com.example.TimeHarmony.entity.Users;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.enumf.Roles;
 import com.example.TimeHarmony.repository.AdminRepository;
 import com.example.TimeHarmony.repository.AuthoritiesRepository;
 import com.example.TimeHarmony.repository.MemberRepository;
 import com.example.TimeHarmony.repository.StaffRepository;
+import com.example.TimeHarmony.repository.UsersRepository;
 import com.example.TimeHarmony.repository.WatchRepository;
 import com.example.TimeHarmony.service.interfacepack.IAdminService;
 
@@ -37,7 +40,16 @@ public class AdminService implements IAdminService {
     private AuthoritiesRepository AUTHORITIES_REPOSITORY;
 
     @Autowired
+    private UsersRepository USER_REPOSOTORY;
+
+    @Autowired
     private MemberService MEMBER_SERVICE;
+
+    @Autowired
+    private SellerService SELLER_SERVICE;
+
+    @Autowired
+    private StringService STRING_SERVICE;
 
     @Override
     public List<Members> getMembers() {
@@ -108,6 +120,36 @@ public class AdminService implements IAdminService {
                 MEMBER_SERVICE.saveUser(i, i.getUser_log_info());
             }
             return "Succeed !";
+        } catch (Exception e) {
+            return e.toString();
+        }
+    }
+
+    @Override
+    public String addWatches(List<Watch> w) throws Exception {
+        System.out.println(testUser());
+        String id = STRING_SERVICE.stringSpaceSplit(testUser()).get(testUser().length() - 1);
+        for (Watch i : w) {
+        }
+        return id;
+    }
+
+    @Override
+    public String testUser() {
+
+        String TEST_USERNAME = "test";
+        byte enabled = 1;
+        Users tu = new Users(TEST_USERNAME, "password", null, enabled);
+
+        try {
+            if (!USER_REPOSOTORY.existsById(TEST_USERNAME)) {
+                System.out.println("Test User not found");
+                Members m = MEMBER_SERVICE.saveUser(new MemberBuilder().setUserLogInfo(tu).build(), tu);
+                System.out.println(MEMBER_SERVICE.toSeller(m.getMember_id().toString(), TEST_USERNAME));
+                return "Test User Created -- User id : " + m.getMember_id();
+            }
+            Members m = MEMBER_SERVICE.getMemberbyUserLogInfo(MEMBER_SERVICE.getUserbyUsername(TEST_USERNAME));
+            throw new Exception("Test User is already created --> User id : " + m.getMember_id());
         } catch (Exception e) {
             return e.toString();
         }

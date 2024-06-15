@@ -151,7 +151,6 @@ public class MemberService implements IMemberService {
         } catch (Exception e) {
             return "Seller is already existed";
         }
-        return "Success";
+        return "Member to Seller Success";
     }
-
 }

@@ -33,4 +33,10 @@ public class StringService implements IStringService {
         return code;
     }
 
+    @Override
+    public List<String> stringSpaceSplit(String s) {
+        String[] str_split = s.split("\\s");
+        return Arrays.asList(str_split);
+    }
+
 }
