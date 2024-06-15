@@ -18,6 +18,7 @@ import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
@@ -25,6 +26,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "Members")
+@ToString
 public class Members {
     @Id
     @GeneratedValue

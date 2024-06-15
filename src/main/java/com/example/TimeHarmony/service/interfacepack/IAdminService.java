@@ -29,4 +29,6 @@ public interface IAdminService {
 
     public String toStaff(String id, String username);
 
+    public String addMembers(List<Members> m);
+
 }

@@ -33,7 +33,6 @@ public class SellerController {
 
     @RequestMapping(value = "create/watch", method = RequestMethod.POST)
     public Watch createWatch(@RequestBody Map<String, String> data, @RequestParam("seller_id") String id) {
-        String res = "Watch is created";
 
         Watch watch = new WatchBuilder()
                 .setWatchId(WATCH_SERVICE.generateWatchId())

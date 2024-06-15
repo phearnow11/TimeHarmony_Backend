@@ -36,6 +36,9 @@ public class AdminService implements IAdminService {
     @Autowired
     private AuthoritiesRepository AUTHORITIES_REPOSITORY;
 
+    @Autowired
+    private MemberService MEMBER_SERVICE;
+
     @Override
     public List<Members> getMembers() {
         return MEMBER_REPOSITORY.findAll();
@@ -96,6 +99,18 @@ public class AdminService implements IAdminService {
             return "Staff is already promoted!";
         }
         return "To staff success!";
+    }
+
+    @Override
+    public String addMembers(List<Members> m) {
+        try {
+            for (Members i : m) {
+                MEMBER_SERVICE.saveUser(i, i.getUser_log_info());
+            }
+            return "Succeed !";
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
 
 }
