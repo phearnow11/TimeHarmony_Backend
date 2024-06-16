@@ -3,6 +3,9 @@ package com.example.TimeHarmony.entity;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CollectionTable;
@@ -23,6 +26,7 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
+@Indexed
 @AllArgsConstructor
 @ToString
 @Table(name = "Watch")
@@ -36,6 +40,7 @@ public class Watch {
     @JoinColumn(name = "member_id")
     private Sellers seller;
 
+    @Field()
     private String watch_description;
     private String watch_name;
 
