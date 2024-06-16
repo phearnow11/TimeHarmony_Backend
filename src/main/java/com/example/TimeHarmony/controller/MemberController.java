@@ -135,4 +135,10 @@ public class MemberController {
 
         return WATCH_SERVICE.getWatchesFromWatchID(wList);
     }
+
+    @RequestMapping(value = "delete/favorites/{id}", method = RequestMethod.DELETE)
+    public String deleteFavorites(@PathVariable("id") String member_id, @RequestBody Map<String, List<String>> data) {
+        List<String> w_ids = data.get("w_ids");
+        return MEMBER_SERVICE.deleteFavorites(member_id, w_ids);
+    }
 }
