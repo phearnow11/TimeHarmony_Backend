@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.TimeHarmony.dtos.Favorites;
 import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.service.CartService;
@@ -116,7 +117,16 @@ public class MemberController {
     }
 
     @RequestMapping(value = "add/favories/{id}", method = RequestMethod.POST)
-    public String addFavories(@PathVariable("id") String member_id, @RequestBody Map<String, List<String>> watchList) {
-        return "";
+    public String addFavories(@PathVariable("id") String member_id, @RequestBody Map<String, List<String>> data) {
+        List<String> watchList = data.get("w_ids");
+        return MEMBER_SERVICE.addFavorites(member_id, watchList);
+    }
+
+    @RequestMapping(value = "get/favorites/{id}", method = RequestMethod.GET)
+    public List<String> getFavorites(@PathVariable("id") String member_id) {
+        List<String> wList = new ArrayList<>();
+        for (Favorites i : MEMBER_SERVICE.getFavoritesFromMember(member_id))
+            wList.add(i.getWatch_id());
+        return wList;
     }
 }

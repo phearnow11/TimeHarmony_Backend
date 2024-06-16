@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.TimeHarmony.dtos.AccessHistory;
+import com.example.TimeHarmony.dtos.Favorites;
 import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Authorities;
 import com.example.TimeHarmony.entity.Members;
@@ -163,5 +164,37 @@ public class MemberService implements IMemberService {
             return "Seller is already existed";
         }
         return "Member to Seller Success";
+    }
+
+    @Override
+    public String addFavorites(String m_id, List<String> w_ids) {
+        try {
+            for (String i : w_ids) {
+                MEMBER_REPOSITORY.insertFavorites(UUID.fromString(m_id), i);
+            }
+            return "Favorites added";
+        } catch (Exception e) {
+            return e.toString();
+        }
+    }
+
+    @Override
+    public String deleteFavorites(String m_id, String w_id) {
+        try {
+            MEMBER_REPOSITORY.deleteFavorites(w_id, UUID.fromString(m_id));
+            return "Favorites deleted";
+        } catch (Exception e) {
+            return e.toString();
+        }
+    }
+
+    @Override
+    public List<Favorites> getFavoritesFromMember(String m_id) {
+        try {
+            return MEMBER_REPOSITORY.getFavoritesFromMember(UUID.fromString(m_id));
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
     }
 }

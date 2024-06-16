@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.TimeHarmony.dtos.AccessHistory;
+import com.example.TimeHarmony.dtos.Favorites;
 import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Report;
@@ -41,5 +42,11 @@ public interface IMemberService {
     public String updateAccessHistories(String member_id, List<String> urls, List<Timestamp> times);
 
     public String toSeller(String m_id, String username);
+
+    public List<Favorites> getFavoritesFromMember(String m_id);
+
+    public String addFavorites(String m_id, List<String> w_ids);
+
+    public String deleteFavorites(String m_id, String w_id);
 
 }
