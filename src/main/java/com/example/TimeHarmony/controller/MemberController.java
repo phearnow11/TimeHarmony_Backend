@@ -2,6 +2,7 @@ package com.example.TimeHarmony.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.TimeHarmony.dtos.AccessHistory;
 import com.example.TimeHarmony.dtos.Favorites;
 import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Members;
@@ -89,7 +91,7 @@ public class MemberController {
         return MEMBER_SERVICE.updateEmail(member_id, new_email);
     }
 
-    @RequestMapping(value = "update/history{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "update/history/{id}", method = RequestMethod.POST)
     public String updateHistories(@PathVariable("id") String id, @RequestBody Map<String, List<String>> data) {
         List<String> urls = data.get("url");
         List<Timestamp> times = new ArrayList<>();
@@ -99,12 +101,35 @@ public class MemberController {
         return MEMBER_SERVICE.updateAccessHistories(id, urls, times);
     }
 
-    @RequestMapping(value = "save/address", method = RequestMethod.POST)
+    @RequestMapping(value = "get/history/{id}", method = RequestMethod.GET)
+    public List<Map<String, String>> getAccessHistories(@PathVariable("id") String m_id) {
+        List<Map<String, String>> res = new ArrayList<>();
+        Map<String, String> resdata = new HashMap<>();
+        for (AccessHistory i : MEMBER_SERVICE.getAllAccessHistories(m_id)) {
+            resdata.put("url", i.getUrl());
+            resdata.put("access_time", i.getAccess_time().toString());
+            res.add(new HashMap<>(resdata));
+            resdata.clear();
+        }
+        return res;
+    }
+
+    @RequestMapping(value = "save/address/{id}", method = RequestMethod.POST)
     public Addresses saveAddresses(@RequestBody Map<String, String> data, @PathVariable("id") String member_id) {
         Members cur_m = MEMBER_SERVICE.getMemberbyID(member_id).get();
         Addresses nAdd = new Addresses(data.get("address_id"), cur_m, data.get("name"),
                 data.get("phone"), data.get("detail"), Boolean.valueOf(data.get("default")));
         return MEMBER_SERVICE.addAddress(nAdd);
+    }
+
+    @RequestMapping(value = "delete/address/{id}", method = RequestMethod.DELETE)
+    public String deleteAddress(@PathVariable("id") String id, @RequestParam("a_id") String address_id) {
+        return MEMBER_SERVICE.deleteAddress(id, address_id);
+    }
+
+    @RequestMapping(value = "get/address/{id}", method = RequestMethod.GET)
+    public List<Addresses> getAddress(@PathVariable("id") String id) {
+        return MEMBER_SERVICE.getAddresses(id);
     }
 
     @RequestMapping(value = "add/to-cart/{id}", method = RequestMethod.POST)

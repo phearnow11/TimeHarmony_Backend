@@ -41,6 +41,8 @@ public class MemberService implements IMemberService {
     private AddressRepository ADDRESS_REPOSITORY;
     @Autowired
     private SellerRepository SELLER_REPOSITORY;
+    @Autowired
+    private StringService STRING_SERVICE;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -61,7 +63,13 @@ public class MemberService implements IMemberService {
 
     @Override
     public List<Addresses> getAddresses(String member_id) {
-        return null;
+        try {
+            Members m = MEMBER_REPOSITORY.findById(UUID.fromString(member_id)).get();
+            return ADDRESS_REPOSITORY.getAddresses(m);
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
     }
 
     @Override
@@ -152,6 +160,8 @@ public class MemberService implements IMemberService {
 
     @Override
     public Addresses addAddress(Addresses address) {
+        String a_id = "A" + STRING_SERVICE.autoGenerateString(11);
+        address.setAddress_id(a_id);
         return ADDRESS_REPOSITORY.save(address);
     }
 
@@ -196,6 +206,16 @@ public class MemberService implements IMemberService {
         } catch (Exception e) {
             System.out.println(e);
             return null;
+        }
+    }
+
+    @Override
+    public String deleteAddress(String m_id, String a_id) {
+        try {
+            ADDRESS_REPOSITORY.deleteAddress(UUID.fromString(m_id), a_id);
+            return "Address deleted";
+        } catch (Exception e) {
+            return e.toString();
         }
     }
 }
