@@ -43,4 +43,6 @@ public interface IWatchService {
     public List<Watch> getWatchesByMovement(String movement);
 
     public String updateImages(String id, List<String> urls);
+
+    public List<Watch> getWatchesFromWatchID(List<String> ids);
 }

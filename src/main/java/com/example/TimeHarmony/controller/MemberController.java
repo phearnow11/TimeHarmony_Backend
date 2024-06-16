@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.TimeHarmony.dtos.Favorites;
 import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Members;
+import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.service.CartService;
 import com.example.TimeHarmony.service.EmailService;
 import com.example.TimeHarmony.service.MemberService;
 import com.example.TimeHarmony.service.StringService;
+import com.example.TimeHarmony.service.WatchService;
 
 @RestController
 @RequestMapping("/member")
@@ -39,6 +41,9 @@ public class MemberController {
 
     @Autowired
     private CartService CART_SERVICE;
+
+    @Autowired
+    private WatchService WATCH_SERVICE;
 
     private final String DEFAULT_MAIL_SUBJECT_VERIFY_GOOGLE = "Email Verification Code";
     private final String DEFAULT_MAIL_SUBJECT_VERIFY_PASSWORD = "Password Changing Verification Code";
@@ -123,10 +128,11 @@ public class MemberController {
     }
 
     @RequestMapping(value = "get/favorites/{id}", method = RequestMethod.GET)
-    public List<String> getFavorites(@PathVariable("id") String member_id) {
+    public List<Watch> getFavorites(@PathVariable("id") String member_id) {
         List<String> wList = new ArrayList<>();
         for (Favorites i : MEMBER_SERVICE.getFavoritesFromMember(member_id))
             wList.add(i.getWatch_id());
-        return wList;
+
+        return WATCH_SERVICE.getWatchesFromWatchID(wList);
     }
 }

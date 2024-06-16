@@ -146,4 +146,14 @@ public class WatchService implements IWatchService {
         }
     }
 
+    @Override
+    public List<Watch> getWatchesFromWatchID(List<String> ids) {
+        try {
+            return WATCH_REPOSITORY.findAllById(ids);
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
 }
