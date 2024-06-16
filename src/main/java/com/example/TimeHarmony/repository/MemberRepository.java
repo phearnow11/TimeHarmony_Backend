@@ -12,6 +12,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.TimeHarmony.dtos.AccessHistory;
+import com.example.TimeHarmony.dtos.Favorites;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Users;
 
@@ -27,6 +28,19 @@ public interface MemberRepository extends JpaRepository<Members, UUID> {
 
     @Query(value = "select * from Access_History h where h.member_id = :id", nativeQuery = true)
     List<AccessHistory> getAllAccessHistoriesFromMember(@Param("id") UUID id);
+
+    @Query(value = "select * from Favorites f where f.member_id = :id", nativeQuery = true)
+    List<Favorites> getFavoritesFromMember(@Param("id") UUID id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "insert Favorites(member_id, watch_id) values (:m_id, :w_id)", nativeQuery = true)
+    void insertFavorites(@Param("m_id") UUID m_id, @Param("w_id") String w_id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "delete Favorites where watch_id = :w_id and member_id = :m_id", nativeQuery = true)
+    void deleteFavorites(@Param("w_id") String w_id, @Param("m_id") UUID m_id);
 
     @Modifying
     @Transactional

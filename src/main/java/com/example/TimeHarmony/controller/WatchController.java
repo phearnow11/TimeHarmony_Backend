@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,7 +56,7 @@ public class WatchController {
     @RequestMapping(value = "get/watch-page", method = RequestMethod.GET)
     public List<Watch> getNextPage(@RequestParam("pagenum") int pagenum) {
         if (pagenum == 0) {
-            return WATCH_SERVICE.getPage01(); 
+            return WATCH_SERVICE.getPage01();
         }
         return WATCH_SERVICE.nextPage(pagenum);
     }
@@ -69,5 +70,10 @@ public class WatchController {
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
     public Watch getWatchbyId(@PathVariable("id") String id) {
         return WATCH_SERVICE.getWatchById(id);
+    }
+
+    @RequestMapping(value = "update/images/{id}", method = RequestMethod.POST)
+    public String updateImages(@PathVariable("id") String id, @RequestBody Map<String, List<String>> data) {
+        return WATCH_SERVICE.updateImages(id, data.get("urls"));
     }
 }

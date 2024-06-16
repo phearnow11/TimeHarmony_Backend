@@ -45,7 +45,6 @@ public class GuestController {
 
         Members member = new MemberBuilder()
                 .setUserLogInfo(logInfo)
-                .setMemberImage(UserJSdata.optString("image"))
                 .setFirstName(UserJSdata.optString("Fname"))
                 .setLastName(UserJSdata.optString("Lname"))
                 .setActive(DEFAULT_INACTIVE_STATUS)
@@ -71,7 +70,6 @@ public class GuestController {
 
         Members m = new MemberBuilder()
                 .setUserLogInfo(logInfo)
-                .setMemberImage(detail_info.get("image"))
                 .setFirstName(detail_info.get("Fname"))
                 .setLastName(detail_info.get("Lname"))
                 .setActive(DEFAULT_INACTIVE_STATUS)

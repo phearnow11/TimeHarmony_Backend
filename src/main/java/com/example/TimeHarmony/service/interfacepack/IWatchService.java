@@ -24,9 +24,9 @@ public interface IWatchService {
 
     public List<Watch> loadMoreWatchesSortedByCreationDate(List<Watch> old_watch_list);
 
-    public List<Watch> nextPage(int numpage); 
+    public List<Watch> nextPage(int numpage);
 
-    public List<Watch> getPage01(); 
+    public List<Watch> getPage01();
 
     public Watch getWatchById(String id);
 
@@ -41,4 +41,8 @@ public interface IWatchService {
     public List<Watch> getWatchesByBandType(String band);
 
     public List<Watch> getWatchesByMovement(String movement);
+
+    public String updateImages(String id, List<String> urls);
+
+    public List<Watch> getWatchesFromWatchID(List<String> ids);
 }

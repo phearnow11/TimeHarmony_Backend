@@ -1,6 +1,7 @@
 package com.example.TimeHarmony.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import com.example.TimeHarmony.builder.MemberBuilder;
 import com.example.TimeHarmony.entity.Admins;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Report;
+import com.example.TimeHarmony.entity.Sellers;
 import com.example.TimeHarmony.entity.Users;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.enumf.Roles;
@@ -48,9 +50,6 @@ public class AdminService implements IAdminService {
     @Autowired
     private SellerService SELLER_SERVICE;
 
-    @Autowired
-    private StringService STRING_SERVICE;
-
     @Override
     public List<Members> getMembers() {
         return MEMBER_REPOSITORY.findAll();
@@ -67,30 +66,52 @@ public class AdminService implements IAdminService {
     }
 
     @Override
-    public void deleteWatch(String id) {
-        WATCH_REPOSITORY.deleteById(id);
+    public String deleteWatch(String id) {
+        try {
+
+            WATCH_REPOSITORY.deleteById(id);
+            return "Watch deleted";
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
 
     @Override
-    public void deleteMemberbyId(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteMemberbyId'");
+    public String deleteMemberbyId(String id) {
+        try {
+            MEMBER_REPOSITORY.deleteById(UUID.fromString(id));
+            return "User deleted";
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
 
     @Override
-    public void banMemberbyId(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'banMemberbyId'");
+    public String banMemberbyId(String id) {
+        byte BANNED = 0;
+        try {
+            Members m = MEMBER_REPOSITORY.getMemberById(id).get();
+            USER_REPOSOTORY.updateUserState(BANNED, m.getUser_log_info().getUsername());
+            return "User banned";
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
 
     @Override
-    public void unbanMemberbyId(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'unbanMemberbyId'");
+    public String unbanMemberbyId(String id) {
+        byte BANNED = 1;
+        try {
+            Members m = MEMBER_REPOSITORY.getMemberById(id).get();
+            USER_REPOSOTORY.updateUserState(BANNED, m.getUser_log_info().getUsername());
+            return "User unbanned";
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
 
     @Override
-    public List<Watch> viewWatchCreationHistory() {
+    public List<Map<String, String>> viewWatchCreationHistory() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'viewWatchCreateHistory'");
     }
@@ -126,12 +147,12 @@ public class AdminService implements IAdminService {
     }
 
     @Override
-    public String addWatches(List<Watch> w) throws Exception {
+    public String addWatches(List<Watch> w, String s_id) throws Exception {
         try {
-            String s_id = STRING_SERVICE.stringSpaceSplit(testUser())
-                    .get(STRING_SERVICE.stringSpaceSplit(testUser()).size() - 1);
+            Sellers s = SELLER_SERVICE.getSellerbyId(s_id);
+            System.out.println(s);
             for (Watch i : w) {
-                SELLER_SERVICE.createWatch(i, s_id);
+                SELLER_SERVICE.createWatch(i, s);
             }
             return "Succeed !";
         } catch (Exception e) {
@@ -151,10 +172,12 @@ public class AdminService implements IAdminService {
                 System.out.println("Test User not found");
                 Members m = MEMBER_SERVICE.saveUser(new MemberBuilder().setUserLogInfo(tu).build(), tu);
                 System.out.println(MEMBER_SERVICE.toSeller(m.getMember_id().toString(), TEST_USERNAME));
-                return "Test User Created -- User id : " + m.getMember_id();
+                System.out.println("Test User Created -- User id : " + m.getMember_id());
+                return m.getMember_id().toString();
             }
             Members m = MEMBER_SERVICE.getMemberbyUserLogInfo(MEMBER_SERVICE.getUserbyUsername(TEST_USERNAME));
-            return "Test User is already created --> User id : " + m.getMember_id();
+            System.out.println("Test User is already created --> User id : " + m.getMember_id());
+            return m.getMember_id().toString();
         } catch (Exception e) {
             return e.toString();
         }

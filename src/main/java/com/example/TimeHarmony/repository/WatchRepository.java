@@ -3,10 +3,13 @@ package com.example.TimeHarmony.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.example.TimeHarmony.entity.Watch;
+
+import jakarta.transaction.Transactional;
 
 public interface WatchRepository extends JpaRepository<Watch, String> {
     @Query("select w from Watch w where w.gender = ?1")
@@ -51,4 +54,13 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
     @Query(value = "select * from Watch where price BETWEEN :start AND :end", nativeQuery = true)
     List<Watch> findWatchByRangePrice(@Param("start") float start, @Param("end") float end);
 
+    @Modifying
+    @Transactional
+    @Query(value = "insert into Watch_images(watch_id, image_url) values (:id, :url)", nativeQuery = true)
+    void saveWatch_Images(@Param("id") String id, @Param("url") String url);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update Watch set state = :state where watch_id = :id", nativeQuery = true)
+    void updateWatchState(@Param("state") byte state, String id);
 }

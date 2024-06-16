@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.TimeHarmony.dtos.AccessHistory;
+import com.example.TimeHarmony.dtos.Favorites;
 import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Authorities;
 import com.example.TimeHarmony.entity.Members;
@@ -40,6 +41,8 @@ public class MemberService implements IMemberService {
     private AddressRepository ADDRESS_REPOSITORY;
     @Autowired
     private SellerRepository SELLER_REPOSITORY;
+    @Autowired
+    private StringService STRING_SERVICE;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -60,7 +63,13 @@ public class MemberService implements IMemberService {
 
     @Override
     public List<Addresses> getAddresses(String member_id) {
-        return null;
+        try {
+            Members m = MEMBER_REPOSITORY.findById(UUID.fromString(member_id)).get();
+            return ADDRESS_REPOSITORY.getAddresses(m);
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
     }
 
     @Override
@@ -139,12 +148,20 @@ public class MemberService implements IMemberService {
 
     @Override
     public String updateAccessHistories(String member_id, List<String> urls, List<Timestamp> times) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateAccessHistories'");
+        try {
+            for (int i = 0; i < urls.size(); i++) {
+                MEMBER_REPOSITORY.insertAccessHistory(UUID.fromString(member_id), urls.get(i), times.get(i));
+            }
+            return "Access History updated !";
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
 
     @Override
     public Addresses addAddress(Addresses address) {
+        String a_id = "A" + STRING_SERVICE.autoGenerateString(11);
+        address.setAddress_id(a_id);
         return ADDRESS_REPOSITORY.save(address);
     }
 
@@ -157,5 +174,48 @@ public class MemberService implements IMemberService {
             return "Seller is already existed";
         }
         return "Member to Seller Success";
+    }
+
+    @Override
+    public String addFavorites(String m_id, List<String> w_ids) {
+        try {
+            for (String i : w_ids) {
+                MEMBER_REPOSITORY.insertFavorites(UUID.fromString(m_id), i);
+            }
+            return "Favorites added";
+        } catch (Exception e) {
+            return e.toString();
+        }
+    }
+
+    @Override
+    public String deleteFavorites(String m_id, List<String> w_ids) {
+        try {
+            for (String i : w_ids)
+                MEMBER_REPOSITORY.deleteFavorites(i, UUID.fromString(m_id));
+            return "Favorites deleted";
+        } catch (Exception e) {
+            return e.toString();
+        }
+    }
+
+    @Override
+    public List<Favorites> getFavoritesFromMember(String m_id) {
+        try {
+            return MEMBER_REPOSITORY.getFavoritesFromMember(UUID.fromString(m_id));
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    @Override
+    public String deleteAddress(String m_id, String a_id) {
+        try {
+            ADDRESS_REPOSITORY.deleteAddress(UUID.fromString(m_id), a_id);
+            return "Address deleted";
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
 }

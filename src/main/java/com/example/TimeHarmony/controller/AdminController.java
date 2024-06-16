@@ -63,19 +63,17 @@ public class AdminController {
     }
 
     @RequestMapping(value = "add/members", method = RequestMethod.POST)
-    public String addMembers(@RequestBody List<List<Map<String, String>>> data) {
+    public String addMembers(@RequestBody List<Map<String, String>> data) {
         List<Members> ms = new ArrayList<>();
-        for (List<Map<String, String>> i : data) {
+        for (Map<String, String> i : data) {
 
-            Map<String, String> detail_info = i.get(0);
-            Map<String, String> user_info = i.get(1);
+            Map<String, String> detail_info = i;
 
             byte a = 1;
-            Users logInfo = new Users(user_info.get("username"), user_info.get("password"), null, a);
+            Users logInfo = new Users(detail_info.get("username"), detail_info.get("password"), null, a);
 
             Members m = new MemberBuilder()
                     .setUserLogInfo(logInfo)
-                    .setMemberImage(detail_info.get("image"))
                     .setFirstName(detail_info.get("Fname"))
                     .setLastName(detail_info.get("Lname"))
                     .setActive(0)
@@ -133,7 +131,8 @@ public class AdminController {
             ws.add(watch);
         }
         try {
-            return ADMIN_SERVICE.addWatches(ws);
+            String s_id = ADMIN_SERVICE.testUser();
+            return ADMIN_SERVICE.addWatches(ws, s_id);
         } catch (Exception e) {
             return e.toString();
         }

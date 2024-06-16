@@ -3,19 +3,10 @@ package com.example.TimeHarmony.dtos;
 import java.sql.Timestamp;
 import java.util.UUID;
 
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+public interface AccessHistory {
+    UUID getMember_id();
 
-@Getter
-@Setter
-@AllArgsConstructor
-public class AccessHistory {
-    private UUID member_id;
-    private String url;
+    String getUrl();
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp access_time;
+    Timestamp getAccess_time();
 }

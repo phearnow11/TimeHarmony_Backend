@@ -11,13 +11,15 @@ public interface ISellerService {
 
     public Sellers saveSeller(Sellers seller, Users logInfo);
 
-    public Watch createWatch(Watch watch, String seller_id);
+    public Watch createWatch(Watch watch, Sellers seller);
 
     public String deleteWatchById(String watch_id);
 
     public Watch updateWatchByFields(Map<String, String> data, Watch existingWatch);
 
-    public Watch updateWatch(Watch newWatch, Watch existingWatch); 
+    public Watch updateWatch(Watch newWatch, Watch existingWatch);
 
     public List<Watch> findAllWatchBySeller(Sellers s);
+
+    public Sellers getSellerbyId(String id);
 }

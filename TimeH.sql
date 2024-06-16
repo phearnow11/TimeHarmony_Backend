@@ -1,5 +1,7 @@
-create database TimeHarmony
+use master
 drop database TimeHarmony
+
+create database TimeHarmony
 
 use TimeHarmony
 
@@ -143,6 +145,13 @@ create table Access_History(
 	foreign key (member_id) references Members([member_id])
 )
 
+create table Favorites(
+	[member_id] binary(16) not null, 
+	[watch_id] char(12) not null, 
+	foreign key (member_id) references Members(member_id), 
+	foreign key (watch_id) references Watch(watch_id)
+)
+
 create table Vouchers(
 	[voucher_id] char(12) not null,		
 	[name] varchar(200) null,
@@ -197,10 +206,12 @@ select * from Sellers
 select * from Addresses
 select * from Watch_images
 select * from Cart
+select * from Access_History
 select username, [authority] from Users join Roles on Users.role_id = Roles.role_id 
 select username, [password],[enabled] from Users where Users.username = N'admin'
 select username, authority from authorities where username = N'phienn'
 update Users set [enabled] = 0 where username = N'phienn1'
+update Watch set state = 1 where watch_id = N'W00113846170'
 
 delete Watch
 delete Users where Users.member_id = N'000002'
