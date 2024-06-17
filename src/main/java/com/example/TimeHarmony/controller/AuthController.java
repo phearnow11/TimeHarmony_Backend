@@ -11,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,7 +46,7 @@ public class AuthController {
     }
 
     @PostMapping("logout")
-    public String logout(@RequestParam("member_id") String member_id) {
+    public String logout(@RequestParam("member_id") String member_id, @RequestBody Map<String, Object> data) {
         MEMBER_SERVICE.logout(member_id);
         return "Logout";
     }
