@@ -1,6 +1,7 @@
 package com.example.TimeHarmony.repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,4 +28,12 @@ public interface AddressRepository extends JpaRepository<Addresses, String> {
 
     @Query(value = "select a from Addresses a where a.member = :m")
     List<Addresses> getAddresses(@Param("m") Members m);
+
+    @Query("select a from Addresses a where a.member = :m and a.is_default = :d")
+    Optional<Addresses> checkDefault(@Param("m") Members m, @Param("d") Boolean d);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update Addresses set is_default = :d where address_id = :id", nativeQuery = true)
+    void updateDefault(@Param("d") Boolean d, @Param("id") String id);
 }

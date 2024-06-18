@@ -131,6 +131,11 @@ public class MemberController {
 
     @RequestMapping(value = "get/address/{id}", method = RequestMethod.GET)
     public List<Addresses> getAddress(@PathVariable("id") String id) {
+        try {
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
         return MEMBER_SERVICE.getAddresses(id);
     }
 

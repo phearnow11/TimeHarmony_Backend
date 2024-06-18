@@ -172,6 +172,12 @@ public class MemberService implements IMemberService {
     public Addresses addAddress(Addresses address) {
         String a_id = "A" + STRING_SERVICE.autoGenerateString(11);
         address.setAddress_id(a_id);
+        if (address.is_default()) {
+            Optional<Addresses> ad = ADDRESS_REPOSITORY.checkDefault(address.getMember(), true);
+            if (ad.isPresent()) {
+                ADDRESS_REPOSITORY.updateDefault(false, ad.get().getAddress_id());
+            }
+        }
         return ADDRESS_REPOSITORY.save(address);
     }
 
