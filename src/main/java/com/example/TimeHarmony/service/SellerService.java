@@ -71,8 +71,6 @@ public class SellerService implements ISellerService {
     @Override
     public Watch updateWatchByFields(Map<String, String> data, Watch existingWatch) {
 
-        System.out.println(data);
-
         if (data.get("description") != null) {
             existingWatch.setWatch_description(data.get("description"));
         }
