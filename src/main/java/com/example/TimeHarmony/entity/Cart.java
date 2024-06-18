@@ -25,7 +25,7 @@ public class Cart {
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp add_date;
 
-    private Boolean checked;
+    private int checked;
 
     public Cart() {
     }

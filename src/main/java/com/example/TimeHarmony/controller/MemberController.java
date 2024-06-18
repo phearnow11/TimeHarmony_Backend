@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.TimeHarmony.dtos.AccessHistory;
 import com.example.TimeHarmony.dtos.Favorites;
 import com.example.TimeHarmony.entity.Addresses;
+import com.example.TimeHarmony.entity.Cart;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.service.CartService;
@@ -165,5 +166,10 @@ public class MemberController {
     public String deleteFavorites(@PathVariable("id") String member_id, @RequestBody Map<String, List<String>> data) {
         List<String> w_ids = data.get("w_ids");
         return MEMBER_SERVICE.deleteFavorites(member_id, w_ids);
+    }
+
+    @RequestMapping(value = "get/carts/{id}", method = RequestMethod.GET)
+    public List<Cart> getCarts(@PathVariable("id") String member_id) {
+        return CART_SERVICE.getAllCart(member_id);
     }
 }

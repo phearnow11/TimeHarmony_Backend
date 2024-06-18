@@ -191,11 +191,12 @@ create table Cart(
 	[member_id] binary(16) not null,
 	[order_id] char(12) null,
 	[add_date] datetime null, 
-	[check] tinyint,
+	[checked] tinyint,
 	primary key ([cart_id]), 
 	foreign key (member_id) references Members(member_id),
 	foreign key (watch_id) references Watch(watch_id)
 )
+
 
 select * from Users
 select * from Members
@@ -213,6 +214,7 @@ select username, [password],[enabled] from Users where Users.username = N'admin'
 select username, authority from authorities where username = N'phienn'
 update Users set [enabled] = 0 where username = N'phienn1'
 update Watch set state = 1 where watch_id = N'W00113846170'
+update Cart set check = 0 where cart_id = N'dawdaw'
 
 delete Watch
 delete Users where Users.member_id = N'000002'

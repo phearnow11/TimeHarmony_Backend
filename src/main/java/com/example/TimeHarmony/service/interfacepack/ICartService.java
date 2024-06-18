@@ -1,6 +1,7 @@
 package com.example.TimeHarmony.service.interfacepack;
 
 import java.util.List;
+import java.util.Map;
 
 import com.example.TimeHarmony.entity.Cart;
 
@@ -9,6 +10,10 @@ public interface ICartService {
 
     List<Cart> getAllCart(String member_id);
 
-    void deleteFromCart(String cart_id);
+    String deleteFromCart(String cart_id);
+
+    String deleteMutipleCart(List<String> cart_id);
+
+    String saveChecked(Map<String, Integer> cartid);
 
 }
