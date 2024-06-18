@@ -180,4 +180,14 @@ public class WatchService implements IWatchService {
         }
     }
 
+    @Override
+    public List<Watch> getWatchesbyState() {
+        try {
+            byte STATE = 0;
+            return WATCH_REPOSITORY.findAllByState(STATE);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }

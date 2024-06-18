@@ -49,4 +49,6 @@ public interface IWatchService {
     public String deleteWatch(String id);
 
     public String deleteWatches(List<String> ids);
+
+    public List<Watch> getWatchesbyState();
 }

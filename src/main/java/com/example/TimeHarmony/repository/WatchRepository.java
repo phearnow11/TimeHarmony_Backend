@@ -63,4 +63,6 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
     @Transactional
     @Query(value = "update Watch set state = :state where watch_id = :id", nativeQuery = true)
     void updateWatchState(@Param("state") byte state, String id);
+
+    List<Watch> findAllByState(byte state);
 }
