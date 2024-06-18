@@ -159,7 +159,9 @@ public class WatchService implements IWatchService {
     @Override
     public String deleteWatch(String id) {
         try {
-            WATCH_REPOSITORY.deleteById(id);
+            byte STATE = -1;
+            WATCH_REPOSITORY.updateWatchState(STATE, id);
+            ;
             return "Watch deleted";
         } catch (Exception e) {
             return e.toString();
@@ -169,7 +171,9 @@ public class WatchService implements IWatchService {
     @Override
     public String deleteWatches(List<String> ids) {
         try {
-            WATCH_REPOSITORY.deleteAllById(ids);
+            byte STATE = -1;
+            for (String id : ids)
+                WATCH_REPOSITORY.updateWatchState(STATE, id);
             return "Watches deleted";
         } catch (Exception e) {
             return e.toString();
