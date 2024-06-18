@@ -39,4 +39,32 @@ public class StringService implements IStringService {
         return Arrays.asList(str_split);
     }
 
+    @Override
+    public int calculateDistance(String x, String y) {
+        if (x.isEmpty()) {
+            return y.length();
+        }
+
+        if (y.isEmpty()) {
+            return x.length();
+        }
+
+        int substitution = calculateDistance(x.substring(1), y.substring(1))
+                + costOfSubstitution(x.charAt(0), y.charAt(0));
+        int insertion = calculateDistance(x, y.substring(1)) + 1;
+        int deletion = calculateDistance(x.substring(1), y) + 1;
+
+        return min(substitution, insertion, deletion);
+    }
+
+    @Override
+    public int costOfSubstitution(char a, char b) {
+        return a == b ? 0 : 1;
+    }
+
+    @Override
+    public int min(int... numbers) {
+        return Arrays.stream(numbers)
+                .min().orElse(Integer.MAX_VALUE);
+    }
 }
