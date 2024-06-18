@@ -45,4 +45,8 @@ public interface IWatchService {
     public String updateImages(String id, List<String> urls);
 
     public List<Watch> getWatchesFromWatchID(List<String> ids);
+
+    public String deleteWatch(String id);
+
+    public String deleteWatches(List<String> ids);
 }

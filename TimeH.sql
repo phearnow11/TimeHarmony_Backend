@@ -213,8 +213,6 @@ select username, [authority] from Users join Roles on Users.role_id = Roles.role
 select username, [password],[enabled] from Users where Users.username = N'admin'
 select username, authority from authorities where username = N'phienn'
 update Users set [enabled] = 0 where username = N'phienn1'
-update Watch set state = 1 where watch_id = N'W00113846170'
-update Cart set check = 0 where cart_id = N'dawdaw'
 
 delete Watch
 delete Users where Users.member_id = N'000002'

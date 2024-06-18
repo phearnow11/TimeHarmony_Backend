@@ -3,6 +3,7 @@ package com.example.TimeHarmony.controller;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,5 +83,15 @@ public class SellerController {
         System.out.println(data.get("test"));
         existingWatch = SELLER_SERVICE.updateWatchByFields(data, existingWatch);
         return existingWatch;
+    }
+
+    @RequestMapping(value = "delete/watch/{id}", method = RequestMethod.DELETE)
+    public String deleteWatch(@PathVariable("id") String id) {
+        return WATCH_SERVICE.deleteWatch(id);
+    }
+
+    @RequestMapping(value = "delete/watches", method = RequestMethod.DELETE)
+    public String deleteWatches(@RequestBody List<String> data) {
+        return WATCH_SERVICE.deleteWatches(data);
     }
 }

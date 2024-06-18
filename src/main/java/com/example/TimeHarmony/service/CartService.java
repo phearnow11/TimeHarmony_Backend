@@ -39,7 +39,7 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public String deleteFromCart(String cart_id) {
+    public String deleteCart(String cart_id) {
         try {
             CART_REPOSITORY.deleteById(cart_id);
             return "Cart " + cart_id + " deleted";

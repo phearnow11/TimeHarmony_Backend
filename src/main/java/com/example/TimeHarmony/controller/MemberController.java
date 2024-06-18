@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -141,6 +142,16 @@ public class MemberController {
         return "Failed to add to cart";
     }
 
+    @RequestMapping(value = "get/carts/{id}", method = RequestMethod.GET)
+    public List<Cart> getCarts(@PathVariable("id") String member_id) {
+        return CART_SERVICE.getAllCart(member_id);
+    }
+
+    @RequestMapping(value = "delete/carts", method = RequestMethod.DELETE)
+    public String deleteCarts(@RequestBody List<String> cartids) {
+        return CART_SERVICE.deleteMutipleCart(cartids);
+    }
+
     @RequestMapping(value = "to-seller", method = RequestMethod.POST)
     public String saveSeller(@RequestParam("id") String id, @RequestParam("username") String username) {
 
@@ -168,8 +179,9 @@ public class MemberController {
         return MEMBER_SERVICE.deleteFavorites(member_id, w_ids);
     }
 
-    @RequestMapping(value = "get/carts/{id}", method = RequestMethod.GET)
-    public List<Cart> getCarts(@PathVariable("id") String member_id) {
-        return CART_SERVICE.getAllCart(member_id);
+    @GetMapping("/test")
+    public String test(@RequestBody Map<String, Object> data) {
+        return data.get("t").toString();
     }
+
 }

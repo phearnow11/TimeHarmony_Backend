@@ -10,7 +10,7 @@ public interface ICartService {
 
     List<Cart> getAllCart(String member_id);
 
-    String deleteFromCart(String cart_id);
+    String deleteCart(String cart_id);
 
     String deleteMutipleCart(List<String> cart_id);
 
