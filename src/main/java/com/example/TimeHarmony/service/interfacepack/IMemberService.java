@@ -51,4 +51,6 @@ public interface IMemberService {
 
     public String deleteFavorites(String m_id, List<String> w_id);
 
+    public String deleteMember(String id);
+
 }

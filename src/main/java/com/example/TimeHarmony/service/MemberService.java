@@ -73,6 +73,16 @@ public class MemberService implements IMemberService {
     }
 
     @Override
+    public String deleteMember(String id) {
+        try {
+            MEMBER_REPOSITORY.deleteById(UUID.fromString(id));
+            return "Member deleted";
+        } catch (Exception e) {
+            return e.toString();
+        }
+    }
+
+    @Override
     public Members saveUser(Members member, Users logInfo) {
         Authorities auth = new Authorities();
         if (MEMBER_REPOSITORY.findAll().isEmpty()) {
@@ -218,4 +228,5 @@ public class MemberService implements IMemberService {
             return e.toString();
         }
     }
+
 }

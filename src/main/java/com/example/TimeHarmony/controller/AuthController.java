@@ -11,14 +11,18 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.TimeHarmony.entity.Members;
+import com.example.TimeHarmony.service.CartService;
 import com.example.TimeHarmony.service.MemberService;
 import com.example.TimeHarmony.service.TokenService;
+import com.google.common.reflect.TypeToken;
+import com.nimbusds.jose.shaded.gson.Gson;
 
 @RestController
 @RequestMapping("api/auth")
@@ -28,6 +32,9 @@ public class AuthController {
 
     @Autowired
     private MemberService MEMBER_SERVICE;
+
+    @Autowired
+    private CartService CART_SERVICE;
 
     public AuthController(TokenService tokenService) {
         this.TOKEN_SERVIVE = tokenService;
@@ -45,7 +52,13 @@ public class AuthController {
     }
 
     @PostMapping("logout")
-    public String logout(@RequestParam("member_id") String member_id) {
+    public String logout(@RequestParam("member_id") String member_id, @RequestBody Map<String, Object> data) {
+        Map<String, Integer> checks = new HashMap<>();
+        Gson gson = new Gson();
+        String checks_json = gson.toJson(data.get("checks"));
+        checks = gson.fromJson(checks_json, new TypeToken<Map<String, Integer>>() {
+        }.getType());
+        CART_SERVICE.saveChecked(checks);
         MEMBER_SERVICE.logout(member_id);
         return "Logout";
     }

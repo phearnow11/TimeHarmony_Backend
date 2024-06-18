@@ -156,4 +156,24 @@ public class WatchService implements IWatchService {
         }
     }
 
+    @Override
+    public String deleteWatch(String id) {
+        try {
+            WATCH_REPOSITORY.deleteById(id);
+            return "Watch deleted";
+        } catch (Exception e) {
+            return e.toString();
+        }
+    }
+
+    @Override
+    public String deleteWatches(List<String> ids) {
+        try {
+            WATCH_REPOSITORY.deleteAllById(ids);
+            return "Watches deleted";
+        } catch (Exception e) {
+            return e.toString();
+        }
+    }
+
 }
