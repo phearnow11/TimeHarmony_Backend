@@ -15,19 +15,10 @@
 	<description>TimeHarmony project backend</description>
 	<properties>
 		<java.version>22</java.version>
-		<hibernate.search.version>7.2.0.Alpha2</hibernate.search.version>
+		
 	</properties>
 	<dependencies>
-		<dependency>
-        <groupId>org.hibernate.search</groupId>
-        <artifactId>hibernate-search-mapper-orm</artifactId>
-        <version>6.2.4.Final</version>
-    </dependency>
-    <dependency>
-        <groupId>org.hibernate.search</groupId>
-        <artifactId>hibernate-search-backend-lucene</artifactId>
-        <version>7.2.0.Alpha2</version>
-    </dependency>
+		
 		<dependency>
       		<groupId>org.springframework.boot</groupId>
       		<artifactId>spring-boot-starter-mail</artifactId>
