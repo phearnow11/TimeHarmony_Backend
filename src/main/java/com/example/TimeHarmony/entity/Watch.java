@@ -3,6 +3,12 @@ package com.example.TimeHarmony.entity;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CollectionTable;
@@ -23,6 +29,7 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
+@Indexed
 @AllArgsConstructor
 @ToString
 @Table(name = "Watch")
@@ -38,7 +45,9 @@ public class Watch {
     @JoinColumn(name = "member_id")
     private Sellers seller;
 
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String watch_description;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String watch_name;
 
     @ElementCollection
@@ -52,33 +61,61 @@ public class Watch {
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp watch_approval_date;
 
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private byte state;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private long price;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String brand;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String series;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String model;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String gender;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String style_type;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String sub_class;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String made_label;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String calender;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String feature;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String movement;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String functions;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String engine;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String water_resistant;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String band_color;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String band_type;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String clasp;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String bracelet;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String dial_type;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String dial_color;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String crystal;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String second_makers;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String bezel;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String bezel_material;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String case_back;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String case_dimension;
+    @Field(index= Index.YES, analyze= Analyze.YES, store = Store.NO)
     private String case_shape;
 
     public Watch() {
