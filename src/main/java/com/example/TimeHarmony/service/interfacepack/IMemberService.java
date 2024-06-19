@@ -41,6 +41,8 @@ public interface IMemberService {
 
     public Addresses addAddress(Addresses address);
 
+    public Addresses getDefaultAddress(String m_id);
+
     public List<Addresses> getAddresses(String member_id);
 
     public String deleteAddress(String m_id, String a_id);

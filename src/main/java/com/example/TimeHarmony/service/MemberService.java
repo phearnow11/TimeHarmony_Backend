@@ -235,4 +235,18 @@ public class MemberService implements IMemberService {
         }
     }
 
+    @Override
+    public Addresses getDefaultAddress(String m_id) {
+        try {
+            Members m = getMemberbyID(m_id).get();
+            Optional<Addresses> add = ADDRESS_REPOSITORY.checkDefault(m, true);
+            if (add.isPresent())
+                return add.get();
+            return null;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
 }

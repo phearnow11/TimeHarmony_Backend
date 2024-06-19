@@ -16,4 +16,8 @@ public interface ICartService {
 
     String saveChecked(Map<String, Integer> cartid);
 
+    List<Cart> getCartsbyId(List<String> ids);
+
+    String updateCartsOrder(List<Cart> carts, String order_id);
+
 }

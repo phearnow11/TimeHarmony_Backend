@@ -22,4 +22,9 @@ public interface CartRepository extends JpaRepository<Cart, String> {
     @Query(value = "update Cart set checked = :check where cart_id = :id", nativeQuery = true)
     void updateCheck(@Param("check") int check, @Param("id") String id);
 
+    @Modifying
+    @Transactional
+    @Query(value = "update Cart set order_id = :oid where cart_id = :cid", nativeQuery = true)
+    void updateOrder(@Param("oid") String oid, @Param("cid") String cid);
+
 }

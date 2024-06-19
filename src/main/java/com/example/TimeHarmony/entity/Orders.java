@@ -1,6 +1,7 @@
 package com.example.TimeHarmony.entity;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -37,6 +38,7 @@ public class Orders {
     private String receive_name;
     private String phone;
     private String notice;
+    private List<String> product_name;
     private long total_price;
 
     public Orders() {

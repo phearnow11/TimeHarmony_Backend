@@ -184,9 +184,15 @@ public class MemberController {
         return MEMBER_SERVICE.deleteFavorites(member_id, w_ids);
     }
 
+    @RequestMapping(value = "add/order/{id}", method = RequestMethod.POST)
+    public String makeOrder(@PathVariable("id") String member_id, @RequestBody Map<String, List<String>> data) {
+        return "";
+    }
+
     @GetMapping("/test")
     public String test(@RequestBody Map<String, Object> data) {
-        return data.get("t").toString();
+        System.out.println(MEMBER_SERVICE.getDefaultAddress(data.get("id").toString()).getName());
+        return "hi";
     }
 
 }

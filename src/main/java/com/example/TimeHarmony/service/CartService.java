@@ -70,4 +70,26 @@ public class CartService implements ICartService {
         }
     }
 
+    @Override
+    public List<Cart> getCartsbyId(List<String> ids) {
+        try {
+            return CART_REPOSITORY.findAllById(ids);
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    @Override
+    public String updateCartsOrder(List<Cart> carts, String order_id) {
+        try {
+            for (Cart i : carts) {
+                CART_REPOSITORY.updateOrder(order_id, i.getCart_id());
+            }
+            return "Order id at Cart updated";
+        } catch (Exception e) {
+            return e.toString();
+        }
+    }
+
 }
