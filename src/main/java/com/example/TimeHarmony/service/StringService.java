@@ -16,6 +16,8 @@ public class StringService implements IStringService {
         String original_data = data.toString();
         String stringdata = "";
         for (int i = 1; i < original_data.length() - 1; i++) {
+            if (original_data.charAt(i) == ' ')
+                continue;
             stringdata += original_data.charAt(i);
         }
 
