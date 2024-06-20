@@ -76,4 +76,9 @@ public class WatchController {
     public String updateImages(@PathVariable("id") String id, @RequestBody Map<String, List<String>> data) {
         return WATCH_SERVICE.updateImages(id, data.get("urls"));
     }
+
+    @RequestMapping(value = "delete/images/{id}", method = RequestMethod.DELETE)
+    public String deleteImages(@PathVariable("id") String id, @RequestBody Map<String, List<String>> data) {
+        return WATCH_SERVICE.deleteImages(id, data.get("urls"));
+    }
 }

@@ -67,4 +67,9 @@ public interface MemberRepository extends JpaRepository<Members, UUID> {
     @Transactional
     @Query("update Members m set m.email = :email where m.member_id = :id")
     void updateMemberEmail(@Param("email") String email, @Param("id") UUID id);
+
+    @Modifying
+    @Transactional
+    @Query("update Members m set m.member_image = :url where m.member_id = :id")
+    void updateMemberImage(@Param("url") String url, @Param("id") UUID id);
 }

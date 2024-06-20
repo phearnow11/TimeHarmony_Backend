@@ -249,4 +249,14 @@ public class MemberService implements IMemberService {
         }
     }
 
+    @Override
+    public String updateMemberImage(String id, String url) {
+        try {
+            MEMBER_REPOSITORY.updateMemberImage(url, UUID.fromString(id));
+            return "Image updated";
+        } catch (Exception e) {
+            return e.toString();
+        }
+    }
+
 }

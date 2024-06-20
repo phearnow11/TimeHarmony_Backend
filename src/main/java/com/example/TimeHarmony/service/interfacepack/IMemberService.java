@@ -55,4 +55,6 @@ public interface IMemberService {
 
     public String deleteMember(String id);
 
+    public String updateMemberImage(String id, String url);
+
 }

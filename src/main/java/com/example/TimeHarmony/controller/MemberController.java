@@ -193,6 +193,11 @@ public class MemberController {
         return "";
     }
 
+    @RequestMapping(value = "update/user/image/{id}", method = RequestMethod.PATCH)
+    public String updateMemberImage(@PathVariable("id") String member_id, @RequestParam("url") String url) {
+        return MEMBER_SERVICE.updateMemberImage(member_id, url);
+    }
+
     @GetMapping("/test")
     public String test(@RequestBody Map<String, Object> data) {
         System.out.println(MEMBER_SERVICE.getDefaultAddress(data.get("id").toString()).getName());

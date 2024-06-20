@@ -190,4 +190,16 @@ public class WatchService implements IWatchService {
         }
     }
 
+    @Override
+    public String deleteImages(String id, List<String> urls) {
+        try {
+            for (String url : urls) {
+                WATCH_REPOSITORY.deleteImage(id, url);
+            }
+            return "Watch images deleted";
+        } catch (Exception e) {
+            return e.toString();
+        }
+    }
+
 }
