@@ -138,8 +138,12 @@ public class WatchService implements IWatchService {
     @Override
     public String updateImages(String id, List<String> urls) {
         try {
-            for (String url : urls)
-                WATCH_REPOSITORY.saveWatch_Images(id, url);
+            Watch w = getWatchById(id);
+            List<String> old_url = w.getImage_url();
+            for (String i : old_url)
+                WATCH_REPOSITORY.deleteImage(id, i);
+            for (String new_url : urls)
+                WATCH_REPOSITORY.saveWatch_Images(id, new_url);
             return "Watch images save success!";
         } catch (Exception e) {
             return e.toString();
