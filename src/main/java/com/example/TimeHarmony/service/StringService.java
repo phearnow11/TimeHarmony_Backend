@@ -13,7 +13,11 @@ public class StringService implements IStringService {
 
     @Override
     public List<String> jsonArrToStringList(Object data) {
-        String stringdata = data.toString();
+        String original_data = data.toString();
+        String stringdata = "";
+        for (int i = 1; i < original_data.length() - 1; i++) {
+            stringdata += original_data.charAt(i);
+        }
 
         String[] stringlist = stringdata.split(",");
         List<String> rs = Arrays.asList(stringlist);

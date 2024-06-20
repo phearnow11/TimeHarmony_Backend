@@ -2,7 +2,7 @@ package com.example.TimeHarmony.controller;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +19,7 @@ import com.example.TimeHarmony.builder.WatchBuilder;
 import com.example.TimeHarmony.entity.Sellers;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.service.SellerService;
+import com.example.TimeHarmony.service.StringService;
 import com.example.TimeHarmony.service.WatchService;
 
 @RestController
@@ -30,15 +31,26 @@ public class SellerController {
     private SellerService SELLER_SERVICE;
     @Autowired
     private WatchService WATCH_SERVICE;
+    @Autowired
+    private StringService STRING_SERVICE;
 
     private final byte DEFAULT_STATUS = 0;
 
     @RequestMapping(value = "create/watch", method = RequestMethod.POST)
-    public Watch createWatch(@RequestBody Map<String, String> data, @RequestParam("seller_id") String id) {
+    public String createWatch(@RequestBody Map<String, Object> data1, @RequestParam("seller_id") String id) {
 
+        Map<String, String> data = new HashMap<>();
+        for (String i : data1.keySet()) {
+            if (data1.get(i) != null)
+                data.put(i, data1.get(i).toString());
+        }
+
+        List<String> img_urls = STRING_SERVICE.jsonArrToStringList(data.get("images"));
+
+        System.out.println(img_urls.size());
         Watch watch = new WatchBuilder()
                 .setWatchId(WATCH_SERVICE.generateWatchId())
-                .setWatchImage(new ArrayList<>())
+                .setWatchImage(img_urls)
                 .setWatchDescription(data.get("description"))
                 .setWatchName(data.get("name"))
                 .setWatchCreateDate(Timestamp.valueOf(LocalDateTime.now()))

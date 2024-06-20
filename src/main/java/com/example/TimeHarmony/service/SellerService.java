@@ -38,9 +38,15 @@ public class SellerService implements ISellerService {
     private AuthoritiesRepository AUTHORITIES_REPOSITORY;
 
     @Override
-    public Watch createWatch(Watch watch, Sellers seller) {
-        watch.setSeller(seller);
-        return WATCH_REPOSITORY.save(watch);
+    public String createWatch(Watch watch, Sellers seller) {
+        try {
+
+            watch.setSeller(seller);
+            WATCH_REPOSITORY.save(watch);
+            return "Watch Created";
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
 
     @Override
