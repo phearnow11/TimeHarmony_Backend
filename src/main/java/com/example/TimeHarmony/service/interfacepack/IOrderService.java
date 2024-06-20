@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface IOrderService {
 
-    String makeOrder(List<String> cids);
+    String makeOrder(List<String> cids, String m_id);
 
 }

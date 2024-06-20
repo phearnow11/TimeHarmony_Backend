@@ -26,6 +26,7 @@ import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.service.CartService;
 import com.example.TimeHarmony.service.EmailService;
 import com.example.TimeHarmony.service.MemberService;
+import com.example.TimeHarmony.service.OrderService;
 import com.example.TimeHarmony.service.StringService;
 import com.example.TimeHarmony.service.WatchService;
 
@@ -48,6 +49,9 @@ public class MemberController {
 
     @Autowired
     private WatchService WATCH_SERVICE;
+
+    @Autowired
+    private OrderService ORDER_SERVICE;
 
     private final String DEFAULT_MAIL_SUBJECT_VERIFY_GOOGLE = "Email Verification Code";
     private final String DEFAULT_MAIL_SUBJECT_VERIFY_PASSWORD = "Password Changing Verification Code";
@@ -192,7 +196,7 @@ public class MemberController {
     @GetMapping("/test")
     public String test(@RequestBody Map<String, Object> data) {
         System.out.println(MEMBER_SERVICE.getDefaultAddress(data.get("id").toString()).getName());
-        return "hi";
+        return "";
     }
 
 }

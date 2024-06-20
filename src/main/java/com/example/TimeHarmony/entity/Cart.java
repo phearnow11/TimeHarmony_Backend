@@ -20,7 +20,6 @@ public class Cart {
     private String cart_id;
     private String watch_id;
     private UUID member_id;
-    private String order_id;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp add_date;

@@ -189,7 +189,6 @@ create table Cart(
 	[cart_id] char(10) not null, 
 	[watch_id] char(12) not null, 
 	[member_id] binary(16) not null,
-	[order_id] char(12) null,
 	[add_date] datetime null, 
 	[checked] tinyint,
 	primary key ([cart_id]), 
@@ -197,6 +196,11 @@ create table Cart(
 	foreign key (watch_id) references Watch(watch_id)
 )
 
+create table Order_Product(
+	[order_id] char(12) not null,
+	[product] varchar(max) not null,
+	foreign key (order_id) references Orders(order_id)
+)
 
 select * from Users
 select * from Members

@@ -23,7 +23,7 @@ public class CartService implements ICartService {
 
     @Override
     public Cart addToCart(String watch_id, String member_id) {
-        Cart cart = new Cart(STRING_SERVICE.autoGenerateString(10), watch_id, UUID.fromString(member_id), "",
+        Cart cart = new Cart(STRING_SERVICE.autoGenerateString(10), watch_id, UUID.fromString(member_id),
                 Timestamp.valueOf(LocalDateTime.now()), 0);
         return CART_REPOSITORY.save(cart);
     }

@@ -29,18 +29,17 @@ public class OrderService implements IOrderService {
     private MemberService MEMBER_SERVICE;
 
     @Override
-    public String makeOrder(List<String> cids) {
+    public String makeOrder(List<String> cids, String m_id) {
         String order_id = "O" + STRING_SERVICE.autoGenerateString(11);
         try {
-            List<Cart> carts = CART_SERVICE.getCartsbyId(cids);
-            Members m = MEMBER_SERVICE.getMemberbyID(carts.get(0).getMember_id().toString()).get();
-            CART_SERVICE.updateCartsOrder(carts, order_id);
+            Members m = MEMBER_SERVICE.getMemberbyID(m_id).get();
             Timestamp time = Timestamp.valueOf(LocalDateTime.now());
-            ORDER_REPOSITORY.save(new Orders(order_id, m, time, "", order_id, order_id, order_id, cids, 0));
+            ORDER_REPOSITORY.save(new Orders(order_id, m, time,
+                    MEMBER_SERVICE.getDefaultAddress(m.getMember_id().toString()).getAddress_detail(), "", order_id, "",
+                    0));
             return "Order" + order_id + " created";
         } catch (Exception e) {
             return e.toString();
         }
     }
-
 }
