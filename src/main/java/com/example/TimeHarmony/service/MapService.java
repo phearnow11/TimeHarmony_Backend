@@ -7,6 +7,9 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.example.TimeHarmony.service.interfacepack.IMapService;
+import com.google.common.reflect.TypeToken;
+import com.nimbusds.jose.shaded.gson.Gson;
+import com.nimbusds.jose.shaded.gson.JsonElement;
 
 @Service
 public class MapService implements IMapService {
@@ -22,6 +25,13 @@ public class MapService implements IMapService {
         }
 
         return map;
+    }
+
+    @Override
+    public Map<String, Object> convertJsonToObjectGson(JsonElement json) {
+        Gson gson = new Gson();
+        return gson.fromJson(json, new TypeToken<Map<String, Object>>() {
+        }.getType());
     }
 
 }

@@ -1,30 +1,31 @@
 package com.example.TimeHarmony.repository;
 
+import java.sql.Timestamp;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.example.TimeHarmony.dtos.WatchInCart;
 import com.example.TimeHarmony.entity.Cart;
 
 import jakarta.transaction.Transactional;
 
 public interface CartRepository extends JpaRepository<Cart, String> {
 
-    @Query(value = "select * from Cart c where c.member_id = :m_id", nativeQuery = true)
-    List<Cart> getCartFromMember(@Param("m_id") UUID m_id);
+    @Modifying
+    @Transactional
+    @Query(value = "insert into Watches_In_Cart(watch_id, cart_id, checked, add_date) values (:wid, :cid, :checked, :add_date)", nativeQuery = true)
+    void addToCart(@Param("wid") String wid, @Param("cid") String cid, @Param("checked") int checked,
+            @Param("add_date") Timestamp time);
+
+    @Query(value = "select * from Watches_In_Cart where cart_id = :id", nativeQuery = true)
+    List<WatchInCart> getWatchesInCart(@Param("id") String cid);
 
     @Modifying
     @Transactional
-    @Query(value = "update Cart set checked = :check where cart_id = :id", nativeQuery = true)
-    void updateCheck(@Param("check") int check, @Param("id") String id);
-
-    @Modifying
-    @Transactional
-    @Query(value = "update Cart set order_id = :oid where cart_id = :cid", nativeQuery = true)
-    void updateOrder(@Param("oid") String oid, @Param("cid") String cid);
-
+    @Query(value = "update Watches_In_Cart set checked = :checked where cart_id = :cid and watch_id = :wid", nativeQuery = true)
+    void updateChecked(@Param("checked") int check, @Param("cid") String cid, @Param("wid") String wid);
 }

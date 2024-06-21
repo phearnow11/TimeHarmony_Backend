@@ -1,5 +1,6 @@
 package com.example.TimeHarmony.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -72,5 +73,23 @@ public class StringService implements IStringService {
     public int min(int... numbers) {
         return Arrays.stream(numbers)
                 .min().orElse(Integer.MAX_VALUE);
+    }
+
+    @Override
+    public List<Integer> jsonArrtoIntegerList(Object data) {
+        String original_data = data.toString();
+        String stringdata = "";
+        for (int i = 1; i < original_data.length() - 1; i++) {
+            if (original_data.charAt(i) == ' ')
+                continue;
+            stringdata += original_data.charAt(i);
+        }
+
+        String[] stringlist = stringdata.split(",");
+        List<Integer> rs = new ArrayList<>();
+        for (String i : stringlist) {
+            rs.add(Integer.parseInt(i));
+        }
+        return rs;
     }
 }

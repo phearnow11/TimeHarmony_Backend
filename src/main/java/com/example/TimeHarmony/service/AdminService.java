@@ -170,7 +170,8 @@ public class AdminService implements IAdminService {
         try {
             if (!USER_REPOSOTORY.existsById(TEST_USERNAME)) {
                 System.out.println("Test User not found");
-                Members m = MEMBER_SERVICE.saveUser(new MemberBuilder().setUserLogInfo(tu).build(), tu);
+                Members m = MEMBER_SERVICE.saveUser(new MemberBuilder()
+                        .setMemberImage("https://files.catbox.moe/n1w3b0.png").setUserLogInfo(tu).build(), tu);
                 System.out.println(MEMBER_SERVICE.toSeller(m.getMember_id().toString(), TEST_USERNAME));
                 System.out.println("Test User Created -- User id : " + m.getMember_id());
                 return m.getMember_id().toString();

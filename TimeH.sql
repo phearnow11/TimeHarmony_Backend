@@ -17,6 +17,11 @@ create table Authorities (
 	foreign key (username) references Users(username)
 )
 
+create table Cart(
+	[cart_id] char(12) not null, 
+	primary key ([cart_id])
+)
+
 create table Members (
 	[member_id] binary(16) not null,
 	[google_id] varchar(100) null,
@@ -27,9 +32,11 @@ create table Members (
 	[is_active] tinyint null, 
 	[email] varchar (50) null,
 	[phone] varchar(20) null,
+	cart_id char(12) null,
 	[last_login_date] datetime,
 	[last_logout_date] datetime,
 	primary key ([member_id]),
+	foreign key (cart_id) references Cart(cart_id),
 	foreign key (username) references Users(username)
 )
 
@@ -189,12 +196,6 @@ create table Voucher_Applied (
 	foreign key (order_id) references Orders(order_id)
 )
 
-create table Cart(
-	[cart_id] char(12) not null, 
-	[member_id] binary(16) not null,
-	primary key ([cart_id]), 
-	foreign key (member_id) references Members(member_id)
-)
 
 create table Watches_In_Cart(
 	[watch_id] char(12) not null, 
@@ -214,6 +215,7 @@ create table Selected_Watch_Order(
 
 select * from Users
 select * from Members
+select * from Cart
 select * from Authorities
 select * from Admins
 select * from Watch
@@ -223,6 +225,7 @@ select * from Watch_images
 select * from Cart
 select * from Access_History
 select * from Favorites
+select * from Watches_In_Cart
 select username, [authority] from Users join Roles on Users.role_id = Roles.role_id 
 select username, [password],[enabled] from Users where Users.username = N'admin'
 select username, authority from authorities where username = N'phienn'
@@ -239,6 +242,6 @@ alter table Watch add watch_create_date datetime
 
 create fulltext catalog [FTS_Watch] with accent_sensitivity = ON 
 
-select * from dbo.Watch where FREETEXT(Watch.*, 'Ot') AND state = 0 
+select * from dbo.Watch where FREETEXT(Watch.*, 'Potorous') AND state = 0 
 
 select * from dbo.Watch where watch_name like '%o%' or watch_description like '%o%' and state = 0 

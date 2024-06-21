@@ -152,8 +152,8 @@ public class MemberController {
     }
 
     @RequestMapping(value = "get/carts/{id}", method = RequestMethod.GET)
-    public List<Cart> getCarts(@PathVariable("id") String member_id) {
-        return CART_SERVICE.getAllCart(member_id);
+    public List<Watch> getCarts(@PathVariable("id") String member_id) {
+        return CART_SERVICE.getAllWatchFromCart(member_id);
     }
 
     @RequestMapping(value = "delete/carts", method = RequestMethod.DELETE)

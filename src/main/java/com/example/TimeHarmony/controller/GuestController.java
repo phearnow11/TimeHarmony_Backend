@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.TimeHarmony.builder.MemberBuilder;
+import com.example.TimeHarmony.entity.Cart;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Sellers;
 import com.example.TimeHarmony.entity.Users;
+import com.example.TimeHarmony.service.CartService;
 import com.example.TimeHarmony.service.MemberService;
 import com.example.TimeHarmony.service.SellerService;
 
@@ -29,6 +31,8 @@ public class GuestController {
     private MemberService MEMBER_SERVICE;
     @Autowired
     private SellerService SELLER_SERVICE;
+    @Autowired
+    private CartService CART_SERVICE;
 
     private final byte MEMBER_ACTIVATE = 1;
     private final byte DEFAULT_INACTIVE_STATUS = 0;
@@ -40,11 +44,14 @@ public class GuestController {
         JSONArray jsarrdata = new JSONArray(data);
         JSONObject UserJSdata = jsarrdata.getJSONObject(0);
 
+        Cart c = CART_SERVICE.addNewCart();
+
         Users logInfo = new Users(jsarrdata.getJSONObject(1).optString("username"),
                 jsarrdata.getJSONObject(1).optString("password"), null, MEMBER_ACTIVATE);
 
         Members member = new MemberBuilder()
                 .setMemberImage("https://files.catbox.moe/n1w3b0.png")
+                .setCart(c)
                 .setUserLogInfo(logInfo)
                 .setFirstName(UserJSdata.optString("Fname"))
                 .setLastName(UserJSdata.optString("Lname"))

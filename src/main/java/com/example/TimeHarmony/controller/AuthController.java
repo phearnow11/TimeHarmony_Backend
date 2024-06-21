@@ -53,12 +53,8 @@ public class AuthController {
 
     @PostMapping("logout")
     public String logout(@RequestParam("member_id") String member_id, @RequestBody Map<String, Object> data) {
-        Map<String, Integer> checks = new HashMap<>();
         Gson gson = new Gson();
-        String checks_json = gson.toJson(data.get("checks"));
-        checks = gson.fromJson(checks_json, new TypeToken<Map<String, Integer>>() {
-        }.getType());
-        CART_SERVICE.saveChecked(checks);
+        CART_SERVICE.saveChecked(gson.toJsonTree(data.get("checks")));
         MEMBER_SERVICE.logout(member_id);
         return "Logout";
     }

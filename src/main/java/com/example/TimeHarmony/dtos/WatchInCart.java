@@ -10,4 +10,5 @@ public interface WatchInCart {
     boolean getChecked();
 
     Timestamp getAdd_date();
+
 }

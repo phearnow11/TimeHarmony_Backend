@@ -3,6 +3,7 @@ package com.example.TimeHarmony.builder.interfacepack;
 import java.sql.Timestamp;
 import java.util.UUID;
 
+import com.example.TimeHarmony.entity.Cart;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Users;
 
@@ -28,6 +29,8 @@ public interface IMemberBuilder {
     public IMemberBuilder setLastLoginDate(Timestamp last_login);
 
     public IMemberBuilder setLastLogoutDate(Timestamp last_logout);
+
+    public IMemberBuilder setCart(Cart c);
 
     public Members build();
 }
