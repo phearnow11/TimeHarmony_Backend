@@ -70,4 +70,5 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
     void deleteImage(@Param("id") String id, @Param("url") String url);
 
     List<Watch> findAllByState(byte state);
+
 }

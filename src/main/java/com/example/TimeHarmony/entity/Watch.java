@@ -3,8 +3,6 @@ package com.example.TimeHarmony.entity;
 import java.sql.Timestamp;
 import java.util.List;
 
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CollectionTable;
@@ -35,15 +33,14 @@ public class Watch {
     private String watch_id;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "watches", "handler", "hibernateLazyInitializer", "seller", "user_log_info",
+    @JsonIgnoreProperties(value = { "watches", "handler", "hibernateLazyInitializer", "seller",
             "member_image", "first_name", "last_name", "is_active", "email", "phone", "last_login_date",
             "last_logout_date", "addresses", "myOrders", "google_id" }, allowSetters = true)
     @JoinColumn(name = "member_id")
     private Sellers seller;
 
-   
     private String watch_description;
-    
+
     private String watch_name;
 
     @ElementCollection
@@ -57,61 +54,60 @@ public class Watch {
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp watch_approval_date;
 
-    
     private byte state;
-    
+
     private long price;
-    
+
     private String brand;
-    
+
     private String series;
-   
+
     private String model;
-    
+
     private String gender;
-   
+
     private String style_type;
-   
+
     private String sub_class;
-   
+
     private String made_label;
-    
+
     private String calender;
-   
+
     private String feature;
-   
+
     private String movement;
-   
+
     private String functions;
-  
+
     private String engine;
-   
+
     private String water_resistant;
-    
+
     private String band_color;
-   
+
     private String band_type;
-   
+
     private String clasp;
-   
+
     private String bracelet;
-    
+
     private String dial_type;
-    
+
     private String dial_color;
-   
+
     private String crystal;
-   
+
     private String second_makers;
-    
+
     private String bezel;
-   
+
     private String bezel_material;
-    
+
     private String case_back;
-    
+
     private String case_dimension;
-    
+
     private String case_shape;
 
     public Watch() {

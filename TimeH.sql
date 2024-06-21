@@ -128,6 +128,8 @@ create table Report(
 create table Admins (
 	[member_id] binary(16) not null,
 	[key_pass] varchar(15) null, 
+	[cloud_name] varchar(100) null, 
+	[upload_preset] varchar(100) null,
 	primary key (member_id),
 	foreign key (member_id) references Members([member_id])
 )
@@ -186,19 +188,25 @@ create table Voucher_Applied (
 )
 
 create table Cart(
-	[cart_id] char(10) not null, 
-	[watch_id] char(12) not null, 
+	[cart_id] char(12) not null, 
 	[member_id] binary(16) not null,
-	[add_date] datetime null, 
-	[checked] tinyint,
 	primary key ([cart_id]), 
-	foreign key (member_id) references Members(member_id),
+	foreign key (member_id) references Members(member_id)
+)
+
+create table Watches_In_Cart(
+	[watch_id] char(12) not null, 
+	[cart_id] char(12) not null,
+	[checked] tinyint,
+	[add_date] datetime null,
+	foreign key (cart_id) references Cart(cart_id),
 	foreign key (watch_id) references Watch(watch_id)
 )
 
-create table Order_Product(
-	[order_id] char(12) not null,
-	[product] varchar(max) not null,
+create table Selected_Watch_Order(
+	[watch_id] char(12) not null, 
+	[order_id] char(12) not null, 
+	foreign key (watch_id) references Watch(watch_id), 
 	foreign key (order_id) references Orders(order_id)
 )
 

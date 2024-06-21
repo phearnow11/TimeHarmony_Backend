@@ -1,5 +1,7 @@
 package com.example.TimeHarmony.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -16,6 +18,7 @@ public class Users {
 
     @OneToOne
     @JoinColumn(name = "username")
+    @JsonIgnoreProperties(value = { "handler", "hibernateLazyInitializer", "username" }, allowSetters = true)
     private Authorities authorities;
 
     private byte enabled;

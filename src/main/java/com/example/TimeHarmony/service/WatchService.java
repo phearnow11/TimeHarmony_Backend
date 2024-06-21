@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.TimeHarmony.dtos.Filter;
+import com.example.TimeHarmony.entity.Sellers;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.repository.WatchRepository;
 import com.example.TimeHarmony.service.interfacepack.IWatchService;
@@ -18,6 +19,9 @@ public class WatchService implements IWatchService {
 
     @Autowired
     private WatchRepository WATCH_REPOSITORY;
+
+    @Autowired
+    private SellerService SELLER_REPOSITORY;
 
     @Override
     public String generateWatchId() {
@@ -161,9 +165,14 @@ public class WatchService implements IWatchService {
     }
 
     @Override
-    public String deleteWatch(String id) {
+    public String deleteWatch(String id, String sid) {
         try {
-            byte STATE = -1;
+            byte STATE = 2;
+            Sellers s = SELLER_REPOSITORY.getSellerbyId(sid);
+            List<Watch> w_owned = s.getWatches();
+            Watch w = getWatchById(sid);
+            if (!w_owned.contains(w))
+                throw new Exception("Watch is not yours");
             WATCH_REPOSITORY.updateWatchState(STATE, id);
             ;
             return "Watch deleted";
@@ -173,11 +182,16 @@ public class WatchService implements IWatchService {
     }
 
     @Override
-    public String deleteWatches(List<String> ids) {
+    public String deleteWatches(List<String> ids, String sid) {
         try {
-            byte STATE = -1;
-            for (String id : ids)
-                WATCH_REPOSITORY.updateWatchState(STATE, id);
+            byte STATE = 2;
+            Sellers s = SELLER_REPOSITORY.getSellerbyId(sid);
+            List<Watch> w_owned = s.getWatches();
+            List<Watch> w_chosen = getWatchByIds(ids);
+            for (Watch w : w_chosen) {
+                if (w_owned.contains(w))
+                    WATCH_REPOSITORY.updateWatchState(STATE, w.getWatch_id());
+            }
             return "Watches deleted";
         } catch (Exception e) {
             return e.toString();
@@ -203,6 +217,16 @@ public class WatchService implements IWatchService {
             return "Watch images deleted";
         } catch (Exception e) {
             return e.toString();
+        }
+    }
+
+    @Override
+    public List<Watch> getWatchByIds(List<String> ids) {
+        try {
+            return WATCH_REPOSITORY.findAllById(ids);
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
         }
     }
 

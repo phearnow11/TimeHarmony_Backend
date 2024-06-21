@@ -46,11 +46,13 @@ public interface IWatchService {
 
     public List<Watch> getWatchesFromWatchID(List<String> ids);
 
-    public String deleteWatch(String id);
+    public String deleteWatch(String id, String sid);
 
-    public String deleteWatches(List<String> ids);
+    public String deleteWatches(List<String> ids, String sid);
 
     public List<Watch> getWatchesbyState();
 
     public String deleteImages(String id, List<String> urls);
+
+    public List<Watch> getWatchByIds(List<String> ids);
 }
