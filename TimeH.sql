@@ -48,8 +48,8 @@ create table Addresses (
 create table Watch(
 	[watch_id] char(12) not null, 
 	[member_id] binary(16) not null,
-	[watch_description] varchar(max) null, 
-	[watch_name] varchar(100) null, 
+	[watch_description] varchar(max) not null, 
+	[watch_name] varchar(100) not null, 
 	[watch_create_date] datetime,
 	[watch_approval_date] datetime,
 	[state] tinyint null, 
@@ -81,6 +81,8 @@ create table Watch(
 	[case_dimension] varchar(100) null, 
 	[case_shape] varchar(100) null,
 	primary key ([watch_id])
+
+	
 )
 
 create table Watch_images(
@@ -226,3 +228,4 @@ drop table Users
 
 alter table Watch drop column watch_create_date
 alter table Watch add watch_create_date datetime
+
