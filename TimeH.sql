@@ -229,3 +229,8 @@ drop table Users
 alter table Watch drop column watch_create_date
 alter table Watch add watch_create_date datetime
 
+create fulltext catalog [FTS_Watch] with accent_sensitivity = ON 
+
+select * from dbo.Watch where FREETEXT(Watch.*, 'Ot') AND state = 0 
+
+select * from dbo.Watch where watch_name like '%o%' or watch_description like '%o%' and state = 0 

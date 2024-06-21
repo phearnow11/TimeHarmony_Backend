@@ -81,4 +81,9 @@ public class WatchController {
     public String deleteImages(@PathVariable("id") String id, @RequestBody Map<String, List<String>> data) {
         return WATCH_SERVICE.deleteImages(id, data.get("urls"));
     }
+
+    @RequestMapping(value = "search/keyword", method = RequestMethod.GET)
+    public List<Watch> getWatchsBySearchBar(@RequestParam("keyword") String keyword) {
+        return WATCH_SERVICE.searchByKeyWord(keyword);
+    }
 }

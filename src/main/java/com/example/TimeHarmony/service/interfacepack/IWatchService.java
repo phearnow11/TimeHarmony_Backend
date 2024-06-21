@@ -53,4 +53,6 @@ public interface IWatchService {
     public List<Watch> getWatchesbyState();
 
     public String deleteImages(String id, List<String> urls);
+
+    public List<Watch> searchByKeyWord (String keyword); 
 }
