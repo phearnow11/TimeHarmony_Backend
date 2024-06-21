@@ -44,6 +44,7 @@ public class GuestController {
                 jsarrdata.getJSONObject(1).optString("password"), null, MEMBER_ACTIVATE);
 
         Members member = new MemberBuilder()
+                .setMemberImage("https://files.catbox.moe/n1w3b0.png")
                 .setUserLogInfo(logInfo)
                 .setFirstName(UserJSdata.optString("Fname"))
                 .setLastName(UserJSdata.optString("Lname"))

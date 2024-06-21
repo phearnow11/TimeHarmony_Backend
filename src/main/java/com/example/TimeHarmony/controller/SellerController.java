@@ -98,12 +98,14 @@ public class SellerController {
     }
 
     @RequestMapping(value = "delete/watch/{id}", method = RequestMethod.DELETE)
-    public String deleteWatch(@PathVariable("id") String id) {
-        return WATCH_SERVICE.deleteWatch(id);
+    public String deleteWatch(@PathVariable("sid") String id, @RequestParam("wid") String wid) {
+        return WATCH_SERVICE.deleteWatch(wid, id);
     }
 
-    @RequestMapping(value = "delete/watches", method = RequestMethod.DELETE)
-    public String deleteWatches(@RequestBody List<String> data) {
-        return WATCH_SERVICE.deleteWatches(data);
+    @RequestMapping(value = "delete/watches/{id}", method = RequestMethod.DELETE)
+    public String deleteWatches(@RequestBody Map<String, Object> data) {
+        List<String> wids = STRING_SERVICE.jsonArrToStringList(data.get("wids"));
+        return WATCH_SERVICE.deleteWatches(wids, data.get("id").toString());
     }
+
 }

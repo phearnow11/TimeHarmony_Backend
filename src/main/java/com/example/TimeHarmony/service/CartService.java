@@ -22,13 +22,6 @@ public class CartService implements ICartService {
     private CartRepository CART_REPOSITORY;
 
     @Override
-    public Cart addToCart(String watch_id, String member_id) {
-        Cart cart = new Cart(STRING_SERVICE.autoGenerateString(10), watch_id, UUID.fromString(member_id),
-                Timestamp.valueOf(LocalDateTime.now()), 0);
-        return CART_REPOSITORY.save(cart);
-    }
-
-    @Override
     public List<Cart> getAllCart(String member_id) {
         try {
             return CART_REPOSITORY.getCartFromMember(UUID.fromString(member_id));
@@ -90,6 +83,12 @@ public class CartService implements ICartService {
         } catch (Exception e) {
             return e.toString();
         }
+    }
+
+    @Override
+    public Cart addToCart(String watch_id, String member_id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addToCart'");
     }
 
 }
