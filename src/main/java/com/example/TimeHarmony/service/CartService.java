@@ -92,17 +92,6 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public String updateCartsOrder(List<Cart> carts, String order_id) {
-        try {
-            for (Cart i : carts) {
-            }
-            return "Order id at Cart updated";
-        } catch (Exception e) {
-            return e.toString();
-        }
-    }
-
-    @Override
     public String addToCart(String watch_id, String member_id) {
         try {
             CART_REPOSITORY.addToCart(watch_id, MEMBER_SERVICE.getMemberbyID(member_id).get().getCart().getCart_id(), 0,

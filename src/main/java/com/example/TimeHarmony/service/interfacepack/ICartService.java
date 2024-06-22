@@ -20,8 +20,6 @@ public interface ICartService {
 
     List<Cart> getCartsbyId(List<String> ids);
 
-    String updateCartsOrder(List<Cart> carts, String order_id);
-
     List<Map<String, Object>> getCartInfo(String cid);
 
     Cart addNewCart();
