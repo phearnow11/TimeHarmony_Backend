@@ -34,9 +34,6 @@ public class OrderService implements IOrderService {
         try {
             Members m = MEMBER_SERVICE.getMemberbyID(m_id).get();
             Timestamp time = Timestamp.valueOf(LocalDateTime.now());
-            ORDER_REPOSITORY.save(new Orders(order_id, m, time,
-                    MEMBER_SERVICE.getDefaultAddress(m.getMember_id().toString()).getAddress_detail(), "", order_id, "",
-                    0));
             return "Order" + order_id + " created";
         } catch (Exception e) {
             return e.toString();

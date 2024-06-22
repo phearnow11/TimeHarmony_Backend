@@ -231,6 +231,7 @@ select username, [password],[enabled] from Users where Users.username = N'admin'
 select username, authority from authorities where username = N'phienn'
 update Users set [enabled] = 0 where username = N'phienn1'
 
+update Watches_In_Cart set checked = 1 where cart_id = N'CVH1c9HwZCCm' and watch_id = N'W00934754645'
 delete Watch
 delete Users where Users.member_id = N'000002'
 delete Admins

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.example.TimeHarmony.dtos.WatchInCart;
 import com.example.TimeHarmony.entity.Cart;
 import com.example.TimeHarmony.entity.Watch;
+import com.example.TimeHarmony.enumf.WatchCartState;
 import com.example.TimeHarmony.repository.CartRepository;
 import com.example.TimeHarmony.service.interfacepack.ICartService;
 import com.nimbusds.jose.shaded.gson.JsonElement;
@@ -103,7 +104,7 @@ public class CartService implements ICartService {
     public String addToCart(String watch_id, String member_id) {
         try {
             CART_REPOSITORY.addToCart(watch_id, MEMBER_SERVICE.getMemberbyID(member_id).get().getCart().getCart_id(), 0,
-                    Timestamp.valueOf(LocalDateTime.now()));
+                    Timestamp.valueOf(LocalDateTime.now()), WatchCartState.NORMAL);
             return watch_id + " added to Cart";
         } catch (Exception e) {
             return e.toString();

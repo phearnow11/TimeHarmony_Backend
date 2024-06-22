@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.example.TimeHarmony.dtos.WatchInCart;
 import com.example.TimeHarmony.entity.Cart;
+import com.example.TimeHarmony.enumf.WatchCartState;
 
 import jakarta.transaction.Transactional;
 
@@ -17,9 +18,9 @@ public interface CartRepository extends JpaRepository<Cart, String> {
 
     @Modifying
     @Transactional
-    @Query(value = "insert into Watches_In_Cart(watch_id, cart_id, checked, add_date) values (:wid, :cid, :checked, :add_date)", nativeQuery = true)
+    @Query(value = "insert into Watches_In_Cart(watch_id, cart_id, checked, add_date, [state]) values (:wid, :cid, :checked, :add_date, :state)", nativeQuery = true)
     void addToCart(@Param("wid") String wid, @Param("cid") String cid, @Param("checked") int checked,
-            @Param("add_date") Timestamp time);
+            @Param("add_date") Timestamp time, WatchCartState state);
 
     @Query(value = "select * from Watches_In_Cart where cart_id = :id", nativeQuery = true)
     List<WatchInCart> getWatchesInCart(@Param("id") String cid);
