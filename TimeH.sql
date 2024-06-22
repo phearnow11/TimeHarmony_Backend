@@ -200,16 +200,12 @@ create table Voucher_Applied (
 create table Watches_In_Cart(
 	[watch_id] char(12) not null, 
 	[cart_id] char(12) not null,
+	order_id char(12) null,
 	[checked] tinyint,
 	[add_date] datetime null,
+	[state] tinyint,
 	foreign key (cart_id) references Cart(cart_id),
-	foreign key (watch_id) references Watch(watch_id)
-)
-
-create table Selected_Watch_Order(
-	[watch_id] char(12) not null, 
-	[order_id] char(12) not null, 
-	foreign key (watch_id) references Watch(watch_id), 
+	foreign key (watch_id) references Watch(watch_id),
 	foreign key (order_id) references Orders(order_id)
 )
 
