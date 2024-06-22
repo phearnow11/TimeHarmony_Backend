@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.TimeHarmony.dtos.AccessHistory;
 import com.example.TimeHarmony.dtos.Favorites;
 import com.example.TimeHarmony.entity.Addresses;
-import com.example.TimeHarmony.entity.Cart;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.service.CartService;
@@ -152,13 +151,18 @@ public class MemberController {
     }
 
     @RequestMapping(value = "get/carts/{id}", method = RequestMethod.GET)
-    public List<Watch> getCarts(@PathVariable("id") String member_id) {
-        return CART_SERVICE.getAllWatchFromCart(member_id);
+    public Map<String, Object> getCarts(@PathVariable("id") String member_id) {
+        Map<String, Object> res = new HashMap<>();
+        Members m = MEMBER_SERVICE.getMemberbyID(member_id).get();
+        res.put("cart_id", m.getCart().getCart_id());
+        res.put("cart_info", CART_SERVICE.getCartInfo(m.getCart().getCart_id()));
+        return res;
     }
 
-    @RequestMapping(value = "delete/carts", method = RequestMethod.DELETE)
-    public String deleteCarts(@RequestBody List<String> cartids) {
-        return CART_SERVICE.deleteMutipleCart(cartids);
+    @RequestMapping(value = "delete/carts/{id}", method = RequestMethod.DELETE)
+    public String deleteWatchCart(@PathVariable("id") String member_id, @RequestBody Map<String, List<String>> data) {
+        Members m = MEMBER_SERVICE.getMemberbyID(member_id).get();
+        return CART_SERVICE.deleteWatch(data.get("wids"), m.getCart().getCart_id());
     }
 
     @RequestMapping(value = "to-seller", method = RequestMethod.POST)

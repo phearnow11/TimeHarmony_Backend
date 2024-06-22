@@ -3,9 +3,9 @@ package com.example.TimeHarmony.service;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,19 +48,21 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public String deleteCart(String cart_id) {
+    public String deleteWatch(String cid, String wid) {
         try {
-            CART_REPOSITORY.deleteById(cart_id);
-            return "Cart " + cart_id + " deleted";
+            CART_REPOSITORY.deleteWatch(cid, wid);
+            ;
+            return "Watch " + wid + " deleted";
         } catch (Exception e) {
             return e.toString();
         }
     }
 
     @Override
-    public String deleteMutipleCart(List<String> cart_id) {
+    public String deleteWatch(List<String> wids, String cid) {
         try {
-            CART_REPOSITORY.deleteAllById(cart_id);
+            for (String wid : wids)
+                CART_REPOSITORY.deleteWatch(cid, wid);
             return "Carts deleted";
         } catch (Exception e) {
             return e.toString();
@@ -121,6 +123,21 @@ public class CartService implements ICartService {
             System.out.println(e);
             return null;
         }
+    }
+
+    @Override
+    public List<Map<String, Object>> getCartInfo(String cid) {
+        List<Map<String, Object>> res = new ArrayList<>();
+        Map<String, Object> info = new HashMap<>();
+        for (WatchInCart i : CART_REPOSITORY.getWatchesInCart(cid)) {
+            info.put("watch_id", i.getWatch_id());
+            info.put("order_id", i.getOrder_id());
+            info.put("checked", i.getChecked());
+            info.put("add_date", i.getAdd_date());
+            info.put("state", i.getState());
+            res.add(new HashMap<>(info));
+        }
+        return res;
     }
 
 }

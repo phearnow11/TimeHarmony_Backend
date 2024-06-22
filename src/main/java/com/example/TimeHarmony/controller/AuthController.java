@@ -21,7 +21,6 @@ import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.service.CartService;
 import com.example.TimeHarmony.service.MemberService;
 import com.example.TimeHarmony.service.TokenService;
-import com.google.common.reflect.TypeToken;
 import com.nimbusds.jose.shaded.gson.Gson;
 
 @RestController

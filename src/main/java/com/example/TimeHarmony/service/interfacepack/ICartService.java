@@ -12,15 +12,17 @@ public interface ICartService {
 
     List<Watch> getAllWatchFromCart(String member_id);
 
-    String deleteCart(String cart_id);
+    String deleteWatch(String cid, String wid);
 
-    String deleteMutipleCart(List<String> cart_id);
+    String deleteWatch(List<String> wids, String cid);
 
     String saveChecked(JsonElement data);
 
     List<Cart> getCartsbyId(List<String> ids);
 
     String updateCartsOrder(List<Cart> carts, String order_id);
+
+    List<Map<String, Object>> getCartInfo(String cid);
 
     Cart addNewCart();
 

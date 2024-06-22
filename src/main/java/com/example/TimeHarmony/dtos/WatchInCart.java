@@ -2,8 +2,6 @@ package com.example.TimeHarmony.dtos;
 
 import java.sql.Timestamp;
 
-import com.example.TimeHarmony.enumf.WatchCartState;
-
 public interface WatchInCart {
     String getWatch_id();
 
@@ -11,10 +9,10 @@ public interface WatchInCart {
 
     String getOrder_id();
 
-    boolean getChecked();
+    Byte getChecked();
 
     Timestamp getAdd_date();
 
-    WatchCartState getState();
+    Byte getState();
 
 }

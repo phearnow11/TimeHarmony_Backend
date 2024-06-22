@@ -29,4 +29,9 @@ public interface CartRepository extends JpaRepository<Cart, String> {
     @Transactional
     @Query(value = "update Watches_In_Cart set checked = :checked where cart_id = :cid and watch_id = :wid", nativeQuery = true)
     void updateChecked(@Param("checked") int check, @Param("cid") String cid, @Param("wid") String wid);
+
+    @Modifying
+    @Transactional
+    @Query(value = "delete Watches_In_Cart where cart_id = :cid and watch_id = :wid", nativeQuery = true)
+    void deleteWatch(@Param("cid") String cid, @Param("wid") String wid);
 }
