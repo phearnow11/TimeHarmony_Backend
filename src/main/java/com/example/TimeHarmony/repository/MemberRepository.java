@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.TimeHarmony.dtos.AccessHistory;
 import com.example.TimeHarmony.dtos.Favorites;
+import com.example.TimeHarmony.dtos.WatchInCart;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Users;
 
@@ -72,4 +73,22 @@ public interface MemberRepository extends JpaRepository<Members, UUID> {
     @Transactional
     @Query("update Members m set m.member_image = :url where m.member_id = :id")
     void updateMemberImage(@Param("url") String url, @Param("id") UUID id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "insert into Watches_In_Cart([watch_id], [cart_id], order_id, [checked], [add_date], [state]) values (:wid, :cid, :oid, :checked, :date, :state)", nativeQuery = true)
+    void addToCart(@Param("wid") String wid, @Param("cid") String cid, @Param("oid") String oid,
+            @Param("checked") Integer checked, @Param("date") Timestamp date, @Param("state") Integer state);
+
+    @Query(value = "select * from Watches_In_Cart where cart_id = :cid", nativeQuery = true)
+    List<WatchInCart> getCart(@Param("cid") String cid);
+
+    @Modifying
+    @Transactional
+    @Query(value = "delete Watches_In_Cart where watch_id = :wid and cart_id = :cid", nativeQuery = true)
+    void deleteWatchInCart(@Param("wid") String wid, @Param("cid") String cid);
+
+    @Query(value = "select watch_id from Watches_In_Cart where cart_id = :cid", nativeQuery = true)
+    List<String> getWatchesInCart(@Param("cid") String cid);
+
 }

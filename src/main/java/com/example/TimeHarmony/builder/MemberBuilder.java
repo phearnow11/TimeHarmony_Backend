@@ -3,8 +3,6 @@ package com.example.TimeHarmony.builder;
 import java.sql.Timestamp;
 import java.util.UUID;
 
-import org.hibernate.mapping.List;
-
 import com.example.TimeHarmony.builder.interfacepack.IMemberBuilder;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Users;
