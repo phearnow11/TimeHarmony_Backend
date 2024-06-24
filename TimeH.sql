@@ -206,7 +206,6 @@ create table Watches_In_Cart(
 
 select * from Users
 select * from Members
-select * from Cart
 select * from Authorities
 select * from Admins
 select * from Watch
