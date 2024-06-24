@@ -3,8 +3,9 @@ package com.example.TimeHarmony.builder;
 import java.sql.Timestamp;
 import java.util.UUID;
 
+import org.hibernate.mapping.List;
+
 import com.example.TimeHarmony.builder.interfacepack.IMemberBuilder;
-import com.example.TimeHarmony.entity.Cart;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Users;
 
@@ -27,7 +28,7 @@ public class MemberBuilder implements IMemberBuilder {
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp last_logout_date;
 
-    private Cart c;
+    private String cart_id;
 
     @Override
     public IMemberBuilder setMemberId(UUID id) {
@@ -98,7 +99,13 @@ public class MemberBuilder implements IMemberBuilder {
     @Override
     public Members build() {
         return new Members(member_id, google_id, user, member_image, first_name, last_name, is_active, email,
-                phone, last_login_date, last_logout_date, null, null, "");
+                phone, last_login_date, last_logout_date, null, null, cart_id, null);
+    }
+
+    @Override
+    public IMemberBuilder setCartid(String id) {
+        this.cart_id = id;
+        return this;
     }
 
 }

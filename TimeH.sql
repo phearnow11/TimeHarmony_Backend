@@ -15,6 +15,8 @@ create table Authorities (
 	username varchar(100),
 	authority varchar(100),
 	foreign key (username) references Users(username)
+	ON DELETE CASCADE
+    ON UPDATE CASCADE
 )
 
 
@@ -32,7 +34,9 @@ create table Members (
 	[last_login_date] datetime,
 	[last_logout_date] datetime,
 	primary key ([member_id]),
-	foreign key (username) references Users(username),
+	foreign key (username) references Users(username)
+	ON DELETE CASCADE
+    ON UPDATE CASCADE,
 	constraint UC_Members unique(cart_id)
 )
 
@@ -46,6 +50,8 @@ create table Addresses (
 	[is_default] tinyint,
 	primary key (address_id),
 	foreign key ([member_id]) references Members([member_id])
+	ON DELETE CASCADE
+    ON UPDATE CASCADE
 )
 
 create table Watch(
@@ -92,12 +98,16 @@ create table Watch_images(
 	image_url varchar(max) null, 
 	watch_id char(12) not null,
 	foreign key (watch_id) references Watch(watch_id) 
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
 )
 
 create table Staff(
 	[member_id] binary(16), 
 	primary key (member_id),
 	foreign key (member_id) references Members([member_id])
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
 )
 
 create table ReportType(
@@ -137,12 +147,16 @@ create table Admins (
 	[upload_preset] varchar(100) null,
 	primary key (member_id),
 	foreign key (member_id) references Members([member_id])
+	ON DELETE CASCADE 
+	ON UPDATE CASCADE
 )
 
 create table Sellers (
 	[member_id] binary(16) not null,
 	primary key (member_id),
 	foreign key (member_id) references Members([member_id])
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
 )
 
 create table Access_History(
@@ -150,13 +164,19 @@ create table Access_History(
 	[url] varchar(50) not null,
 	[access_time] datetime not null
 	foreign key (member_id) references Members([member_id])
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
 )
 
 create table Favorites(
 	[member_id] binary(16) not null, 
 	[watch_id] char(12) not null, 
-	foreign key (member_id) references Members(member_id), 
+	foreign key (member_id) references Members(member_id)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE, 
 	foreign key (watch_id) references Watch(watch_id)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
 )
 
 create table Vouchers(
@@ -188,8 +208,12 @@ create table Orders(
 create table Voucher_Applied (
 	voucher_id char(12) not null,
 	order_id char(12) not null,
-	foreign key (voucher_id) references Vouchers(voucher_id),
+	foreign key (voucher_id) references Vouchers(voucher_id)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE,
 	foreign key (order_id) references Orders(order_id)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
 )
 
 
@@ -200,8 +224,12 @@ create table Watches_In_Cart(
 	[checked] tinyint,
 	[add_date] datetime null,
 	[state] tinyint,
-	foreign key (watch_id) references Watch(watch_id),
+	foreign key (watch_id) references Watch(watch_id)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE,
 	foreign key (order_id) references Orders(order_id)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
 )
 
 select * from Users

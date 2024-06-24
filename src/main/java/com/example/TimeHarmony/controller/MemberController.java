@@ -144,9 +144,9 @@ public class MemberController {
 
     @RequestMapping(value = "add/to-cart/{id}", method = RequestMethod.POST)
     public String addToCart(@PathVariable("id") String member_id, @RequestParam("watch_id") String watch_id) {
-        if (CART_SERVICE.addToCart(watch_id, member_id) != null) {
-            return "Cart Added";
-        }
+        // if (CART_SERVICE.addToCart(watch_id, member_id) != null) {
+        // return "Cart Added";
+        // }
         return "Failed to add to cart";
     }
 

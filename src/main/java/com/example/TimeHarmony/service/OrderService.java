@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.TimeHarmony.entity.Cart;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Orders;
 import com.example.TimeHarmony.repository.OrderRepository;
@@ -21,9 +20,6 @@ public class OrderService implements IOrderService {
 
     @Autowired
     private StringService STRING_SERVICE;
-
-    @Autowired
-    private CartService CART_SERVICE;
 
     @Autowired
     private MemberService MEMBER_SERVICE;

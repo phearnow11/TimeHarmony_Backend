@@ -85,6 +85,7 @@ public class MemberService implements IMemberService {
     @Override
     public Members saveUser(Members member, Users logInfo) {
         Authorities auth = new Authorities();
+        String cart_id = "C" + STRING_SERVICE.autoGenerateString(11);
         if (MEMBER_REPOSITORY.findAll().isEmpty()) {
             auth = new Authorities(logInfo.getUsername(), Roles.ROLE_ADMIN.name());
         } else
@@ -92,6 +93,7 @@ public class MemberService implements IMemberService {
         logInfo.setPassword(passwordEncoder.encode(logInfo.getPassword()));
         USER_REPOSOTORY.save(logInfo);
         AUTHORITIES_REPOSITORY.save(auth);
+        member.setCart_id(cart_id);
         return MEMBER_REPOSITORY.save(member);
     }
 

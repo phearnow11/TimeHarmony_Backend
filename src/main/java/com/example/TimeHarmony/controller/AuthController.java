@@ -18,10 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.TimeHarmony.entity.Members;
-import com.example.TimeHarmony.service.CartService;
 import com.example.TimeHarmony.service.MemberService;
 import com.example.TimeHarmony.service.TokenService;
-import com.nimbusds.jose.shaded.gson.Gson;
 
 @RestController
 @RequestMapping("api/auth")
@@ -31,9 +29,6 @@ public class AuthController {
 
     @Autowired
     private MemberService MEMBER_SERVICE;
-
-    @Autowired
-    private CartService CART_SERVICE;
 
     public AuthController(TokenService tokenService) {
         this.TOKEN_SERVIVE = tokenService;
@@ -52,8 +47,8 @@ public class AuthController {
 
     @PostMapping("logout")
     public String logout(@RequestParam("member_id") String member_id, @RequestBody Map<String, Object> data) {
-        Gson gson = new Gson();
-        CART_SERVICE.saveChecked(gson.toJsonTree(data.get("checks")));
+        // Gson gson = new Gson();
+        // CART_SERVICE.saveChecked(gson.toJsonTree(data.get("checks")));
         MEMBER_SERVICE.logout(member_id);
         return "Logout";
     }
