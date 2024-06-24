@@ -56,9 +56,7 @@ public class Members {
     @OneToMany(mappedBy = "member_created")
     List<Orders> myOrders;
 
-    @OneToOne
-    @JoinColumn(name = "cart_id")
-    Cart cart;
+    private String cart_id;
 
     public Members() {
     }

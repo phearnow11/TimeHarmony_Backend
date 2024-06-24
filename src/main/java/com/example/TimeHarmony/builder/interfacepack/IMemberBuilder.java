@@ -30,7 +30,5 @@ public interface IMemberBuilder {
 
     public IMemberBuilder setLastLogoutDate(Timestamp last_logout);
 
-    public IMemberBuilder setCart(Cart c);
-
     public Members build();
 }

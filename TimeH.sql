@@ -17,10 +17,6 @@ create table Authorities (
 	foreign key (username) references Users(username)
 )
 
-create table Cart(
-	[cart_id] char(12) not null, 
-	primary key ([cart_id])
-)
 
 create table Members (
 	[member_id] binary(16) not null,
@@ -32,12 +28,12 @@ create table Members (
 	[is_active] tinyint null, 
 	[email] varchar (50) null,
 	[phone] varchar(20) null,
-	cart_id char(12) null,
+	cart_id char(12) not null unique,
 	[last_login_date] datetime,
 	[last_logout_date] datetime,
 	primary key ([member_id]),
-	foreign key (cart_id) references Cart(cart_id),
-	foreign key (username) references Users(username)
+	foreign key (username) references Users(username),
+	constraint UC_Members unique(cart_id)
 )
 
 
@@ -204,7 +200,6 @@ create table Watches_In_Cart(
 	[checked] tinyint,
 	[add_date] datetime null,
 	[state] tinyint,
-	foreign key (cart_id) references Cart(cart_id),
 	foreign key (watch_id) references Watch(watch_id),
 	foreign key (order_id) references Orders(order_id)
 )

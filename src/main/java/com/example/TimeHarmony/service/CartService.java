@@ -34,17 +34,17 @@ public class CartService implements ICartService {
 
     @Override
     public List<Watch> getAllWatchFromCart(String member_id) {
-        try {
-            Cart c = MEMBER_SERVICE.getMemberbyID(member_id).get().getCart();
-            List<Watch> rs = new ArrayList<>();
-            for (WatchInCart i : CART_REPOSITORY.getWatchesInCart(c.getCart_id())) {
-                rs.add(WATCH_SERVICE.getWatchById(i.getWatch_id()));
-            }
-            return rs;
-        } catch (Exception e) {
-            System.out.println(e);
-            return null;
-        }
+        // try {
+        // Cart c = MEMBER_SERVICE.getMemberbyID(member_id).get().getCart();
+        // List<Watch> rs = new ArrayList<>();
+        // for (WatchInCart i : CART_REPOSITORY.getWatchesInCart(c.getCart_id())) {
+        // rs.add(WATCH_SERVICE.getWatchById(i.getWatch_id()));
+        // }
+        // return rs;
+        // } catch (Exception e) {
+        // System.out.println(e);
+        return null;
+        // }
     }
 
     @Override
@@ -93,13 +93,15 @@ public class CartService implements ICartService {
 
     @Override
     public String addToCart(String watch_id, String member_id) {
-        try {
-            CART_REPOSITORY.addToCart(watch_id, MEMBER_SERVICE.getMemberbyID(member_id).get().getCart().getCart_id(), 0,
-                    Timestamp.valueOf(LocalDateTime.now()), WatchCartState.NORMAL);
-            return watch_id + " added to Cart";
-        } catch (Exception e) {
-            return e.toString();
-        }
+        // try {
+        // CART_REPOSITORY.addToCart(watch_id,
+        // MEMBER_SERVICE.getMemberbyID(member_id).get().getCart().getCart_id(), 0,
+        // Timestamp.valueOf(LocalDateTime.now()), WatchCartState.NORMAL);
+        // return watch_id + " added to Cart";
+        // } catch (Exception e) {
+        // return e.toString();
+        // }
+        return "";
     }
 
     @Override

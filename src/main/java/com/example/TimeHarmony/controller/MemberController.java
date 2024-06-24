@@ -154,15 +154,16 @@ public class MemberController {
     public Map<String, Object> getCarts(@PathVariable("id") String member_id) {
         Map<String, Object> res = new HashMap<>();
         Members m = MEMBER_SERVICE.getMemberbyID(member_id).get();
-        res.put("cart_id", m.getCart().getCart_id());
-        res.put("cart_info", CART_SERVICE.getCartInfo(m.getCart().getCart_id()));
+        // res.put("cart_id", m.getCart().getCart_id());
+        // res.put("cart_info", CART_SERVICE.getCartInfo(m.getCart().getCart_id()));
         return res;
     }
 
     @RequestMapping(value = "delete/carts/{id}", method = RequestMethod.DELETE)
     public String deleteWatchCart(@PathVariable("id") String member_id, @RequestBody Map<String, List<String>> data) {
         Members m = MEMBER_SERVICE.getMemberbyID(member_id).get();
-        return CART_SERVICE.deleteWatch(data.get("wids"), m.getCart().getCart_id());
+        // return CART_SERVICE.deleteWatch(data.get("wids"), m.getCart().getCart_id());
+        return "";
     }
 
     @RequestMapping(value = "to-seller", method = RequestMethod.POST)

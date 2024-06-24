@@ -51,7 +51,6 @@ public class GuestController {
 
         Members member = new MemberBuilder()
                 .setMemberImage("https://files.catbox.moe/n1w3b0.png")
-                .setCart(c)
                 .setUserLogInfo(logInfo)
                 .setFirstName(UserJSdata.optString("Fname"))
                 .setLastName(UserJSdata.optString("Lname"))

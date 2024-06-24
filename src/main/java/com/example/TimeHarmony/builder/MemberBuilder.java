@@ -98,13 +98,7 @@ public class MemberBuilder implements IMemberBuilder {
     @Override
     public Members build() {
         return new Members(member_id, google_id, user, member_image, first_name, last_name, is_active, email,
-                phone, last_login_date, last_logout_date, null, null, c);
-    }
-
-    @Override
-    public IMemberBuilder setCart(Cart c) {
-        this.c = c;
-        return this;
+                phone, last_login_date, last_logout_date, null, null, "");
     }
 
 }
