@@ -43,8 +43,6 @@ public class MemberService implements IMemberService {
     private SellerRepository SELLER_REPOSITORY;
     @Autowired
     private StringService STRING_SERVICE;
-    @Autowired
-    private CartService CART_SERVICE;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -59,7 +57,6 @@ public class MemberService implements IMemberService {
         Optional<Members> member = Optional.empty();
         member = MEMBER_REPOSITORY.findById(UUID.fromString(member_id));
         if (member.isPresent()) {
-            member.get().setMyCarts(CART_SERVICE.getWatchInCart(member.get().getCart_id()));
             return member;
         }
         return null;

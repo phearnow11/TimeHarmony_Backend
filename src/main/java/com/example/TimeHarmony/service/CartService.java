@@ -48,10 +48,10 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public String deletedCart(String cid, List<String> wids) {
+    public String deleteCart(String cid, List<String> wids) {
         try {
             for (String wid : wids)
-                MEMBER_REPOSITORY.deleteWatchInCart(wid, cid);
+                MEMBER_REPOSITORY.deleteWatchInCart(cid, wid);
             return "Watches deleted";
         } catch (Exception e) {
             return e.toString();

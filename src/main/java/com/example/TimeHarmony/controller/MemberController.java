@@ -162,7 +162,7 @@ public class MemberController {
     @RequestMapping(value = "delete/carts/{id}", method = RequestMethod.DELETE)
     public String deleteWatchCart(@PathVariable("id") String member_id, @RequestBody Map<String, List<String>> data) {
         Members m = MEMBER_SERVICE.getMemberbyID(member_id).get();
-        return CART_SERVICE.deletedCart(m.getCart_id(), data.get("wids"));
+        return CART_SERVICE.deleteCart(m.getCart_id(), data.get("wids"));
     }
 
     @RequestMapping(value = "to-seller", method = RequestMethod.POST)
