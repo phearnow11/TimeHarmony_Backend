@@ -1,13 +1,9 @@
 package com.example.TimeHarmony.entity;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import jakarta.persistence.CollectionTable;
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
@@ -42,11 +38,6 @@ public class Orders {
     private String phone;
     private String notice;
     private long total_price;
-
-    @ElementCollection
-    @CollectionTable(name = "Watches_In_Cart", joinColumns = @JoinColumn(name = "order_id"))
-    @Column(name = "watch_id")
-    private List<String> wids;
 
     public Orders() {
     }

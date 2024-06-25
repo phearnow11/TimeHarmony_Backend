@@ -123,7 +123,7 @@ public class MemberController {
     @RequestMapping(value = "save/address/{id}", method = RequestMethod.POST)
     public Addresses saveAddresses(@RequestBody Map<String, String> data, @PathVariable("id") String member_id) {
         Members cur_m = MEMBER_SERVICE.getMemberbyID(member_id).get();
-        Addresses nAdd = new Addresses(data.get("address_id"), cur_m, data.get("name"),
+        Addresses nAdd = new Addresses(null, cur_m, data.get("name"),
                 data.get("phone"), data.get("detail"), Boolean.valueOf(data.get("default")));
         return MEMBER_SERVICE.addAddress(nAdd);
     }
@@ -197,7 +197,6 @@ public class MemberController {
 
         List<String> wids = STRING_SERVICE.jsonArrToStringList(data.get("wids"));
         Addresses addr = MEMBER_SERVICE.getAddressByAddressId(data.get("address").toString());
-
         return ORDER_SERVICE.makeOrder(wids, member_id, data.get("notice").toString(),
                 Long.parseLong(data.get("total_price").toString()), addr);
     }
@@ -209,7 +208,9 @@ public class MemberController {
 
     @GetMapping("/test")
     public String test(@RequestBody Map<String, Object> data) {
-        System.out.println(MEMBER_SERVICE.getDefaultAddress(data.get("id").toString()).getName());
+        List<String> a = new ArrayList<>();
+        a.add("W85109478821");
+        ORDER_SERVICE.updateCartOrder(a, "CK347qtemvvP", "O6jNaDsrQTMW");
         return "";
     }
 

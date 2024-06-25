@@ -227,7 +227,7 @@ create table Watches_In_Cart(
 	ON DELETE CASCADE
 	ON UPDATE CASCADE,
 	foreign key (order_id) references Orders(order_id)
-	ON DELETE CASCADE
+	ON DELETE null
 	ON UPDATE CASCADE
 )
 

@@ -30,13 +30,22 @@ public class OrderService implements IOrderService {
         try {
             String order_id = "O" + STRING_SERVICE.autoGenerateString(11);
             Members m = MEMBER_SERVICE.getMemberbyID(m_id).get();
-            for (String wid : wids) {
-                ORDER_REPOSITORY.updateOrderCart(m.getCart_id(), order_id, wid);
-            }
             Orders order = new Orders(order_id, m, Timestamp.valueOf(LocalDateTime.now()), addr.getAddress_detail(),
-                    addr.getName(), addr.getPhone(), notice, total_price, wids);
+                    addr.getName(), addr.getPhone(), notice, total_price);
             ORDER_REPOSITORY.save(order);
+            updateCartOrder(wids, m.getCart_id(), order_id);
             return "Order Created";
+        } catch (Exception e) {
+            return e.toString();
+        }
+    }
+
+    @Override
+    public String updateCartOrder(List<String> wids, String cid, String oid) {
+        try {
+            for (String wid : wids)
+                ORDER_REPOSITORY.updateOrderCart(oid, cid, wid);
+            return "Cart Order relationship updated";
         } catch (Exception e) {
             return e.toString();
         }

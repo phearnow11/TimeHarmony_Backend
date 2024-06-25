@@ -13,7 +13,7 @@ public interface OrderRepository extends JpaRepository<Orders, String> {
 
     @Modifying
     @Transactional
-    @Query(value = "update Watches_In_Cart set order_id = :oid where cart_id = :cid and watch_id = :wid", nativeQuery = true)
+    @Query(value = "update [dbo].[Watches_In_Cart] set order_id = :oid where cart_id = :cid and watch_id = :wid", nativeQuery = true)
     void updateOrderCart(@Param("oid") String oid, @Param("cid") String cid, @Param("wid") String wid);
 
 }
