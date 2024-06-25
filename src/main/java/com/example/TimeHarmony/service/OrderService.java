@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Orders;
 import com.example.TimeHarmony.repository.OrderRepository;
@@ -25,12 +26,17 @@ public class OrderService implements IOrderService {
     private MemberService MEMBER_SERVICE;
 
     @Override
-    public String makeOrder(List<String> cids, String m_id) {
-        String order_id = "O" + STRING_SERVICE.autoGenerateString(11);
+    public String makeOrder(List<String> wids, String m_id, String notice, long total_price, Addresses addr) {
         try {
+            String order_id = "O" + STRING_SERVICE.autoGenerateString(11);
             Members m = MEMBER_SERVICE.getMemberbyID(m_id).get();
-            Timestamp time = Timestamp.valueOf(LocalDateTime.now());
-            return "Order" + order_id + " created";
+            for (String wid : wids) {
+                ORDER_REPOSITORY.updateOrderCart(m.getCart_id(), order_id, wid);
+            }
+            Orders order = new Orders(order_id, m, Timestamp.valueOf(LocalDateTime.now()), addr.getAddress_detail(),
+                    addr.getName(), addr.getPhone(), notice, total_price, wids);
+            ORDER_REPOSITORY.save(order);
+            return "Order Created";
         } catch (Exception e) {
             return e.toString();
         }

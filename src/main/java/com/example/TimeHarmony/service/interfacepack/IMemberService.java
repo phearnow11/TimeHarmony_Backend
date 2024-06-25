@@ -57,4 +57,6 @@ public interface IMemberService {
 
     public String updateMemberImage(String id, String url);
 
+    public Addresses getAddressByAddressId(String addrId);
+
 }

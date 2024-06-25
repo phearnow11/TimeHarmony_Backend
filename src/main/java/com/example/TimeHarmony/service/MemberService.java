@@ -265,4 +265,14 @@ public class MemberService implements IMemberService {
         }
     }
 
+    @Override
+    public Addresses getAddressByAddressId(String addrId) {
+        try {
+            return ADDRESS_REPOSITORY.findById(addrId).get();
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return null;
+        }
+    }
+
 }

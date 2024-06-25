@@ -193,8 +193,13 @@ public class MemberController {
     }
 
     @RequestMapping(value = "add/order/{id}", method = RequestMethod.POST)
-    public String makeOrder(@PathVariable("id") String member_id, @RequestBody Map<String, List<String>> data) {
-        return "";
+    public String makeOrder(@PathVariable("id") String member_id, @RequestBody Map<String, Object> data) {
+
+        List<String> wids = STRING_SERVICE.jsonArrToStringList(data.get("wids"));
+        Addresses addr = MEMBER_SERVICE.getAddressByAddressId(data.get("address").toString());
+
+        return ORDER_SERVICE.makeOrder(wids, member_id, data.get("notice").toString(),
+                Long.parseLong(data.get("total_price").toString()), addr);
     }
 
     @RequestMapping(value = "update/user/image/{id}", method = RequestMethod.PATCH)

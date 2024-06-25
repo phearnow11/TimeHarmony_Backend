@@ -2,8 +2,10 @@ package com.example.TimeHarmony.service.interfacepack;
 
 import java.util.List;
 
+import com.example.TimeHarmony.entity.Addresses;
+
 public interface IOrderService {
 
-    String makeOrder(List<String> cids, String m_id);
+    String makeOrder(List<String> wids, String m_id, String notice, long total_price, Addresses addr);
 
 }
