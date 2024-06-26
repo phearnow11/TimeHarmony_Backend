@@ -3,13 +3,11 @@ package com.example.TimeHarmony.service;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.TimeHarmony.dtos.WatchInCart;
-import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.repository.MemberRepository;
 import com.example.TimeHarmony.service.interfacepack.ICartService;
 
@@ -34,14 +32,11 @@ public class CartService implements ICartService {
 
     @Override
     public boolean checkWatchInCart(String cid, String wid) {
-        String resTrue = "Watch existed in cart !"; 
-        Optional<Members> m = MEMBER_REPOSITORY.getMemberByCartId(cid); 
-        List<String> cartlist = m.get().getMyCarts() ; 
-        for (String w : cartlist) {
-            if ( w.equals(wid)){
-                System.out.println("Watch existed in cart !");
-                return false ; 
-                
+        
+          List<WatchInCart> cartlist = getCart(cid) ; 
+        for (WatchInCart w : cartlist) {
+            if ( w.getWatch_id().equals(wid)){
+                return false ;  
             }
         }
         return true ; 
