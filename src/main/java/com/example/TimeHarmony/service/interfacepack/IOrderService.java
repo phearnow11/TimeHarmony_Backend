@@ -3,6 +3,7 @@ package com.example.TimeHarmony.service.interfacepack;
 import java.util.List;
 
 import com.example.TimeHarmony.entity.Addresses;
+import com.example.TimeHarmony.entity.Orders;
 
 public interface IOrderService {
 
@@ -10,4 +11,7 @@ public interface IOrderService {
 
     String updateCartOrder(List<String> wids, String cid, String oid);
 
+    String deleteOrder(String oid);
+
+    List<Orders> getOrderFromMember(String mid);
 }

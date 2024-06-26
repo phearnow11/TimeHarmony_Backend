@@ -3,6 +3,7 @@ package com.example.TimeHarmony.service;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,6 +49,22 @@ public class OrderService implements IOrderService {
             return "Cart Order relationship updated";
         } catch (Exception e) {
             return e.toString();
+        }
+    }
+
+    @Override
+    public String deleteOrder(String oid) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteOrder'");
+    }
+
+    @Override
+    public List<Orders> getOrderFromMember(String mid) {
+        try {
+            return ORDER_REPOSITORY.getOrdersByMemberId(UUID.fromString(mid));
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
         }
     }
 }
