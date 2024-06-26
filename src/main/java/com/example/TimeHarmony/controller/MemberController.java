@@ -22,7 +22,6 @@ import com.example.TimeHarmony.dtos.Favorites;
 import com.example.TimeHarmony.dtos.WatchInCart;
 import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Members;
-import com.example.TimeHarmony.entity.Orders;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.service.CartService;
 import com.example.TimeHarmony.service.EmailService;
@@ -205,9 +204,14 @@ public class MemberController {
     @RequestMapping(value = "get/order/{id}", method = RequestMethod.GET)
     public Map<String, Object> getOrders(@PathVariable("id") String mid) {
         Map<String, Object> res = new HashMap<>();
-        List<Orders> orders = ORDER_SERVICE.getOrderFromMember(mid);
-        res.put("orders", orders);
+        res.put("orders", ORDER_SERVICE.getOrderFromMember(mid));
         return res;
+    }
+
+    // localhost:8080/member/get/order/watch/{oid}
+    @RequestMapping(value = "get/order/watch/{oid}", method = RequestMethod.GET)
+    public List<String> getWatchInOrder(@PathVariable("oid") String oid) {
+        return ORDER_SERVICE.getWatchInOrder(oid);
     }
 
     @RequestMapping(value = "update/user/image/{id}", method = RequestMethod.PATCH)

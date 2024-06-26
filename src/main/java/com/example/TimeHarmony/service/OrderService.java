@@ -67,4 +67,14 @@ public class OrderService implements IOrderService {
             return null;
         }
     }
+
+    @Override
+    public List<String> getWatchInOrder(String oid) {
+        try {
+            return ORDER_REPOSITORY.getWatchesInOrder(oid);
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
 }

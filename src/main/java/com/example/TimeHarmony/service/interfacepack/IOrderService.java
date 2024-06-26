@@ -14,4 +14,6 @@ public interface IOrderService {
     String deleteOrder(String oid);
 
     List<Orders> getOrderFromMember(String mid);
+
+    List<String> getWatchInOrder(String oid);
 }
