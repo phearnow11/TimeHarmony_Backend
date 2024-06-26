@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -35,6 +37,8 @@ public class Members {
 
     @OneToOne
     @JoinColumn(name = "username")
+    @JsonIgnoreProperties(value = { "password", "enabled", "authorities", "handler",
+            "hibernateLazyInitializer" }, allowSetters = true)
     private Users user_log_info;
 
     private String member_image;

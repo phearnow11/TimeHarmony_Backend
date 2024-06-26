@@ -20,28 +20,27 @@ public class CartService implements ICartService {
     @Override
     public String insertToCart(String cid, String wid) {
         if (checkWatchInCart(cid, wid)) {
-        try {
-            MEMBER_REPOSITORY.addToCart(wid, cid, null, 0, Timestamp.valueOf(LocalDateTime.now()), 1);
-            return "Watch added to Cart";
-        } catch (Exception e) {
-            return e.toString();
+            try {
+                MEMBER_REPOSITORY.addToCart(wid, cid, null, 0, Timestamp.valueOf(LocalDateTime.now()), 1);
+                return "Watch added to Cart";
+            } catch (Exception e) {
+                return e.toString();
+            }
         }
-    }
-        return "Watch aready in cart!" ; 
+        return "Watch aready in cart!";
     }
 
     @Override
     public boolean checkWatchInCart(String cid, String wid) {
-        
-          List<WatchInCart> cartlist = getCart(cid) ; 
+
+        List<WatchInCart> cartlist = getCart(cid);
         for (WatchInCart w : cartlist) {
-            if ( w.getWatch_id().equals(wid)){
-                return false ;  
+            if (w.getWatch_id().equals(wid)) {
+                return false;
             }
         }
-        return true ; 
+        return true;
     }
-
 
     @Override
     public List<WatchInCart> getCart(String cid) {
@@ -67,7 +66,7 @@ public class CartService implements ICartService {
     public String deleteCart(String cid, List<String> wids) {
         try {
             for (String wid : wids)
-                MEMBER_REPOSITORY.deleteWatchInCart(cid, wid);
+                MEMBER_REPOSITORY.updateStateWatchInCart(0, cid, wid);
             return "Watches deleted";
         } catch (Exception e) {
             return e.toString();
@@ -84,7 +83,4 @@ public class CartService implements ICartService {
         }
     }
 
-
-
-   
 }
