@@ -30,14 +30,13 @@ create table Members (
 	[is_active] tinyint null, 
 	[email] varchar (50) null,
 	[phone] varchar(20) null,
-	cart_id char(12) not null unique,
+	cart_id char(12) not null,
 	[last_login_date] datetime,
 	[last_logout_date] datetime,
 	primary key ([member_id]),
 	foreign key (username) references Users(username)
 	ON DELETE CASCADE
-    ON UPDATE CASCADE,
-	constraint UC_Members unique(cart_id)
+    ON UPDATE CASCADE
 )
 
 
@@ -228,7 +227,7 @@ create table Watches_In_Cart(
 	ON DELETE CASCADE
 	ON UPDATE CASCADE,
 	foreign key (order_id) references Orders(order_id)
-	ON DELETE CASCADE
+	ON DELETE null
 	ON UPDATE CASCADE
 )
 

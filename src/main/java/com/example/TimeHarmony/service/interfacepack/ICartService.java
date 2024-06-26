@@ -13,7 +13,7 @@ public interface ICartService {
 
     String deleteCart(String cid, String wid);
 
-    String deletedCart(String cid, List<String> wid);
+    String deleteCart(String cid, List<String> wid);
 
     List<String> getWatchInCart(String cid);
 

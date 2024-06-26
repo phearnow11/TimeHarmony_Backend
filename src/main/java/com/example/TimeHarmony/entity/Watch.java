@@ -34,7 +34,7 @@ public class Watch {
 
     @ManyToOne
     @JsonIgnoreProperties(value = { "watches", "handler", "hibernateLazyInitializer", "seller",
-            "member_image", "first_name", "last_name", "is_active", "email", "phone", "last_login_date",
+            "first_name", "last_name", "is_active", "email", "phone", "last_login_date",
             "last_logout_date", "addresses", "myOrders", "google_id" }, allowSetters = true)
     @JoinColumn(name = "member_id")
     private Sellers seller;

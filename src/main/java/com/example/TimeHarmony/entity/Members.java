@@ -4,9 +4,6 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
-import jakarta.persistence.CollectionTable;
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -60,11 +57,6 @@ public class Members {
     List<Orders> myOrders;
 
     private String cart_id;
-
-    @ElementCollection
-    @CollectionTable(name = "Watches_In_Cart", joinColumns = @JoinColumn(name = "order_id"))
-    @Column(name = "watch_id")
-    List<String> MyCarts;
 
     public Members() {
     }
