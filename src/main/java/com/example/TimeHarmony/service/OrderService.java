@@ -2,7 +2,9 @@ package com.example.TimeHarmony.service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +74,20 @@ public class OrderService implements IOrderService {
     public List<String> getWatchInOrder(String oid) {
         try {
             return ORDER_REPOSITORY.getWatchesInOrder(oid);
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    @Override
+    public Map<String, Object> getOrderDetail(String oid) {
+        try {
+
+            Map<String, Object> res = new Hashtable<>();
+            res.put("watch", ORDER_REPOSITORY.getWatchesInOrder(oid));
+            res.put("order_detail", ORDER_REPOSITORY.findById(oid));
+            return res;
         } catch (Exception e) {
             System.out.println(e);
             return null;

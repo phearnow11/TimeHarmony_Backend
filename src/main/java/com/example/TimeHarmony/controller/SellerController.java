@@ -2,7 +2,7 @@ package com.example.TimeHarmony.controller;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +39,7 @@ public class SellerController {
     @RequestMapping(value = "create/watch", method = RequestMethod.POST)
     public String createWatch(@RequestBody Map<String, Object> data1, @RequestParam("seller_id") String id) {
 
-        Map<String, String> data = new HashMap<>();
+        Map<String, String> data = new Hashtable<>();
         for (String i : data1.keySet()) {
             if (data1.get(i) != null)
                 data.put(i, data1.get(i).toString());

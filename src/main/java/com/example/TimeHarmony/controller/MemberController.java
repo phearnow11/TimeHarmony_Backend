@@ -2,7 +2,7 @@ package com.example.TimeHarmony.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -110,11 +110,11 @@ public class MemberController {
     @RequestMapping(value = "get/history/{id}", method = RequestMethod.GET)
     public List<Map<String, String>> getAccessHistories(@PathVariable("id") String m_id) {
         List<Map<String, String>> res = new ArrayList<>();
-        Map<String, String> resdata = new HashMap<>();
+        Map<String, String> resdata = new Hashtable<>();
         for (AccessHistory i : MEMBER_SERVICE.getAllAccessHistories(m_id)) {
             resdata.put("url", i.getUrl());
             resdata.put("access_time", i.getAccess_time().toString());
-            res.add(new HashMap<>(resdata));
+            res.add(new Hashtable<>(resdata));
             resdata.clear();
         }
         return res;
@@ -151,7 +151,7 @@ public class MemberController {
 
     @RequestMapping(value = "get/carts/{id}", method = RequestMethod.GET)
     public Map<String, Object> getCarts(@PathVariable("id") String member_id) {
-        Map<String, Object> res = new HashMap<>();
+        Map<String, Object> res = new Hashtable<>();
         Members m = MEMBER_SERVICE.getMemberbyID(member_id).get();
         List<WatchInCart> cartInfo = CART_SERVICE.getCart(m.getCart_id());
         res.put("cart_id", m.getCart_id());
@@ -203,15 +203,15 @@ public class MemberController {
 
     @RequestMapping(value = "get/order/{id}", method = RequestMethod.GET)
     public Map<String, Object> getOrders(@PathVariable("id") String mid) {
-        Map<String, Object> res = new HashMap<>();
+        Map<String, Object> res = new Hashtable<>();
         res.put("orders", ORDER_SERVICE.getOrderFromMember(mid));
         return res;
     }
 
     // localhost:8080/member/get/order/watch/{oid}
-    @RequestMapping(value = "get/order/watch/{oid}", method = RequestMethod.GET)
-    public List<String> getWatchInOrder(@PathVariable("oid") String oid) {
-        return ORDER_SERVICE.getWatchInOrder(oid);
+    @RequestMapping(value = "get/order/detail/{oid}", method = RequestMethod.GET)
+    public Map<String, Object> getWatchInOrder(@PathVariable("oid") String oid) {
+        return ORDER_SERVICE.getOrderDetail(oid);
     }
 
     @RequestMapping(value = "update/user/image/{id}", method = RequestMethod.PATCH)
