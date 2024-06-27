@@ -1,7 +1,7 @@
 package com.example.TimeHarmony.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +34,7 @@ public class StaffController {
     @RequestMapping(value = "get/watch", method = RequestMethod.GET)
     public List<Map<String, String>> getWatches() {
         List<Map<String, String>> res = new ArrayList<>();
-        Map<String, String> watch = new HashMap<>();
+        Map<String, String> watch = new Hashtable<>();
         List<Watch> ads = WATCH_SERVICE.getWatchesbyState();
         for (Watch w : ads) {
             watch.put("id", w.getWatch_id());
@@ -45,7 +45,7 @@ public class StaffController {
             watch.put("price", Long.toString(w.getPrice()));
             watch.put("upload_date", w.getWatch_create_date().toString());
             watch.put("status", Byte.toString(w.getState()));
-            res.add(new HashMap<>(watch));
+            res.add(new Hashtable<>(watch));
         }
         return res;
     }

@@ -1,7 +1,7 @@
 package com.example.TimeHarmony.service;
 
 import java.lang.reflect.Field;
-import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class MapService implements IMapService {
 
     @Override
     public Map<String, Integer> convertUsingReflection(Object object) throws IllegalAccessException {
-        Map<String, Integer> map = new HashMap<>();
+        Map<String, Integer> map = new Hashtable<>();
         Field[] fields = object.getClass().getDeclaredFields();
 
         for (Field field : fields) {

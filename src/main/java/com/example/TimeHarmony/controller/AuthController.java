@@ -1,7 +1,7 @@
 package com.example.TimeHarmony.controller;
 
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -37,7 +37,7 @@ public class AuthController {
     @PostMapping("login")
     public Map<String, Object> token(Authentication authentication) {
         Members m = MEMBER_SERVICE.getMemberbyUserLogInfo(MEMBER_SERVICE.getUserbyUsername(authentication.getName()));
-        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> data = new Hashtable<>();
         String token = TOKEN_SERVIVE.generateToken(authentication);
         data.put("token", token);
         data.put("user", m.getMember_id());
@@ -61,7 +61,7 @@ public class AuthController {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
-        Map<String, Object> info = new HashMap<>();
+        Map<String, Object> info = new Hashtable<>();
         info.put("name", principal.getName());
         info.put("authorities", authorities);
         info.put("tokenAttributes", principal.getTokenAttributes());

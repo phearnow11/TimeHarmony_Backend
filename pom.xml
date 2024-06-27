@@ -47,6 +47,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
+		<dependency>
+    		<groupId>io.cucumber</groupId>
+    		<artifactId>cucumber-java</artifactId>
+    		<version>7.18.0</version>
+    		<scope>test</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
