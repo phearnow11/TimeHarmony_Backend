@@ -233,12 +233,17 @@ public class WatchService implements IWatchService {
     @Override
     public List<Watch> searchByKeyWord(String keyword) {
         List<Watch> result1 = WATCH_REPOSITORY.findByKeyWord(keyword);
-        List<Watch> result2 = WATCH_REPOSITORY.findByKeyIfFullTextNull(keyword); 
-        if (result1.size() != 0 ){
-            return result1 ; 
+        List<Watch> result2 = WATCH_REPOSITORY.findByKeyIfFullTextNull(keyword);
+        if (result1.size() != 0) {
+            return result1;
         } else {
-            return result2; 
+            return result2;
         }
+    }
+
+    @Override
+    public Integer getWatchNum() {
+        return WATCH_REPOSITORY.getWatchNum();
     }
 
 }

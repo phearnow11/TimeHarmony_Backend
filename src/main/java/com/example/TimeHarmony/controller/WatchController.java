@@ -86,4 +86,9 @@ public class WatchController {
     public List<Watch> getWatchsBySearchBar(@RequestParam("keyword") String keyword) {
         return WATCH_SERVICE.searchByKeyWord(keyword);
     }
+
+    @RequestMapping(value = "num", method = RequestMethod.GET)
+    public Integer getWatchNum() {
+        return WATCH_SERVICE.getWatchNum();
+    }
 }

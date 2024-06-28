@@ -56,5 +56,7 @@ public interface IWatchService {
 
     public List<Watch> getWatchByIds(List<String> ids);
 
-    public List<Watch> searchByKeyWord (String keyword); 
+    public List<Watch> searchByKeyWord(String keyword);
+
+    public Integer getWatchNum();
 }
