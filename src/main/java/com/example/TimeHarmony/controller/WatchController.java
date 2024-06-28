@@ -88,7 +88,7 @@ public class WatchController {
     }
 
     @RequestMapping(value = "num", method = RequestMethod.GET)
-    public Integer getWatchNum() {
+    public Map<String, Object> getWatchNum() {
         return WATCH_SERVICE.getWatchNum();
     }
 }

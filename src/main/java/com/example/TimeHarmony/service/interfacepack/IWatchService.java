@@ -1,6 +1,7 @@
 package com.example.TimeHarmony.service.interfacepack;
 
 import java.util.List;
+import java.util.Map;
 
 import com.example.TimeHarmony.dtos.Filter;
 import com.example.TimeHarmony.entity.Watch;
@@ -58,5 +59,5 @@ public interface IWatchService {
 
     public List<Watch> searchByKeyWord(String keyword);
 
-    public Integer getWatchNum();
+    public Map<String, Object> getWatchNum();
 }

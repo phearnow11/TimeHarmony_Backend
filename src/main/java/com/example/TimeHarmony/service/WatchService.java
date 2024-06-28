@@ -1,6 +1,8 @@
 package com.example.TimeHarmony.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 
@@ -242,8 +244,16 @@ public class WatchService implements IWatchService {
     }
 
     @Override
-    public Integer getWatchNum() {
-        return WATCH_REPOSITORY.getWatchNum();
+    public Map<String, Object> getWatchNum() {
+
+        Map<String, Object> res = new HashMap<>();
+        try {
+            res.put("watch_num", WATCH_REPOSITORY.getWatchNum());
+            return res;
+        } catch (Exception e) {
+            res.put("error", e);
+            return res;
+        }
     }
 
 }
