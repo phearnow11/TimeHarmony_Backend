@@ -1,6 +1,7 @@
 package com.example.TimeHarmony.entity;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -59,6 +60,8 @@ public class Members {
 
     @OneToMany(mappedBy = "member_created")
     List<Orders> myOrders;
+
+    private Instant created_at = Instant.now();
 
     private String cart_id;
 

@@ -93,7 +93,7 @@ public class WatchController {
     }
 
     @RequestMapping(value = "get/filter", method = RequestMethod.GET)
-    public Map<String, Object> getWatchByField(@RequestParam() Map<String, Object> field) {
-        return WATCH_SERVICE.getWatchByField(field);
+    public Map<String, Object> getWatchByFilter(@RequestParam() Map<String, Object> field) {
+        return WATCH_SERVICE.getWatchByFilter(field);
     }
 }

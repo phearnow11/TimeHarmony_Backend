@@ -1,6 +1,7 @@
 package com.example.TimeHarmony.builder;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.UUID;
 
 import com.example.TimeHarmony.builder.interfacepack.IMemberBuilder;
@@ -97,7 +98,7 @@ public class MemberBuilder implements IMemberBuilder {
     @Override
     public Members build() {
         return new Members(member_id, google_id, user, member_image, first_name, last_name, is_active, email,
-                phone, last_login_date, last_logout_date, null, null, cart_id);
+                phone, last_login_date, last_logout_date, null, null, Instant.now(), cart_id);
     }
 
     @Override

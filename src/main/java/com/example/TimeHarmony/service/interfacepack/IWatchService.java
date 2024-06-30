@@ -61,5 +61,5 @@ public interface IWatchService {
 
     public Map<String, Object> getWatchNum();
 
-    public Map<String, Object> getWatchByField(Map<String, Object> data);
+    public Map<String, Object> getWatchByFilter(Map<String, Object> data);
 }

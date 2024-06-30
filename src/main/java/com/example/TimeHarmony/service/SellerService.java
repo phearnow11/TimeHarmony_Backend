@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Limit;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -64,8 +65,9 @@ public class SellerService implements ISellerService {
     }
 
     @Override
-    public List<Watch> findAllWatchBySeller(Sellers s) {
-        return s.getWatches();
+    public List<Watch> findAllWatchBySeller(String sid) {
+        List<Watch> myWatches = WATCH_REPOSITORY.getWatchesBySeller(UUID.fromString(sid), Limit.of(15));
+        return myWatches;
     }
 
     @Override

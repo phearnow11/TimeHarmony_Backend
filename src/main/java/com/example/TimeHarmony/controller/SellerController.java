@@ -2,6 +2,7 @@ package com.example.TimeHarmony.controller;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -106,6 +107,13 @@ public class SellerController {
     public String deleteWatches(@RequestBody Map<String, Object> data) {
         List<String> wids = STRING_SERVICE.jsonArrToStringList(data.get("wids"));
         return WATCH_SERVICE.deleteWatches(wids, data.get("id").toString());
+    }
+
+    @RequestMapping(value = "get/my-watches/{id}", method = RequestMethod.GET)
+    public Map<String, Object> getMyWatches(@PathVariable("id") String sid) {
+        Map<String, Object> res = new HashMap<>();
+        res.put("watches", SELLER_SERVICE.findAllWatchBySeller(sid));
+        return res;
     }
 
 }

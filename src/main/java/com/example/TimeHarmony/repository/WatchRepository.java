@@ -97,4 +97,7 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
             @Param("brand") String brand,
             @Param("style") String style, @Param("feature") String feature, @Param("lprice") float lowprice,
             @Param("hprice") float hprice, Pageable pageable);
+
+    @Query(value = "select * from Watch where member_id = :mid", nativeQuery = true)
+    List<Watch> getWatchesBySeller(@Param("mid") UUID mid, Limit limit);
 }

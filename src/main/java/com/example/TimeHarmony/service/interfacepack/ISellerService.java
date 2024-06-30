@@ -19,7 +19,7 @@ public interface ISellerService {
 
     public Watch updateWatch(Watch newWatch, Watch existingWatch);
 
-    public List<Watch> findAllWatchBySeller(Sellers s);
+    public List<Watch> findAllWatchBySeller(String sid);
 
     public Sellers getSellerbyId(String id);
 }

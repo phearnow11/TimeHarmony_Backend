@@ -7,7 +7,6 @@ import java.util.Optional;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Limit;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -259,7 +258,7 @@ public class WatchService implements IWatchService {
     }
 
     @Override
-    public Map<String, Object> getWatchByField(Map<String, Object> data) {
+    public Map<String, Object> getWatchByFilter(Map<String, Object> data) {
         Map<String, Object> res = new HashMap<>();
         try {
             List<Watch> watches = WATCH_REPOSITORY.getWatchesByFilter(
@@ -271,7 +270,6 @@ public class WatchService implements IWatchService {
                     data.get("lprice") != null ? Float.valueOf(data.get("lprice").toString()) : 0,
                     data.get("hprice") != null ? Float.valueOf(data.get("hprice").toString()) : Float.MAX_VALUE,
                     PageRequest.of(Integer.valueOf(data.get("page").toString()), 60));
-            data.put("watch", watches);
             res.put("watches", watches);
             return res;
         } catch (Exception e) {
