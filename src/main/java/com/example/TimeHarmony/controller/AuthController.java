@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.TimeHarmony.entity.Members;
+import com.example.TimeHarmony.service.EmailService;
 import com.example.TimeHarmony.service.MemberService;
+import com.example.TimeHarmony.service.StringService;
 import com.example.TimeHarmony.service.TokenService;
 
 @RestController
@@ -26,9 +29,17 @@ import com.example.TimeHarmony.service.TokenService;
 public class AuthController {
 
     private final TokenService TOKEN_SERVIVE;
+    private final String DEFAULT_MAIL_SUBJECT_VERIFY_GOOGLE = "Email Verification Code";
+    private final String DEFAULT_MAIL_SUBJECT_VERIFY_PASSWORD = "Password Changing Verification Code";
 
     @Autowired
     private MemberService MEMBER_SERVICE;
+
+    @Autowired
+    private StringService STRING_SERVICE;
+
+    @Autowired
+    private EmailService EMAIL_SERVICE;
 
     public AuthController(TokenService tokenService) {
         this.TOKEN_SERVIVE = tokenService;
@@ -74,4 +85,25 @@ public class AuthController {
 
         return "";
     }
+
+    @RequestMapping(value = "verify/{type}/getcode", method = RequestMethod.GET)
+    public String updateEmailVerificationCode(@RequestParam("email") String email, @PathVariable("type") String type) {
+        String code = STRING_SERVICE.autoGenerateString(6);
+
+        String subject_mail = "";
+        switch (type) {
+            case "google":
+                subject_mail = DEFAULT_MAIL_SUBJECT_VERIFY_GOOGLE;
+                break;
+            case "password":
+                subject_mail = DEFAULT_MAIL_SUBJECT_VERIFY_PASSWORD;
+                break;
+            default:
+                break;
+        }
+
+        EMAIL_SERVICE.sendSimpleMessage(email, subject_mail, code);
+        return code;
+    }
+
 }

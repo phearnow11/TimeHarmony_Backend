@@ -138,8 +138,12 @@ public class MemberService implements IMemberService {
 
     @Override
     public String changeUserPassword(String username, String new_password) {
-        USER_REPOSOTORY.updateUserPassword(passwordEncoder.encode(new_password), username);
-        return new_password;
+        try {
+            USER_REPOSOTORY.updateUserPassword(passwordEncoder.encode(new_password), username);
+            return "Password changed";
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
 
     @Override
@@ -176,7 +180,7 @@ public class MemberService implements IMemberService {
         String a_id = "A" + STRING_SERVICE.autoGenerateString(11);
         address.setAddress_id(a_id);
         if (address.is_default()) {
-            Optional<Addresses> ad = ADDRESS_REPOSITORY.checkDefault(address.getMember(), true);
+            Optional<Addresses> ad = ADDRESS_REPOSITORY.checkDefault(address.getMember().getMember_id(), true);
             if (ad.isPresent()) {
                 ADDRESS_REPOSITORY.updateDefault(false, ad.get().getAddress_id());
             }
@@ -241,8 +245,7 @@ public class MemberService implements IMemberService {
     @Override
     public Addresses getDefaultAddress(String m_id) {
         try {
-            Members m = getMemberbyID(m_id).get();
-            Optional<Addresses> add = ADDRESS_REPOSITORY.checkDefault(m, true);
+            Optional<Addresses> add = ADDRESS_REPOSITORY.checkDefault(UUID.fromString(m_id), true);
             if (add.isPresent())
                 return add.get();
             return null;

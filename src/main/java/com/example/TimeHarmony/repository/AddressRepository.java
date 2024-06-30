@@ -29,8 +29,8 @@ public interface AddressRepository extends JpaRepository<Addresses, String> {
     @Query(value = "select a from Addresses a where a.member = :m")
     List<Addresses> getAddresses(@Param("m") Members m);
 
-    @Query("select a from Addresses a where a.member = :m and a.is_default = :d")
-    Optional<Addresses> checkDefault(@Param("m") Members m, @Param("d") Boolean d);
+    @Query(value = "select * from Addresses where member_id = :mid and is_default = :d", nativeQuery = true)
+    Optional<Addresses> checkDefault(@Param("mid") UUID mid, @Param("d") Boolean d);
 
     @Modifying
     @Transactional

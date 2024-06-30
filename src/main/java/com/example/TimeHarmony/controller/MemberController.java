@@ -24,7 +24,6 @@ import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.service.CartService;
-import com.example.TimeHarmony.service.EmailService;
 import com.example.TimeHarmony.service.MemberService;
 import com.example.TimeHarmony.service.OrderService;
 import com.example.TimeHarmony.service.StringService;
@@ -39,9 +38,6 @@ public class MemberController {
     private MemberService MEMBER_SERVICE;
 
     @Autowired
-    private EmailService EMAIL_SERVICE;
-
-    @Autowired
     private StringService STRING_SERVICE;
 
     @Autowired
@@ -53,9 +49,6 @@ public class MemberController {
     @Autowired
     private OrderService ORDER_SERVICE;
 
-    private final String DEFAULT_MAIL_SUBJECT_VERIFY_GOOGLE = "Email Verification Code";
-    private final String DEFAULT_MAIL_SUBJECT_VERIFY_PASSWORD = "Password Changing Verification Code";
-
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
     public Optional<Members> getMember(@PathVariable("id") String member_id) {
         return MEMBER_SERVICE.getMemberbyID(member_id);
@@ -64,30 +57,6 @@ public class MemberController {
     @RequestMapping(value = "get/addresses/{id}", method = RequestMethod.GET)
     public List<Addresses> getAddresses(@PathVariable("id") String member_id) {
         return MEMBER_SERVICE.getAddresses(member_id);
-    }
-
-    @RequestMapping(value = "verify/{type}/getcode/{id}", method = RequestMethod.GET)
-    public String updateEmailVerificationCode(@PathVariable("id") String member_id, @PathVariable("type") String type) {
-        String code = STRING_SERVICE.autoGenerateString(6);
-        Members user = MEMBER_SERVICE.getMemberbyID(member_id).get();
-
-        if (user.getEmail().isEmpty())
-            return "User does not have an email";
-
-        String subject_mail = "";
-        switch (type) {
-            case "google":
-                subject_mail = DEFAULT_MAIL_SUBJECT_VERIFY_GOOGLE;
-                break;
-            case "password":
-                subject_mail = DEFAULT_MAIL_SUBJECT_VERIFY_PASSWORD;
-                break;
-            default:
-                break;
-        }
-
-        EMAIL_SERVICE.sendSimpleMessage(user.getEmail(), subject_mail, code);
-        return code;
     }
 
     @RequestMapping(value = "update/email/{id}", method = RequestMethod.PUT)
@@ -217,6 +186,12 @@ public class MemberController {
     @RequestMapping(value = "update/user/image/{id}", method = RequestMethod.PATCH)
     public String updateMemberImage(@PathVariable("id") String member_id, @RequestParam("url") String url) {
         return MEMBER_SERVICE.updateMemberImage(member_id, url);
+    }
+
+    @RequestMapping(value = "update/user/password/{username}", method = RequestMethod.PATCH)
+    public String updateMemberPassword(@PathVariable("username") String username,
+            @RequestParam("npwd") String new_pwd) {
+        return MEMBER_SERVICE.changeUserPassword(username, new_pwd);
     }
 
     @GetMapping("/test")
