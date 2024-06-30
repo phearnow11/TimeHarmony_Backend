@@ -8,6 +8,7 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Limit;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -269,8 +270,7 @@ public class WatchService implements IWatchService {
                     data.get("feature") != null ? data.get("feature").toString() : null,
                     data.get("lprice") != null ? Float.valueOf(data.get("lprice").toString()) : 0,
                     data.get("hprice") != null ? Float.valueOf(data.get("hprice").toString()) : Float.MAX_VALUE,
-                    data.get("limit") != null ? Limit.of(Integer.valueOf(data.get("limit").toString()))
-                            : Limit.unlimited());
+                    PageRequest.of(Integer.valueOf(data.get("page").toString()), 60));
             data.put("watch", watches);
             res.put("watches", watches);
             return res;

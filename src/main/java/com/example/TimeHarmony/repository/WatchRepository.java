@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.domain.Limit;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -91,9 +92,9 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
     @Query(value = "update Watch set watch_approval_date = :date, state = :state where watch_id = :id", nativeQuery = true)
     void approveWatch(@Param("date") Timestamp date, @Param("id") String wid, @Param("state") byte steate);
 
-    @Query(value = "select w from Watch w where (:gender is null or w.gender = :gender) and (:series is null or w.series = :series) and (:brand is null or w.brand = :brand) and (:style is null or w.style_type = :style) and (:feature is null or w.feature = :feature) and w.price > :lprice and w.price < :hprice")
+    @Query(value = "select w from Watch w where (:gender is null or w.gender like :gender) and (:series is null or w.series like :series) and (:brand is null or w.brand like :brand) and (:style is null or w.style_type like :style) and (:feature is null or w.feature like :feature) and w.price > :lprice and w.price < :hprice")
     List<Watch> getWatchesByFilter(@Param("gender") String gender, @Param("series") String series,
             @Param("brand") String brand,
             @Param("style") String style, @Param("feature") String feature, @Param("lprice") float lowprice,
-            @Param("hprice") float hprice, Limit limit);
+            @Param("hprice") float hprice, Pageable pageable);
 }
