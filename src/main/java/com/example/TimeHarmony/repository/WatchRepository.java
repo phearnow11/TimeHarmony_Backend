@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.data.domain.Limit;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -94,5 +95,5 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
     List<Watch> getWatchesByFilter(@Param("gender") String gender, @Param("series") String series,
             @Param("brand") String brand,
             @Param("style") String style, @Param("feature") String feature, @Param("lprice") float lowprice,
-            @Param("hprice") float hprice);
+            @Param("hprice") float hprice, Limit limit);
 }
