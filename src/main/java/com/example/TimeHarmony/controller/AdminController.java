@@ -100,7 +100,7 @@ public class AdminController {
                     .setWatchName(data.get("name"))
                     .setWatchCreateDate(Timestamp.valueOf(LocalDateTime.now()))
                     .setState(DEFAULT_STATUS)
-                    .setPrice(Long.parseLong(data.get("price")))
+                    .setPrice(Float.parseFloat(data.get("price")))
                     .setBrand(data.get("brand"))
                     .setSeries(data.get("series"))
                     .setModel(data.get("model"))

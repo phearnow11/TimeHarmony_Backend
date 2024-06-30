@@ -29,7 +29,7 @@ public class OrderService implements IOrderService {
     private MemberService MEMBER_SERVICE;
 
     @Override
-    public String makeOrder(List<String> wids, String m_id, String notice, long total_price, Addresses addr) {
+    public String makeOrder(List<String> wids, String m_id, String notice, float total_price, Addresses addr) {
         try {
             String order_id = "O" + STRING_SERVICE.autoGenerateString(11);
             Members m = MEMBER_SERVICE.getMemberbyID(m_id).get();

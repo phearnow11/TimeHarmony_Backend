@@ -220,11 +220,8 @@ public class MemberController {
     }
 
     @GetMapping("/test")
-    public String test(@RequestBody Map<String, Object> data) {
-        List<String> a = new ArrayList<>();
-        a.add("W85109478821");
-        ORDER_SERVICE.updateCartOrder(a, "CK347qtemvvP", "O6jNaDsrQTMW");
-        return "";
+    public String test(@RequestBody Map<String, Object> data, @RequestParam() Map<String, Object> a) {
+        return a.toString();
     }
 
 }

@@ -1,6 +1,8 @@
 package com.example.TimeHarmony.repository;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -35,6 +37,9 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
 
     @Query("select w from Watch w where w.movement = ?1")
     List<Watch> findWatchesByMovement(String movement);
+
+    @Query(value = "select * from [dbo].[Watch] join [dbo].[Favorites] on [dbo].[Watch].watch_id = [dbo].[Favorites].watch_id where [dbo].[Favorites].member_id = :mid", nativeQuery = true)
+    List<Watch> findWatchesByFavorites(@Param("mid") UUID mid);
 
     @Query(value = "select top (30) * from Watch order by watch_create_date desc", nativeQuery = true)
     List<Watch> find30watchesByDESCDate();
@@ -79,4 +84,15 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
 
     @Query(value = "select COUNT(watch_id) as watch_num from Watch", nativeQuery = true)
     Integer getWatchNum();
+
+    @Modifying
+    @Transactional
+    @Query(value = "update Watch set watch_approval_date = :date, state = :state where watch_id = :id", nativeQuery = true)
+    void approveWatch(@Param("date") Timestamp date, @Param("id") String wid, @Param("state") byte steate);
+
+    @Query(value = "select w from Watch w where (:gender is null or w.gender = :gender) and (:series is null or w.series = :series) and (:brand is null or w.brand = :brand) and (:style is null or w.style_type = :style) and (:feature is null or w.feature = :feature) and w.price > :lprice and w.price < :hprice")
+    List<Watch> getWatchesByFilter(@Param("gender") String gender, @Param("series") String series,
+            @Param("brand") String brand,
+            @Param("style") String style, @Param("feature") String feature, @Param("lprice") float lowprice,
+            @Param("hprice") float hprice);
 }

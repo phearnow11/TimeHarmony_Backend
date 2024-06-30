@@ -42,7 +42,7 @@ public class StaffController {
             watch.put("seller_id", w.getSeller().getMember_id().toString());
             watch.put("seller_name", w.getSeller().getFirst_name() + w.getSeller().getLast_name());
             watch.put("image", w.getImage_url().isEmpty() ? null : w.getImage_url().get(0));
-            watch.put("price", Long.toString(w.getPrice()));
+            watch.put("price", Float.toString(w.getPrice()));
             watch.put("upload_date", w.getWatch_create_date().toString());
             watch.put("status", Byte.toString(w.getState()));
             res.add(new Hashtable<>(watch));

@@ -1,5 +1,8 @@
 package com.example.TimeHarmony.service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +18,8 @@ public class StaffService implements IStaffService {
     public String approveWatch(String watch_id) {
         byte APPROVED_STATE = 1;
         try {
-            WATCH_REPOSITORY.updateWatchState((byte) APPROVED_STATE, watch_id);
+            WATCH_REPOSITORY.approveWatch(Timestamp.valueOf(LocalDateTime.now()), watch_id, APPROVED_STATE);
+            ;
             return "Watch Approved";
         } catch (Exception e) {
             return e.toString();

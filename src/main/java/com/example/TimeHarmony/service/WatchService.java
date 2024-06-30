@@ -256,4 +256,25 @@ public class WatchService implements IWatchService {
         }
     }
 
+    @Override
+    public Map<String, Object> getWatchByField(Map<String, Object> data) {
+        Map<String, Object> res = new HashMap<>();
+        try {
+            List<Watch> watches = WATCH_REPOSITORY.getWatchesByFilter(
+                    data.get("gender") != null ? data.get("gender").toString() : null,
+                    data.get("series") != null ? data.get("series").toString() : null,
+                    data.get("brand") != null ? data.get("brand").toString() : null,
+                    data.get("style") != null ? data.get("style").toString() : null,
+                    data.get("feature") != null ? data.get("feature").toString() : null,
+                    data.get("lprice") != null ? Float.valueOf(data.get("lprice").toString()) : 0,
+                    data.get("hprice") != null ? Float.valueOf(data.get("hprice").toString()) : Float.MAX_VALUE);
+            data.put("watch", watches);
+            res.put("watches", watches);
+            return res;
+        } catch (Exception e) {
+            System.out.println(e);
+            return res;
+        }
+    }
+
 }

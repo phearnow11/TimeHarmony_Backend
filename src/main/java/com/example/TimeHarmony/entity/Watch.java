@@ -56,7 +56,7 @@ public class Watch {
 
     private byte state;
 
-    private long price;
+    private float price;
 
     private String brand;
 

@@ -61,7 +61,7 @@ create table Watch(
 	[watch_create_date] datetime,
 	[watch_approval_date] datetime,
 	[state] tinyint null, 
-	[price] bigint null, 
+	[price] float null, 
 	[brand] varchar(100) null, 
 	[series] varchar(100) null, 
 	[model] varchar(100) null, 

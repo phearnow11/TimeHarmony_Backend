@@ -8,7 +8,7 @@ import com.example.TimeHarmony.entity.Orders;
 
 public interface IOrderService {
 
-    String makeOrder(List<String> wids, String m_id, String notice, long total_price, Addresses addr);
+    String makeOrder(List<String> wids, String m_id, String notice, float total_price, Addresses addr);
 
     String updateCartOrder(List<String> wids, String cid, String oid);
 

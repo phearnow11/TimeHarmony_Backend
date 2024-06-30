@@ -37,7 +37,7 @@ public class Orders {
     private String receive_name;
     private String phone;
     private String notice;
-    private long total_price;
+    private float total_price;
 
     public Orders() {
     }

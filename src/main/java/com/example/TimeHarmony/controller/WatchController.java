@@ -54,7 +54,7 @@ public class WatchController {
     }
 
     @RequestMapping(value = "get/watch-page", method = RequestMethod.GET)
-    public List<Watch> getNextPage(@RequestParam("pagenum") int pagenum) {
+    public List<Watch> getNextPage(@RequestParam("pagenum") int pagenum, @RequestParam("field") String field) {
         if (pagenum == 0) {
             return WATCH_SERVICE.getPage01();
         }
@@ -90,5 +90,10 @@ public class WatchController {
     @RequestMapping(value = "num", method = RequestMethod.GET)
     public Map<String, Object> getWatchNum() {
         return WATCH_SERVICE.getWatchNum();
+    }
+
+    @RequestMapping(value = "get/filter", method = RequestMethod.GET)
+    public Map<String, Object> getWatchByField(@RequestParam() Map<String, Object> field) {
+        return WATCH_SERVICE.getWatchByField(field);
     }
 }
