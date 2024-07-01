@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.TimeHarmony.dtos.Filter;
+import com.example.TimeHarmony.dtos.WatchImages;
 import com.example.TimeHarmony.entity.Watch;
 
 public interface IWatchService {
@@ -62,4 +63,6 @@ public interface IWatchService {
     public Map<String, Object> getWatchNum();
 
     public Map<String, Object> getWatchByFilter(Map<String, Object> data);
+
+    public List<WatchImages> getWatchImages(String wid);
 }

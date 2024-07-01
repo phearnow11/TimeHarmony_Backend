@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Limit;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -224,8 +225,9 @@ public class MemberService implements IMemberService {
 
     @Override
     public List<Favorites> getFavoritesFromMember(String m_id) {
+        int GET_FAVORITES_LIMIT = 10;
         try {
-            return MEMBER_REPOSITORY.getFavoritesFromMember(UUID.fromString(m_id));
+            return MEMBER_REPOSITORY.getFavoritesFromMember(UUID.fromString(m_id), Limit.of(GET_FAVORITES_LIMIT));
         } catch (Exception e) {
             System.out.println(e);
             return null;

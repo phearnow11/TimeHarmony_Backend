@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.TimeHarmony.dtos.Filter;
+import com.example.TimeHarmony.dtos.WatchImages;
 import com.example.TimeHarmony.entity.Sellers;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.repository.WatchRepository;
@@ -275,6 +276,16 @@ public class WatchService implements IWatchService {
         } catch (Exception e) {
             System.out.println(e);
             return res;
+        }
+    }
+
+    @Override
+    public List<WatchImages> getWatchImages(String wid) {
+        try {
+            return WATCH_REPOSITORY.getWatchImages(wid);
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
         }
     }
 

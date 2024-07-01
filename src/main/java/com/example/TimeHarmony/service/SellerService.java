@@ -66,7 +66,7 @@ public class SellerService implements ISellerService {
 
     @Override
     public List<Watch> findAllWatchBySeller(String sid) {
-        int RESPONSE_LIMIT = 15;
+        int RESPONSE_LIMIT = 12;
         List<Watch> myWatches = WATCH_REPOSITORY.getWatchesBySeller(UUID.fromString(sid), Limit.of(RESPONSE_LIMIT));
         return myWatches;
     }

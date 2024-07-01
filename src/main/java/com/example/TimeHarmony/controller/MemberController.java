@@ -140,7 +140,7 @@ public class MemberController {
         return MEMBER_SERVICE.toSeller(id, username);
     }
 
-    @RequestMapping(value = "add/favories/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "add/favorites/{id}", method = RequestMethod.POST)
     public String addFavories(@PathVariable("id") String member_id, @RequestBody Map<String, List<String>> data) {
         List<String> watchList = data.get("w_ids");
         return MEMBER_SERVICE.addFavorites(member_id, watchList);
@@ -148,11 +148,11 @@ public class MemberController {
 
     @RequestMapping(value = "get/favorites/{id}", method = RequestMethod.GET)
     public List<Watch> getFavorites(@PathVariable("id") String member_id) {
-        List<String> wList = new ArrayList<>();
-        for (Favorites i : MEMBER_SERVICE.getFavoritesFromMember(member_id))
-            wList.add(i.getWatch_id());
 
-        return WATCH_SERVICE.getWatchesFromWatchID(wList);
+        List<Favorites> favorites = MEMBER_SERVICE.getFavoritesFromMember(member_id);
+        List<String> wids = new ArrayList<>();
+        favorites.forEach(f -> wids.add(f.getWatch_id()));
+        return WATCH_SERVICE.getWatchByIds(wids);
     }
 
     @RequestMapping(value = "delete/favorites/{id}", method = RequestMethod.DELETE)

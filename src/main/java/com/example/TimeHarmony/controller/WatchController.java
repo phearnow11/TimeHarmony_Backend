@@ -54,11 +54,8 @@ public class WatchController {
     }
 
     @RequestMapping(value = "get/watch-page", method = RequestMethod.GET)
-    public List<Watch> getNextPage(@RequestParam("pagenum") int pagenum, @RequestParam("field") String field) {
-        if (pagenum == 0) {
-            return WATCH_SERVICE.getPage01();
-        }
-        return WATCH_SERVICE.nextPage(pagenum);
+    public Map<String, Object> getNextPage(@RequestParam() Map<String, Object> data) {
+        return WATCH_SERVICE.getWatchByFilter(data);
     }
 
     @RequestMapping(value = "get/watch-in-range-price", method = RequestMethod.GET)
@@ -92,8 +89,4 @@ public class WatchController {
         return WATCH_SERVICE.getWatchNum();
     }
 
-    @RequestMapping(value = "get/filter", method = RequestMethod.GET)
-    public Map<String, Object> getWatchByFilter(@RequestParam() Map<String, Object> field) {
-        return WATCH_SERVICE.getWatchByFilter(field);
-    }
 }

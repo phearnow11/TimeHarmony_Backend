@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.example.TimeHarmony.dtos.WatchImages;
 import com.example.TimeHarmony.entity.Watch;
 
 import jakarta.transaction.Transactional;
@@ -100,4 +101,7 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
 
     @Query(value = "select * from Watch where member_id = :mid", nativeQuery = true)
     List<Watch> getWatchesBySeller(@Param("mid") UUID mid, Limit limit);
+
+    @Query(value = "select * from [dbo].[Watch_images] where watch_id = :wid", nativeQuery = true)
+    List<WatchImages> getWatchImages(@Param("wid") String wid);
 }
