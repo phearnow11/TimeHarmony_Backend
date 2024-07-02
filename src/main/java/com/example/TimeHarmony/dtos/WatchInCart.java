@@ -15,4 +15,6 @@ public interface WatchInCart {
 
     Byte getState();
 
+    Float getPrice();
+
 }

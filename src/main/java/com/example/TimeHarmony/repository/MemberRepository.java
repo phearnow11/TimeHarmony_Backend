@@ -82,7 +82,7 @@ public interface MemberRepository extends JpaRepository<Members, UUID> {
                         @Param("checked") Integer checked, @Param("date") Timestamp date,
                         @Param("state") Integer state);
 
-        @Query(value = "select * from Watches_In_Cart where cart_id = :cid", nativeQuery = true)
+        @Query(value = "select * from [dbo].[Watches_In_Cart] join [dbo].[Watch] on [dbo].[Watch].watch_id = [dbo].[Watches_In_Cart].watch_id where cart_id = :cid", nativeQuery = true)
         List<WatchInCart> getCart(@Param("cid") String cid);
 
         @Modifying
