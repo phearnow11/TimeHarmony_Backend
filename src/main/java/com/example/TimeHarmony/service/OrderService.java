@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Orders;
 import com.example.TimeHarmony.repository.OrderRepository;
+import com.example.TimeHarmony.repository.WatchRepository;
 import com.example.TimeHarmony.service.interfacepack.IOrderService;
 
 @Service
@@ -21,6 +23,9 @@ public class OrderService implements IOrderService {
 
     @Autowired
     private OrderRepository ORDER_REPOSITORY;
+
+    @Autowired
+    private WatchRepository WATCH_REPOSITORY;
 
     @Autowired
     private StringService STRING_SERVICE;
@@ -91,6 +96,20 @@ public class OrderService implements IOrderService {
         } catch (Exception e) {
             System.out.println(e);
             return null;
+        }
+    }
+
+    @Override
+    public float total_price(List<String> wids) {
+        float sum = 0; 
+        try {
+            for (String i : wids ) { 
+                float w = WATCH_REPOSITORY.findById(i).get().getPrice(); 
+                sum = sum + w ; 
+            }
+            return sum ; 
+        } catch (Exception e) {
+            return 0 ; 
         }
     }
 }

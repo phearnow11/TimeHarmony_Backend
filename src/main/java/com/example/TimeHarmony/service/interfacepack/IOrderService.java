@@ -14,6 +14,8 @@ public interface IOrderService {
 
     String deleteOrder(String oid);
 
+    float total_price (List<String> wids); 
+
     List<Orders> getOrderFromMember(String mid);
 
     List<String> getWatchInOrder(String oid);

@@ -17,6 +17,8 @@ public class CartService implements ICartService {
     @Autowired
     private MemberRepository MEMBER_REPOSITORY;
 
+    
+
     @Override
     public String insertToCart(String cid, String wid) {
         if (checkWatchInCart(cid, wid)) {
@@ -66,7 +68,7 @@ public class CartService implements ICartService {
     public String deleteCart(String cid, List<String> wids) {
         try {
             for (String wid : wids)
-                MEMBER_REPOSITORY.updateStateWatchInCart(0, cid, wid);
+                MEMBER_REPOSITORY.updateStateWatchInCart(2, cid, wid); //state delete = 2 
             return "Watches deleted";
         } catch (Exception e) {
             return e.toString();

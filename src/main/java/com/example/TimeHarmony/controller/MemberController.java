@@ -166,8 +166,9 @@ public class MemberController {
 
         List<String> wids = STRING_SERVICE.jsonArrToStringList(data.get("wids"));
         Addresses addr = MEMBER_SERVICE.getAddressByAddressId(data.get("address").toString());
+        float totalprice = ORDER_SERVICE.total_price(wids);
         return ORDER_SERVICE.makeOrder(wids, member_id, data.get("notice").toString(),
-                Long.parseLong(data.get("total_price").toString()), addr);
+                totalprice, addr);
     }
 
     @RequestMapping(value = "get/order/{id}", method = RequestMethod.GET)
