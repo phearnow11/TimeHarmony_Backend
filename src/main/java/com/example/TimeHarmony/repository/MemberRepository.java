@@ -100,4 +100,9 @@ public interface MemberRepository extends JpaRepository<Members, UUID> {
         @Transactional
         @Query(value = "update [dbo].[Watches_In_Cart] set state = :state where cart_id = :cid and watch_id = :wid", nativeQuery = true)
         void updateStateWatchInCart(@Param("state") Integer state, @Param("cid") String cid, @Param("wid") String wid);
+
+        @Modifying
+        @Transactional
+        @Query(value = "update Members m set m.is_active = :status, m.last_logout_date = :date where m.member_id = :id")
+        void logoutRepo(@Param("status") int status, @Param("id") UUID id, @Param("date") Timestamp date);
 }
