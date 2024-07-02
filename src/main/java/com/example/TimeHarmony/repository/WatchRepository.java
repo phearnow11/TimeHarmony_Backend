@@ -104,4 +104,10 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
 
     @Query(value = "select * from [dbo].[Watch_images] where watch_id = :wid", nativeQuery = true)
     List<WatchImages> getWatchImages(@Param("wid") String wid);
+
+    @Query(value = "select COUNT(watch_id) as watch_num from Watch w where (:gender is null or w.gender like :gender) and (:series is null or w.series like :series) and (:brand is null or w.brand like :brand) and (:style is null or w.style_type like :style) and (:feature is null or w.feature like :feature) and w.price > :lprice and w.price < :hprice")
+    Integer getWatchNumWithConditions(@Param("gender") String gender, @Param("series") String series,
+            @Param("brand") String brand,
+            @Param("style") String style, @Param("feature") String feature, @Param("lprice") float lowprice,
+            @Param("hprice") float hprice);
 }

@@ -272,6 +272,14 @@ public class WatchService implements IWatchService {
                     data.get("hprice") != null ? Float.valueOf(data.get("hprice").toString()) : Float.MAX_VALUE,
                     PageRequest.of(Integer.valueOf(data.get("page").toString()), 60));
             res.put("watches", watches);
+            res.put("watch_num", WATCH_REPOSITORY.getWatchNumWithConditions(
+                    data.get("gender") != null ? data.get("gender").toString() : null,
+                    data.get("series") != null ? data.get("series").toString() : null,
+                    data.get("brand") != null ? data.get("brand").toString() : null,
+                    data.get("style") != null ? data.get("style").toString() : null,
+                    data.get("feature") != null ? data.get("feature").toString() : null,
+                    data.get("lprice") != null ? Float.valueOf(data.get("lprice").toString()) : 0,
+                    data.get("hprice") != null ? Float.valueOf(data.get("hprice").toString()) : Float.MAX_VALUE));
             return res;
         } catch (Exception e) {
             System.out.println(e);
