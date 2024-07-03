@@ -87,19 +87,7 @@ public class CartService implements ICartService {
         }
     }
 
-    @Override
-    public String deleteWatchAfterOrder(String cid, String wid) {
-            
-        try {
-            byte STATE = 2;
-            WATCH_REPOSITORY.updateWatchState(STATE, wid);
-            
-        } catch (Exception e) {
-            System.out.println(e);
-            return null;
-        }
-        
-    }
+   
 
     
 

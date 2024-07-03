@@ -17,5 +17,5 @@ public interface ICartService {
 
     List<String> getWatchInCart(String cid);
 
-    String deleteWatchAfterOrder (String cid, String wid); 
+   
 }
