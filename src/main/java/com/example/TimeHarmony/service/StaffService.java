@@ -2,10 +2,12 @@ package com.example.TimeHarmony.service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.repository.WatchRepository;
 import com.example.TimeHarmony.service.interfacepack.IStaffService;
 
@@ -30,6 +32,16 @@ public class StaffService implements IStaffService {
     public String createVoucher() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createVoucer'");
+    }
+
+    @Override
+    public List<Watch> getAllState0Watch() {
+        try {
+            return WATCH_REPOSITORY.getWatchesByStates();
+        } catch (Exception e) {
+            return null;
+        }
+        
     }
 
 }

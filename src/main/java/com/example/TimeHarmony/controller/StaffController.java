@@ -49,4 +49,9 @@ public class StaffController {
         }
         return res;
     }
+
+    @RequestMapping(value = "get/watch/state=0", method = RequestMethod.GET)
+    public List<Watch> getWatchesByState0(){
+        return STAFF_SERVICE.getAllState0Watch(); 
+    }
 }
