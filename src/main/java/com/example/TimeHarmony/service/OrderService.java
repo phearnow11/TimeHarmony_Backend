@@ -101,15 +101,15 @@ public class OrderService implements IOrderService {
 
     @Override
     public float total_price(List<String> wids) {
-        float sum = 0; 
+        float sum = 0;
         try {
-            for (String i : wids ) { 
-                float w = WATCH_REPOSITORY.findById(i).get().getPrice(); 
-                sum = sum + w ; 
+            for (String i : wids) {
+                float w = WATCH_REPOSITORY.findById(i).get().getPrice();
+                sum = sum + w;
             }
-            return sum ; 
+            return sum;
         } catch (Exception e) {
-            return 0 ; 
+            return 0;
         }
     }
 }

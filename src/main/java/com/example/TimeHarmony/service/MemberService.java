@@ -133,8 +133,8 @@ public class MemberService implements IMemberService {
 
     @Override
     public void logout(String id) {
-        MEMBER_REPOSITORY.updateLastLogoutDate(Timestamp.valueOf(LocalDateTime.now()), UUID.fromString(id));
-        MEMBER_REPOSITORY.updateActiveStatus(DEFAULT_INACTIVE_STATUS, UUID.fromString(id));
+        MEMBER_REPOSITORY.logoutRepo(DEFAULT_INACTIVE_STATUS, UUID.fromString(id),
+                Timestamp.valueOf(LocalDateTime.now()));
     }
 
     @Override
