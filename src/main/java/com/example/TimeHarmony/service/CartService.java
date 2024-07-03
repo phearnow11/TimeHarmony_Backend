@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.TimeHarmony.dtos.WatchInCart;
 import com.example.TimeHarmony.repository.MemberRepository;
+import com.example.TimeHarmony.repository.WatchRepository;
 import com.example.TimeHarmony.service.interfacepack.ICartService;
 
 @Service
@@ -16,7 +17,8 @@ public class CartService implements ICartService {
 
     @Autowired
     private MemberRepository MEMBER_REPOSITORY;
-
+    @Autowired
+    private WatchRepository WATCH_REPOSITORY;
     
 
     @Override
@@ -55,7 +57,7 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public String deleteCart(String cid, String wid) {
+    public String delete1watchInCart(String cid, String wid) {
         try {
             MEMBER_REPOSITORY.deleteWatchInCart(wid, cid);
             return "Watch Deleted";
@@ -68,7 +70,7 @@ public class CartService implements ICartService {
     public String deleteCart(String cid, List<String> wids) {
         try {
             for (String wid : wids)
-                MEMBER_REPOSITORY.updateStateWatchInCart(2, cid, wid); //state delete = 2 
+                MEMBER_REPOSITORY.updateStateWatchInCart(0, cid, wid); 
             return "Watches deleted";
         } catch (Exception e) {
             return e.toString();
@@ -84,5 +86,21 @@ public class CartService implements ICartService {
             return null;
         }
     }
+
+    @Override
+    public String deleteWatchAfterOrder(String cid, String wid) {
+            
+        try {
+            byte STATE = 2;
+            WATCH_REPOSITORY.updateWatchState(STATE, wid);
+            
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+        
+    }
+
+    
 
 }

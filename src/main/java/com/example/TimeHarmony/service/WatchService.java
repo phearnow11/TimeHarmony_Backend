@@ -186,12 +186,12 @@ public class WatchService implements IWatchService {
     }
 
     @Override
-    public String deleteWatches(List<String> ids, String sid) {
+    public String deleteWatches(List<String> wids, String sid) {
         try {
             byte STATE = 2;
             Sellers s = SELLER_REPOSITORY.getSellerbyId(sid);
             List<Watch> w_owned = s.getWatches();
-            List<Watch> w_chosen = getWatchByIds(ids);
+            List<Watch> w_chosen = getWatchByIds(wids);
             for (Watch w : w_chosen) {
                 if (w_owned.contains(w))
                     WATCH_REPOSITORY.updateWatchState(STATE, w.getWatch_id());

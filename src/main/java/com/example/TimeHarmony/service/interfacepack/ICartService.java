@@ -11,10 +11,11 @@ public interface ICartService {
 
     List<WatchInCart> getCart(String cid);
 
-    String deleteCart(String cid, String wid);
+    String delete1watchInCart(String cid, String wid);
 
     String deleteCart(String cid, List<String> wid);
 
     List<String> getWatchInCart(String cid);
 
+    String deleteWatchAfterOrder (String cid, String wid); 
 }

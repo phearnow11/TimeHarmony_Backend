@@ -25,4 +25,6 @@ public interface OrderRepository extends JpaRepository<Orders, String> {
     @Query(value = "select [dbo].[Watches_In_Cart].watch_id from [dbo].[Watches_In_Cart] join [dbo].[Orders] on [dbo].[Orders].order_id = [dbo].[Watches_In_Cart].order_id where [dbo].[Watches_In_Cart].order_id = :oid", nativeQuery = true)
     List<String> getWatchesInOrder(@Param("oid") String oid);
 
+    @Query(value = "select [dbo].[Watches_In_Cart].order_id from [dbo].[Watches_In_Cart] where watch_id = :wid ", nativeQuery = true)
+    String getOrderIdInWatchInCart(@Param("wid")String wid); 
 }

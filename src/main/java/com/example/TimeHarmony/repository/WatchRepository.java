@@ -17,49 +17,49 @@ import com.example.TimeHarmony.entity.Watch;
 import jakarta.transaction.Transactional;
 
 public interface WatchRepository extends JpaRepository<Watch, String> {
-    @Query("select w from Watch w where w.gender = ?1")
+    @Query("select w from Watch w where w.gender = ?1 and w.state = 1")
     List<Watch> findWatchesByGender(String gender);
 
-    @Query("select w from Watch w where w.series = ?1")
+    @Query("select w from Watch w where w.series = ?1 and w.state = 1")
     List<Watch> findWatchesBySeries(String series);
 
-    @Query("select w from Watch w where w.brand = ?1")
+    @Query("select w from Watch w where w.brand = ?1 and w.state = 1")
     List<Watch> findWatchesByBrand(String brand);
 
-    @Query("select w from Watch w where w.style_type = ?1")
+    @Query("select w from Watch w where w.style_type = ?1 and w.state = 1")
     List<Watch> findWatchesByStyle(String style);
 
-    @Query("select w from Watch w where w.dial_color = ?1")
+    @Query("select w from Watch w where w.dial_color = ?1 and w.state = 1")
     List<Watch> findWatchesByDialColor(String dial_color);
 
-    @Query("select w from Watch w where w.case_shape = ?1")
+    @Query("select w from Watch w where w.case_shape = ?1 and w.state = 1")
     List<Watch> findWatchesByCaseShape(String caseshape);
 
-    @Query("select w from Watch w where w.band_type = ?1")
+    @Query("select w from Watch w where w.band_type = ?1 and w.state = 1")
     List<Watch> findWatchesByBandType(String bandtype);
 
-    @Query("select w from Watch w where w.movement = ?1")
+    @Query("select w from Watch w where w.movement = ?1 and w.state = 1")
     List<Watch> findWatchesByMovement(String movement);
 
     @Query(value = "select * from [dbo].[Watch] join [dbo].[Favorites] on [dbo].[Watch].watch_id = [dbo].[Favorites].watch_id where [dbo].[Favorites].member_id = :mid", nativeQuery = true)
     List<Watch> findWatchesByFavorites(@Param("mid") UUID mid);
 
-    @Query(value = "select top (30) * from Watch order by watch_create_date desc", nativeQuery = true)
+    @Query(value = "select top (30) * from Watch order by watch_create_date desc and w.state = 1", nativeQuery = true)
     List<Watch> find30watchesByDESCDate();
 
-    @Query(value = "select top (60) * from Watch order by watch_create_date desc", nativeQuery = true)
+    @Query(value = "select top (60) * from Watch order by watch_create_date desc and w.state = 1", nativeQuery = true)
     List<Watch> get1pageOfWatchByDESCDate();
 
-    @Query(value = "select * from Watch order by watch_create_date desc OFFSET :start rows fetch next 18 rows only", nativeQuery = true)
+    @Query(value = "select * from Watch order by watch_create_date desc OFFSET :start rows fetch next 18 rows only and w.state = 1", nativeQuery = true)
     List<Watch> findNext18WatchesbyDESCDate(@Param("start") int start);
 
-    @Query(value = "select * from Watch order by watch_create_date desc OFFSET :start rows fetch next 60 rows only", nativeQuery = true)
+    @Query(value = "select * from Watch order by watch_create_date desc OFFSET :start rows fetch next 60 rows only and w.state = 1", nativeQuery = true)
     List<Watch> findNextPageDESCDate(@Param("start") int start);
 
-    @Query(value = "select * from Watch where feature like %:start% ", nativeQuery = true)
+    @Query(value = "select * from Watch where feature like %:start% and state = 1", nativeQuery = true)
     List<Watch> findWatchesByFeatures(@Param("start") String feature);
 
-    @Query(value = "select * from Watch where price BETWEEN :start AND :end", nativeQuery = true)
+    @Query(value = "select * from Watch where price BETWEEN :start AND :end and state = 1", nativeQuery = true)
     List<Watch> findWatchByRangePrice(@Param("start") float start, @Param("end") float end);
 
     @Modifying
@@ -79,10 +79,10 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
 
     List<Watch> findAllByState(byte state);
 
-    @Query(value = "select * from Watch where freetext(Watch.*, :key) AND state = 0", nativeQuery = true)
+    @Query(value = "select * from Watch where freetext(Watch.*, :key) AND state = 1", nativeQuery = true)
     List<Watch> findByKeyWord(@Param("key") String key);
 
-    @Query(value = "select * from Watch where watch_name like %:key% or watch_description like %:key% and state = 0 ", nativeQuery = true)
+    @Query(value = "select * from Watch where watch_name like %:key% or watch_description like %:key% and state = 1 ", nativeQuery = true)
     List<Watch> findByKeyIfFullTextNull(@Param("key") String key);
 
     @Query(value = "select COUNT(watch_id) as watch_num from Watch", nativeQuery = true)
@@ -93,7 +93,7 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
     @Query(value = "update Watch set watch_approval_date = :date, state = :state where watch_id = :id", nativeQuery = true)
     void approveWatch(@Param("date") Timestamp date, @Param("id") String wid, @Param("state") byte steate);
 
-    @Query(value = "select w from Watch w where (:gender is null or w.gender like :gender) and (:series is null or w.series like :series) and (:brand is null or w.brand like :brand) and (:style is null or w.style_type like :style) and (:feature is null or w.feature like :feature) and w.price > :lprice and w.price < :hprice")
+    @Query(value = "select w from Watch w where (:gender is null or w.gender like :gender) and (:series is null or w.series like :series) and (:brand is null or w.brand like :brand) and (:style is null or w.style_type like :style) and (:feature is null or w.feature like :feature) and w.price > :lprice and w.price < :hprice and w.state = 1")
     List<Watch> getWatchesByFilter(@Param("gender") String gender, @Param("series") String series,
             @Param("brand") String brand,
             @Param("style") String style, @Param("feature") String feature, @Param("lprice") float lowprice,
@@ -105,7 +105,7 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
     @Query(value = "select * from [dbo].[Watch_images] where watch_id = :wid", nativeQuery = true)
     List<WatchImages> getWatchImages(@Param("wid") String wid);
 
-    @Query(value = "select COUNT(watch_id) as watch_num from Watch w where (:gender is null or w.gender like :gender) and (:series is null or w.series like :series) and (:brand is null or w.brand like :brand) and (:style is null or w.style_type like :style) and (:feature is null or w.feature like :feature) and w.price > :lprice and w.price < :hprice")
+    @Query(value = "select COUNT(watch_id) as watch_num from Watch w where (:gender is null or w.gender like :gender) and (:series is null or w.series like :series) and (:brand is null or w.brand like :brand) and (:style is null or w.style_type like :style) and (:feature is null or w.feature like :feature) and w.price > :lprice and w.price < :hprice and w.state = 1")
     Integer getWatchNumWithConditions(@Param("gender") String gender, @Param("series") String series,
             @Param("brand") String brand,
             @Param("style") String style, @Param("feature") String feature, @Param("lprice") float lowprice,
