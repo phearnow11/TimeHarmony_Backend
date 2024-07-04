@@ -37,7 +37,7 @@ public class StaffService implements IStaffService {
     @Override
     public List<Watch> getAllState0Watch() {
         try {
-            return WATCH_REPOSITORY.getWatchesByStates();
+            return WATCH_REPOSITORY.getWatchesByState0();
         } catch (Exception e) {
             return null;
         }

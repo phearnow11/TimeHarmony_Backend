@@ -41,19 +41,19 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
     @Query("select w from Watch w where w.movement = ?1 and w.state = 1")
     List<Watch> findWatchesByMovement(String movement);
 
-    @Query(value = "select * from [dbo].[Watch] join [dbo].[Favorites] on [dbo].[Watch].watch_id = [dbo].[Favorites].watch_id where [dbo].[Favorites].member_id = :mid", nativeQuery = true)
+    @Query(value = "select * from [dbo].[Watch] join [dbo].[Favorites] on [dbo].[Watch].watch_id = [dbo].[Favorites].watch_id where [dbo].[Favorites].member_id = :mid and state = 1 ", nativeQuery = true)
     List<Watch> findWatchesByFavorites(@Param("mid") UUID mid);
 
-    @Query(value = "select top (30) * from Watch order by watch_create_date desc and w.state = 1", nativeQuery = true)
+    @Query(value = "select top (30) * from Watch where state = 1 order by watch_create_date desc ", nativeQuery = true)
     List<Watch> find30watchesByDESCDate();
 
-    @Query(value = "select top (60) * from Watch order by watch_create_date desc and w.state = 1", nativeQuery = true)
+    @Query(value = "select top (60) * from Watch where state = 1 order by watch_create_date desc ", nativeQuery = true)
     List<Watch> get1pageOfWatchByDESCDate();
 
-    @Query(value = "select * from Watch order by watch_create_date desc OFFSET :start rows fetch next 18 rows only and w.state = 1", nativeQuery = true)
+    @Query(value = "select * from Watch where state = 1 order by watch_create_date desc OFFSET :start rows fetch next 18 rows only", nativeQuery = true)
     List<Watch> findNext18WatchesbyDESCDate(@Param("start") int start);
 
-    @Query(value = "select * from Watch order by watch_create_date desc OFFSET :start rows fetch next 60 rows only and w.state = 1", nativeQuery = true)
+    @Query(value = "select * from Watch where state = 1 order by watch_create_date desc OFFSET :start rows fetch next 60 rows only", nativeQuery = true)
     List<Watch> findNextPageDESCDate(@Param("start") int start);
 
     @Query(value = "select * from Watch where feature like %:start% and state = 1", nativeQuery = true)
@@ -73,7 +73,7 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
     void updateWatchState(@Param("state") byte state, String id);
 
     @Query("select w from Watch w where  w.state = 0")
-    List<Watch> getWatchesByStates();
+    List<Watch> getWatchesByState0();
 
     @Modifying
     @Transactional

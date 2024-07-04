@@ -38,11 +38,13 @@ public class CartService implements ICartService {
     public boolean checkWatchInCart(String cid, String wid) {
 
         List<WatchInCart> cartlist = getCart(cid);
+        if (WATCH_REPOSITORY.findById(wid).get().getState() == 1 ) {
         for (WatchInCart w : cartlist) {
             if (w.getWatch_id().equals(wid)) {
                 return false;
             }
         }
+    }
         return true;
     }
 
