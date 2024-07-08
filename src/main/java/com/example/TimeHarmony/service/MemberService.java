@@ -66,8 +66,7 @@ public class MemberService implements IMemberService {
     @Override
     public List<Addresses> getAddresses(String member_id) {
         try {
-            Members m = MEMBER_REPOSITORY.findById(UUID.fromString(member_id)).get();
-            return ADDRESS_REPOSITORY.getAddresses(m);
+            return ADDRESS_REPOSITORY.getAddresses(UUID.fromString(member_id));
         } catch (Exception e) {
             System.out.println(e);
             return null;

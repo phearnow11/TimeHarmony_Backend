@@ -22,5 +22,5 @@ public interface UsersRepository extends JpaRepository<Users, String> {
     @Modifying
     @Transactional
     @Query("update Users u set u.enabled = :state where u.username = :username")
-    void updateUserState(@Param("state") byte state, @Param("username") String username);
+    void updateUserState(@Param("state") int state, @Param("username") String username);
 }

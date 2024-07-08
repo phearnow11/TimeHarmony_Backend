@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.example.TimeHarmony.entity.Addresses;
-import com.example.TimeHarmony.entity.Members;
 
 import jakarta.transaction.Transactional;
 
@@ -26,8 +25,8 @@ public interface AddressRepository extends JpaRepository<Addresses, String> {
     @Query(value = "delete Addresses where member_id = :m_id and address_id = :a_id", nativeQuery = true)
     void deleteAddress(@Param("m_id") UUID m_id, @Param("a_id") String a_id);
 
-    @Query(value = "select a from Addresses a where a.member = :m")
-    List<Addresses> getAddresses(@Param("m") Members m);
+    @Query(value = "select * from Addresses where member_id = :mid", nativeQuery = true)
+    List<Addresses> getAddresses(@Param("mid") UUID mid);
 
     @Query(value = "select * from Addresses where member_id = :mid and is_default = :d", nativeQuery = true)
     Optional<Addresses> checkDefault(@Param("mid") UUID mid, @Param("d") Boolean d);

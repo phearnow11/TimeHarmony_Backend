@@ -15,6 +15,7 @@ import com.example.TimeHarmony.entity.Sellers;
 import com.example.TimeHarmony.entity.Users;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.enumf.Roles;
+import com.example.TimeHarmony.enumf.UserAuthenticationStatus;
 import com.example.TimeHarmony.repository.AdminRepository;
 import com.example.TimeHarmony.repository.AuthoritiesRepository;
 import com.example.TimeHarmony.repository.MemberRepository;
@@ -88,10 +89,10 @@ public class AdminService implements IAdminService {
 
     @Override
     public String banMemberbyId(String id) {
-        byte BANNED = 0;
         try {
             Members m = MEMBER_REPOSITORY.getMemberById(id).get();
-            USER_REPOSOTORY.updateUserState(BANNED, m.getUser_log_info().getUsername());
+            USER_REPOSOTORY.updateUserState(UserAuthenticationStatus.BANNED.getValue(),
+                    m.getUser_log_info().getUsername());
             return "User banned";
         } catch (Exception e) {
             return e.toString();
@@ -100,10 +101,10 @@ public class AdminService implements IAdminService {
 
     @Override
     public String unbanMemberbyId(String id) {
-        byte BANNED = 1;
         try {
             Members m = MEMBER_REPOSITORY.getMemberById(id).get();
-            USER_REPOSOTORY.updateUserState(BANNED, m.getUser_log_info().getUsername());
+            USER_REPOSOTORY.updateUserState(UserAuthenticationStatus.ACTIVE.getValue(),
+                    m.getUser_log_info().getUsername());
             return "User unbanned";
         } catch (Exception e) {
             return e.toString();
