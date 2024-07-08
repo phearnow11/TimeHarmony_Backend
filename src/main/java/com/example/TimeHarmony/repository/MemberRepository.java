@@ -105,4 +105,7 @@ public interface MemberRepository extends JpaRepository<Members, UUID> {
         @Transactional
         @Query(value = "update Members m set m.is_active = :status, m.last_logout_date = :date where m.member_id = :id")
         void logoutRepo(@Param("status") int status, @Param("id") UUID id, @Param("date") Timestamp date);
+
+        @Query(value = "select * from [dbo].[Favorites] where member_id = :mid and watch_id = :wid", nativeQuery = true)
+        Optional<Favorites> getSpecificFavorite(@Param("mid") UUID mid, @Param("wid") String wid);
 }

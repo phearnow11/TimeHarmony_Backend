@@ -203,6 +203,9 @@ public class MemberService implements IMemberService {
     @Override
     public String addFavorites(String m_id, String wid) {
         try {
+            Optional<Favorites> exist_fa = MEMBER_REPOSITORY.getSpecificFavorite(UUID.fromString(m_id), wid);
+            if (exist_fa.isPresent())
+                throw new Exception("Favorites is already exist");
             MEMBER_REPOSITORY.insertFavorites(UUID.fromString(m_id), wid);
             return "Favorites added";
         } catch (Exception e) {
