@@ -1,9 +1,18 @@
 package com.example.TimeHarmony.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-import com.example.TimeHarmony.entity.Voucher;
+import com.example.TimeHarmony.entity.Vouchers;
 
-public interface VoucherRepository extends JpaRepository<Voucher, String> {
+import jakarta.transaction.Transactional;
 
+public interface VoucherRepository extends JpaRepository<Vouchers, String> {
+
+    @Modifying
+    @Transactional
+    @Query(value = "update [dbo].[Vouchers] set quantity = (select quantity from [dbo].[Vouchers] where voucher_id = :vid) - :quantity where voucher_id = :vid", nativeQuery = true)
+    void removeNumberOfVoucher(@Param("quantity") int quantity, @Param("vid") String vid);
 }

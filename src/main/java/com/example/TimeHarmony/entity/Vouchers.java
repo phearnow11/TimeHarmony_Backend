@@ -14,7 +14,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Voucher {
+public class Vouchers {
     @Id
     private String voucher_id;
     private String name;
@@ -32,6 +32,6 @@ public class Voucher {
 
     private int quantity;
 
-    public Voucher() {
+    public Vouchers() {
     }
 }
