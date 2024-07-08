@@ -201,11 +201,9 @@ public class MemberService implements IMemberService {
     }
 
     @Override
-    public String addFavorites(String m_id, List<String> w_ids) {
+    public String addFavorites(String m_id, String wid) {
         try {
-            for (String i : w_ids) {
-                MEMBER_REPOSITORY.insertFavorites(UUID.fromString(m_id), i);
-            }
+            MEMBER_REPOSITORY.insertFavorites(UUID.fromString(m_id), wid);
             return "Favorites added";
         } catch (Exception e) {
             return e.toString();

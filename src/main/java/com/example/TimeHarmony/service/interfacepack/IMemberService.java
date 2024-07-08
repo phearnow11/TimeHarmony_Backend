@@ -49,7 +49,7 @@ public interface IMemberService {
 
     public List<Favorites> getFavoritesFromMember(String m_id);
 
-    public String addFavorites(String m_id, List<String> w_ids);
+    public String addFavorites(String m_id, String wid);
 
     public String deleteFavorites(String m_id, List<String> w_id);
 

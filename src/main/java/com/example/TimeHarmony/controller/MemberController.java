@@ -140,10 +140,9 @@ public class MemberController {
         return MEMBER_SERVICE.toSeller(id, username);
     }
 
-    @RequestMapping(value = "add/favorites/{id}", method = RequestMethod.POST)
-    public String addFavories(@PathVariable("id") String member_id, @RequestBody Map<String, List<String>> data) {
-        List<String> watchList = data.get("w_ids");
-        return MEMBER_SERVICE.addFavorites(member_id, watchList);
+    @RequestMapping(value = "add/favorites/{id}-{wid}", method = RequestMethod.POST)
+    public String addFavories(@PathVariable("id") String member_id, @PathVariable("wid") String wid) {
+        return MEMBER_SERVICE.addFavorites(member_id, wid);
     }
 
     @RequestMapping(value = "get/favorites/{id}", method = RequestMethod.GET)
@@ -166,7 +165,7 @@ public class MemberController {
 
         List<String> wids = STRING_SERVICE.jsonArrToStringList(data.get("wids"));
         Addresses addr = MEMBER_SERVICE.getAddressByAddressId(data.get("address").toString());
-        
+
         return ORDER_SERVICE.makeOrder(wids, member_id, data.get("notice").toString(),
                 Float.parseFloat(data.get("total_price").toString()), addr);
     }
