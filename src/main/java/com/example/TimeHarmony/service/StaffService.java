@@ -16,6 +16,9 @@ public class StaffService implements IStaffService {
     @Autowired
     private WatchRepository WATCH_REPOSITORY;
 
+    @Autowired
+    private VoucherService VOUCHER_SERVICE;
+
     @Override
     public String approveWatch(String watch_id) {
         byte APPROVED_STATE = 1;
@@ -29,19 +32,25 @@ public class StaffService implements IStaffService {
     }
 
     @Override
-    public String createVoucher() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createVoucer'");
-    }
-
-    @Override
-    public List<Watch> getAllState0Watch() {
+    public List<Watch> getAllStateWatch(int state) {
         try {
-            return WATCH_REPOSITORY.getWatchesByState0();
+            return WATCH_REPOSITORY.getWatchesByState(state);
         } catch (Exception e) {
             return null;
         }
-        
+
+    }
+
+    @Override
+    public String unApproveWatch(String watch_id) {
+        byte UNAPPROVED_STATE = 0;
+        try {
+            WATCH_REPOSITORY.approveWatch(Timestamp.valueOf(LocalDateTime.now()), watch_id, UNAPPROVED_STATE);
+            ;
+            return "Watch Approved";
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
 
 }

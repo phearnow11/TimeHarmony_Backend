@@ -1,8 +1,16 @@
 package com.example.TimeHarmony.service.interfacepack;
 
-import com.example.TimeHarmony.entity.Voucher;
+import java.util.List;
+
+import com.example.TimeHarmony.entity.Vouchers;
 
 public interface IVoucherService {
 
-    Voucher addVoucher(Voucher v);
+    Vouchers addVoucher(Vouchers v);
+
+    String permaDeleteVoucher(String vid);
+
+    String removeVoucherAmount(int num, String vid);
+
+    List<Vouchers> getVouchers();
 }
