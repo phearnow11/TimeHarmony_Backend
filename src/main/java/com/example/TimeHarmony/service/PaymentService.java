@@ -1,11 +1,15 @@
-package com.example.TimeHarmony.service; 
+package com.example.TimeHarmony.service;
 
+import java.sql.Timestamp;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.TimeHarmony.configuration.VNPAYConfig;
-import com.example.TimeHarmony.dtos.Payment;
+import com.example.TimeHarmony.dtos.PaymentDTO;
+import com.example.TimeHarmony.entity.Payment;
+import com.example.TimeHarmony.repository.PaymentRepository;
 import com.example.TimeHarmony.util.VNPayUtil;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,8 +18,13 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class PaymentService {
+
+    @Autowired
+    private PaymentRepository PAYMENT_REPOSITORY;
+
     private final VNPAYConfig vnPayConfig;
-    public Payment.VNPayResponse createVnPayPayment(HttpServletRequest request) {
+
+    public PaymentDTO.VNPayResponse createVnPayPayment(HttpServletRequest request) {
         long amount = Integer.parseInt(request.getParameter("amount")) * 100L;
         String bankCode = request.getParameter("bankCode");
         Map<String, String> vnpParamsMap = vnPayConfig.getVNPayConfig();
@@ -24,15 +33,34 @@ public class PaymentService {
             vnpParamsMap.put("vnp_BankCode", bankCode);
         }
         vnpParamsMap.put("vnp_IpAddr", VNPayUtil.getIpAddress(request));
-        //build query url
+        // build query url
         String queryUrl = VNPayUtil.getPaymentURL(vnpParamsMap, true);
         String hashData = VNPayUtil.getPaymentURL(vnpParamsMap, false);
         String vnpSecureHash = VNPayUtil.hmacSHA512(vnPayConfig.getSecretKey(), hashData);
         queryUrl += "&vnp_SecureHash=" + vnpSecureHash;
         String paymentUrl = vnPayConfig.getVnp_PayUrl() + "?" + queryUrl;
-        return Payment.VNPayResponse.builder()
+        return PaymentDTO.VNPayResponse.builder()
                 .code("ok")
                 .message("success")
                 .paymentUrl(paymentUrl).build();
+    }
+
+    public Payment savePaymentDetail(Map<String, String> data) {
+       
+
+        Payment paymentdetail = new Payment();
+        paymentdetail.setTransaction_no(data.get("transaction_no"));
+        paymentdetail.setPayment_amount(Long.parseLong(data.get("payment_amount")));
+        paymentdetail.setBank_code(data.get("bank_code"));
+        paymentdetail.setPayment_method(data.get("payment_method"));
+        paymentdetail.setCreate_at(Timestamp.valueOf(data.get("create_at")));
+
+        return PAYMENT_REPOSITORY.save(paymentdetail);
+        
+    }
+
+    public String updateOrderId(String oid, String tno){
+        PAYMENT_REPOSITORY.updateOrderid(oid, tno);
+        return "update successfully!"; 
     }
 }

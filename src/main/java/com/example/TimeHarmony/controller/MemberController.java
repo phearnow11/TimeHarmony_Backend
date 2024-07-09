@@ -26,6 +26,7 @@ import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.service.CartService;
 import com.example.TimeHarmony.service.MemberService;
 import com.example.TimeHarmony.service.OrderService;
+import com.example.TimeHarmony.service.PaymentService;
 import com.example.TimeHarmony.service.StringService;
 import com.example.TimeHarmony.service.WatchService;
 
@@ -48,6 +49,9 @@ public class MemberController {
 
     @Autowired
     private OrderService ORDER_SERVICE;
+
+    @Autowired
+    private PaymentService PAYMENT_SERVICE;
 
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
     public Optional<Members> getMember(@PathVariable("id") String member_id) {
@@ -167,7 +171,7 @@ public class MemberController {
         Addresses addr = MEMBER_SERVICE.getAddressByAddressId(data.get("address").toString());
 
         return ORDER_SERVICE.makeOrder(wids, member_id, data.get("notice").toString(),
-                Float.parseFloat(data.get("total_price").toString()), addr);
+                Float.parseFloat(data.get("total_price").toString()), addr, data.get("transaction_no").toString());
     }
 
     @RequestMapping(value = "get/order/{id}", method = RequestMethod.GET)
