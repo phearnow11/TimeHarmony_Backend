@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -60,8 +61,8 @@ public class StaffController {
         return res;
     }
 
-    @RequestMapping(value = "get/watch/", method = RequestMethod.GET)
-    public List<Watch> getWatchesByState0(@RequestParam("state") int state) {
+    @RequestMapping(value = "get/watch-state/{state}", method = RequestMethod.GET)
+    public List<Watch> getWatchesByState0(@PathVariable("state") int state) {
         return STAFF_SERVICE.getAllStateWatch(state);
     }
 
