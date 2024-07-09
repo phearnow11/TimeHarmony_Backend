@@ -42,6 +42,11 @@ public class StaffController {
         return STAFF_SERVICE.approveWatch(watch_id);
     }
 
+    @RequestMapping(value = "unapprove-watch", method = RequestMethod.PATCH)
+    public String unApproveWatch(@RequestParam("watch_id") String watch_id) {
+        return STAFF_SERVICE.unApproveWatch(watch_id);
+    }
+
     @RequestMapping(value = "get/watch", method = RequestMethod.GET)
     public List<Map<String, String>> getWatches() {
         List<Map<String, String>> res = new ArrayList<>();

@@ -41,4 +41,16 @@ public class StaffService implements IStaffService {
 
     }
 
+    @Override
+    public String unApproveWatch(String watch_id) {
+        byte UNAPPROVED_STATE = 0;
+        try {
+            WATCH_REPOSITORY.approveWatch(Timestamp.valueOf(LocalDateTime.now()), watch_id, UNAPPROVED_STATE);
+            ;
+            return "Watch Approved";
+        } catch (Exception e) {
+            return e.toString();
+        }
+    }
+
 }
