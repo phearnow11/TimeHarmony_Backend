@@ -45,4 +45,9 @@ public class VoucherService implements IVoucherService {
         return VOUCHER_REPOSITORY.findAll();
     }
 
+    @Override
+    public List<Vouchers> getVouchersNotExpired() {
+        return VOUCHER_REPOSITORY.getVouchersNotExpired();
+    }
+
 }
