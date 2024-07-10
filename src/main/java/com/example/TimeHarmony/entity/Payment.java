@@ -15,19 +15,18 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class Payment {
-
     @Id
-    
-    
-    private String order_id ; 
-    private String transaction_no; 
-    private long payment_amount; 
-    private String bank_code ; 
-    private String payment_method ; 
-    
-    @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp create_at ; 
+    private String transaction_no;
+    private String order_id;
 
-    public Payment(){}
+    private long payment_amount;
+    private String bank_code;
+    private String payment_method;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Timestamp create_at;
+
+    public Payment() {
+    }
 
 }
