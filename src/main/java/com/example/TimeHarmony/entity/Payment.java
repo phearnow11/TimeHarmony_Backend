@@ -17,17 +17,17 @@ import lombok.Setter;
 public class Payment {
 
     @Id
-    
-    
-    private String order_id ; 
-    private String transaction_no; 
-    private long payment_amount; 
-    private String bank_code ; 
-    private String payment_method ; 
-    
-    @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp create_at ; 
 
-    public Payment(){}
+    private String order_id;
+    private String transaction_no;
+    private long payment_amount;
+    private String bank_code;
+    private String payment_method;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Timestamp create_at;
+
+    public Payment() {
+    }
 
 }
