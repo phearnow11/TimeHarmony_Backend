@@ -15,11 +15,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class Payment {
-
     @Id
-
-    private String order_id;
     private String transaction_no;
+    private String order_id;
+
     private long payment_amount;
     private String bank_code;
     private String payment_method;
