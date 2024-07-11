@@ -13,4 +13,6 @@ public interface IVoucherService {
     String removeVoucherAmount(int num, String vid);
 
     List<Vouchers> getVouchers();
+
+    List<Vouchers> getVouchersNotExpired();
 }
