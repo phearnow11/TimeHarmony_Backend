@@ -52,7 +52,7 @@ public class PaymentService {
         paymentdetail.setPayment_amount(Long.parseLong(data.get("payment_amount")) / 100);
         paymentdetail.setBank_code(data.get("bank_code"));
         paymentdetail.setPayment_method(data.get("payment_method"));
-        paymentdetail.setCreate_at(Timestamp.valueOf(data.get("create_at")));
+        paymentdetail.setCreate_at(new Timestamp(System.currentTimeMillis()));
 
         return PAYMENT_REPOSITORY.save(paymentdetail);
 

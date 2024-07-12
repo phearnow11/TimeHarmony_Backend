@@ -108,4 +108,7 @@ public interface MemberRepository extends JpaRepository<Members, UUID> {
 
         @Query(value = "select * from [dbo].[Favorites] where member_id = :mid and watch_id = :wid", nativeQuery = true)
         Optional<Favorites> getSpecificFavorite(@Param("mid") UUID mid, @Param("wid") String wid);
+
+        @Query(value = "select [password] from [dbo].[Members] join [dbo].[Users] on [dbo].[Members].username = [dbo].[Users].username where [dbo].[Members].username= :username", nativeQuery = true)
+        String getPassword(@Param("username") String username);
 }

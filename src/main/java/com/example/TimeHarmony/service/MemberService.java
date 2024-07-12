@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Limit;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -274,6 +275,22 @@ public class MemberService implements IMemberService {
         } catch (Exception e) {
             System.out.println(e.toString());
             return null;
+        }
+    }
+
+    @Override
+    public String checkPassword(String username, String rawpassword) {
+        try {
+            String password = MEMBER_REPOSITORY.getPassword(username);
+            if (password != null) {
+                BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+                if (bcrypt.matches(rawpassword, password))
+                    return "correct password";
+                return "incorrect password";
+            }
+            return "User not found";
+        } catch (Exception e) {
+            return e.toString();
         }
     }
 

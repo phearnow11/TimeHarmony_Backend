@@ -18,6 +18,6 @@ public interface VoucherRepository extends JpaRepository<Vouchers, String> {
     @Query(value = "update [dbo].[Vouchers] set quantity = (select quantity from [dbo].[Vouchers] where voucher_id = :vid) - :quantity where voucher_id = :vid", nativeQuery = true)
     void removeNumberOfVoucher(@Param("quantity") int quantity, @Param("vid") String vid);
 
-    @Query(value = "select * from [dbo].[Vouchers] where expired_date < getdate()", nativeQuery = true)
+    @Query(value = "select * from [dbo].[Vouchers] where expired_date > getdate()", nativeQuery = true)
     List<Vouchers> getVouchersNotExpired();
 }
