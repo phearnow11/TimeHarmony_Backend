@@ -46,21 +46,20 @@ public class PaymentService {
     }
 
     public Payment savePaymentDetail(Map<String, String> data) {
-       
 
         Payment paymentdetail = new Payment();
         paymentdetail.setTransaction_no(data.get("transaction_no"));
-        paymentdetail.setPayment_amount(Long.parseLong(data.get("payment_amount")));
+        paymentdetail.setPayment_amount(Long.parseLong(data.get("payment_amount")) / 100);
         paymentdetail.setBank_code(data.get("bank_code"));
         paymentdetail.setPayment_method(data.get("payment_method"));
         paymentdetail.setCreate_at(Timestamp.valueOf(data.get("create_at")));
 
         return PAYMENT_REPOSITORY.save(paymentdetail);
-        
+
     }
 
-    public String updateOrderId(String oid, String tno){
+    public String updateOrderId(String oid, String tno) {
         PAYMENT_REPOSITORY.updateOrderid(oid, tno);
-        return "update successfully!"; 
+        return "update successfully!";
     }
 }
