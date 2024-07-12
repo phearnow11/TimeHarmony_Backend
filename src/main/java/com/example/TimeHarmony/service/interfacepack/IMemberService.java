@@ -59,4 +59,5 @@ public interface IMemberService {
 
     public Addresses getAddressByAddressId(String addrId);
 
+    public String checkPassword(String username, String rawpassword);
 }

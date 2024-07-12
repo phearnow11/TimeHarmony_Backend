@@ -208,4 +208,10 @@ public class MemberController {
     public List<Vouchers> getVouchers() {
         return VOUCHER_SERVICE.getVouchersNotExpired();
     }
+
+    @RequestMapping(value = "check/password/{username}", method = RequestMethod.GET)
+    public String checkPassword(@PathVariable("username") String username,
+            @RequestParam("pwd") String pwd) {
+        return MEMBER_SERVICE.checkPassword(username, pwd);
+    }
 }
