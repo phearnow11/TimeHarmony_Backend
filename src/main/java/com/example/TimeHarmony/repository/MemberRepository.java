@@ -22,6 +22,9 @@ public interface MemberRepository extends JpaRepository<Members, UUID> {
         @Query("select m from Members m where m.member_id = ?1")
         Optional<Members> getMemberById(String member_id);
 
+        @Query("select m from Members m where m.email = ?1")
+        Optional<Members> getMemberByEmail(String email);
+
         @Query("select m from Members m where m.user_log_info = ?1")
         Optional<Members> getMemberbyUserLogInfo(Users user);
 

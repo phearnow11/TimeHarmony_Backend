@@ -294,4 +294,12 @@ public class MemberService implements IMemberService {
         }
     }
 
+    @Override
+    public Members getMemberbyEmail(String email) {
+        Optional<Members> member = MEMBER_REPOSITORY.getMemberByEmail(email);
+        if (member.isPresent())
+            return member.get();
+        return null;
+    }
+
 }

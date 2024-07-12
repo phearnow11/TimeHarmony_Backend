@@ -59,6 +59,11 @@ public class MemberController {
         return MEMBER_SERVICE.getMemberbyID(member_id);
     }
 
+    @RequestMapping(value = "getbyemail/{email}", method = RequestMethod.GET)
+    public Members getMemberByEmail(@PathVariable("email") String email) {
+        return MEMBER_SERVICE.getMemberbyEmail(email); 
+    }
+
     @RequestMapping(value = "get/addresses/{id}", method = RequestMethod.GET)
     public List<Addresses> getAddresses(@PathVariable("id") String member_id) {
         return MEMBER_SERVICE.getAddresses(member_id);

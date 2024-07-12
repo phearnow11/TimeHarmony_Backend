@@ -15,6 +15,8 @@ public interface IMemberService {
 
     public Optional<Members> getMemberbyID(String member_id);
 
+    public Members getMemberbyEmail(String email);
+
     public boolean isExist(Users user, String email);
 
     public Members saveUser(Members user, Users loginInfo);
