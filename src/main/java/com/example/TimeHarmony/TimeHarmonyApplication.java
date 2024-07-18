@@ -21,11 +21,4 @@ public class TimeHarmonyApplication {
 		SpringApplication.run(TimeHarmonyApplication.class, args);
 	}
 
-	@EventListener(ApplicationReadyEvent.class)
-	public void testF() {
-		for (AccessHistory i : test.getAllAccessHistories("2b48f4ff-5284-4c09-9d0e-aa4ee3b169d4"))
-			System.out.println(i.getUrl());
-
-	}
-
 }
