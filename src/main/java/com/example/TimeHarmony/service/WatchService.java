@@ -263,6 +263,7 @@ public class WatchService implements IWatchService {
         Map<String, Object> res = new HashMap<>();
         try {
             List<Watch> watches = WATCH_REPOSITORY.getWatchesByFilter(
+                    data.get("keyword") != null ? data.get("keyword").toString() : null,
                     data.get("gender") != null ? data.get("gender").toString() : null,
                     data.get("series") != null ? data.get("series").toString() : null,
                     data.get("brand") != null ? data.get("brand").toString() : null,

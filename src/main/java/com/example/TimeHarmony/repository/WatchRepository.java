@@ -96,8 +96,9 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
         @Query(value = "update Watch set watch_approval_date = :date, state = :state where watch_id = :id", nativeQuery = true)
         void approveWatch(@Param("date") Timestamp date, @Param("id") String wid, @Param("state") byte steate);
 
-        @Query(value = "select w from Watch w where (:gender is null or w.gender like :gender) and (:series is null or w.series like :series) and (:brand is null or w.brand like :brand) and (:style is null or w.style_type like :style) and (:feature is null or w.feature like :feature) and w.price > :lprice and w.price < :hprice and w.state = 1")
-        List<Watch> getWatchesByFilter(@Param("gender") String gender, @Param("series") String series,
+        @Query(value = "select w from Watch w where w.watch_name like %:key% or w.watch_description like %:key% and (:gender is null or w.gender like :gender) and (:series is null or w.series like :series) and (:brand is null or w.brand like :brand) and (:style is null or w.style_type like :style) and (:feature is null or w.feature like :feature) and w.price > :lprice and w.price < :hprice and w.state = 1")
+        List<Watch> getWatchesByFilter(@Param("key") String key, @Param("gender") String gender,
+                        @Param("series") String series,
                         @Param("brand") String brand,
                         @Param("style") String style, @Param("feature") String feature, @Param("lprice") float lowprice,
                         @Param("hprice") float hprice, Pageable pageable);
