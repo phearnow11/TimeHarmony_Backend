@@ -298,4 +298,16 @@ public class WatchService implements IWatchService {
         }
     }
 
+    @Override
+    public String updateWatchesState(List<String> ids, byte state) {
+        try {
+            for (String id : ids) {
+                WATCH_REPOSITORY.updateWatchState(state, id);
+            }
+            return "Watches'state updated successfully";
+        } catch (Exception e) {
+            return e.toString();
+        }
+    }
+
 }

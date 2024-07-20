@@ -65,4 +65,6 @@ public interface IWatchService {
     public Map<String, Object> getWatchByFilter(Map<String, Object> data);
 
     public List<WatchImages> getWatchImages(String wid);
+
+    public String updateWatchesState(List<String> ids, byte state);
 }

@@ -21,4 +21,6 @@ public interface IOrderService {
     List<String> getWatchInOrder(String oid);
 
     Map<String, Object> getOrderDetail(String oid);
+
+    List<Orders> getOrders();
 }

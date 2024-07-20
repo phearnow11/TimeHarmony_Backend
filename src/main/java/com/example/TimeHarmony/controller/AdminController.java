@@ -18,11 +18,13 @@ import com.example.TimeHarmony.builder.MemberBuilder;
 import com.example.TimeHarmony.builder.WatchBuilder;
 import com.example.TimeHarmony.entity.Admins;
 import com.example.TimeHarmony.entity.Members;
+import com.example.TimeHarmony.entity.Orders;
 import com.example.TimeHarmony.entity.Users;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.enumf.Roles;
 import com.example.TimeHarmony.service.AdminService;
 import com.example.TimeHarmony.service.MemberService;
+import com.example.TimeHarmony.service.OrderService;
 import com.example.TimeHarmony.service.WatchService;
 
 @RestController
@@ -38,6 +40,9 @@ public class AdminController {
 
     @Autowired
     private WatchService WATCH_SERVICE;
+
+    @Autowired
+    private OrderService ORDER_SERVICE;
 
     @RequestMapping(value = "get/members", method = RequestMethod.GET)
     public List<Members> getaMembers() {
@@ -136,5 +141,10 @@ public class AdminController {
         } catch (Exception e) {
             return e.toString();
         }
+    }
+
+    @RequestMapping(value = "get/orders", method = RequestMethod.GET)
+    public List<Orders> getOrders() {
+        return ORDER_SERVICE.getOrders();
     }
 }

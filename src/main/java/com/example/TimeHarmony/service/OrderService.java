@@ -33,25 +33,33 @@ public class OrderService implements IOrderService {
     private MemberService MEMBER_SERVICE;
 
     @Autowired
-    private PaymentService PAYMENT_SERVICE; 
+    private PaymentService PAYMENT_SERVICE;
+
+    @Autowired
+    private WatchService WATCH_SERVICE;
 
     @Override
-    public String makeOrder(List<String> wids, String m_id, String notice, float total_price, Addresses addr, String tno) {
+    public String makeOrder(List<String> wids, String m_id, String notice, float total_price, Addresses addr,
+            String tno) {
         try {
             String order_id = "O" + STRING_SERVICE.autoGenerateString(11);
             Members m = MEMBER_SERVICE.getMemberbyID(m_id).get();
+
             Orders order = new Orders(order_id, m, Timestamp.valueOf(LocalDateTime.now()), addr.getAddress_detail(),
                     addr.getName(), addr.getPhone(), notice, total_price);
             ORDER_REPOSITORY.save(order);
             updateCartOrder(wids, m.getCart_id(), order_id);
+
             PAYMENT_SERVICE.updateOrderId(order_id, tno);
-            return "Order Created";
+
+            byte DELETE_STATE = 2;
+            WATCH_SERVICE.updateWatchesState(wids, DELETE_STATE);
+
+            return order_id;
         } catch (Exception e) {
             return e.toString();
         }
     }
-
-
 
     @Override
     public String updateCartOrder(List<String> wids, String cid, String oid) {
@@ -116,5 +124,10 @@ public class OrderService implements IOrderService {
         } catch (Exception e) {
             return 0;
         }
+    }
+
+    @Override
+    public List<Orders> getOrders() {
+        return ORDER_REPOSITORY.findAll();
     }
 }
