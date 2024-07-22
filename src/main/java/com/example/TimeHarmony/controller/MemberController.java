@@ -192,6 +192,11 @@ public class MemberController {
         return ORDER_SERVICE.getOrderDetail(oid);
     }
 
+    @RequestMapping(value = "get/order/state/{oid}", method = RequestMethod.GET)
+    public String getOrderStatus(@PathVariable("oid") String oid) {
+        return ORDER_SERVICE.getOrderState(oid);
+    }
+
     @RequestMapping(value = "update/user/image/{id}", method = RequestMethod.PATCH)
     public String updateMemberImage(@PathVariable("id") String member_id, @RequestParam("url") String url) {
         return MEMBER_SERVICE.updateMemberImage(member_id, url);
