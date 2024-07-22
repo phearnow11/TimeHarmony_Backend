@@ -1,6 +1,7 @@
 package com.example.TimeHarmony.controller;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -93,37 +94,45 @@ public class AuthController {
 
     @RequestMapping(value = "login/google", method = RequestMethod.POST)
     public Map<String, Object> getProfileDetailsGoogle(@RequestParam("token") String accessToken) {
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setBearerAuth(accessToken);
+        try {
 
-        HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.setBearerAuth(accessToken);
 
-        String url = "https://www.googleapis.com/oauth2/v2/userinfo";
-        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class);
-        JsonObject jsonObject = new Gson().fromJson(response.getBody(), JsonObject.class);
-        String email = jsonObject.get("email").getAsString();
-        String given_name = jsonObject.get("given_name").getAsString();
-        String family_name = jsonObject.get("family_name").getAsString();
-        String picture = "https://files.catbox.moe/n1w3b0.png";
-        String tmpusername = jsonObject.get("id").getAsString();
-        String tmppassword = tmpusername;
-        if (MEMBER_SERVICE.getMemberbyEmail(email) == null) {
-            byte ACTIVATE = 1;
-            Users nUsers = new Users(tmpusername, tmppassword, null, ACTIVATE);
+            HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
 
-            Members nMembers = new MemberBuilder().setEmail(email)
-                    .setUserLogInfo(nUsers)
-                    .setFirstName(given_name)
-                    .setLastName(family_name)
-                    .setMemberImage(picture)
-                    .build();
-            MEMBER_SERVICE.saveUser(nMembers, nUsers);
+            String url = "https://www.googleapis.com/oauth2/v2/userinfo";
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class);
+            JsonObject jsonObject = new Gson().fromJson(response.getBody(), JsonObject.class);
+            String email = jsonObject.get("email").getAsString();
+            String given_name = jsonObject.get("given_name").getAsString();
+            String family_name = jsonObject.get("family_name").getAsString();
+            String picture = "https://files.catbox.moe/n1w3b0.png";
+            String tmpusername = jsonObject.get("id").getAsString();
+            String tmppassword = tmpusername;
+            Members nMembers = MEMBER_SERVICE.getMemberbyEmail(email);
+            if (nMembers == null) {
+                byte ACTIVATE = 1;
+                Users nUsers = new Users(tmpusername, tmppassword, null, ACTIVATE);
+
+                nMembers = new MemberBuilder().setEmail(email)
+                        .setUserLogInfo(nUsers)
+                        .setFirstName(given_name)
+                        .setLastName(family_name)
+                        .setMemberImage(picture)
+                        .build();
+                MEMBER_SERVICE.saveUser(nMembers, nUsers);
+            }
+            Authentication authentication = new UsernamePasswordAuthenticationToken(
+                    nMembers.getUser_log_info().getUsername(), nMembers.getUser_log_info().getPassword());
+
+            return token(authentication);
+        } catch (Exception e) {
+            Map<String, Object> errors = new HashMap<>();
+            errors.put("error", e);
+            return errors;
         }
-
-        Authentication authentication = new UsernamePasswordAuthenticationToken(tmpusername, tmppassword);
-
-        return token(authentication);
     }
 
     @RequestMapping(value = "verify/{type}/getcode", method = RequestMethod.GET)
