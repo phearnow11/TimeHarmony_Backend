@@ -27,6 +27,7 @@ import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.service.CartService;
 import com.example.TimeHarmony.service.MemberService;
 import com.example.TimeHarmony.service.OrderService;
+import com.example.TimeHarmony.service.SellerService;
 import com.example.TimeHarmony.service.StringService;
 import com.example.TimeHarmony.service.VoucherService;
 import com.example.TimeHarmony.service.WatchService;
@@ -53,6 +54,9 @@ public class MemberController {
 
     @Autowired
     private VoucherService VOUCHER_SERVICE;
+
+    @Autowired
+    SellerService SELLER_SERVICE;
 
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
     public Optional<Members> getMember(@PathVariable("id") String member_id) {
@@ -224,4 +228,18 @@ public class MemberController {
             @RequestParam("pwd") String pwd) {
         return MEMBER_SERVICE.checkPassword(username, pwd);
     }
+
+    @RequestMapping(value = "update/rate/{id}", method = RequestMethod.PUT)
+    public String updateRate(@RequestParam("rate") float rate, @PathVariable("id") String id,
+            @RequestParam("rater") String rater) {
+        if (id.equals(rater))
+            return "Can not rate yourself";
+        return SELLER_SERVICE.setRate(rate, id, rater);
+    }
+
+    @RequestMapping(value = "get/rate/{id}", method = RequestMethod.GET)
+    public float getRate(@PathVariable("id") String id) {
+        return SELLER_SERVICE.getRate(id);
+    }
+
 }
