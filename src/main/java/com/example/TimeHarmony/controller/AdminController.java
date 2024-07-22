@@ -147,4 +147,9 @@ public class AdminController {
     public List<Orders> getOrders() {
         return ORDER_SERVICE.getOrders();
     }
+
+    @RequestMapping(value = "get/profit", method = RequestMethod.GET)
+    public int getProfit() {
+        return ADMIN_SERVICE.getProfit();
+    }
 }

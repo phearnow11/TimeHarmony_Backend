@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.TimeHarmony.builder.MemberBuilder;
 import com.example.TimeHarmony.entity.Admins;
 import com.example.TimeHarmony.entity.Members;
+import com.example.TimeHarmony.entity.Orders;
 import com.example.TimeHarmony.entity.Report;
 import com.example.TimeHarmony.entity.Sellers;
 import com.example.TimeHarmony.entity.Users;
@@ -19,6 +20,7 @@ import com.example.TimeHarmony.enumf.UserAuthenticationStatus;
 import com.example.TimeHarmony.repository.AdminRepository;
 import com.example.TimeHarmony.repository.AuthoritiesRepository;
 import com.example.TimeHarmony.repository.MemberRepository;
+import com.example.TimeHarmony.repository.OrderRepository;
 import com.example.TimeHarmony.repository.StaffRepository;
 import com.example.TimeHarmony.repository.UsersRepository;
 import com.example.TimeHarmony.repository.WatchRepository;
@@ -50,6 +52,9 @@ public class AdminService implements IAdminService {
 
     @Autowired
     private SellerService SELLER_SERVICE;
+
+    @Autowired
+    private OrderRepository ORDER_REPOSITORY;
 
     @Override
     public List<Members> getMembers() {
@@ -183,6 +188,15 @@ public class AdminService implements IAdminService {
         } catch (Exception e) {
             return e.toString();
         }
+    }
+
+    @Override
+    public int getProfit() {
+        List<Orders> orders = ORDER_REPOSITORY.findAll();
+        int profit = 0;
+        for (Orders o : orders)
+            profit = (int) (o.getTotal_price() * 5 / 100);
+        return profit;
     }
 
 }

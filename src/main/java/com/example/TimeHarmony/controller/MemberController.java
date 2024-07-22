@@ -2,12 +2,10 @@ package com.example.TimeHarmony.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -208,8 +206,7 @@ public class MemberController {
     @GetMapping("/test")
     public String test(@RequestBody Map<String, Object> data, @RequestParam() Map<String, Object> a) {
 
-        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
-        return calendar.toString();
+        return "url";
     }
 
     @RequestMapping(value = "get/voucher/all", method = RequestMethod.GET)
