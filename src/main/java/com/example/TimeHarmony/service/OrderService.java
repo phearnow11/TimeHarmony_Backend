@@ -52,8 +52,8 @@ public class OrderService implements IOrderService {
 
             PAYMENT_SERVICE.updateOrderId(order_id, tno);
 
-            byte DELETE_STATE = 2;
-            WATCH_SERVICE.updateWatchesState(wids, DELETE_STATE);
+            byte WAITING_STATE = 3;
+            WATCH_SERVICE.updateWatchesState(wids, WAITING_STATE);
 
             return order_id;
         } catch (Exception e) {

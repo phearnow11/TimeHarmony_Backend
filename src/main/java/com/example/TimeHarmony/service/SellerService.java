@@ -181,4 +181,20 @@ public class SellerService implements ISellerService {
         }
     }
 
+    @Override
+    public String confirmShipping(String wid) {
+        try {
+            byte SHIP = 4;
+            WATCH_REPOSITORY.updateWatchState(SHIP, wid);
+            return "Confirm shipping";
+        } catch (Exception e) {
+            return e.toString();
+        }
+    }
+
+    @Override
+    public List<Watch> getWaitingList(String mid) {
+        return WATCH_REPOSITORY.getWaitingWatches(UUID.fromString(mid), Limit.of(20));
+    }
+
 }

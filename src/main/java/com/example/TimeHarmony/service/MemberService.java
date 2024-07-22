@@ -214,10 +214,9 @@ public class MemberService implements IMemberService {
     }
 
     @Override
-    public String deleteFavorites(String m_id, List<String> w_ids) {
+    public String deleteFavorites(String m_id, String w_ids) {
         try {
-            for (String i : w_ids)
-                MEMBER_REPOSITORY.deleteFavorites(i, UUID.fromString(m_id));
+            MEMBER_REPOSITORY.deleteFavorites(w_ids, UUID.fromString(m_id));
             return "Favorites deleted";
         } catch (Exception e) {
             return e.toString();

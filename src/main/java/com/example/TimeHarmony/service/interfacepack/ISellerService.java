@@ -22,4 +22,8 @@ public interface ISellerService {
     public List<Watch> findAllWatchBySeller(String sid);
 
     public Sellers getSellerbyId(String id);
+
+    String confirmShipping(String wid);
+
+    List<Watch> getWaitingList(String mid);
 }

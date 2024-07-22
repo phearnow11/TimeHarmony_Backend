@@ -106,6 +106,9 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
         @Query(value = "select * from Watch where member_id = :mid", nativeQuery = true)
         List<Watch> getWatchesBySeller(@Param("mid") UUID mid, Limit limit);
 
+        @Query(value = "select * from Watch where member_id = :mid and state = 3", nativeQuery = true)
+        List<Watch> getWaitingWatches(@Param("mid") UUID mid, Limit limit);
+
         @Query(value = "select * from [dbo].[Watch_images] where watch_id = :wid", nativeQuery = true)
         List<WatchImages> getWatchImages(@Param("wid") String wid);
 

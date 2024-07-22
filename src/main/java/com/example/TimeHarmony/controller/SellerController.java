@@ -116,4 +116,13 @@ public class SellerController {
         return res;
     }
 
+    @RequestMapping(value = "ship/{id}", method = RequestMethod.PUT)
+    public String confirmShipping(@PathVariable("id") String wid) {
+        return SELLER_SERVICE.confirmShipping(wid);
+    }
+
+    @RequestMapping(value = "get/waiting/{id}", method = RequestMethod.GET)
+    public List<Watch> getWatingList(@PathVariable("id") String sid) {
+        return SELLER_SERVICE.getWaitingList(sid);
+    }
 }

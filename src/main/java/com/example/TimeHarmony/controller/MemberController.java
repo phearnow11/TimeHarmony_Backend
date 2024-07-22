@@ -2,10 +2,12 @@ package com.example.TimeHarmony.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -61,7 +63,7 @@ public class MemberController {
 
     @RequestMapping(value = "getbyemail/{email}", method = RequestMethod.GET)
     public Members getMemberByEmail(@PathVariable("email") String email) {
-        return MEMBER_SERVICE.getMemberbyEmail(email); 
+        return MEMBER_SERVICE.getMemberbyEmail(email);
     }
 
     @RequestMapping(value = "get/addresses/{id}", method = RequestMethod.GET)
@@ -165,9 +167,8 @@ public class MemberController {
     }
 
     @RequestMapping(value = "delete/favorites/{id}", method = RequestMethod.DELETE)
-    public String deleteFavorites(@PathVariable("id") String member_id, @RequestBody Map<String, List<String>> data) {
-        List<String> w_ids = data.get("w_ids");
-        return MEMBER_SERVICE.deleteFavorites(member_id, w_ids);
+    public String deleteFavorites(@PathVariable("id") String member_id, @RequestParam("wid") String wid) {
+        return MEMBER_SERVICE.deleteFavorites(member_id, wid);
     }
 
     @RequestMapping(value = "add/order/{id}", method = RequestMethod.POST)
@@ -206,7 +207,9 @@ public class MemberController {
 
     @GetMapping("/test")
     public String test(@RequestBody Map<String, Object> data, @RequestParam() Map<String, Object> a) {
-        return a.toString();
+
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
+        return calendar.toString();
     }
 
     @RequestMapping(value = "get/voucher/all", method = RequestMethod.GET)
