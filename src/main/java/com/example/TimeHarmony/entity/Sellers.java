@@ -17,7 +17,6 @@ import lombok.Setter;
 @PrimaryKeyJoinColumn(name = "member_id")
 public class Sellers extends Members {
 
-    private float rate;
     @OneToMany(mappedBy = "seller")
     private List<Watch> watches;
 
