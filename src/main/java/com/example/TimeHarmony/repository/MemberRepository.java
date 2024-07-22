@@ -75,7 +75,7 @@ public interface MemberRepository extends JpaRepository<Members, UUID> {
 
         @Modifying
         @Transactional
-        @Query("update Members m set m.member_image = :url where m.member_id = :id")
+        @Query(value = "update [dbo].[Members] set member_image = :url where member_id = :id", nativeQuery = true)
         void updateMemberImage(@Param("url") String url, @Param("id") UUID id);
 
         @Modifying
