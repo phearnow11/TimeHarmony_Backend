@@ -46,7 +46,7 @@ public class CartService implements ICartService {
     @Override
     public String delete1watchInCart(String cid, String wid) {
         try {
-            MEMBER_REPOSITORY.deleteWatchInCart(wid, cid);
+            MEMBER_REPOSITORY.deletePermaWatchInCart(wid, cid);
             return "Watch Deleted";
         } catch (Exception e) {
             return e.toString();

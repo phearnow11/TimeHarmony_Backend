@@ -91,7 +91,7 @@ public interface MemberRepository extends JpaRepository<Members, UUID> {
         @Modifying
         @Transactional
         @Query(value = "delete [dbo].[Watches_In_Cart] where cart_id = :cid and watch_id = :wid", nativeQuery = true)
-        void deleteWatchInCart(@Param("cid") String cid, @Param("wid") String wid);
+        void deletePermaWatchInCart(@Param("cid") String cid, @Param("wid") String wid);
 
         @Query(value = "select watch_id from Watches_In_Cart where cart_id = :cid and state = 1", nativeQuery = true)
         List<String> getWatchesInCart(@Param("cid") String cid);
