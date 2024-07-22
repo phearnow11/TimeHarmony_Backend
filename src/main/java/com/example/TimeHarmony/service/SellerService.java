@@ -207,4 +207,22 @@ public class SellerService implements ISellerService {
         }
     }
 
+    @Override
+    public String setRate(float incoming_rate, String sid, String rater) {
+        try {
+            if (!SELLER_REPOSITORY.checkExistRater(UUID.fromString(rater)).isEmpty())
+                throw new Exception("You have rated this seller!");
+            SELLER_REPOSITORY.updateRate(UUID.fromString(sid), incoming_rate, UUID.fromString(rater));
+            return "Rate Updated";
+        } catch (Exception e) {
+            return e.toString();
+        }
+
+    }
+
+    @Override
+    public Float getRate(String sid) {
+        return SELLER_REPOSITORY.getRate(UUID.fromString(sid));
+    }
+
 }

@@ -125,4 +125,18 @@ public class SellerController {
     public List<Watch> getWatingList(@PathVariable("id") String sid) {
         return SELLER_SERVICE.getWaitingList(sid);
     }
+
+    @RequestMapping(value = "update/rate/{id}", method = RequestMethod.PUT)
+    public String updateRate(@RequestParam("rate") float rate, @PathVariable("id") String id,
+            @RequestParam("rater") String rater) {
+        if (id.equals(rater))
+            return "Can not rate yourself";
+        return SELLER_SERVICE.setRate(rate, id, rater);
+    }
+
+    @RequestMapping(value = "get/rate/{id}", method = RequestMethod.GET)
+    public float getRate(@PathVariable("id") String id) {
+        return SELLER_SERVICE.getRate(id);
+    }
+
 }

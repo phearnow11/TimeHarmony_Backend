@@ -28,4 +28,8 @@ public interface ISellerService {
     List<Watch> getWaitingList(String mid);
 
     String confirmOrder(String oid);
+
+    String setRate(float incoming_rate, String sid, String rater);
+
+    Float getRate(String sid);
 }
