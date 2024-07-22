@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.TimeHarmony.dtos.WatchInCart;
 import com.example.TimeHarmony.repository.MemberRepository;
-import com.example.TimeHarmony.repository.WatchRepository;
 import com.example.TimeHarmony.service.interfacepack.ICartService;
 
 @Service
@@ -17,35 +16,21 @@ public class CartService implements ICartService {
 
     @Autowired
     private MemberRepository MEMBER_REPOSITORY;
-    @Autowired
-    private WatchRepository WATCH_REPOSITORY;
-    
 
     @Override
     public String insertToCart(String cid, String wid) {
-        if (checkWatchInCart(cid, wid)) {
-            try {
-                MEMBER_REPOSITORY.addToCart(wid, cid, null, 0, Timestamp.valueOf(LocalDateTime.now()), 1);
-                return "Watch added to Cart";
-            } catch (Exception e) {
-                return e.toString();
-            }
+        if (!checkWatchInCart(cid, wid)) {
+            MEMBER_REPOSITORY.addToCart(wid, cid, null, 0, Timestamp.valueOf(LocalDateTime.now()), 1);
+            return "Watch added to Cart";
         }
-        return "Watch aready in cart!";
+        MEMBER_REPOSITORY.updateStateWatchInCart(1, cid, wid);
+        return "Watch state changed!";
     }
 
     @Override
     public boolean checkWatchInCart(String cid, String wid) {
-
-        List<WatchInCart> cartlist = getCart(cid);
-        if (WATCH_REPOSITORY.findById(wid).get().getState() == 1 ) {
-        for (WatchInCart w : cartlist) {
-            if (w.getWatch_id().equals(wid)) {
-                return false;
-            }
-        }
-    }
-        return true;
+        List<String> wids = MEMBER_REPOSITORY.getAllWatchesInCart(cid);
+        return wids.contains(wid);
     }
 
     @Override
@@ -72,7 +57,7 @@ public class CartService implements ICartService {
     public String deleteCart(String cid, List<String> wids) {
         try {
             for (String wid : wids)
-                MEMBER_REPOSITORY.updateStateWatchInCart(0, cid, wid); 
+                MEMBER_REPOSITORY.updateStateWatchInCart(0, cid, wid);
             return "Watches deleted";
         } catch (Exception e) {
             return e.toString();
@@ -88,9 +73,5 @@ public class CartService implements ICartService {
             return null;
         }
     }
-
-   
-
-    
 
 }
