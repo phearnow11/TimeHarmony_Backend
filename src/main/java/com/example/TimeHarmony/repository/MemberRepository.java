@@ -34,7 +34,7 @@ public interface MemberRepository extends JpaRepository<Members, UUID> {
         @Query(value = "select * from Access_History h where h.member_id = :id", nativeQuery = true)
         List<AccessHistory> getAllAccessHistoriesFromMember(@Param("id") UUID id);
 
-        @Query(value = "select * from Favorites join [dbo].[Watch] on [dbo].[Watch].watch_id = [dbo].[Favorites].watch_id join [dbo].[Members] on [dbo].[Watch].member_id = [dbo].[Members].member_id where [dbo].[Favorites].member_id = :id", nativeQuery = true)
+        @Query(value = "select * from Favorites join [dbo].[Watch] on [dbo].[Watch].watch_id = [dbo].[Favorites].watch_id join [dbo].[Members] on [dbo].[Watch].member_id = [dbo].[Members].member_id where [dbo].[Favorites].member_id = :id and [dbo].[Watch].state = 1", nativeQuery = true)
         List<Favorites> getFavoritesFromMember(@Param("id") UUID id, Limit limit);
 
         @Modifying
@@ -85,7 +85,7 @@ public interface MemberRepository extends JpaRepository<Members, UUID> {
                         @Param("checked") Integer checked, @Param("date") Timestamp date,
                         @Param("state") Integer state);
 
-        @Query(value = "select * from [dbo].[Watches_In_Cart] join [dbo].[Watch] on [dbo].[Watch].watch_id = [dbo].[Watches_In_Cart].watch_id where cart_id = :cid", nativeQuery = true)
+        @Query(value = "select * from [dbo].[Watches_In_Cart] join [dbo].[Watch] on [dbo].[Watch].watch_id = [dbo].[Watches_In_Cart].watch_id where cart_id = :cid and [dbo].[Watch].state = 1", nativeQuery = true)
         List<WatchInCart> getCart(@Param("cid") String cid);
 
         @Modifying
