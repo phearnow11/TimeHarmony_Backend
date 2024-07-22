@@ -81,8 +81,8 @@ public class AuthController {
     }
 
     @RequestMapping(value = "login/google", method = RequestMethod.POST)
-    public String googleLogin() {
-
+    public String googleLogin(@RequestParam("token") String token) {
+        
         return "";
     }
 

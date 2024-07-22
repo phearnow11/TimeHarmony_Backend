@@ -133,6 +133,9 @@ public class OrderService implements IOrderService {
 
     @Override
     public String getOrderState(String oid) {
+        List<String> wid = ORDER_REPOSITORY.getWatchesInOrder(oid);
+        if (wid.isEmpty())
+            return "DELETED";
         for (int i : ORDER_REPOSITORY.getStates(oid)) {
             if (i == 3)
                 return "PENDING";
