@@ -5,7 +5,16 @@ import java.util.Hashtable;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
@@ -17,8 +26,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
+import com.example.TimeHarmony.builder.MemberBuilder;
 import com.example.TimeHarmony.entity.Members;
+import com.example.TimeHarmony.entity.Users;
 import com.example.TimeHarmony.service.EmailService;
 import com.example.TimeHarmony.service.MemberService;
 import com.example.TimeHarmony.service.StringService;
@@ -31,6 +43,12 @@ public class AuthController {
     private final TokenService TOKEN_SERVIVE;
     private final String DEFAULT_MAIL_SUBJECT_VERIFY_GOOGLE = "Email Verification Code";
     private final String DEFAULT_MAIL_SUBJECT_VERIFY_PASSWORD = "Password Changing Verification Code";
+
+    @Value("${google.client.id}")
+    private String CLIENT_ID;
+
+    @Value("${google.client.secret}")
+    private String CLIENT_SECRET;
 
     @Autowired
     private MemberService MEMBER_SERVICE;
@@ -81,9 +99,38 @@ public class AuthController {
     }
 
     @RequestMapping(value = "login/google", method = RequestMethod.POST)
-    public String googleLogin(@RequestParam("token") String token) {
-        
-        return "";
+    public Map<String, Object> getProfileDetailsGoogle(@RequestParam("token") String accessToken) {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setBearerAuth(accessToken);
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
+
+        String url = "https://www.googleapis.com/oauth2/v2/userinfo";
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class);
+        JsonObject jsonObject = new Gson().fromJson(response.getBody(), JsonObject.class);
+        String email = jsonObject.get("email").getAsString();
+        String given_name = jsonObject.get("given_name").getAsString();
+        String family_name = jsonObject.get("family_name").getAsString();
+        String picture = "https://files.catbox.moe/n1w3b0.png";
+        String tmpusername = jsonObject.get("id").getAsString();
+        String tmppassword = tmpusername;
+        if (MEMBER_SERVICE.getMemberbyEmail(email) == null) {
+            byte ACTIVATE = 1;
+            Users nUsers = new Users(tmpusername, tmppassword, null, ACTIVATE);
+
+            Members nMembers = new MemberBuilder().setEmail(email)
+                    .setUserLogInfo(nUsers)
+                    .setFirstName(given_name)
+                    .setLastName(family_name)
+                    .setMemberImage(picture)
+                    .build();
+            MEMBER_SERVICE.saveUser(nMembers, nUsers);
+        }
+
+        Authentication authentication = new UsernamePasswordAuthenticationToken(tmpusername, tmppassword);
+
+        return token(authentication);
     }
 
     @RequestMapping(value = "verify/{type}/getcode", method = RequestMethod.GET)

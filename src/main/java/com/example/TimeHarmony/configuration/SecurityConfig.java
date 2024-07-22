@@ -57,6 +57,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT).permitAll()
                         .requestMatchers(HttpMethod.PATCH).permitAll()
                         .requestMatchers(HttpMethod.DELETE).permitAll()
+                        .requestMatchers("/register", "/login", "/grantcode").permitAll()
                         .anyRequest().hasAuthority("SCOPE_READ"))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(
