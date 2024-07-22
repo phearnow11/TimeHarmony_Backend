@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -43,12 +42,6 @@ public class AuthController {
     private final TokenService TOKEN_SERVIVE;
     private final String DEFAULT_MAIL_SUBJECT_VERIFY_GOOGLE = "Email Verification Code";
     private final String DEFAULT_MAIL_SUBJECT_VERIFY_PASSWORD = "Password Changing Verification Code";
-
-    @Value("${google.client.id}")
-    private String CLIENT_ID;
-
-    @Value("${google.client.secret}")
-    private String CLIENT_SECRET;
 
     @Autowired
     private MemberService MEMBER_SERVICE;
