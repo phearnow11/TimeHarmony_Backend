@@ -108,7 +108,7 @@ public class AuthController {
             String email = jsonObject.get("email").getAsString();
             String given_name = jsonObject.get("given_name").getAsString();
             String family_name = jsonObject.get("family_name").getAsString();
-            String picture = "https://files.catbox.moe/n1w3b0.png";
+            String picture = jsonObject.get("picture").getAsString();
             String tmpusername = jsonObject.get("id").getAsString();
             String tmppassword = tmpusername;
             Members nMembers = MEMBER_SERVICE.getMemberbyEmail(email);
