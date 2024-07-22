@@ -26,4 +26,6 @@ public interface ISellerService {
     String confirmShipping(String wid);
 
     List<Watch> getWaitingList(String mid);
+
+    String confirmOrder(String oid);
 }

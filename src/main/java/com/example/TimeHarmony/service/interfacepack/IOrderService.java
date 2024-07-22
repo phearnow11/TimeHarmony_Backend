@@ -23,4 +23,7 @@ public interface IOrderService {
     Map<String, Object> getOrderDetail(String oid);
 
     List<Orders> getOrders();
+
+    String getOrderState(String oid);
+
 }

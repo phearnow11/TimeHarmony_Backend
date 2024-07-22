@@ -130,4 +130,13 @@ public class OrderService implements IOrderService {
     public List<Orders> getOrders() {
         return ORDER_REPOSITORY.findAll();
     }
+
+    @Override
+    public String getOrderState(String oid) {
+        for (int i : ORDER_REPOSITORY.getStates(oid)) {
+            if (i == 3)
+                return "PENDING";
+        }
+        return "SHIPPING";
+    }
 }
