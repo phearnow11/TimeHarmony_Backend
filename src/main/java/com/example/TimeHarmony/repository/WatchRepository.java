@@ -95,7 +95,7 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
         @Query(value = "select * from Watch where freetext(Watch.*, :key) AND state = 1", nativeQuery = true)
         List<Watch> findByKeyWord(@Param("key") String key);
 
-        @Query(value = "select * from Watch where watch_name like %:key% or watch_description like %:key% and state = 1 ", nativeQuery = true)
+        @Query(value = "select * from Watch where (watch_name like %:key% or watch_description like %:key%) and state = 1 ", nativeQuery = true)
         List<Watch> findByKeyIfFullTextNull(@Param("key") String key);
 
         @Query(value = "select COUNT(watch_id) as watch_num from Watch", nativeQuery = true)
