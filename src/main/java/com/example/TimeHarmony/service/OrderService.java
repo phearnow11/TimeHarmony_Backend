@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Orders;
-import com.example.TimeHarmony.repository.MemberRepository;
 import com.example.TimeHarmony.repository.OrderRepository;
 import com.example.TimeHarmony.repository.WatchRepository;
 import com.example.TimeHarmony.service.interfacepack.IOrderService;
@@ -38,9 +37,6 @@ public class OrderService implements IOrderService {
 
     @Autowired
     private WatchService WATCH_SERVICE;
-
-    @Autowired
-    private MemberRepository MEMBER_REPOSITORY;
 
     @Override
     public String makeOrder(List<String> wids, String m_id, String notice, float total_price, Addresses addr,
