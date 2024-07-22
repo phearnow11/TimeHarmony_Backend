@@ -16,9 +16,6 @@ public class StaffService implements IStaffService {
     @Autowired
     private WatchRepository WATCH_REPOSITORY;
 
-    @Autowired
-    private VoucherService VOUCHER_SERVICE;
-
     @Override
     public String approveWatch(String watch_id) {
         byte APPROVED_STATE = 1;
