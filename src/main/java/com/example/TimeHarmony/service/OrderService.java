@@ -139,4 +139,15 @@ public class OrderService implements IOrderService {
         }
         return "SHIPPING";
     }
+
+    @Override
+    public String cancelOrder(String oid) {
+        try {
+            WATCH_REPOSITORY.cancelOrder(oid);
+            ORDER_REPOSITORY.deleteOrder(oid);
+            return "Order " + oid + " deleted";
+        } catch (Exception e) {
+            return e.toString();
+        }
+    }
 }

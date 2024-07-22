@@ -30,4 +30,9 @@ public interface OrderRepository extends JpaRepository<Orders, String> {
 
     @Query(value = "select [dbo].[Watch].state from [dbo].[Watch] join [dbo].[Watches_In_Cart] on [dbo].[Watch].watch_id = [dbo].[Watches_In_Cart].watch_id where order_id = :oid", nativeQuery = true)
     List<Integer> getStates(@Param("oid") String oid);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update [dbo].[Watches_In_Cart] set order_id = null where order_id = :oid", nativeQuery = true)
+    void deleteOrder(@Param("oid") String oid);
 }

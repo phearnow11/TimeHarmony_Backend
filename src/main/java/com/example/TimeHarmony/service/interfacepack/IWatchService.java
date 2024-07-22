@@ -67,4 +67,5 @@ public interface IWatchService {
     public List<WatchImages> getWatchImages(String wid);
 
     public String updateWatchesState(List<String> ids, byte state);
+
 }

@@ -26,4 +26,5 @@ public interface IOrderService {
 
     String getOrderState(String oid);
 
+    String cancelOrder(String oid);
 }

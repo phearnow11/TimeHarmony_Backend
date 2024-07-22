@@ -183,6 +183,11 @@ public class MemberController {
                 Float.parseFloat(data.get("total_price").toString()), addr, data.get("transaction_no").toString());
     }
 
+    @RequestMapping(value = "cancel/order/{oid}", method = RequestMethod.PUT)
+    public String cancelOrder(@PathVariable("oid") String oid) {
+        return ORDER_SERVICE.cancelOrder(oid);
+    }
+
     @RequestMapping(value = "get/order/{id}", method = RequestMethod.GET)
     public Map<String, Object> getOrders(@PathVariable("id") String mid) {
         Map<String, Object> res = new Hashtable<>();
