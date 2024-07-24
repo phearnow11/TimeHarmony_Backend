@@ -40,7 +40,7 @@ public class PaymentController {
                 if (state != 2) {
                     throw new Exception("An Error occur");
                 }
-            WATCH_SERVICE.updateWatchesState(new ArrayList<>(data), PAYMENT_PROCESSING);
+            // WATCH_SERVICE.updateWatchesState(new ArrayList<>(data), PAYMENT_PROCESSING);
             return new ResponseObject<>(HttpStatus.OK, "Success", PAYMENT_SERVICE.createVnPayPayment(request));
         } catch (Exception e) {
             return new ResponseObject<>(HttpStatus.LOCKED, e.toString(), null);
