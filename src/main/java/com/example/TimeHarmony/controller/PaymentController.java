@@ -26,8 +26,17 @@ public class PaymentController {
     private PaymentService PAYMENT_SERVICE;
 
     @RequestMapping(value = "/vn-pay", method = RequestMethod.GET)
-    public ResponseObject<PaymentDTO.VNPayResponse> pay(HttpServletRequest request) {
-        return new ResponseObject<>(HttpStatus.OK, "Success", PAYMENT_SERVICE.createVnPayPayment(request));
+    public ResponseObject<PaymentDTO.VNPayResponse> pay(HttpServletRequest request,
+            @RequestBody Map<String, Integer> data) {
+        try {
+            for (String oid : data.keySet())
+                if (data.get(oid) != 2) {
+                    throw new Exception("There are some watches sold");
+                }
+            return new ResponseObject<>(HttpStatus.OK, "Success", PAYMENT_SERVICE.createVnPayPayment(request));
+        } catch (Exception e) {
+            return new ResponseObject<>(HttpStatus.LOCKED, e.toString(), null);
+        }
     }
 
     @RequestMapping(value = "/insert-payment-detail", method = RequestMethod.POST)
