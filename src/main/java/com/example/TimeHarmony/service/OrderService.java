@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Orders;
+import com.example.TimeHarmony.enumf.OrderState;
 import com.example.TimeHarmony.repository.OrderRepository;
 import com.example.TimeHarmony.repository.WatchRepository;
 import com.example.TimeHarmony.service.interfacepack.IOrderService;
@@ -46,7 +47,7 @@ public class OrderService implements IOrderService {
             Members m = MEMBER_SERVICE.getMemberbyID(m_id).get();
 
             Orders order = new Orders(order_id, m, Timestamp.valueOf(LocalDateTime.now()), addr.getAddress_detail(),
-                    addr.getName(), addr.getPhone(), notice, total_price);
+                    addr.getName(), addr.getPhone(), notice, total_price, null, OrderState.PENDING);
             ORDER_REPOSITORY.save(order);
             updateCartOrder(wids, m.getCart_id(), order_id);
 
@@ -115,34 +116,17 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public float total_price(List<String> wids) {
-        float sum = 0;
-        try {
-            for (String i : wids) {
-                float w = WATCH_REPOSITORY.findById(i).get().getPrice();
-                sum = sum + w;
-            }
-            return sum;
-        } catch (Exception e) {
-            return 0;
-        }
-    }
-
-    @Override
     public List<Orders> getOrders() {
         return ORDER_REPOSITORY.findAll();
     }
 
     @Override
-    public String getOrderState(String oid) {
-        List<String> wid = ORDER_REPOSITORY.getWatchesInOrder(oid);
-        if (wid.isEmpty())
-            return "DELETED";
-        for (int i : ORDER_REPOSITORY.getStates(oid)) {
-            if (i == 3)
-                return "PENDING";
+    public OrderState getOrderState(String oid) {
+        if (!ORDER_REPOSITORY.getOrderWatchStates(oid).contains(3)) {
+            ORDER_REPOSITORY.updateOrderState(OrderState.SHIPPING.getSTATE_VALUE(), oid);
         }
-        return "SHIPPING";
+
+        return ORDER_REPOSITORY.getState(oid);
     }
 
     @Override
@@ -150,9 +134,17 @@ public class OrderService implements IOrderService {
         try {
             WATCH_REPOSITORY.cancelOrder(oid);
             ORDER_REPOSITORY.deleteOrder(oid);
+            ORDER_REPOSITORY.updateOrderState(OrderState.DELETED.getSTATE_VALUE(), oid);
             return "Order " + oid + " deleted";
         } catch (Exception e) {
             return e.toString();
         }
     }
+
+    @Override
+    public String confirmOrder(String oid) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'confirmOrder'");
+    }
+
 }

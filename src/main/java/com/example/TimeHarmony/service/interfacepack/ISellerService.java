@@ -23,7 +23,7 @@ public interface ISellerService {
 
     public Sellers getSellerbyId(String id);
 
-    String confirmShipping(String wid);
+    String confirmShipping(String wid, String oid);
 
     List<Watch> getWaitingList(String mid);
 
@@ -32,4 +32,6 @@ public interface ISellerService {
     String setRate(float incoming_rate, String sid, String rater);
 
     Float getRate(String sid);
+
+    List<String[]> getOrderFromWatch(String wid);
 }

@@ -3,6 +3,7 @@ package com.example.TimeHarmony.service;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,11 +18,17 @@ public class CartService implements ICartService {
     @Autowired
     private MemberRepository MEMBER_REPOSITORY;
 
+    @Autowired
+    private SellerService SELLER_SERVICE;
+
     @Override
-    public String insertToCart(String cid, String wid) {
+    public String insertToCart(String cid, String wid, String mid) {
         if (!checkWatchInCart(cid, wid)) {
-            MEMBER_REPOSITORY.addToCart(wid, cid, null, 0, Timestamp.valueOf(LocalDateTime.now()), 1);
-            return "Watch added to Cart";
+            if (!checkMyWatch(mid, wid)) {
+                MEMBER_REPOSITORY.addToCart(wid, cid, null, 0, Timestamp.valueOf(LocalDateTime.now()), 1);
+                return "Watch added to Cart";
+            }
+            return "Cannot buy your own watch!";
         }
         MEMBER_REPOSITORY.updateStateWatchInCart(1, cid, wid);
         return "Watch state changed!";
@@ -30,6 +37,12 @@ public class CartService implements ICartService {
     @Override
     public boolean checkWatchInCart(String cid, String wid) {
         List<String> wids = MEMBER_REPOSITORY.getAllWatchesInCart(cid);
+        return wids.contains(wid);
+    }
+
+    public boolean checkMyWatch(String mid, String wid) {
+        List<String> wids = SELLER_SERVICE.findAllWatchBySeller(mid).stream().map(w -> w.getWatch_id())
+                .collect(Collectors.toList());
         return wids.contains(wid);
     }
 
@@ -72,6 +85,12 @@ public class CartService implements ICartService {
             System.out.println(e);
             return null;
         }
+    }
+
+    @Override
+    public void updateCartWhenCompleteOrder(String cid, String wid) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateCartWhenCompleteOrder'");
     }
 
 }

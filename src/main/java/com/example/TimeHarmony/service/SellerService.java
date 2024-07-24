@@ -1,5 +1,6 @@
 package com.example.TimeHarmony.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -13,8 +14,10 @@ import com.example.TimeHarmony.entity.Authorities;
 import com.example.TimeHarmony.entity.Sellers;
 import com.example.TimeHarmony.entity.Users;
 import com.example.TimeHarmony.entity.Watch;
+import com.example.TimeHarmony.enumf.OrderState;
 import com.example.TimeHarmony.enumf.Roles;
 import com.example.TimeHarmony.repository.AuthoritiesRepository;
+import com.example.TimeHarmony.repository.OrderRepository;
 import com.example.TimeHarmony.repository.SellerRepository;
 import com.example.TimeHarmony.repository.UsersRepository;
 import com.example.TimeHarmony.repository.WatchRepository;
@@ -37,6 +40,8 @@ public class SellerService implements ISellerService {
     private SellerRepository SELLER_REPOSITORY;
     @Autowired
     private AuthoritiesRepository AUTHORITIES_REPOSITORY;
+    @Autowired
+    private OrderRepository ORDER_REPOSITORY;
 
     @Override
     public String createWatch(Watch watch, Sellers seller) {
@@ -182,10 +187,12 @@ public class SellerService implements ISellerService {
     }
 
     @Override
-    public String confirmShipping(String wid) {
+    public String confirmShipping(String wid, String oid) {
         try {
             byte SHIP = 4;
             WATCH_REPOSITORY.updateWatchState(SHIP, wid);
+            if (WATCH_REPOSITORY.getWatchNOTShipped(oid) == 0)
+                ORDER_REPOSITORY.updateOrderState(OrderState.SHIPPING.getSTATE_VALUE(), oid);
             return "Confirm shipping";
         } catch (Exception e) {
             return e.toString();
@@ -225,4 +232,13 @@ public class SellerService implements ISellerService {
         return SELLER_REPOSITORY.getRate(UUID.fromString(sid));
     }
 
+    @Override
+    public List<String[]> getOrderFromWatch(String wid) {
+        List<String[]> res = new ArrayList<>();
+        for (String oid : WATCH_REPOSITORY.getOrderFromWatch(wid)) {
+            String[] orderInfo = { oid, ORDER_REPOSITORY.getCreationDate(oid) };
+            res.add(orderInfo);
+        }
+        return res;
+    }
 }

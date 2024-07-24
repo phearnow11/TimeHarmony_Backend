@@ -129,7 +129,7 @@ public class MemberController {
     @RequestMapping(value = "add/to-cart/{id}", method = RequestMethod.POST)
     public String addToCart(@PathVariable("id") String member_id, @RequestParam("watch_id") String watch_id) {
         Members m = MEMBER_SERVICE.getMemberbyID(member_id).get();
-        return CART_SERVICE.insertToCart(m.getCart_id(), watch_id);
+        return CART_SERVICE.insertToCart(m.getCart_id(), watch_id, member_id);
     }
 
     @RequestMapping(value = "get/carts/{id}", method = RequestMethod.GET)
@@ -203,7 +203,7 @@ public class MemberController {
 
     @RequestMapping(value = "get/order/state/{oid}", method = RequestMethod.GET)
     public String getOrderStatus(@PathVariable("oid") String oid) {
-        return ORDER_SERVICE.getOrderState(oid);
+        return ORDER_SERVICE.getOrderState(oid).name();
     }
 
     @RequestMapping(value = "update/user/image/{id}", method = RequestMethod.PATCH)

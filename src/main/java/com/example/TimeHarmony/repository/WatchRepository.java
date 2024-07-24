@@ -67,21 +67,6 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
         @Query(value = "insert into Watch_images(watch_id, image_url) values (:id, :url)", nativeQuery = true)
         void saveWatch_Images(@Param("id") String id, @Param("url") String url);
 
-        @Modifying
-        @Transactional
-        @Query(value = "update Watch set state = :state where watch_id = :id", nativeQuery = true)
-        void updateWatchState(@Param("state") byte state, String id);
-
-        @Modifying
-        @Transactional
-        @Query(value = "update [dbo].[Watch] set [dbo].[Watch].state = 4 from [dbo].[Watch] join [dbo].[Watches_In_Cart] on [dbo].[Watches_In_Cart].watch_id = [dbo].[Watch].watch_id where order_id = :oid ", nativeQuery = true)
-        void confirmOrder(@Param("oid") String oid);
-
-        @Modifying
-        @Transactional
-        @Query(value = "update [dbo].[Watch] set [dbo].[Watch].state = 1 from [dbo].[Watch] join [dbo].[Watches_In_Cart] on [dbo].[Watches_In_Cart].watch_id = [dbo].[Watch].watch_id where order_id = :oid ", nativeQuery = true)
-        void cancelOrder(@Param("oid") String oid);
-
         @Query("select w from Watch w where  w.state = :state")
         List<Watch> getWatchesByState(@Param("state") int state);
 
@@ -101,23 +86,12 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
         @Query(value = "select COUNT(watch_id) as watch_num from Watch", nativeQuery = true)
         Integer getWatchNum();
 
-        @Modifying
-        @Transactional
-        @Query(value = "update Watch set watch_approval_date = :date, state = :state where watch_id = :id", nativeQuery = true)
-        void approveWatch(@Param("date") Timestamp date, @Param("id") String wid, @Param("state") byte steate);
-
         @Query(value = "select w from Watch w where (:gender is null or w.gender like :gender) and (:series is null or w.series like :series) and (:brand is null or w.brand like :brand) and (:style is null or w.style_type like :style) and (:feature is null or w.feature like :feature) and w.price > :lprice and w.price < :hprice and w.state = 1 and w.watch_name like %:key%")
         List<Watch> getWatchesByFilter(@Param("key") String key, @Param("gender") String gender,
                         @Param("series") String series,
                         @Param("brand") String brand,
                         @Param("style") String style, @Param("feature") String feature, @Param("lprice") float lowprice,
                         @Param("hprice") float hprice, Pageable pageable);
-
-        @Query(value = "select * from Watch where member_id = :mid", nativeQuery = true)
-        List<Watch> getWatchesBySeller(@Param("mid") UUID mid, Limit limit);
-
-        @Query(value = "select * from Watch where member_id = :mid and state = 3", nativeQuery = true)
-        List<Watch> getWaitingWatches(@Param("mid") UUID mid, Limit limit);
 
         @Query(value = "select * from [dbo].[Watch_images] where watch_id = :wid", nativeQuery = true)
         List<WatchImages> getWatchImages(@Param("wid") String wid);
@@ -127,4 +101,41 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
                         @Param("brand") String brand,
                         @Param("style") String style, @Param("feature") String feature, @Param("lprice") float lowprice,
                         @Param("hprice") float hprice);
+
+        @Modifying
+        @Transactional
+        @Query(value = "update Watch set watch_approval_date = :date, state = :state where watch_id = :id", nativeQuery = true)
+        void approveWatch(@Param("date") Timestamp date, @Param("id") String wid, @Param("state") byte steate);
+
+        @Query(value = "select * from Watch where member_id = :mid and (state = 1 or state = 3)", nativeQuery = true)
+        List<Watch> getWatchesBySeller(@Param("mid") UUID mid, Limit limit);
+
+        @Query(value = "select * from Watch where member_id = :mid and state = 3", nativeQuery = true)
+        List<Watch> getWaitingWatches(@Param("mid") UUID mid, Limit limit);
+
+        @Modifying
+        @Transactional
+        @Query(value = "update Watch set state = :state where watch_id = :id", nativeQuery = true)
+        void updateWatchState(@Param("state") byte state, String id);
+
+        @Modifying
+        @Transactional
+        @Query(value = "update [dbo].[Watch] set [dbo].[Watch].state = 4 from [dbo].[Watch] join [dbo].[Watches_In_Cart] on [dbo].[Watches_In_Cart].watch_id = [dbo].[Watch].watch_id where order_id = :oid ", nativeQuery = true)
+        void confirmOrder(@Param("oid") String oid);
+
+        @Modifying
+        @Transactional
+        @Query(value = "update [dbo].[Watch] set [dbo].[Watch].state = 1 from [dbo].[Watch] join [dbo].[Watches_In_Cart] on [dbo].[Watches_In_Cart].watch_id = [dbo].[Watch].watch_id where order_id = :oid ", nativeQuery = true)
+        void cancelOrder(@Param("oid") String oid);
+
+        @Modifying
+        @Transactional
+        @Query(value = "update [dbo].[Watch] set [dbo].[Watch].state = 7 from [dbo].[Watch] join [dbo].[Watches_In_Cart] on [dbo].[Watches_In_Cart].watch_id = [dbo].[Watch].watch_id where order_id = :oid ", nativeQuery = true)
+        void deliveredOrder(@Param("oid") String oid);
+
+        @Query(value = "select count([dbo].[Watches_In_Cart].watch_id) from [dbo].[Watches_In_Cart] join [dbo].[Watch] on [dbo].[Watch].watch_id = [dbo].[Watches_In_Cart].watch_id where [dbo].[Watches_In_Cart].order_id = :oid and [dbo].[Watch].state <> 4", nativeQuery = true)
+        int getWatchNOTShipped(@Param("oid") String oid);
+
+        @Query(value = "select order_id from [dbo].[Watches_In_Cart] where watch_id = :wid", nativeQuery = true)
+        List<String> getOrderFromWatch(@Param("wid") String wid);
 }

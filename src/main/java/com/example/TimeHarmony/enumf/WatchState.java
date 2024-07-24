@@ -5,5 +5,7 @@ public enum WatchState {
     APPROVED,
     DELETED,
     WAITING,
-    SHIPPING
+    SHIPPING,
+    PAYMENT_PROCESSING,
+    SUCCESS
 }

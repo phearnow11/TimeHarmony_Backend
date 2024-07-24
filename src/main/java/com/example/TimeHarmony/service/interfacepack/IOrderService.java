@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Orders;
+import com.example.TimeHarmony.enumf.OrderState;
 
 public interface IOrderService {
 
@@ -14,8 +15,6 @@ public interface IOrderService {
 
     String deleteOrder(String oid);
 
-    float total_price(List<String> wids);
-
     List<Orders> getOrderFromMember(String mid);
 
     List<String> getWatchInOrder(String oid);
@@ -24,7 +23,10 @@ public interface IOrderService {
 
     List<Orders> getOrders();
 
-    String getOrderState(String oid);
+    OrderState getOrderState(String oid);
 
     String cancelOrder(String oid);
+
+    String confirmOrder(String oid);
+
 }

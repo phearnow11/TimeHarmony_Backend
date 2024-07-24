@@ -117,12 +117,17 @@ public class SellerController {
     }
 
     @RequestMapping(value = "ship/{id}", method = RequestMethod.PUT)
-    public String confirmShipping(@PathVariable("id") String wid) {
-        return SELLER_SERVICE.confirmShipping(wid);
+    public String confirmShipping(@PathVariable("id") String wid, @RequestParam("order_id") String oid) {
+        return SELLER_SERVICE.confirmShipping(wid, oid);
     }
 
     @RequestMapping(value = "get/waiting/{id}", method = RequestMethod.GET)
     public List<Watch> getWatingList(@PathVariable("id") String sid) {
         return SELLER_SERVICE.getWaitingList(sid);
+    }
+
+    @RequestMapping(value = "get/order/{id}", method = RequestMethod.GET)
+    public List<String[]> getOrderIDList(@PathVariable("id") String sid) {
+        return SELLER_SERVICE.getOrderFromWatch(sid);
     }
 }

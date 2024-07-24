@@ -2,6 +2,7 @@ package com.example.TimeHarmony.entity;
 
 import java.sql.Timestamp;
 
+import com.example.TimeHarmony.enumf.OrderState;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
@@ -38,6 +39,10 @@ public class Orders {
     private String phone;
     private String notice;
     private float total_price;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Timestamp shipping_date;
+    private OrderState state;
 
     public Orders() {
     }

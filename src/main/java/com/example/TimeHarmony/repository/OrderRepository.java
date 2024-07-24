@@ -1,5 +1,6 @@
 package com.example.TimeHarmony.repository;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
@@ -9,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.example.TimeHarmony.entity.Orders;
+import com.example.TimeHarmony.enumf.OrderState;
 
 import jakarta.transaction.Transactional;
 
@@ -29,7 +31,7 @@ public interface OrderRepository extends JpaRepository<Orders, String> {
     String getOrderIdInWatchInCart(@Param("wid") String wid);
 
     @Query(value = "select [dbo].[Watch].state from [dbo].[Watch] join [dbo].[Watches_In_Cart] on [dbo].[Watch].watch_id = [dbo].[Watches_In_Cart].watch_id where order_id = :oid", nativeQuery = true)
-    List<Integer> getStates(@Param("oid") String oid);
+    List<Integer> getOrderWatchStates(@Param("oid") String oid);
 
     @Modifying
     @Transactional
@@ -38,6 +40,22 @@ public interface OrderRepository extends JpaRepository<Orders, String> {
 
     @Modifying
     @Transactional
+    @Query(value = "update [dbo].[Orders] set state = :state where order_id = :oid", nativeQuery = true)
+    void updateOrderState(@Param("state") int state, @Param("oid") String oid);
+
+    @Modifying
+    @Transactional
     @Query(value = "update [dbo].[Watches_In_Cart] set state = 0 where order_id = :oid", nativeQuery = true)
     void deleteWatchInCartWhenConfirm(@Param("oid") String oid);
+
+    @Query(value = "select o.state from Orders o where o.order_id = :oid")
+    OrderState getState(@Param("oid") String oid);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update [dbo].[Orders] set shipping_date = :date where order_id = :oid", nativeQuery = true)
+    void updateShipDate(@Param("date") Timestamp date, @Param("oid") String oid);
+
+    @Query(value = "select create_time from [dbo].[Orders] where order_id = :oid", nativeQuery = true)
+    String getCreationDate(@Param("oid") String oid);
 }
