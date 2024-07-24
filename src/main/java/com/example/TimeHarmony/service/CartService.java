@@ -3,13 +3,16 @@ package com.example.TimeHarmony.service;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Limit;
 import org.springframework.stereotype.Service;
 
 import com.example.TimeHarmony.dtos.WatchInCart;
 import com.example.TimeHarmony.repository.MemberRepository;
+import com.example.TimeHarmony.repository.WatchRepository;
 import com.example.TimeHarmony.service.interfacepack.ICartService;
 
 @Service
@@ -19,7 +22,7 @@ public class CartService implements ICartService {
     private MemberRepository MEMBER_REPOSITORY;
 
     @Autowired
-    private SellerService SELLER_SERVICE;
+    private WatchRepository WATCH_REPOSITORY;
 
     @Override
     public String insertToCart(String cid, String wid, String mid) {
@@ -41,8 +44,10 @@ public class CartService implements ICartService {
     }
 
     public boolean checkMyWatch(String mid, String wid) {
-        List<String> wids = SELLER_SERVICE.findAllWatchBySeller(mid).stream().map(w -> w.getWatch_id())
+        List<String> wids = WATCH_REPOSITORY.getWatchesBySeller(UUID.fromString(mid), Limit.unlimited()).stream()
+                .map(w -> w.getWatch_id())
                 .collect(Collectors.toList());
+        System.out.println(wids);
         return wids.contains(wid);
     }
 
