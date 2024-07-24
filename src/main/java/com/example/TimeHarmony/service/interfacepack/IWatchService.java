@@ -68,4 +68,5 @@ public interface IWatchService {
 
     public String updateWatchesState(List<String> ids, byte state);
 
+    public List<Integer> getWatchState(List<String> ids);
 }

@@ -1,6 +1,7 @@
 package com.example.TimeHarmony.entity;
 
 import java.security.Timestamp;
+import java.util.UUID;
 
 import com.example.TimeHarmony.enumf.Reports;
 
@@ -19,14 +20,15 @@ import lombok.Setter;
 public class Report {
     @Id
     private String report_id;
-    private String member_id;
+    private UUID from;
+    private UUID to;
     private String watch_id;
-    private String report_content;
+    private String order_id;
+    private Reports type;
+    private String content;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp report_date;
-
-    private Reports report_type;
+    private Timestamp created_date;
 
     public Report() {
     }

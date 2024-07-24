@@ -1,5 +1,6 @@
 package com.example.TimeHarmony.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -308,6 +309,15 @@ public class WatchService implements IWatchService {
         } catch (Exception e) {
             return e.toString();
         }
+    }
+
+    @Override
+    public List<Integer> getWatchState(List<String> ids) {
+        List<Integer> res = new ArrayList<>();
+        for (String id : ids) {
+            res.add(WATCH_REPOSITORY.getState(id));
+        }
+        return res;
     }
 
 }

@@ -138,4 +138,7 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
 
         @Query(value = "select order_id from [dbo].[Watches_In_Cart] where watch_id = :wid", nativeQuery = true)
         List<String> getOrderFromWatch(@Param("wid") String wid);
+
+        @Query(value = "select state from [dbo].[Watch] where watch_id = :wid", nativeQuery = true)
+        Integer getState(@Param("wid") String wid);
 }
