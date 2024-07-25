@@ -50,6 +50,7 @@ public class PaymentService {
         Payment paymentdetail = new Payment();
         paymentdetail.setTransaction_no(data.get("transaction_no"));
         paymentdetail.setPayment_amount(Long.parseLong(data.get("payment_amount")) / 100);
+        paymentdetail.setWeb_profit(Long.parseLong(data.get("payment_amount")) / 5100);
         paymentdetail.setBank_code(data.get("bank_code"));
         paymentdetail.setPayment_method(data.get("payment_method"));
         paymentdetail.setOrder_id(data.get("order_id"));

@@ -98,4 +98,9 @@ public class StaffController {
     public String permaDeleteVoucher(@RequestParam("vid") String vid) {
         return VOUCHER_SERVICE.permaDeleteVoucher(vid);
     }
+
+    @RequestMapping(value = "remove/watch/{wid}/{sid}", method = RequestMethod.GET)
+    public String removeWatch(@PathVariable("wid") String wid, @PathVariable("sid") String sid) {
+        return WATCH_SERVICE.deleteWatch(wid, sid); 
+    }
 }

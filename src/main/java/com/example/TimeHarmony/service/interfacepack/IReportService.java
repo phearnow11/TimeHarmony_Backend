@@ -9,7 +9,9 @@ public interface IReportService {
 
     List<Report> getMyReports(String mid);
 
-    List<Report> getReportsAuthor(String mid);
+    List<Report> getReportsAuthor(String rid);
 
     List<Report> getAllReports();
+
+    Report unApprovReport (String wid); 
 }

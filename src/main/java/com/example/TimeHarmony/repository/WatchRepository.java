@@ -70,6 +70,8 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
         @Query("select w from Watch w where  w.state = :state")
         List<Watch> getWatchesByState(@Param("state") int state);
 
+        
+
         @Modifying
         @Transactional
         @Query(value = "delete Watch_Images where watch_id = :id and image_url = :url", nativeQuery = true)

@@ -1,6 +1,7 @@
 package com.example.TimeHarmony.entity;
 
 import java.sql.Timestamp;
+import java.util.UUID;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -14,20 +15,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Payment {
+public class Chat {
     @Id
-    private String transaction_no;
-    private String order_id;
-
-    private long payment_amount;
-    private long web_profit ; 
-    private String bank_code;
-    private String payment_method;
+    private String chat_id;
+    private UUID cur_member;
+    private UUID with_member;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp create_at;
-
-    public Payment() {
-    }
-
+    Timestamp created_date;
 }
