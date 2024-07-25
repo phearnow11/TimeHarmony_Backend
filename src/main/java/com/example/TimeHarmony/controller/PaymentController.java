@@ -15,6 +15,7 @@ import com.example.TimeHarmony.dtos.PaymentDTO;
 import com.example.TimeHarmony.dtos.ResponseObject;
 import com.example.TimeHarmony.entity.Payment;
 import com.example.TimeHarmony.service.PaymentService;
+import com.example.TimeHarmony.service.StringService;
 import com.example.TimeHarmony.service.WatchService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,16 +31,19 @@ public class PaymentController {
     @Autowired
     private WatchService WATCH_SERVICE;
 
+    @Autowired
+    private StringService STRING_SERVICE;
+
     @RequestMapping(value = "/vn-pay", method = RequestMethod.GET)
     public ResponseObject<PaymentDTO.VNPayResponse> pay(HttpServletRequest request,
             @RequestBody List<String> data) {
         try {
             byte PAYMENT_PROCESSING = 5;
             for (int state : WATCH_SERVICE.getWatchState(data))
-                if (state != 2) {
+                if (state != 1) {
                     throw new Exception("An Error occur");
                 }
-            // WATCH_SERVICE.updateWatchesState(new ArrayList<>(data), PAYMENT_PROCESSING);
+            WATCH_SERVICE.updateWatchesState(new ArrayList<>(data), PAYMENT_PROCESSING);
             return new ResponseObject<>(HttpStatus.OK, "Success", PAYMENT_SERVICE.createVnPayPayment(request));
         } catch (Exception e) {
             return new ResponseObject<>(HttpStatus.LOCKED, e.toString(), null);
@@ -48,8 +52,15 @@ public class PaymentController {
 
     @RequestMapping(value = "/insert-payment-detail", method = RequestMethod.POST)
     public Payment savePayment(@RequestBody Map<String, String> data) {
-        
-        return PAYMENT_SERVICE.savePaymentDetail(data);
+        try {
+            if (!Boolean.parseBoolean(data.get("isSuccess")))
+                throw new Exception("Payment Failed");
+            return PAYMENT_SERVICE.savePaymentDetail(data);
+        } catch (Exception e) {
+            byte VIEW_STATE = 1;
+            WATCH_SERVICE.updateWatchesState(STRING_SERVICE.jsonArrToStringList(data.get("wids")), VIEW_STATE);
+            return null;
+        }
     }
 
 }
