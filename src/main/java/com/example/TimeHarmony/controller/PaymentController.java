@@ -35,7 +35,7 @@ public class PaymentController {
     @Autowired
     private StringService STRING_SERVICE;
 
-    @RequestMapping(value = "/vn-pay", method = RequestMethod.GET)
+    @RequestMapping(value = "/vn-pay", method = RequestMethod.POST)
     public ResponseObject<PaymentDTO.VNPayResponse> pay(HttpServletRequest request,
             @RequestBody List<String> data) {
         try {
