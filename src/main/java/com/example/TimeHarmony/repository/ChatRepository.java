@@ -17,6 +17,6 @@ public interface ChatRepository extends JpaRepository<Chat, String> {
 
     @Modifying
     @Transactional
-    @Query("delete c from Chat c where cur_member = :cur_mid and with_member = with_mid")
+    @Query(value = "delete [dbo].[Chat] where cur_member = :cur_mid and with_member = :with_mid", nativeQuery = true)
     void deleteChat(@Param("cur_mid") UUID cur_mid, @Param("with_mid") UUID with_mid);
 }
