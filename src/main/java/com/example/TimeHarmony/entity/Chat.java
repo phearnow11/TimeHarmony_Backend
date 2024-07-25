@@ -23,4 +23,6 @@ public class Chat {
 
     @Temporal(TemporalType.TIMESTAMP)
     Timestamp created_date;
+
+    public Chat(){}
 }
