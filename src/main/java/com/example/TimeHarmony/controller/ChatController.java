@@ -48,12 +48,7 @@ public class ChatController {
 
     @RequestMapping(value = "/addtochat", method = RequestMethod.POST)
     public String addChat(@RequestParam("user_id") String mid, @RequestParam("user_id2") String mid2) {
-        try {
-            CHAT_SERVICE.addToChat(mid, mid2);
-            return "Success";
-        } catch (Exception e) {
-            return "Failed due to " + e;
-        }
+        return CHAT_SERVICE.addToChat(mid, mid2);
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)

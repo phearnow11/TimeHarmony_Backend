@@ -32,16 +32,28 @@ public class ChatService implements IChatService {
     }
 
     @Override
-    public void addToChat(String cur_mid, String with_mid) {
-        Chat new_chat = new Chat(STRING_SERVICE.autoGenerateString(12), UUID.fromString(cur_mid),
-                UUID.fromString(with_mid),
-                Timestamp.valueOf(LocalDateTime.now()));
-        CHAT_REPOSITORY.save(new_chat);
+    public String addToChat(String cur_mid, String with_mid) {
+        try {
+            if (!CHAT_REPOSITORY.getSpecificChat(UUID.fromString(cur_mid), UUID.fromString(with_mid)).isEmpty())
+                throw new Exception("can not create more chat");
+            Chat new_chat = new Chat(STRING_SERVICE.autoGenerateString(12), UUID.fromString(cur_mid),
+                    UUID.fromString(with_mid),
+                    Timestamp.valueOf(LocalDateTime.now()));
+            CHAT_REPOSITORY.save(new_chat);
+            return "New chat created";
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
 
     @Override
     public void removeChat(String cur_mid, String with_mid) {
         CHAT_REPOSITORY.deleteChat(UUID.fromString(cur_mid), UUID.fromString(with_mid));
+    }
+
+    @Override
+    public boolean checkChat(String cur_mid, String with_mid) {
+        return CHAT_REPOSITORY.getSpecificChat(UUID.fromString(cur_mid), UUID.fromString(with_mid)).isEmpty();
     }
 
 }

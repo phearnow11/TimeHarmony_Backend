@@ -15,6 +15,9 @@ public interface ChatRepository extends JpaRepository<Chat, String> {
     @Query("select c from Chat c where cur_member = :mid")
     List<Chat> getMyChat(@Param("mid") UUID mid);
 
+    @Query("select c from Chat c where cur_member = :cur_id and with_member = :with_id")
+    List<Chat> getSpecificChat(@Param("cur_id") UUID cur_id, @Param("with_id") UUID with_id);
+
     @Modifying
     @Transactional
     @Query(value = "delete [dbo].[Chat] where cur_member = :cur_mid and with_member = :with_mid", nativeQuery = true)
