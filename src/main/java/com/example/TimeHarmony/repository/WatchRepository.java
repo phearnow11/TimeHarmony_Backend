@@ -70,8 +70,6 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
         @Query("select w from Watch w where  w.state = :state")
         List<Watch> getWatchesByState(@Param("state") int state);
 
-        
-
         @Modifying
         @Transactional
         @Query(value = "delete Watch_Images where watch_id = :id and image_url = :url", nativeQuery = true)
@@ -143,4 +141,9 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
 
         @Query(value = "select state from [dbo].[Watch] where watch_id = :wid", nativeQuery = true)
         Integer getState(@Param("wid") String wid);
+
+        @Modifying
+        @Transactional
+        @Query(value = "update [dbo].[Watches_In_Cart] set state = :state where watch_id in :wids", nativeQuery = true)
+        void updateWatchInCartByID(@Param("wids") List<String> wids, @Param("state") int state);
 }

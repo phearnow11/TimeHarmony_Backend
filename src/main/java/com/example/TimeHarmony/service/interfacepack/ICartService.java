@@ -17,7 +17,10 @@ public interface ICartService {
 
     String deleteCart(String cid, List<String> wid);
 
+    String updateAllByIDS(List<String> wids, int state);
+
     List<String> getWatchInCart(String cid);
 
     void updateCartWhenCompleteOrder(String cid, String wid);
+
 }
