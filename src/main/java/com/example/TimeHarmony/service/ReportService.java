@@ -49,64 +49,33 @@ public class ReportService implements IReportService {
        return REPORT_REPOSITORY.findAll(); 
     }
 
-    @Override
-    public Report createUnapproveReport(Map<String, String> data, String wid) {
-       
-        Report newreport = new Report(); 
-        String reportId = 'R' + STRING_SERVICE.autoGenerateString(11); 
-        
-        newreport.setReport_id(reportId);
-        newreport.setWatch_id(wid);
-        newreport.setOrder_id(data.get("order_id"));
-        newreport.setType(Reports.APPRAISER_REPORT); 
-        newreport.setTo(UUID.fromString(data.get("to")));
-        newreport.setFrom(UUID.fromString(data.get("from"))); 
-        newreport.setCreated_date(Timestamp.valueOf(LocalDateTime.now()));
-        
-        return REPORT_REPOSITORY.save(newreport); 
-    }
+    
 
     @Override
-    public Report createBanUseReport(Map<String, String> data, String wid) {
+    public Report createReport(Map<String, String> data) {
         Report newreport = new Report(); 
         String reportId = 'R' + STRING_SERVICE.autoGenerateString(11); 
-        
         newreport.setReport_id(reportId);
-        newreport.setWatch_id(wid);
+        newreport.setWatch_id(data.get("watch_id"));
         newreport.setOrder_id(data.get("order_id"));
-        newreport.setType(Reports.MEMBER_REPORT);
-        newreport.setTo(UUID.fromString(data.get("to")));
-        newreport.setFrom(UUID.fromString(data.get("from"))); 
+        newreport.setTo_member((data.get("to")) !=  null ?  UUID.fromString(data.get("to")) : null); 
+        newreport.setFrom_member((data.get("from")) != null ? UUID.fromString(data.get("from")) : null); 
+        newreport.setContent(data.get("content"));
         newreport.setCreated_date(Timestamp.valueOf(LocalDateTime.now()));
-        
-        return REPORT_REPOSITORY.save(newreport); 
-    }
-
-    @Override
-    public Report createOrderReport(Map<String, String> data, String wid) {
-        Report newreport = new Report(); 
-        String reportId = 'R' + STRING_SERVICE.autoGenerateString(11); 
-        
-        newreport.setReport_id(reportId);
-        newreport.setWatch_id(wid);
-        newreport.setOrder_id(data.get("order_id"));
-        newreport.setType(Reports.ORDER_REPORT);
-        newreport.setTo(UUID.fromString(data.get("to")));
-        newreport.setFrom(UUID.fromString(data.get("from"))); 
-        newreport.setCreated_date(Timestamp.valueOf(LocalDateTime.now()));
-        
-        return REPORT_REPOSITORY.save(newreport); 
-    }
-
-    @Override
-    public Report createReport(Integer type, Map<String, String> data, String wid) {
+        System.out.println(newreport);
+        int type = Integer.parseInt(data.get("type")); 
         switch (type) {
             case 0 :
-                return createOrderReport(data, wid);
+                newreport.setType(Reports.ORDER_REPORT);
+                return REPORT_REPOSITORY.save(newreport); 
+                
             case 1 : 
-                return createUnapproveReport(data, wid); 
+                newreport.setType(Reports.APPRAISER_REPORT); 
+                System.out.println(newreport);
+                return REPORT_REPOSITORY.save(newreport); 
             case 2 : 
-                return createBanUseReport(data, wid);
+                newreport.setType(Reports.MEMBER_REPORT); 
+                return REPORT_REPOSITORY.save(newreport); 
         }
         System.out.println("Just select report type from 0 to 2 !");
         return null ; 

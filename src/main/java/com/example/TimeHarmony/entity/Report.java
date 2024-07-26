@@ -12,16 +12,18 @@ import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @Entity
+@ToString
 public class Report {
     @Id
     private String report_id;
-    private UUID from;
-    private UUID to;
+    private UUID from_member;
+    private UUID to_member;
     private String watch_id;
     private String order_id;
     private Reports type;

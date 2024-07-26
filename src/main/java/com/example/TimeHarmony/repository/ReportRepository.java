@@ -9,7 +9,7 @@ import com.example.TimeHarmony.entity.Report;
 
 public interface ReportRepository extends JpaRepository<Report, String> {
     
-    @Query("select r from Report r where from = ?1")
+    @Query("select r from Report r where from_member = ?1")
     List<Report> findMyreportList(String mid); 
 
     

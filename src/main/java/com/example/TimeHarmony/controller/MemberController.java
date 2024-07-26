@@ -22,11 +22,13 @@ import com.example.TimeHarmony.dtos.Favorites;
 import com.example.TimeHarmony.dtos.WatchInCart;
 import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Members;
+import com.example.TimeHarmony.entity.Report;
 import com.example.TimeHarmony.entity.Vouchers;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.service.CartService;
 import com.example.TimeHarmony.service.MemberService;
 import com.example.TimeHarmony.service.OrderService;
+import com.example.TimeHarmony.service.ReportService;
 import com.example.TimeHarmony.service.SellerService;
 import com.example.TimeHarmony.service.StringService;
 import com.example.TimeHarmony.service.VoucherService;
@@ -56,7 +58,10 @@ public class MemberController {
     private VoucherService VOUCHER_SERVICE;
 
     @Autowired
-    SellerService SELLER_SERVICE;
+    private SellerService SELLER_SERVICE;
+
+    @Autowired
+    private ReportService REPORT_SERVICE; 
 
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
     public Optional<Members> getMember(@PathVariable("id") String member_id) {
@@ -247,4 +252,10 @@ public class MemberController {
         return SELLER_SERVICE.getRate(id);
     }
 
-}
+    @RequestMapping(value = "send/order-report", method = RequestMethod.POST)
+        public Report createOrderReport (@RequestBody Map<String, String> data) {
+            return REPORT_SERVICE.createReport(data); 
+        }
+    }
+
+
