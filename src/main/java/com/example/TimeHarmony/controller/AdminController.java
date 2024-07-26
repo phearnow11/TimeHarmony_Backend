@@ -34,132 +34,127 @@ import com.example.TimeHarmony.service.WatchService;
 @CrossOrigin
 public class AdminController {
 
-    @Autowired
-    private AdminService ADMIN_SERVICE;
+  @Autowired
+  private AdminService ADMIN_SERVICE;
 
-    @Autowired
-    private MemberService MEMBER_SERVICE;
+  @Autowired
+  private MemberService MEMBER_SERVICE;
 
-    @Autowired
-    private WatchService WATCH_SERVICE;
+  @Autowired
+  private WatchService WATCH_SERVICE;
 
-    @Autowired
-    private OrderService ORDER_SERVICE;
+  @Autowired
+  private OrderService ORDER_SERVICE;
 
     @Autowired
     private ReportService REPORT_SERVICE;
 
-    @RequestMapping(value = "get/members", method = RequestMethod.GET)
-    public List<Members> getaMembers() {
-        return ADMIN_SERVICE.getMembers();
+  @RequestMapping(value = "get/members", method = RequestMethod.GET)
+  public List<Members> getaMembers() {
+    return ADMIN_SERVICE.getMembers();
+  }
+
+  @RequestMapping(value = "get/admins", method = RequestMethod.GET)
+  public List<Admins> getAdmins() {
+    return ADMIN_SERVICE.getAdmins();
+  }
+
+  @RequestMapping(value = "get/watches", method = RequestMethod.GET)
+  public List<Watch> getWatches() {
+    return ADMIN_SERVICE.getWatches();
+  }
+
+  @RequestMapping(value = "role/upgrade/staff/{id}", method = RequestMethod.POST)
+  public String toStaff(@PathVariable("id") String id) {
+    Members m = MEMBER_SERVICE.getMemberbyID(id).get();
+    if (!m.getUser_log_info().getAuthorities().getAuthority().matches(Roles.ROLE_USER.name()))
+      return "Only member can be upgrade!";
+    return ADMIN_SERVICE.toStaff(id, m.getUser_log_info().getUsername());
+  }
+
+  @RequestMapping(value = "add/members", method = RequestMethod.POST)
+  public String addMembers(@RequestBody List<Map<String, String>> data) {
+    List<Members> ms = new ArrayList<>();
+    for (Map<String, String> i : data) {
+
+      Map<String, String> detail_info = i;
+
+      byte a = 1;
+      Users logInfo = new Users(detail_info.get("username"), detail_info.get("password"), null, a);
+
+      Members m = new MemberBuilder()
+          .setUserLogInfo(logInfo)
+          .setFirstName(detail_info.get("Fname"))
+          .setLastName(detail_info.get("Lname"))
+          .setActive(0)
+          .setPhone(detail_info.get("phone"))
+          .setEmail(detail_info.get("email"))
+          .build();
+      ms.add(m);
+
     }
+    return ADMIN_SERVICE.addMembers(ms);
+  }
 
-    @RequestMapping(value = "get/admins", method = RequestMethod.GET)
-    public List<Admins> getAdmins() {
-        return ADMIN_SERVICE.getAdmins();
+  @RequestMapping(value = "add/watches", method = RequestMethod.POST)
+  public String addWatches(@RequestBody List<Map<String, String>> datas) {
+
+    List<Watch> ws = new ArrayList<>();
+    byte DEFAULT_STATUS = 0;
+
+    for (Map<String, String> data : datas) {
+      Watch watch = new WatchBuilder()
+          .setWatchId(WATCH_SERVICE.generateWatchId())
+          .setWatchImage(new ArrayList<>())
+          .setWatchDescription(data.get("description"))
+          .setWatchName(data.get("name"))
+          .setWatchCreateDate(Timestamp.valueOf(LocalDateTime.now()))
+          .setState(DEFAULT_STATUS)
+          .setPrice(Float.parseFloat(data.get("price")))
+          .setBrand(data.get("brand"))
+          .setSeries(data.get("series"))
+          .setModel(data.get("model"))
+          .setGender(data.get("gender"))
+          .setStyleType(data.get("style"))
+          .setSubClass(data.get("subclass"))
+          .setMadeLabel(data.get("madelabel"))
+          .setCalender(data.get("calender"))
+          .setFeature(data.get("feature"))
+          .setMovement(data.get("movement"))
+          .setFunctions(data.get("function"))
+          .setEngine(data.get("engine"))
+          .setWaterResistant(data.get("waterresistant"))
+          .setBandColor(data.get("bandcolor"))
+          .setBandType(data.get("bandtype"))
+          .setClasp(data.get("clasp"))
+          .setBracelet(data.get("bracelet"))
+          .setDialType(data.get("dialtype"))
+          .setDialColor(data.get("dialcolor"))
+          .setCrystal(data.get("crystal"))
+          .setSecondMakers(data.get("secondmaker"))
+          .setBezel(data.get("bezel"))
+          .setBezelMaterial(data.get("bezelmaterial"))
+          .setCaseBack(data.get("caseback"))
+          .setCaseDimension(data.get("casedimension"))
+          .setCaseShape(data.get("caseshape"))
+          .build();
+      ws.add(watch);
     }
-
-    @RequestMapping(value = "get/watches", method = RequestMethod.GET)
-    public List<Watch> getWatches() {
-        return ADMIN_SERVICE.getWatches();
+    try {
+      String s_id = ADMIN_SERVICE.testUser();
+      return ADMIN_SERVICE.addWatches(ws, s_id);
+    } catch (Exception e) {
+      return e.toString();
     }
+  }
 
-    @RequestMapping(value = "role/upgrade/staff/{id}", method = RequestMethod.POST)
-    public String toStaff(@PathVariable("id") String id) {
-        Members m = MEMBER_SERVICE.getMemberbyID(id).get();
-        if (!m.getUser_log_info().getAuthorities().getAuthority().matches(Roles.ROLE_USER.name()))
-            return "Only member can be upgrade!";
-        return ADMIN_SERVICE.toStaff(id, m.getUser_log_info().getUsername());
-    }
-
-    @RequestMapping(value = "add/members", method = RequestMethod.POST)
-    public String addMembers(@RequestBody List<Map<String, String>> data) {
-        List<Members> ms = new ArrayList<>();
-        for (Map<String, String> i : data) {
-
-            Map<String, String> detail_info = i;
-
-            byte a = 1;
-            Users logInfo = new Users(detail_info.get("username"), detail_info.get("password"), null, a);
-
-            Members m = new MemberBuilder()
-                    .setUserLogInfo(logInfo)
-                    .setFirstName(detail_info.get("Fname"))
-                    .setLastName(detail_info.get("Lname"))
-                    .setActive(0)
-                    .setPhone(detail_info.get("phone"))
-                    .setEmail(detail_info.get("email"))
-                    .build();
-            ms.add(m);
-
-        }
-        return ADMIN_SERVICE.addMembers(ms);
-    }
-
-    @RequestMapping(value = "add/watches", method = RequestMethod.POST)
-    public String addWatches(@RequestBody List<Map<String, String>> datas) {
-
-        List<Watch> ws = new ArrayList<>();
-        byte DEFAULT_STATUS = 0;
-
-        for (Map<String, String> data : datas) {
-            Watch watch = new WatchBuilder()
-                    .setWatchId(WATCH_SERVICE.generateWatchId())
-                    .setWatchImage(new ArrayList<>())
-                    .setWatchDescription(data.get("description"))
-                    .setWatchName(data.get("name"))
-                    .setWatchCreateDate(Timestamp.valueOf(LocalDateTime.now()))
-                    .setState(DEFAULT_STATUS)
-                    .setPrice(Float.parseFloat(data.get("price")))
-                    .setBrand(data.get("brand"))
-                    .setSeries(data.get("series"))
-                    .setModel(data.get("model"))
-                    .setGender(data.get("gender"))
-                    .setStyleType(data.get("style"))
-                    .setSubClass(data.get("subclass"))
-                    .setMadeLabel(data.get("madelabel"))
-                    .setCalender(data.get("calender"))
-                    .setFeature(data.get("feature"))
-                    .setMovement(data.get("movement"))
-                    .setFunctions(data.get("function"))
-                    .setEngine(data.get("engine"))
-                    .setWaterResistant(data.get("waterresistant"))
-                    .setBandColor(data.get("bandcolor"))
-                    .setBandType(data.get("bandtype"))
-                    .setClasp(data.get("clasp"))
-                    .setBracelet(data.get("bracelet"))
-                    .setDialType(data.get("dialtype"))
-                    .setDialColor(data.get("dialcolor"))
-                    .setCrystal(data.get("crystal"))
-                    .setSecondMakers(data.get("secondmaker"))
-                    .setBezel(data.get("bezel"))
-                    .setBezelMaterial(data.get("bezelmaterial"))
-                    .setCaseBack(data.get("caseback"))
-                    .setCaseDimension(data.get("casedimension"))
-                    .setCaseShape(data.get("caseshape"))
-                    .build();
-            ws.add(watch);
-        }
-        try {
-            String s_id = ADMIN_SERVICE.testUser();
-            return ADMIN_SERVICE.addWatches(ws, s_id);
-        } catch (Exception e) {
-            return e.toString();
-        }
-    }
-
-    @RequestMapping(value = "get/orders", method = RequestMethod.GET)
-    public List<Orders> getOrders() {
-        return ORDER_SERVICE.getOrders();
-    }
+  @RequestMapping(value = "get/orders", method = RequestMethod.GET)
+  public List<Orders> getOrders() {
+    return ORDER_SERVICE.getOrders();
+  }
 
     @RequestMapping(value = "get/profit", method = RequestMethod.GET)
     public long getProfit() {
         return ADMIN_SERVICE.getProfit();
-    }
-    
-    @RequestMapping(value = "send/ban-report", method = RequestMethod.POST)
-    public Report createBanReport(@RequestBody Map<String, String> data) {
-        return REPORT_SERVICE.createReport(data); 
     }
 }
