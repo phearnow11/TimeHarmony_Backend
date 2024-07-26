@@ -1,6 +1,5 @@
 package com.example.TimeHarmony.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.TimeHarmony.dtos.PaymentDTO;
 import com.example.TimeHarmony.dtos.ResponseObject;
 import com.example.TimeHarmony.entity.Payment;
+import com.example.TimeHarmony.service.CartService;
 import com.example.TimeHarmony.service.PaymentService;
 import com.example.TimeHarmony.service.StringService;
 import com.example.TimeHarmony.service.WatchService;
@@ -35,7 +35,10 @@ public class PaymentController {
     @Autowired
     private StringService STRING_SERVICE;
 
-    @RequestMapping(value = "/vn-pay", method = RequestMethod.GET)
+    @Autowired
+    private CartService CART_SERVICE;
+
+    @RequestMapping(value = "/vn-pay", method = RequestMethod.POST)
     public ResponseObject<PaymentDTO.VNPayResponse> pay(HttpServletRequest request,
             @RequestBody List<String> data) {
         try {
@@ -44,7 +47,8 @@ public class PaymentController {
                 if (state != 1) {
                     throw new Exception("An Error occur");
                 }
-            WATCH_SERVICE.updateWatchesState(new ArrayList<>(data), PAYMENT_PROCESSING);
+            WATCH_SERVICE.updateWatchesState(data, PAYMENT_PROCESSING);
+            CART_SERVICE.updateAllByIDS(data, 0);
             return new ResponseObject<>(HttpStatus.OK, "Success", PAYMENT_SERVICE.createVnPayPayment(request));
         } catch (Exception e) {
             return new ResponseObject<>(HttpStatus.LOCKED, e.toString(), null);
@@ -60,6 +64,7 @@ public class PaymentController {
         } catch (Exception e) {
             byte VIEW_STATE = 1;
             WATCH_SERVICE.updateWatchesState(STRING_SERVICE.jsonArrToStringList(data.get("wids")), VIEW_STATE);
+            CART_SERVICE.updateAllByIDS(STRING_SERVICE.jsonArrToStringList(data.get("wids")), VIEW_STATE);
             return null;
         }
     }

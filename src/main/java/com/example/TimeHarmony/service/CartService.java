@@ -98,4 +98,14 @@ public class CartService implements ICartService {
         throw new UnsupportedOperationException("Unimplemented method 'updateCartWhenCompleteOrder'");
     }
 
+    @Override
+    public String updateAllByIDS(List<String> wids, int state) {
+        try {
+            WATCH_REPOSITORY.updateWatchInCartByID(wids, state);
+            return "Deleted";
+        } catch (Exception e) {
+            return e.toString();
+        }
+    }
+
 }

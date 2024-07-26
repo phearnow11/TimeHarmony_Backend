@@ -9,7 +9,9 @@ public interface IChatService {
 
     List<Chat> getMyChat(String mid);
 
-    void addToChat(String cur_mid, String with_mid);
+    String addToChat(String cur_mid, String with_mid);
 
     void removeChat(String cur_mid, String with_mid);
+
+    boolean checkChat(String cur_mid, String with_mid);
 }
