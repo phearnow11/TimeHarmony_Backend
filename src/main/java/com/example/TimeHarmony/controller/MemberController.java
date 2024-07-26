@@ -61,7 +61,7 @@ public class MemberController {
     private SellerService SELLER_SERVICE;
 
     @Autowired
-    private ReportService REPORT_SERVICE; 
+    private ReportService REPORT_SERVICE;
 
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
     public Optional<Members> getMember(@PathVariable("id") String member_id) {
@@ -225,7 +225,7 @@ public class MemberController {
     @GetMapping("/test")
     public String test(@RequestBody Map<String, Object> data, @RequestParam() Map<String, Object> a) {
 
-        return "url";
+        return "" + MEMBER_SERVICE.checkUserEnabled("thinh");
     }
 
     @RequestMapping(value = "get/voucher/all", method = RequestMethod.GET)
@@ -253,9 +253,7 @@ public class MemberController {
     }
 
     @RequestMapping(value = "send/order-report", method = RequestMethod.POST)
-        public Report createOrderReport (@RequestBody Map<String, String> data) {
-            return REPORT_SERVICE.createReport(data); 
-        }
+    public Report createOrderReport(@RequestBody Map<String, String> data) {
+        return REPORT_SERVICE.createReport(data);
     }
-
-
+}

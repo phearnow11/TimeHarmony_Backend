@@ -32,8 +32,6 @@ public interface IMemberService {
 
     public String updateEmail(String member_id, String new_email);
 
-    
-
     public String toSeller(String m_id, String username);
 
     public List<AccessHistory> getAllAccessHistories(String member_id);
@@ -61,5 +59,7 @@ public interface IMemberService {
     public Addresses getAddressByAddressId(String addrId);
 
     public String checkPassword(String username, String rawpassword);
+
+    public Boolean checkUserEnabled(String username);
 
 }

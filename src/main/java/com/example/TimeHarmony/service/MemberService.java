@@ -152,7 +152,6 @@ public class MemberService implements IMemberService {
         return new_email;
     }
 
-    
     @Override
     public List<AccessHistory> getAllAccessHistories(String member_id) {
         return MEMBER_REPOSITORY.getAllAccessHistoriesFromMember(UUID.fromString(member_id));
@@ -293,6 +292,11 @@ public class MemberService implements IMemberService {
         if (member.isPresent())
             return member.get();
         return null;
+    }
+
+    @Override
+    public Boolean checkUserEnabled(String username) {
+        return USER_REPOSOTORY.getEnable(username) == 1;
     }
 
 }
