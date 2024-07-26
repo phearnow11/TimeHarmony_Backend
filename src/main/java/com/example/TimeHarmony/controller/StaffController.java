@@ -93,9 +93,9 @@ public class StaffController {
                 data.get("vid").toString());
     }
 
-    @RequestMapping(value= "send/report/to-seller/{wid}", method = RequestMethod.POST)
-    public Report sendReportUnapproved(@RequestBody Map<String, String> data, @PathVariable("wid") String wid){
-        return REPORT_SERVICE.createUnapproveReport(data, wid); 
+    @RequestMapping(value= "send/report/report_type = /{wid}", method = RequestMethod.POST)
+    public Report sendReportUnapproved(@PathVariable("report_type") Integer report_type, @RequestBody Map<String, String> data, @PathVariable("wid") String wid){
+        return REPORT_SERVICE.createReport(report_type, data, wid); 
     }
 
     @RequestMapping(value = "get/voucher/all", method = RequestMethod.GET)

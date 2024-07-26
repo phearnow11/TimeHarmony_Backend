@@ -36,6 +36,6 @@ public interface IAdminService {
 
     public String testUser();
 
-    int getProfit();
+    public long getProfit();
 
 }

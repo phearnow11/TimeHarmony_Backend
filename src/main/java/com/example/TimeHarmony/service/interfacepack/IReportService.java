@@ -15,4 +15,11 @@ public interface IReportService {
     List<Report> getAllReports();
 
     Report createUnapproveReport(Map<String, String> data, String wid); 
+
+    Report createBanUseReport(Map<String, String> data, String wid); 
+
+    Report createOrderReport(Map<String, String> data, String wid); 
+
+    Report createReport(Integer type, Map<String, String> data, String wid); 
+
 }

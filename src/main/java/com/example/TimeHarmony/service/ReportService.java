@@ -66,6 +66,52 @@ public class ReportService implements IReportService {
         return REPORT_REPOSITORY.save(newreport); 
     }
 
+    @Override
+    public Report createBanUseReport(Map<String, String> data, String wid) {
+        Report newreport = new Report(); 
+        String reportId = 'R' + STRING_SERVICE.autoGenerateString(11); 
+        
+        newreport.setReport_id(reportId);
+        newreport.setWatch_id(wid);
+        newreport.setOrder_id(data.get("order_id"));
+        newreport.setType(Reports.MEMBER_REPORT);
+        newreport.setTo(UUID.fromString(data.get("to")));
+        newreport.setFrom(UUID.fromString(data.get("from"))); 
+        newreport.setCreated_date(Timestamp.valueOf(LocalDateTime.now()));
+        
+        return REPORT_REPOSITORY.save(newreport); 
+    }
+
+    @Override
+    public Report createOrderReport(Map<String, String> data, String wid) {
+        Report newreport = new Report(); 
+        String reportId = 'R' + STRING_SERVICE.autoGenerateString(11); 
+        
+        newreport.setReport_id(reportId);
+        newreport.setWatch_id(wid);
+        newreport.setOrder_id(data.get("order_id"));
+        newreport.setType(Reports.ORDER_REPORT);
+        newreport.setTo(UUID.fromString(data.get("to")));
+        newreport.setFrom(UUID.fromString(data.get("from"))); 
+        newreport.setCreated_date(Timestamp.valueOf(LocalDateTime.now()));
+        
+        return REPORT_REPOSITORY.save(newreport); 
+    }
+
+    @Override
+    public Report createReport(Integer type, Map<String, String> data, String wid) {
+        switch (type) {
+            case 0 :
+                return createOrderReport(data, wid);
+            case 1 : 
+                return createUnapproveReport(data, wid); 
+            case 2 : 
+                return createBanUseReport(data, wid);
+        }
+        System.out.println("Just select report type from 0 to 2 !");
+        return null ; 
+    }
+
 
 
     

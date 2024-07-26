@@ -149,7 +149,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "get/profit", method = RequestMethod.GET)
-    public int getProfit() {
+    public long getProfit() {
         return ADMIN_SERVICE.getProfit();
     }
 }

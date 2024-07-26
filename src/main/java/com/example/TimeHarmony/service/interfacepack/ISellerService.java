@@ -2,6 +2,7 @@ package com.example.TimeHarmony.service.interfacepack;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import com.example.TimeHarmony.entity.Sellers;
 import com.example.TimeHarmony.entity.Users;
@@ -32,6 +33,10 @@ public interface ISellerService {
     String setRate(float incoming_rate, String sid, String rater);
 
     Float getRate(String sid);
+
+    public float getTotalAmountBySeller (String sid);
+
+
 
     List<String[]> getOrderFromWatch(String wid);
 }

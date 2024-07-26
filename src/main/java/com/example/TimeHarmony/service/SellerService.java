@@ -241,4 +241,20 @@ public class SellerService implements ISellerService {
         }
         return res;
     }
+
+    @Override
+    public float getTotalAmountBySeller(String sid) {
+        Sellers s = SELLER_REPOSITORY.findById(UUID.fromString(sid)).get(); 
+        List<Watch> wlist = s.getWatches(); 
+        float total = 0 ; 
+        for (int i = 1 ; i < wlist.size(); i ++) {
+            if (wlist.get(i).getState() == 7 ) {
+                total = total + wlist.get(i).getPrice(); 
+            }
+        }
+       
+        return total ; 
+    }
+
+    
 }
