@@ -58,8 +58,8 @@ public class AdminService implements IAdminService {
     @Autowired
     private OrderRepository ORDER_REPOSITORY;
 
-    @Autowired 
-    private PaymentRepository PAYMENT_REPOSITORY; 
+    @Autowired
+    private PaymentRepository PAYMENT_REPOSITORY;
 
     @Override
     public List<Members> getMembers() {
@@ -98,11 +98,9 @@ public class AdminService implements IAdminService {
     }
 
     @Override
-    public String banMemberbyId(String id) {
+    public String banMemberbyId(String username) {
         try {
-            Members m = MEMBER_REPOSITORY.getMemberById(id).get();
-            USER_REPOSOTORY.updateUserState(UserAuthenticationStatus.BANNED.getValue(),
-                    m.getUser_log_info().getUsername());
+            USER_REPOSOTORY.updateUserState(UserAuthenticationStatus.BANNED.getValue(), username);
             return "User banned";
         } catch (Exception e) {
             return e.toString();
@@ -110,11 +108,9 @@ public class AdminService implements IAdminService {
     }
 
     @Override
-    public String unbanMemberbyId(String id) {
+    public String unbanMemberbyId(String username) {
         try {
-            Members m = MEMBER_REPOSITORY.getMemberById(id).get();
-            USER_REPOSOTORY.updateUserState(UserAuthenticationStatus.ACTIVE.getValue(),
-                    m.getUser_log_info().getUsername());
+            USER_REPOSOTORY.updateUserState(UserAuthenticationStatus.ACTIVE.getValue(), username);
             return "User unbanned";
         } catch (Exception e) {
             return e.toString();
@@ -197,7 +193,7 @@ public class AdminService implements IAdminService {
 
     @Override
     public long getProfit() {
-        List<Payment> orderpayment = PAYMENT_REPOSITORY.findAll(); 
+        List<Payment> orderpayment = PAYMENT_REPOSITORY.findAll();
         long profit = 0;
         for (Payment p : orderpayment)
             profit = profit + (p.getWeb_profit());

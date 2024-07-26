@@ -158,14 +158,14 @@ public class AdminController {
     return ADMIN_SERVICE.getProfit();
   }
 
-  @RequestMapping(value = "ban/{mid}", method = RequestMethod.POST)
-  public String banUser(@PathVariable("mid") String mid) {
-    return ADMIN_SERVICE.banMemberbyId(mid);
+  @RequestMapping(value = "ban/{username}", method = RequestMethod.POST)
+  public String banUser(@PathVariable("username") String username) {
+    return ADMIN_SERVICE.banMemberbyId(username);
   }
 
-  @RequestMapping(value = "unban/{mid}", method = RequestMethod.POST)
-  public String unbanUser(@PathVariable("mid") String mid) {
-    return ADMIN_SERVICE.unbanMemberbyId(mid);
+  @RequestMapping(value = "unban/{username}", method = RequestMethod.POST)
+  public String unbanUser(@PathVariable("username") String username) {
+    return ADMIN_SERVICE.unbanMemberbyId(username);
   }
 
 }

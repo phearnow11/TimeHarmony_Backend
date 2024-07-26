@@ -20,9 +20,9 @@ public interface IAdminService {
 
     public String deleteMemberbyId(String id);
 
-    public String banMemberbyId(String id);
+    public String banMemberbyId(String username);
 
-    public String unbanMemberbyId(String id);
+    public String unbanMemberbyId(String username);
 
     public List<Map<String, String>> viewWatchCreationHistory();
 
