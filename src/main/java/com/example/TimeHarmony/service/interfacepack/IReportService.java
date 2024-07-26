@@ -1,6 +1,7 @@
 package com.example.TimeHarmony.service.interfacepack;
 
 import java.util.List;
+import java.util.Map;
 
 import com.example.TimeHarmony.entity.Report;
 
@@ -13,5 +14,5 @@ public interface IReportService {
 
     List<Report> getAllReports();
 
-    Report unApprovReport (String wid); 
+    Report createUnapproveReport(Map<String, String> data, String wid); 
 }

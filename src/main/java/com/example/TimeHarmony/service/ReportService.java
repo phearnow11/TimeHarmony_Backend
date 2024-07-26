@@ -1,11 +1,17 @@
 package com.example.TimeHarmony.service;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.TimeHarmony.entity.Report;
+import com.example.TimeHarmony.enumf.Reports;
 import com.example.TimeHarmony.repository.ReportRepository;
 import com.example.TimeHarmony.service.interfacepack.IReportService;
 
@@ -44,11 +50,23 @@ public class ReportService implements IReportService {
     }
 
     @Override
-    public Report unApprovReport(String wid) {
+    public Report createUnapproveReport(Map<String, String> data, String wid) {
+       
+        Report newreport = new Report(); 
+        String reportId = 'R' + STRING_SERVICE.autoGenerateString(11); 
         
-
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'unApprovReport'");
+        newreport.setReport_id(reportId);
+        newreport.setWatch_id(wid);
+        newreport.setOrder_id(data.get("order_id"));
+        newreport.setType(Reports.APPRAISER_REPORT); 
+        newreport.setTo(UUID.fromString(data.get("to")));
+        newreport.setFrom(UUID.fromString(data.get("from"))); 
+        newreport.setCreated_date(Timestamp.valueOf(LocalDateTime.now()));
+        
+        return REPORT_REPOSITORY.save(newreport); 
     }
 
+
+
+    
 }

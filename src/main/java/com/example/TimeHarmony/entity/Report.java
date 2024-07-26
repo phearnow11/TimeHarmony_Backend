@@ -1,6 +1,6 @@
 package com.example.TimeHarmony.entity;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 import com.example.TimeHarmony.enumf.Reports;

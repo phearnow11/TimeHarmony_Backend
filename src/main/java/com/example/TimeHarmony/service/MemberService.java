@@ -17,7 +17,6 @@ import com.example.TimeHarmony.dtos.Favorites;
 import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Authorities;
 import com.example.TimeHarmony.entity.Members;
-import com.example.TimeHarmony.entity.Report;
 import com.example.TimeHarmony.entity.Users;
 import com.example.TimeHarmony.enumf.Roles;
 import com.example.TimeHarmony.repository.AddressRepository;
@@ -153,12 +152,7 @@ public class MemberService implements IMemberService {
         return new_email;
     }
 
-    @Override
-    public Report createReport(Report report) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createReport'");
-    }
-
+    
     @Override
     public List<AccessHistory> getAllAccessHistories(String member_id) {
         return MEMBER_REPOSITORY.getAllAccessHistoriesFromMember(UUID.fromString(member_id));

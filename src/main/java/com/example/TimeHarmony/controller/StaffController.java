@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.TimeHarmony.entity.Report;
 import com.example.TimeHarmony.entity.Vouchers;
 import com.example.TimeHarmony.entity.Watch;
+import com.example.TimeHarmony.service.ReportService;
 import com.example.TimeHarmony.service.StaffService;
 import com.example.TimeHarmony.service.StringService;
 import com.example.TimeHarmony.service.VoucherService;
@@ -36,6 +38,8 @@ public class StaffController {
     private VoucherService VOUCHER_SERVICE;
     @Autowired
     private StringService STRING_SERVICE;
+    @Autowired
+    private ReportService REPORT_SERVICE; 
 
     @RequestMapping(value = "approve-watch", method = RequestMethod.PATCH)
     public String approveWatch(@RequestParam("watch_id") String watch_id) {
@@ -87,6 +91,11 @@ public class StaffController {
     public String removeVoucherAmount(@RequestBody Map<String, Object> data) {
         return VOUCHER_SERVICE.removeVoucherAmount((Integer.parseInt(data.get("num").toString())),
                 data.get("vid").toString());
+    }
+
+    @RequestMapping(value= "send/report/to-seller/{wid}", method = RequestMethod.POST)
+    public Report sendReportUnapproved(@RequestBody Map<String, String> data, @PathVariable("wid") String wid){
+        return REPORT_SERVICE.createUnapproveReport(data, wid); 
     }
 
     @RequestMapping(value = "get/voucher/all", method = RequestMethod.GET)

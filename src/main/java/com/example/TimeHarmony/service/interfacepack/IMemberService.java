@@ -8,7 +8,6 @@ import com.example.TimeHarmony.dtos.AccessHistory;
 import com.example.TimeHarmony.dtos.Favorites;
 import com.example.TimeHarmony.entity.Addresses;
 import com.example.TimeHarmony.entity.Members;
-import com.example.TimeHarmony.entity.Report;
 import com.example.TimeHarmony.entity.Users;
 
 public interface IMemberService {
@@ -33,7 +32,7 @@ public interface IMemberService {
 
     public String updateEmail(String member_id, String new_email);
 
-    public Report createReport(Report report);
+    
 
     public String toSeller(String m_id, String username);
 
