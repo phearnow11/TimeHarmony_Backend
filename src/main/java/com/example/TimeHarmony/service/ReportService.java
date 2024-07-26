@@ -18,8 +18,8 @@ import com.example.TimeHarmony.service.interfacepack.IReportService;
 @Service
 public class ReportService implements IReportService {
 
-    @Autowired 
-    private ReportRepository REPORT_REPOSITORY; 
+    @Autowired
+    private ReportRepository REPORT_REPOSITORY;
 
     @Autowired
     private StringService STRING_SERVICE;
@@ -29,13 +29,13 @@ public class ReportService implements IReportService {
 
     @Override
     public Report addReport(Report r) {
-        return REPORT_REPOSITORY.save(r); 
+        return REPORT_REPOSITORY.save(r);
     }
 
     @Override
     public List<Report> getMyReports(String mid) {
-        
-        return REPORT_REPOSITORY.findMyreportList(mid); 
+
+        return REPORT_REPOSITORY.findMyreportList(mid);
     }
 
     @Override
@@ -46,42 +46,36 @@ public class ReportService implements IReportService {
 
     @Override
     public List<Report> getAllReports() {
-       return REPORT_REPOSITORY.findAll(); 
+        return REPORT_REPOSITORY.findAll();
     }
-
-    
 
     @Override
     public Report createReport(Map<String, String> data) {
-        Report newreport = new Report(); 
-        String reportId = 'R' + STRING_SERVICE.autoGenerateString(11); 
+        Report newreport = new Report();
+        String reportId = 'R' + STRING_SERVICE.autoGenerateString(11);
         newreport.setReport_id(reportId);
         newreport.setWatch_id(data.get("watch_id"));
         newreport.setOrder_id(data.get("order_id"));
-        newreport.setTo_member((data.get("to")) !=  null ?  UUID.fromString(data.get("to")) : null); 
-        newreport.setFrom_member((data.get("from")) != null ? UUID.fromString(data.get("from")) : null); 
+        newreport.setTo_member((data.get("to")) != null ? UUID.fromString(data.get("to")) : null);
+        newreport.setFrom_member((data.get("from")) != null ? UUID.fromString(data.get("from")) : null);
         newreport.setContent(data.get("content"));
         newreport.setCreated_date(Timestamp.valueOf(LocalDateTime.now()));
-        System.out.println(newreport);
-        int type = Integer.parseInt(data.get("type")); 
+        int type = Integer.parseInt(data.get("type"));
         switch (type) {
-            case 0 :
+            case 0:
                 newreport.setType(Reports.ORDER_REPORT);
-                return REPORT_REPOSITORY.save(newreport); 
-                
-            case 1 : 
-                newreport.setType(Reports.APPRAISER_REPORT); 
+                return REPORT_REPOSITORY.save(newreport);
+
+            case 1:
+                newreport.setType(Reports.APPRAISER_REPORT);
                 System.out.println(newreport);
-                return REPORT_REPOSITORY.save(newreport); 
-            case 2 : 
-                newreport.setType(Reports.MEMBER_REPORT); 
-                return REPORT_REPOSITORY.save(newreport); 
+                return REPORT_REPOSITORY.save(newreport);
+            case 2:
+                newreport.setType(Reports.MEMBER_REPORT);
+                return REPORT_REPOSITORY.save(newreport);
         }
         System.out.println("Just select report type from 0 to 2 !");
-        return null ; 
+        return null;
     }
 
-
-
-    
 }

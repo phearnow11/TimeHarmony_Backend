@@ -46,8 +46,8 @@ public class AdminController {
   @Autowired
   private OrderService ORDER_SERVICE;
 
-    @Autowired
-    private ReportService REPORT_SERVICE;
+  @Autowired
+  private ReportService REPORT_SERVICE;
 
   @RequestMapping(value = "get/members", method = RequestMethod.GET)
   public List<Members> getaMembers() {
@@ -153,8 +153,19 @@ public class AdminController {
     return ORDER_SERVICE.getOrders();
   }
 
-    @RequestMapping(value = "get/profit", method = RequestMethod.GET)
-    public long getProfit() {
-        return ADMIN_SERVICE.getProfit();
-    }
+  @RequestMapping(value = "get/profit", method = RequestMethod.GET)
+  public long getProfit() {
+    return ADMIN_SERVICE.getProfit();
+  }
+
+  @RequestMapping(value = "ban/{mid}", method = RequestMethod.POST)
+  public String banUser(@PathVariable("mid") String mid) {
+    return ADMIN_SERVICE.banMemberbyId(mid);
+  }
+
+  @RequestMapping(value = "unban/{mid}", method = RequestMethod.POST)
+  public String unbanUser(@PathVariable("mid") String mid) {
+    return ADMIN_SERVICE.unbanMemberbyId(mid);
+  }
+
 }
