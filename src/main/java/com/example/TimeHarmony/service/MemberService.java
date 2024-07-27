@@ -3,6 +3,7 @@ package com.example.TimeHarmony.service;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -297,6 +298,12 @@ public class MemberService implements IMemberService {
     @Override
     public Boolean checkUserEnabled(String username) {
         return USER_REPOSOTORY.getEnable(username) == 1;
+    }
+
+    @Override
+    public String updateMember(String id, Map<String, Object> data) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateMember'");
     }
 
 }
