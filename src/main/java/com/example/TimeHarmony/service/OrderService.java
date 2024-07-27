@@ -140,10 +140,10 @@ public class OrderService implements IOrderService {
     @Override
     public String confirmOrder(String oid) {
         try {
-            if (ORDER_REPOSITORY.getState(oid) != OrderState.SHIPPING)
-                throw new Exception("Order is not Shipping");
+            if (ORDER_REPOSITORY.getState(oid) != OrderState.SHIPPED)
+                throw new Exception("Logic Error");
             WATCH_REPOSITORY.orderSucess(oid);
-            ORDER_REPOSITORY.updateOrderState(OrderState.SUCCESS.getSTATE_VALUE(), oid);
+            ORDER_REPOSITORY.successOrder(oid);
             return "Order is confirmed success";
         } catch (Exception e) {
             return e.toString();
