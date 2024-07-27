@@ -241,11 +241,12 @@ public class SellerService implements ISellerService {
 
     @Override
     public float getTotalAmountBySeller(String sid) {
+        int WATCH_SUCCESS_STATE = 6;
         Sellers s = SELLER_REPOSITORY.findById(UUID.fromString(sid)).get();
         List<Watch> wlist = s.getWatches();
         float total = 0;
         for (int i = 1; i < wlist.size(); i++) {
-            if (wlist.get(i).getState() == 7) {
+            if (wlist.get(i).getState() == WATCH_SUCCESS_STATE) {
                 total = total + wlist.get(i).getPrice();
             }
         }

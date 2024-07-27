@@ -69,10 +69,16 @@ public class StaffService implements IStaffService {
             if (ORDER_REPOSITORY.getState(oid) == OrderState.SHIPPING)
                 throw new Exception("Order is already shipping");
             ORDER_REPOSITORY.updateOrderState(OrderState.SHIPPING.getSTATE_VALUE(), oid);
+            STAFF_REPOSITORY.shippingOrder(UUID.fromString(id), oid);
             return "Order is shipping";
         } catch (Exception e) {
             return e.toString();
         }
+    }
+
+    @Override
+    public List<String> getMyShippingOrder(String id) {
+        return ORDER_REPOSITORY.getShippingOrderFromShipper(UUID.fromString(id));
     }
 
 }

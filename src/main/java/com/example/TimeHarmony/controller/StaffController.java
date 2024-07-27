@@ -126,4 +126,9 @@ public class StaffController {
     public String shipOrder(@RequestParam("oid") String oid, @RequestParam("id") String id) {
         return STAFF_SERVICE.shipOrder(id, oid);
     }
+
+    @RequestMapping(value = "get/my-shipping-order/{id}", method = RequestMethod.GET)
+    public List<String> getMyShippingOrder(@PathVariable("id") String id) {
+        return STAFF_SERVICE.getMyShippingOrder(id);
+    }
 }

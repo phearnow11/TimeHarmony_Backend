@@ -122,10 +122,6 @@ public class OrderService implements IOrderService {
 
     @Override
     public OrderState getOrderState(String oid) {
-        if (!ORDER_REPOSITORY.getOrderWatchStates(oid).contains(3)) {
-            ORDER_REPOSITORY.updateOrderState(OrderState.SHIPPING.getSTATE_VALUE(), oid);
-        }
-
         return ORDER_REPOSITORY.getState(oid);
     }
 
@@ -143,8 +139,15 @@ public class OrderService implements IOrderService {
 
     @Override
     public String confirmOrder(String oid) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'confirmOrder'");
+        try {
+            if (ORDER_REPOSITORY.getState(oid) != OrderState.SHIPPING)
+                throw new Exception("Order is not Shipping");
+            WATCH_REPOSITORY.orderSucess(oid);
+            ORDER_REPOSITORY.updateOrderState(OrderState.SUCCESS.getSTATE_VALUE(), oid);
+            return "Order is confirmed success";
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
 
     @Override

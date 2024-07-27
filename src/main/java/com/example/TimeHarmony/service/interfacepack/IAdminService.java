@@ -38,4 +38,6 @@ public interface IAdminService {
 
     public long getProfit();
 
+    List<String> getAllShippingOrder();
+
 }

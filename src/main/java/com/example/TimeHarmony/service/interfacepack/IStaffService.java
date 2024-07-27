@@ -12,4 +12,6 @@ public interface IStaffService {
     public List<Watch> getAllStateWatch(int state);
 
     String shipOrder(String id, String oid);
+
+    List<String> getMyShippingOrder(String id);
 }

@@ -256,4 +256,9 @@ public class MemberController {
     public Report createOrderReport(@RequestBody Map<String, String> data) {
         return REPORT_SERVICE.createReport(data);
     }
+
+    @RequestMapping(value = "confirm-success/order/{oid}", method = RequestMethod.POST)
+    public String orderSuccess(@PathVariable("oid") String oid) {
+        return ORDER_SERVICE.confirmOrder(oid);
+    }
 }

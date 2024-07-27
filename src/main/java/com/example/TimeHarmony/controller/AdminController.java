@@ -168,4 +168,9 @@ public class AdminController {
     return ADMIN_SERVICE.unbanMemberbyId(username);
   }
 
+  @RequestMapping(value = "get/shipping-order/all", method = RequestMethod.GET)
+  public List<String> getAllShippingOrder() {
+    return ADMIN_SERVICE.getAllShippingOrder();
+  }
+
 }
