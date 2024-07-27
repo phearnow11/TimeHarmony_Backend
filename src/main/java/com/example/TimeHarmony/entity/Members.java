@@ -38,7 +38,7 @@ public class Members {
 
     @OneToOne
     @JoinColumn(name = "username")
-    @JsonIgnoreProperties(value = { "password", "enabled", "handler",
+    @JsonIgnoreProperties(value = { "password", "handler",
             "hibernateLazyInitializer" }, allowSetters = true)
     private Users user_log_info;
 

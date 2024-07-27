@@ -37,6 +37,9 @@ public interface MemberRepository extends JpaRepository<Members, UUID> {
         @Query(value = "select * from Favorites join [dbo].[Watch] on [dbo].[Watch].watch_id = [dbo].[Favorites].watch_id join [dbo].[Members] on [dbo].[Watch].member_id = [dbo].[Members].member_id where [dbo].[Favorites].member_id = :id and [dbo].[Watch].state = 1", nativeQuery = true)
         List<Favorites> getFavoritesFromMember(@Param("id") UUID id, Limit limit);
 
+        @Query(value = "select m from Members m where m.member_id != :member_id")
+        List<Members> getAllMemberExclusive(@Param("member_id") UUID mid);
+
         @Modifying
         @Transactional
         @Query(value = "insert Favorites(member_id, watch_id) values (:m_id, :w_id)", nativeQuery = true)

@@ -63,7 +63,7 @@ public class AdminService implements IAdminService {
 
     @Override
     public List<Members> getMembers() {
-        return MEMBER_REPOSITORY.findAll();
+        return MEMBER_REPOSITORY.getAllMemberExclusive(UUID.fromString("54b0e42b-f72b-4edb-b967-2c421285fcda"));
     }
 
     @Override
