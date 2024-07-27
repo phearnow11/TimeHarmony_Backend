@@ -241,7 +241,7 @@ public class SellerService implements ISellerService {
 
     @Override
     public float getTotalProfitBySeller(String sid) {
-        int WATCH_SUCCESS_STATE = 6;
+        int WATCH_SUCCESS_STATE = 3;
         Sellers s = SELLER_REPOSITORY.findById(UUID.fromString(sid)).get();
         List<Watch> wlist = s.getWatches();
         float total = 0;
@@ -253,5 +253,20 @@ public class SellerService implements ISellerService {
 
         return total;
     }
+
+    @Override
+    public float getProfitByMonth(int month, String sid) {
+        List<Watch> wlist = WATCH_REPOSITORY.getWatchSelledByMonth(month, sid); 
+        float total = 0 ; 
+        for (int i = 1; i < wlist.size(); i++) {
+           
+                total = total + wlist.get(i).getPrice();
+            
+        }
+        return total;    
+       
+    }
+
+    
 
 }

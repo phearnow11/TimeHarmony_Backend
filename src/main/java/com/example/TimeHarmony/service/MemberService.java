@@ -3,6 +3,7 @@ package com.example.TimeHarmony.service;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -297,6 +298,28 @@ public class MemberService implements IMemberService {
     @Override
     public Boolean checkUserEnabled(String username) {
         return USER_REPOSOTORY.getEnable(username) == 1;
+    }
+
+    @Override
+    public String updateMember(String id, Map<String, Object> data) {
+        try {
+            Members cur_member = getMemberbyID(id).get();
+            if (data.get("username") != null) {
+                USER_REPOSOTORY.updateUsername(data.get("username").toString(),
+                        cur_member.getUser_log_info().getUsername());
+            }
+            cur_member.setFirst_name(
+                    data.get("fname") == null ? cur_member.getFirst_name() : data.get("fname").toString());
+            cur_member.setLast_name(
+                    data.get("lname") == null ? cur_member.getFirst_name() : data.get("lname").toString());
+            cur_member.setPhone(data.get("phone") == null ? cur_member.getFirst_name() : data.get("phone").toString());
+            cur_member.setEmail(data.get("email") == null ? cur_member.getFirst_name() : data.get("email").toString());
+            MEMBER_REPOSITORY.save(cur_member);
+            return "Member updated";
+        } catch (Exception e) {
+            return e.toString();
+        }
+
     }
 
 }

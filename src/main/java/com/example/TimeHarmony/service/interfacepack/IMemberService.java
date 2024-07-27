@@ -2,6 +2,7 @@ package com.example.TimeHarmony.service.interfacepack;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.example.TimeHarmony.dtos.AccessHistory;
@@ -62,4 +63,5 @@ public interface IMemberService {
 
     public Boolean checkUserEnabled(String username);
 
+    public String updateMember(String id, Map<String, Object> data);
 }

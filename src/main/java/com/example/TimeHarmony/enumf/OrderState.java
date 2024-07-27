@@ -5,7 +5,7 @@ public enum OrderState {
     NEW(0),
     PENDING(1),
     SHIPPING(2),
-    SUCCESS(3),
+    SUCCESS(3), //state cuối 
     FAILED(4),
     DELETED(5),
     SHIPPED(6);
