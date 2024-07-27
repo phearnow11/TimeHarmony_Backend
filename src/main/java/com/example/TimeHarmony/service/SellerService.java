@@ -243,7 +243,7 @@ public class SellerService implements ISellerService {
     }
 
     @Override
-    public float getTotalAmountBySeller(String sid) {
+    public float getTotalProfitBySeller(String sid) {
         Sellers s = SELLER_REPOSITORY.findById(UUID.fromString(sid)).get(); 
         List<Watch> wlist = s.getWatches(); 
         float total = 0 ; 
@@ -252,7 +252,7 @@ public class SellerService implements ISellerService {
                 total = total + wlist.get(i).getPrice(); 
             }
         }
-       
+        
         return total ; 
     }
 

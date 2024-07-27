@@ -2,6 +2,7 @@ package com.example.TimeHarmony.service.interfacepack;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import com.example.TimeHarmony.entity.Report;
 
@@ -10,7 +11,7 @@ public interface IReportService {
 
     List<Report> getMyReports(String mid);
 
-    List<Report> getReportsAuthor(String rid);
+    UUID getReportsAuthorId(String rid);
 
     List<Report> getAllReports();
 

@@ -130,4 +130,11 @@ public class SellerController {
     public List<String[]> getOrderIDList(@PathVariable("id") String sid) {
         return SELLER_SERVICE.getOrderFromWatch(sid);
     }
+
+    @RequestMapping(value = "get/seller-profit/{id}", method = RequestMethod.GET)
+    public float getSellerProfit (@PathVariable("id") String id){
+        return SELLER_SERVICE.getTotalProfitBySeller(id); 
+    }
+
+
 }

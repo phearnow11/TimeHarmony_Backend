@@ -1,7 +1,6 @@
 package com.example.TimeHarmony.service;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -39,9 +38,9 @@ public class ReportService implements IReportService {
     }
 
     @Override
-    public List<Report> getReportsAuthor(String rid) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getReportsAuthor'");
+    public UUID getReportsAuthorId(String rid) {
+        Report r = REPORT_REPOSITORY.findReportAuthor(rid).get(); 
+        return r.getFrom_member(); 
     }
 
     @Override
