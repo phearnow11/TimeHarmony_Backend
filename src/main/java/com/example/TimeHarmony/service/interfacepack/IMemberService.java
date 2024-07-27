@@ -63,5 +63,5 @@ public interface IMemberService {
 
     public Boolean checkUserEnabled(String username);
 
-    public String updateMember(String id, Map<String, Object> data);
+    String updateMember(String id, Map<String, Object> data);
 }

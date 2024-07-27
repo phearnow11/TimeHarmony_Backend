@@ -261,4 +261,9 @@ public class MemberController {
     public String orderSuccess(@PathVariable("oid") String oid) {
         return ORDER_SERVICE.confirmOrder(oid);
     }
+
+    @RequestMapping(value = "update/member/{id}", method = RequestMethod.PUT)
+    public String updateMember(@PathVariable("id") String id, @RequestBody Map<String, Object> data) {
+        return MEMBER_SERVICE.updateMember(id, data);
+    }
 }

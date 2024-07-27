@@ -128,10 +128,14 @@ public class OrderService implements IOrderService {
     @Override
     public String cancelOrder(String oid) {
         try {
-            WATCH_REPOSITORY.cancelOrder(oid);
-            ORDER_REPOSITORY.deleteOrder(oid);
-            ORDER_REPOSITORY.updateOrderState(OrderState.DELETED.getSTATE_VALUE(), oid);
-            return "Order " + oid + " deleted";
+            OrderState state = ORDER_REPOSITORY.getState(oid);
+            if (state == OrderState.PENDING) {
+                WATCH_REPOSITORY.cancelOrder(oid);
+                ORDER_REPOSITORY.deleteOrder(oid);
+                ORDER_REPOSITORY.updateOrderState(OrderState.DELETED.getSTATE_VALUE(), oid);
+                return "Order " + oid + " deleted";
+            }
+            return "Logic error";
         } catch (Exception e) {
             return e.toString();
         }

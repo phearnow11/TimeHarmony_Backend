@@ -110,7 +110,7 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
         @Query(value = "select * from Watch where member_id = :mid and (state = 1 or state = 3)", nativeQuery = true)
         List<Watch> getWatchesBySeller(@Param("mid") UUID mid, Limit limit);
 
-        @Query(value = "select * from Watch where member_id = :mid and state = 3", nativeQuery = true)
+        @Query(value = "select * from Watch where member_id = :mid and (state = 3 or state = 4 or state = 6 or state = 7)", nativeQuery = true)
         List<Watch> getWaitingWatches(@Param("mid") UUID mid, Limit limit);
 
         @Modifying
