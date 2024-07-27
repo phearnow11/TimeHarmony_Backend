@@ -225,7 +225,7 @@ public class MemberController {
     @GetMapping("/test")
     public String test(@RequestBody Map<String, Object> data, @RequestParam() Map<String, Object> a) {
 
-        return "" + MEMBER_SERVICE.checkUserEnabled("thinh");
+        return "" + (Boolean) a.get("test");
     }
 
     @RequestMapping(value = "get/voucher/all", method = RequestMethod.GET)

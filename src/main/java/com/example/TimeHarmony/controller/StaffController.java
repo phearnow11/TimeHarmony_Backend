@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.TimeHarmony.entity.Orders;
 import com.example.TimeHarmony.entity.Report;
 import com.example.TimeHarmony.entity.Vouchers;
 import com.example.TimeHarmony.entity.Watch;
+import com.example.TimeHarmony.service.OrderService;
 import com.example.TimeHarmony.service.ReportService;
 import com.example.TimeHarmony.service.StaffService;
 import com.example.TimeHarmony.service.StringService;
@@ -39,7 +41,9 @@ public class StaffController {
     @Autowired
     private StringService STRING_SERVICE;
     @Autowired
-    private ReportService REPORT_SERVICE; 
+    private ReportService REPORT_SERVICE;
+    @Autowired
+    private OrderService ORDER_SERVICE;
 
     @RequestMapping(value = "approve-watch", method = RequestMethod.PATCH)
     public String approveWatch(@RequestParam("watch_id") String watch_id) {
@@ -93,9 +97,9 @@ public class StaffController {
                 data.get("vid").toString());
     }
 
-    @RequestMapping(value= "send/unapprove-report", method = RequestMethod.POST)
-    public Report sendReportUnapproved(@RequestBody Map<String, String> data){
-        return REPORT_SERVICE.createReport(data); 
+    @RequestMapping(value = "send/unapprove-report", method = RequestMethod.POST)
+    public Report sendReportUnapproved(@RequestBody Map<String, String> data) {
+        return REPORT_SERVICE.createReport(data);
     }
 
     @RequestMapping(value = "get/voucher/all", method = RequestMethod.GET)
@@ -110,6 +114,16 @@ public class StaffController {
 
     @RequestMapping(value = "remove/watch/{wid}/{sid}", method = RequestMethod.GET)
     public String removeWatch(@PathVariable("wid") String wid, @PathVariable("sid") String sid) {
-        return WATCH_SERVICE.deleteWatch(wid, sid); 
+        return WATCH_SERVICE.deleteWatch(wid, sid);
+    }
+
+    @RequestMapping(value = "get/pending-order", method = RequestMethod.GET)
+    public List<Orders> getPendingOrders() {
+        return ORDER_SERVICE.getPendingOrder();
+    }
+
+    @RequestMapping(value = "ship/order", method = RequestMethod.POST)
+    public String shipOrder(@RequestParam("oid") String oid, @RequestParam("id") String id) {
+        return STAFF_SERVICE.shipOrder(id, oid);
     }
 }

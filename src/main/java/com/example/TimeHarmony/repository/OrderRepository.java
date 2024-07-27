@@ -58,4 +58,7 @@ public interface OrderRepository extends JpaRepository<Orders, String> {
 
     @Query(value = "select create_time from [dbo].[Orders] where order_id = :oid", nativeQuery = true)
     String getCreationDate(@Param("oid") String oid);
+
+    @Query(value = "select * from [dbo].[Orders] where state = :state ", nativeQuery = true)
+    List<Orders> getOrderByState(@Param("state") int state);
 }

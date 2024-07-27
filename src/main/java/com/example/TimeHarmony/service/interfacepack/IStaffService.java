@@ -10,4 +10,6 @@ public interface IStaffService {
     public String unApproveWatch(String watch_id);
 
     public List<Watch> getAllStateWatch(int state);
+
+    String shipOrder(String id, String oid);
 }

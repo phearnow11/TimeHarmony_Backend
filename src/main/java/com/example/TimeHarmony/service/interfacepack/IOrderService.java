@@ -29,4 +29,6 @@ public interface IOrderService {
 
     String confirmOrder(String oid);
 
+    List<Orders> getPendingOrder();
+
 }

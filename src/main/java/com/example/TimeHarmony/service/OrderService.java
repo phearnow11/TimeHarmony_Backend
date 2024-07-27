@@ -147,4 +147,9 @@ public class OrderService implements IOrderService {
         throw new UnsupportedOperationException("Unimplemented method 'confirmOrder'");
     }
 
+    @Override
+    public List<Orders> getPendingOrder() {
+        return ORDER_REPOSITORY.getOrderByState(OrderState.PENDING.getSTATE_VALUE());
+    }
+
 }
