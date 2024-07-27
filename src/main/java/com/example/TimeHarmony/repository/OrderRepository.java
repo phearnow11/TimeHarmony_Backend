@@ -68,6 +68,20 @@ public interface OrderRepository extends JpaRepository<Orders, String> {
     @Query(value = "select [dbo].[Orders].order_id from [dbo].[Orders] join [dbo].[Shipping_Order] on [dbo].[Orders].order_id = [dbo].[Shipping_Order].order_id", nativeQuery = true)
     List<String> getAllShippingOrder();
 
+    @Modifying
+    @Transactional
+    @Query(value = "update [dbo].[Orders] set state = 2 , shipping_date = getdate() where order_id = :oid", nativeQuery = true)
+    void shipOrder(@Param("oid") String oid);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update [dbo].[Orders] set state = 6 , shipped_date = getdate() where order_id = :oid", nativeQuery = true)
+    void shippedOrder(@Param("oid") String oid);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update [dbo].[Orders] set state = 3 , received_date = getdate() where order_id = :oid", nativeQuery = true)
+    void successOrder(@Param("oid") String oid);
     @Query(value = "select [dbo].[Watches_In_Cart].watch_id from [dbo].[Orders] join [dbo].[Watches_In_Cart] on [dbo].[Orders].order_id = [dbo].[Watches_In_Cart].order_id where watch_id =: wid and MONTH(received_date) = :month", nativeQuery= true )
     String getReceivedWatch(@Param("month") int month); 
 }

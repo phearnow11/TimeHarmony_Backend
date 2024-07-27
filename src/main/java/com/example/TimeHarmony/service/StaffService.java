@@ -68,7 +68,7 @@ public class StaffService implements IStaffService {
                 throw new Exception("Order is not packed");
             if (ORDER_REPOSITORY.getState(oid) == OrderState.SHIPPING)
                 throw new Exception("Order is already shipping");
-            ORDER_REPOSITORY.updateOrderState(OrderState.SHIPPING.getSTATE_VALUE(), oid);
+            ORDER_REPOSITORY.shipOrder(oid);
             STAFF_REPOSITORY.shippingOrder(UUID.fromString(id), oid);
             return "Order is shipping";
         } catch (Exception e) {
@@ -79,6 +79,22 @@ public class StaffService implements IStaffService {
     @Override
     public List<String> getMyShippingOrder(String id) {
         return ORDER_REPOSITORY.getShippingOrderFromShipper(UUID.fromString(id));
+    }
+
+    @Override
+    public String shippedOrder(String id, String oid) {
+        try {
+            if (STAFF_REPOSITORY.getRole(UUID.fromString(id)) != StaffRole.SHIPPER)
+                throw new Exception("You are not shipper");
+            if (ORDER_REPOSITORY.getState(oid) != OrderState.SHIPPING)
+                throw new Exception("Logic error");
+            ORDER_REPOSITORY.shippedOrder(oid);
+            STAFF_REPOSITORY.shippedOrder(oid);
+            WATCH_REPOSITORY.shippedOrder(oid);
+            return "Order shipped confirm";
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
 
 }

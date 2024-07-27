@@ -7,7 +7,8 @@ public enum OrderState {
     SHIPPING(2),
     SUCCESS(3),
     FAILED(4),
-    DELETED(5);
+    DELETED(5),
+    SHIPPED(6);
 
     private int STATE_VALUE;
 

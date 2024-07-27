@@ -130,6 +130,11 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
 
         @Modifying
         @Transactional
+        @Query(value = "update [dbo].[Watch] set [dbo].[Watch].state = 7 from [dbo].[Watch] join [dbo].[Watches_In_Cart] on [dbo].[Watches_In_Cart].watch_id = [dbo].[Watch].watch_id where order_id = :oid ", nativeQuery = true)
+        void shippedOrder(@Param("oid") String oid);
+
+        @Modifying
+        @Transactional
         @Query(value = "update [dbo].[Watch] set [dbo].[Watch].state = 6 from [dbo].[Watch] join [dbo].[Watches_In_Cart] on [dbo].[Watches_In_Cart].watch_id = [dbo].[Watch].watch_id where order_id = :oid ", nativeQuery = true)
         void orderSucess(@Param("oid") String oid);
 

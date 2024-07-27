@@ -26,4 +26,9 @@ public interface StaffRepository extends JpaRepository<Staff, UUID> {
     @Transactional
     @Query(value = "insert [dbo].[Shipping_Order](shipper, order_id) values (:id, :oid)", nativeQuery = true)
     void shippingOrder(@Param("id") UUID id, @Param("oid") String oid);
+
+    @Modifying
+    @Transactional
+    @Query(value = "delete [dbo].[Shipping_Order] where order_id = :oid", nativeQuery = true)
+    void shippedOrder(@Param("oid") String oid);
 }

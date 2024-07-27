@@ -14,4 +14,6 @@ public interface IStaffService {
     String shipOrder(String id, String oid);
 
     List<String> getMyShippingOrder(String id);
+
+    String shippedOrder(String id, String oid);
 }
