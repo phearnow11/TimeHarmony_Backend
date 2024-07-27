@@ -1,7 +1,12 @@
 package com.example.TimeHarmony.controller;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,6 +43,8 @@ public class PaymentController {
     @Autowired
     private CartService CART_SERVICE;
 
+    private Timer timer;
+
     @RequestMapping(value = "/vn-pay", method = RequestMethod.POST)
     public ResponseObject<PaymentDTO.VNPayResponse> pay(HttpServletRequest request,
             @RequestBody List<String> data) {
@@ -47,6 +54,22 @@ public class PaymentController {
                 if (state != 1) {
                     throw new Exception("An Error occur");
                 }
+
+            LocalDateTime fifteenMinuteLater = LocalDateTime.now().plusMinutes(15);
+            Date fifteenMinuteLaterAsDate = Date.from(fifteenMinuteLater.atZone(ZoneId.systemDefault()).toInstant());
+            // LocalDateTime twoSecondsLater = LocalDateTime.now().plusSeconds(15);
+            // Date twoSecondsLaterAsDate =
+            // Date.from(twoSecondsLater.atZone(ZoneId.systemDefault()).toInstant());
+            TimerTask paymentStateTask = new TimerTask() {
+                public void run() {
+                    byte VIEW_STATE = 1;
+                    WATCH_SERVICE.updateWatchesState(data, VIEW_STATE);
+                    CART_SERVICE.updateAllByIDS(data, VIEW_STATE);
+                }
+            };
+            timer = new Timer();
+            timer.schedule(paymentStateTask, fifteenMinuteLaterAsDate);
+
             WATCH_SERVICE.updateWatchesState(data, PAYMENT_PROCESSING);
             CART_SERVICE.updateAllByIDS(data, 0);
             return new ResponseObject<>(HttpStatus.OK, "Success", PAYMENT_SERVICE.createVnPayPayment(request));
@@ -58,6 +81,7 @@ public class PaymentController {
     @RequestMapping(value = "/insert-payment-detail", method = RequestMethod.POST)
     public Payment savePayment(@RequestBody Map<String, String> data) {
         try {
+            timer.cancel();
             if (!Boolean.parseBoolean(data.get("isSuccess")))
                 throw new Exception("Payment Failed");
             return PAYMENT_SERVICE.savePaymentDetail(data);

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.example.TimeHarmony.builder.MemberBuilder;
 import com.example.TimeHarmony.entity.Admins;
 import com.example.TimeHarmony.entity.Members;
-import com.example.TimeHarmony.entity.Orders;
 import com.example.TimeHarmony.entity.Payment;
 import com.example.TimeHarmony.entity.Report;
 import com.example.TimeHarmony.entity.Sellers;
@@ -100,7 +99,9 @@ public class AdminService implements IAdminService {
     @Override
     public String banMemberbyId(String username) {
         try {
+            int DELETE_WATCH = 2;
             USER_REPOSOTORY.updateUserState(UserAuthenticationStatus.BANNED.getValue(), username);
+            WATCH_REPOSITORY.adminOperationWithAllWatchFromSeller(username, DELETE_WATCH);
             return "User banned";
         } catch (Exception e) {
             return e.toString();
@@ -110,7 +111,9 @@ public class AdminService implements IAdminService {
     @Override
     public String unbanMemberbyId(String username) {
         try {
+            int VIEW_WATCH = 1;
             USER_REPOSOTORY.updateUserState(UserAuthenticationStatus.ACTIVE.getValue(), username);
+            WATCH_REPOSITORY.adminOperationWithAllWatchFromSeller(username, VIEW_WATCH);
             return "User unbanned";
         } catch (Exception e) {
             return e.toString();
@@ -198,6 +201,11 @@ public class AdminService implements IAdminService {
         for (Payment p : orderpayment)
             profit = profit + (p.getWeb_profit());
         return profit;
+    }
+
+    @Override
+    public List<String> getAllShippingOrder() {
+        return ORDER_REPOSITORY.getAllShippingOrder();
     }
 
 }

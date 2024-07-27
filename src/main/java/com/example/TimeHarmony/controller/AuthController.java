@@ -123,6 +123,9 @@ public class AuthController {
                         .setMemberImage(picture)
                         .build();
                 MEMBER_SERVICE.saveUser(nMembers, nUsers);
+            } else {
+                if (nMembers.getUser_log_info().getEnabled() == 0)
+                    throw new Exception("User is banned");
             }
             Authentication authentication = new UsernamePasswordAuthenticationToken(
                     nMembers.getUser_log_info().getUsername(), nMembers.getUser_log_info().getPassword());

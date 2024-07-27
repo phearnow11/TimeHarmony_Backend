@@ -58,4 +58,14 @@ public interface OrderRepository extends JpaRepository<Orders, String> {
 
     @Query(value = "select create_time from [dbo].[Orders] where order_id = :oid", nativeQuery = true)
     String getCreationDate(@Param("oid") String oid);
+
+    @Query(value = "select * from [dbo].[Orders] where state = :state ", nativeQuery = true)
+    List<Orders> getOrderByState(@Param("state") int state);
+
+    @Query(value = "select [dbo].[Orders].order_id from [dbo].[Orders] join [dbo].[Shipping_Order] on [dbo].[Orders].order_id = [dbo].[Shipping_Order].order_id where shipper = :shipper", nativeQuery = true)
+    List<String> getShippingOrderFromShipper(@Param("shipper") UUID shipper);
+
+    @Query(value = "select [dbo].[Orders].order_id from [dbo].[Orders] join [dbo].[Shipping_Order] on [dbo].[Orders].order_id = [dbo].[Shipping_Order].order_id", nativeQuery = true)
+    List<String> getAllShippingOrder();
+
 }

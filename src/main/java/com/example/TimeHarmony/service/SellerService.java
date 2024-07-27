@@ -14,7 +14,6 @@ import com.example.TimeHarmony.entity.Authorities;
 import com.example.TimeHarmony.entity.Sellers;
 import com.example.TimeHarmony.entity.Users;
 import com.example.TimeHarmony.entity.Watch;
-import com.example.TimeHarmony.enumf.OrderState;
 import com.example.TimeHarmony.enumf.Roles;
 import com.example.TimeHarmony.repository.AuthoritiesRepository;
 import com.example.TimeHarmony.repository.OrderRepository;
@@ -191,8 +190,6 @@ public class SellerService implements ISellerService {
         try {
             byte SHIP = 4;
             WATCH_REPOSITORY.updateWatchState(SHIP, wid);
-            if (WATCH_REPOSITORY.getWatchNOTShipped(oid) == 0)
-                ORDER_REPOSITORY.updateOrderState(OrderState.SHIPPING.getSTATE_VALUE(), oid);
             return "Confirm shipping";
         } catch (Exception e) {
             return e.toString();
@@ -243,18 +240,18 @@ public class SellerService implements ISellerService {
     }
 
     @Override
-    public float getTotalProfitBySeller(String sid) {
-        Sellers s = SELLER_REPOSITORY.findById(UUID.fromString(sid)).get(); 
-        List<Watch> wlist = s.getWatches(); 
-        float total = 0 ; 
-        for (int i = 1 ; i < wlist.size(); i ++) {
-            if (wlist.get(i).getState() == 7 ) {
-                total = total + wlist.get(i).getPrice(); 
+    public float getTotalAmountBySeller(String sid) {
+        int WATCH_SUCCESS_STATE = 6;
+        Sellers s = SELLER_REPOSITORY.findById(UUID.fromString(sid)).get();
+        List<Watch> wlist = s.getWatches();
+        float total = 0;
+        for (int i = 1; i < wlist.size(); i++) {
+            if (wlist.get(i).getState() == WATCH_SUCCESS_STATE) {
+                total = total + wlist.get(i).getPrice();
             }
         }
-        
-        return total ; 
+
+        return total;
     }
 
-    
 }

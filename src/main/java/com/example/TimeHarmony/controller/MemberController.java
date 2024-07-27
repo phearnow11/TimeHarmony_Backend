@@ -225,7 +225,7 @@ public class MemberController {
     @GetMapping("/test")
     public String test(@RequestBody Map<String, Object> data, @RequestParam() Map<String, Object> a) {
 
-        return "" + MEMBER_SERVICE.checkUserEnabled("thinh");
+        return "" + (Boolean) a.get("test");
     }
 
     @RequestMapping(value = "get/voucher/all", method = RequestMethod.GET)
@@ -255,5 +255,10 @@ public class MemberController {
     @RequestMapping(value = "send/order-report", method = RequestMethod.POST)
     public Report createOrderReport(@RequestBody Map<String, String> data) {
         return REPORT_SERVICE.createReport(data);
+    }
+
+    @RequestMapping(value = "confirm-success/order/{oid}", method = RequestMethod.POST)
+    public String orderSuccess(@PathVariable("oid") String oid) {
+        return ORDER_SERVICE.confirmOrder(oid);
     }
 }

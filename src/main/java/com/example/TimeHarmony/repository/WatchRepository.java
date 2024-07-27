@@ -130,8 +130,8 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
 
         @Modifying
         @Transactional
-        @Query(value = "update [dbo].[Watch] set [dbo].[Watch].state = 7 from [dbo].[Watch] join [dbo].[Watches_In_Cart] on [dbo].[Watches_In_Cart].watch_id = [dbo].[Watch].watch_id where order_id = :oid ", nativeQuery = true)
-        void deliveredOrder(@Param("oid") String oid);
+        @Query(value = "update [dbo].[Watch] set [dbo].[Watch].state = 6 from [dbo].[Watch] join [dbo].[Watches_In_Cart] on [dbo].[Watches_In_Cart].watch_id = [dbo].[Watch].watch_id where order_id = :oid ", nativeQuery = true)
+        void orderSucess(@Param("oid") String oid);
 
         @Query(value = "select count([dbo].[Watches_In_Cart].watch_id) from [dbo].[Watches_In_Cart] join [dbo].[Watch] on [dbo].[Watch].watch_id = [dbo].[Watches_In_Cart].watch_id where [dbo].[Watches_In_Cart].order_id = :oid and [dbo].[Watch].state <> 4", nativeQuery = true)
         int getWatchNOTShipped(@Param("oid") String oid);
@@ -146,4 +146,10 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
         @Transactional
         @Query(value = "update [dbo].[Watches_In_Cart] set state = :state where watch_id in :wids", nativeQuery = true)
         void updateWatchInCartByID(@Param("wids") List<String> wids, @Param("state") int state);
+
+        @Modifying
+        @Transactional
+        @Query(value = "update [dbo].[Watch] set state = :state from [dbo].[Watch] join [dbo].[Members] on [dbo].[Members].member_id = [dbo].[Watch].member_id where username = :username", nativeQuery = true)
+        void adminOperationWithAllWatchFromSeller(@Param("username") String username, @Param("state") int state);
+
 }
