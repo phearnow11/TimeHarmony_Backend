@@ -68,7 +68,7 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
         void saveWatch_Images(@Param("id") String id, @Param("url") String url);
 
         @Query("select w from Watch w where  w.state = :state")
-        List<Watch> getWatchesByState(@Param("state") int state);
+        List<Watch> getWatchesByState(@Param("state") int state);   
 
         @Modifying
         @Transactional
@@ -135,7 +135,7 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
 
         @Modifying
         @Transactional
-        @Query(value = "update [dbo].[Watch] set [dbo].[Watch].state = 6 from [dbo].[Watch] join [dbo].[Watches_In_Cart] on [dbo].[Watches_In_Cart].watch_id = [dbo].[Watch].watch_id where order_id = :oid ", nativeQuery = true)
+        @Query(value = "update [dbo].[Watch] set state = 6, sold_date = getdate() from [dbo].[Watch] join [dbo].[Watches_In_Cart] on [dbo].[Watches_In_Cart].watch_id = [dbo].[Watch].watch_id where order_id = :oid ", nativeQuery = true)
         void orderSucess(@Param("oid") String oid);
 
         @Query(value = "select count([dbo].[Watches_In_Cart].watch_id) from [dbo].[Watches_In_Cart] join [dbo].[Watch] on [dbo].[Watch].watch_id = [dbo].[Watches_In_Cart].watch_id where [dbo].[Watches_In_Cart].order_id = :oid and [dbo].[Watch].state <> 4", nativeQuery = true)
@@ -159,8 +159,18 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
 
         @Modifying
         @Transactional
-        @Query(value ="select * from [dbo].[Watch] join [dbo].[Watches_In_Cart] on [dbo].[Watch].watch_id = [dbo].[Watches_In_Cart].watch_id join [dbo].[Order] on [dbo].[Watches_In_Cart].order_id = [dbo].[Order].order_id where MONTH(received_date) = :month and seller_id = :sid", nativeQuery= true )
+        @Query(value ="select * from [dbo].[Watch] join [dbo].[Watches_In_Cart] on [dbo].[Watch].watch_id = [dbo].[Watches_In_Cart].watch_id join [dbo].[Orders] on [dbo].[Watches_In_Cart].order_id = [dbo].[Orders].order_id where MONTH(received_date) = :month and [dbo].[Watch].member_id = :sid", nativeQuery= true )
         List <Watch> getWatchSelledByMonth(@Param("month") int month, @Param("sid") String sid); 
 
-        
+        @Query(value = "select * from Watch where member_id = :sid and (state = 1 or state = 3 or state = 4 or state = 5 or state = 6 or state = 7)", nativeQuery = true)
+        List<Watch> getSellerWatches(@Param("sid") UUID sid);
+
+        @Query(value = "select * from Watch where member_id = :sid and state = 6", nativeQuery = true)
+        List<Watch> getSellerSoldWatches(@Param("sid") UUID sid);
+
+        @Query(value = "select * from [dbo].[Watch] where MONTH(sold_date) = :month and member_id = :mid and state = 6", nativeQuery = true)
+        List<Watch> getWatchSoldByMonth(@Param("month") int month, @Param("mid") String mid); 
+
+        @Query(value = "update [dbo].[Watch] set sold_date = getdate() where watch_id = :wid", nativeQuery = true)
+        void saveSoldDate(@Param("wid") String wid);
 }
