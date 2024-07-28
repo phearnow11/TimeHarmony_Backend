@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.TimeHarmony.entity.Addresses;
+import com.example.TimeHarmony.entity.OrderLocation;
 import com.example.TimeHarmony.entity.Orders;
 import com.example.TimeHarmony.enumf.OrderState;
 
@@ -30,5 +31,7 @@ public interface IOrderService {
     String confirmOrder(String oid);
 
     List<Orders> getPendingOrder();
+
+    List<OrderLocation> getOrderLocations(String oid);
 
 }

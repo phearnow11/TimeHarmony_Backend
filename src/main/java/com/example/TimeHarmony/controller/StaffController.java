@@ -136,4 +136,9 @@ public class StaffController {
     public List<String> getMyShippingOrder(@PathVariable("id") String id) {
         return STAFF_SERVICE.getMyShippingOrder(id);
     }
+
+    @RequestMapping(value = "save/location/{id}", method = RequestMethod.POST)
+    public String saveLocation(@PathVariable("id") String id, @RequestBody Map<String, Object> data) {
+        return STAFF_SERVICE.updateLocation(id, data);
+    }
 }
