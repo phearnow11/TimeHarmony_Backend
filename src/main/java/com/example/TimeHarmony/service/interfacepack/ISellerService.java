@@ -36,7 +36,9 @@ public interface ISellerService {
 
     public float getTotalProfitBySeller (String sid);
 
-    public float getProfitByMonth(int month ,String sid); 
+    public float getProfitByMonth(int month ,int year, String sid); 
+
+    public float getProfitByDay(String date, String sid); 
 
     List<String[]> getOrderFromWatch(String wid);
 

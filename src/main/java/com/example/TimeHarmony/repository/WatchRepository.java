@@ -162,15 +162,30 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
         @Query(value ="select * from [dbo].[Watch] join [dbo].[Watches_In_Cart] on [dbo].[Watch].watch_id = [dbo].[Watches_In_Cart].watch_id join [dbo].[Orders] on [dbo].[Watches_In_Cart].order_id = [dbo].[Orders].order_id where MONTH(received_date) = :month and [dbo].[Watch].member_id = :sid", nativeQuery= true )
         List <Watch> getWatchSelledByMonth(@Param("month") int month, @Param("sid") String sid); 
 
+        @Modifying
+        @Transactional
         @Query(value = "select * from Watch where member_id = :sid and (state = 1 or state = 3 or state = 4 or state = 5 or state = 6 or state = 7)", nativeQuery = true)
         List<Watch> getSellerWatches(@Param("sid") UUID sid);
 
+        @Modifying
+        @Transactional
         @Query(value = "select * from Watch where member_id = :sid and state = 6", nativeQuery = true)
         List<Watch> getSellerSoldWatches(@Param("sid") UUID sid);
 
-        @Query(value = "select * from [dbo].[Watch] where MONTH(sold_date) = :month and member_id = :mid and state = 6", nativeQuery = true)
-        List<Watch> getWatchSoldByMonth(@Param("month") int month, @Param("mid") String mid); 
+        @Modifying
+        @Transactional
+        @Query(value = "select * from [dbo].[Watch] where MONTH(sold_date) = :month and YEAR(sold_date) = :year and member_id = :mid and state = 6", nativeQuery = true)
+        List<Watch> getWatchSoldByMonth(@Param("month") int month, @Param("year") int year, @Param("mid") String mid); 
 
+        @Modifying
+        @Transactional
         @Query(value = "update [dbo].[Watch] set sold_date = getdate() where watch_id = :wid", nativeQuery = true)
         void saveSoldDate(@Param("wid") String wid);
+
+        @Modifying
+        @Transactional
+        @Query(value= "select * from [dbo].[Watch] where FORMAT(sold_date, 'yyyy-MM-dd') = :date and member_id = :mid and state = 6", nativeQuery= true)
+        List<Watch> getWatchSoldByDate(@Param("date") String date, @Param("mid") String mid); 
+
+
 }

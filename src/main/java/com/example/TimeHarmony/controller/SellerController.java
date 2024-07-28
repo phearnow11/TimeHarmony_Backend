@@ -137,9 +137,14 @@ public class SellerController {
         return SELLER_SERVICE.getTotalProfitBySeller(id); 
     }
 
-    @RequestMapping(value = "get/seller-profit-by-month/{id}/month={month}", method = RequestMethod.GET)
-    public float getSellerProfitByMonth (@PathVariable("id") String id, @PathVariable("month") int month){
-        return SELLER_SERVICE.getProfitByMonth(month, id); 
+    @RequestMapping(value = "get/seller-profit-by-month/{id}/month={month}/{year}", method = RequestMethod.GET)
+    public float getSellerProfitByMonth (@PathVariable("id") String id, @PathVariable("month") int month, @PathVariable("year") int year){
+        return SELLER_SERVICE.getProfitByMonth(month, year, id); 
+    }
+
+    @RequestMapping(value = "get/seller-profit-by-day/{id}/day={}", method = RequestMethod.GET)
+    public float getSellerProfitByMonth (@PathVariable("id") String id, @PathVariable("day") String day){
+        return SELLER_SERVICE.getProfitByDay(day, id); 
     }
 
     @RequestMapping(value = "count/post-watches/{sid}", method = RequestMethod.GET) 
