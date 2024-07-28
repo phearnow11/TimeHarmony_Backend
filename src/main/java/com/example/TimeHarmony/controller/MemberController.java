@@ -203,7 +203,9 @@ public class MemberController {
     // localhost:8080/member/get/order/watch/{oid}
     @RequestMapping(value = "get/order/detail/{oid}", method = RequestMethod.GET)
     public Map<String, Object> getWatchInOrder(@PathVariable("oid") String oid) {
-        return ORDER_SERVICE.getOrderDetail(oid);
+        Map<String, Object> res = ORDER_SERVICE.getOrderDetail(oid);
+        res.put("locations", ORDER_SERVICE.getOrderLocations(oid));
+        return res;
     }
 
     @RequestMapping(value = "get/order/state/{oid}", method = RequestMethod.GET)
