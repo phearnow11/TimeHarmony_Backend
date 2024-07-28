@@ -113,6 +113,7 @@ public class OrderService implements IOrderService {
             Map<String, Object> res = new Hashtable<>();
             res.put("watch", ORDER_REPOSITORY.getWatchesInOrder(oid));
             res.put("order_detail", ORDER_REPOSITORY.findById(oid));
+            res.put("payment_method", ORDER_REPOSITORY.getPaymentMethod(oid));
             return res;
         } catch (Exception e) {
             System.out.println(e);
@@ -167,6 +168,11 @@ public class OrderService implements IOrderService {
     @Override
     public List<OrderLocation> getOrderLocations(String oid) {
         return ORDER_LOCATION_REPOSITORY.getOrderLocations(oid);
+    }
+
+    @Override
+    public String getPaymentMethod(String oid) {
+        return ORDER_REPOSITORY.getPaymentMethod(oid);
     }
 
 }

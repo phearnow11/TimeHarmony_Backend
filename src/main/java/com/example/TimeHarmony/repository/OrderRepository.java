@@ -86,4 +86,7 @@ public interface OrderRepository extends JpaRepository<Orders, String> {
     @Query(value = "select [dbo].[Watches_In_Cart].watch_id from [dbo].[Orders] join [dbo].[Watches_In_Cart] on [dbo].[Orders].order_id = [dbo].[Watches_In_Cart].order_id where watch_id =: wid and MONTH(received_date) = :month", nativeQuery = true)
     String getReceivedWatch(@Param("month") int month);
 
+    @Query(value = "select payment_method from [dbo].[Payment] where order_id = :oid", nativeQuery = true)
+    String getPaymentMethod(@Param("oid") String oid);
+
 }

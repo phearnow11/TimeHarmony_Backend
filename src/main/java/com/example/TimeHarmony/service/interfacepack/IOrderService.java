@@ -34,4 +34,5 @@ public interface IOrderService {
 
     List<OrderLocation> getOrderLocations(String oid);
 
+    String getPaymentMethod(String oid);
 }
