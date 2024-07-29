@@ -99,7 +99,7 @@ public class SellerController {
     }
 
     @RequestMapping(value = "delete/watch/{id}", method = RequestMethod.DELETE)
-    public String deleteWatch(@PathVariable("sid") String id, @RequestParam("wid") String wid) {
+    public String deleteWatch(@PathVariable("id") String id, @RequestParam("wid") String wid) {
         return WATCH_SERVICE.deleteWatch(wid, id);
     }
 
