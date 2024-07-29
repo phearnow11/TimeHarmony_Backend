@@ -245,7 +245,7 @@ public class SellerService implements ISellerService {
         Sellers s = SELLER_REPOSITORY.findById(UUID.fromString(sid)).get();
         List<Watch> wlist = s.getWatches();
         float total = 0;
-        for (int i = 1; i < wlist.size(); i++) {
+        for (int i = 0; i < wlist.size(); i++) {
             if (wlist.get(i).getState() == WATCH_SUCCESS_STATE) {
                 total = total + wlist.get(i).getPrice();
             }
@@ -256,32 +256,38 @@ public class SellerService implements ISellerService {
 
     @Override
     public float getProfitByMonth(int month,int year, String sid) {
-        List<Watch> wlist = WATCH_REPOSITORY.getWatchSoldByMonth(month, year, sid); 
+        List<Watch> wlist = WATCH_REPOSITORY.getWatchSoldByMonth(month, year, UUID.fromString(sid)); 
+        System.out.println(wlist);
         float total = 0 ; 
-        for (int i = 1; i < wlist.size(); i++) {
+        /*for (int i = 0; i < wlist.size(); i++) {
            
                 total = total + wlist.get(i).getPrice();
             
+        }*/
+
+        for(Watch i : wlist){
+            total = total + i.getPrice(); 
+            System.out.println(i.getPrice());
         }
         return total;    
        
     }
 
     @Override
-    public int countSellWatch(UUID sid) {
-       return WATCH_REPOSITORY.getSellerWatches(sid).size();
+    public int countSellWatch(String sid) {
+       return WATCH_REPOSITORY.getSellerWatches(UUID.fromString(sid)).size();
     }
 
     @Override
-    public int countSoldWatch(UUID sid) {
-        return WATCH_REPOSITORY.getSellerSoldWatches(sid).size(); 
+    public int countSoldWatch(String sid) {
+        return WATCH_REPOSITORY.getSellerSoldWatches(UUID.fromString(sid)).size(); 
     }
 
     @Override
     public float getProfitByDay(String date, String sid) {
-        List<Watch> wlist = WATCH_REPOSITORY.getWatchSoldByDate(date, sid);  
+        List<Watch> wlist = WATCH_REPOSITORY.getWatchSoldByDate(date, UUID.fromString(sid));  
         float total = 0 ; 
-        for (int i = 1; i < wlist.size(); i++) {      
+        for (int i = 0; i < wlist.size(); i++) {      
                 total = total + wlist.get(i).getPrice();
         }
         return total;    
