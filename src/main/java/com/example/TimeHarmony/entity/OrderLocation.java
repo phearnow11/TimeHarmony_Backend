@@ -26,6 +26,9 @@ public class OrderLocation {
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp created_at;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Timestamp updated_at;
+
     private String notes;
 
     public OrderLocation() {
