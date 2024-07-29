@@ -98,6 +98,10 @@ public class PaymentController {
   public Payment savePayment(@RequestBody Map<String, String> data) {
     try {
       timer.cancel();
+      for (int state : WATCH_SERVICE.getWatchState(STRING_SERVICE.jsonArrToStringList(data.get("wids"))))
+        if (state != 5) {
+          throw new Exception("An Error occur");
+        }
       if (!Boolean.parseBoolean(data.get("isSuccess")))
         throw new Exception("Payment Failed");
       return PAYMENT_SERVICE.savePaymentDetail(data);
