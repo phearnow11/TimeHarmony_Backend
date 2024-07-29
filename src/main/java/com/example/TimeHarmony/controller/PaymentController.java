@@ -31,66 +31,82 @@ import jakarta.servlet.http.HttpServletRequest;
 @CrossOrigin
 public class PaymentController {
 
-    @Autowired
-    private PaymentService PAYMENT_SERVICE;
+  @Autowired
+  private PaymentService PAYMENT_SERVICE;
 
-    @Autowired
-    private WatchService WATCH_SERVICE;
+  @Autowired
+  private WatchService WATCH_SERVICE;
 
-    @Autowired
-    private StringService STRING_SERVICE;
+  @Autowired
+  private StringService STRING_SERVICE;
 
-    @Autowired
-    private CartService CART_SERVICE;
+  @Autowired
+  private CartService CART_SERVICE;
 
-    private Timer timer;
+  private Timer timer;
 
-    @RequestMapping(value = "/vn-pay", method = RequestMethod.POST)
-    public ResponseObject<PaymentDTO.VNPayResponse> pay(HttpServletRequest request,
-            @RequestBody List<String> data) {
-        try {
-            byte PAYMENT_PROCESSING = 5;
-            for (int state : WATCH_SERVICE.getWatchState(data))
-                if (state != 1) {
-                    throw new Exception("An Error occur");
-                }
+  @RequestMapping(value = "/cash", method = RequestMethod.POST)
+  public boolean cash(@RequestBody List<String> data) {
+    try {
 
-            LocalDateTime fifteenMinuteLater = LocalDateTime.now().plusMinutes(15);
-            Date fifteenMinuteLaterAsDate = Date.from(fifteenMinuteLater.atZone(ZoneId.systemDefault()).toInstant());
-            // LocalDateTime twoSecondsLater = LocalDateTime.now().plusSeconds(15);
-            // Date twoSecondsLaterAsDate =
-            // Date.from(twoSecondsLater.atZone(ZoneId.systemDefault()).toInstant());
-            TimerTask paymentStateTask = new TimerTask() {
-                public void run() {
-                    byte VIEW_STATE = 1;
-                    WATCH_SERVICE.updateWatchesState(data, VIEW_STATE);
-                    CART_SERVICE.updateAllByIDS(data, VIEW_STATE);
-                }
-            };
-            timer = new Timer();
-            timer.schedule(paymentStateTask, fifteenMinuteLaterAsDate);
-
-            WATCH_SERVICE.updateWatchesState(data, PAYMENT_PROCESSING);
-            CART_SERVICE.updateAllByIDS(data, 0);
-            return new ResponseObject<>(HttpStatus.OK, "Success", PAYMENT_SERVICE.createVnPayPayment(request));
-        } catch (Exception e) {
-            return new ResponseObject<>(HttpStatus.LOCKED, e.toString(), null);
+      for (int state : WATCH_SERVICE.getWatchState(data))
+        if (state != 1) {
+          throw new Exception("An Error occur");
         }
+      return true;
+    } catch (Exception e) {
+      // TODO: handle exception
+      return false;
     }
 
-    @RequestMapping(value = "/insert-payment-detail", method = RequestMethod.POST)
-    public Payment savePayment(@RequestBody Map<String, String> data) {
-        try {
-            timer.cancel();
-            if (!Boolean.parseBoolean(data.get("isSuccess")))
-                throw new Exception("Payment Failed");
-            return PAYMENT_SERVICE.savePaymentDetail(data);
-        } catch (Exception e) {
-            byte VIEW_STATE = 1;
-            WATCH_SERVICE.updateWatchesState(STRING_SERVICE.jsonArrToStringList(data.get("wids")), VIEW_STATE);
-            CART_SERVICE.updateAllByIDS(STRING_SERVICE.jsonArrToStringList(data.get("wids")), VIEW_STATE);
-            return null;
+  }
+
+  @RequestMapping(value = "/vn-pay", method = RequestMethod.POST)
+  public ResponseObject<PaymentDTO.VNPayResponse> pay(HttpServletRequest request,
+      @RequestBody List<String> data) {
+    try {
+      byte PAYMENT_PROCESSING = 5;
+      for (int state : WATCH_SERVICE.getWatchState(data))
+        if (state != 1) {
+          throw new Exception("An Error occur");
         }
+
+      LocalDateTime fifteenMinuteLater = LocalDateTime.now().plusMinutes(15);
+      Date fifteenMinuteLaterAsDate = Date.from(fifteenMinuteLater.atZone(ZoneId.systemDefault()).toInstant());
+      // LocalDateTime twoSecondsLater = LocalDateTime.now().plusSeconds(15);
+      // Date twoSecondsLaterAsDate =
+      // Date.from(twoSecondsLater.atZone(ZoneId.systemDefault()).toInstant());
+      TimerTask paymentStateTask = new TimerTask() {
+        public void run() {
+          byte VIEW_STATE = 1;
+          WATCH_SERVICE.updateWatchesState(data, VIEW_STATE);
+          CART_SERVICE.updateAllByIDS(data, VIEW_STATE);
+        }
+      };
+      timer = new Timer();
+      timer.schedule(paymentStateTask, fifteenMinuteLaterAsDate);
+
+      WATCH_SERVICE.updateWatchesState(data, PAYMENT_PROCESSING);
+      CART_SERVICE.updateAllByIDS(data, 0);
+      return new ResponseObject<>(HttpStatus.OK, "Success", PAYMENT_SERVICE.createVnPayPayment(request));
+    } catch (Exception e) {
+      return new ResponseObject<>(HttpStatus.LOCKED, e.toString(), null);
     }
+  }
+
+  @RequestMapping(value = "/insert-payment-detail", method = RequestMethod.POST)
+  public Payment savePayment(@RequestBody Map<String, String> data) {
+    try {
+      timer.cancel();
+      if (!Boolean.parseBoolean(data.get("isSuccess")))
+        throw new Exception("Payment Failed");
+      return PAYMENT_SERVICE.savePaymentDetail(data);
+    } catch (Exception e) {
+      byte VIEW_STATE = 1;
+      WATCH_SERVICE.updateWatchesState(STRING_SERVICE.jsonArrToStringList(data.get("wids")), VIEW_STATE);
+      CART_SERVICE.updateAllByIDS(STRING_SERVICE.jsonArrToStringList(data.get("wids")), VIEW_STATE);
+      return null;
+    }
+  }
 
 }
