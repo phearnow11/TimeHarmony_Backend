@@ -89,4 +89,7 @@ public interface OrderRepository extends JpaRepository<Orders, String> {
     @Query(value = "select payment_method from [dbo].[Payment] where order_id = :oid", nativeQuery = true)
     String getPaymentMethod(@Param("oid") String oid);
 
+    @Query(value ="select sum ([dbo].[Orders].[total_price]/51) from [dbo].[Orders]", nativeQuery = true)
+    float getWebProfit(); 
+
 }

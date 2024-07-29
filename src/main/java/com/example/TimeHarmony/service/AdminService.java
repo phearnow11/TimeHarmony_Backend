@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.example.TimeHarmony.builder.MemberBuilder;
 import com.example.TimeHarmony.entity.Admins;
 import com.example.TimeHarmony.entity.Members;
-import com.example.TimeHarmony.entity.Payment;
 import com.example.TimeHarmony.entity.Report;
 import com.example.TimeHarmony.entity.Sellers;
 import com.example.TimeHarmony.entity.Users;
@@ -195,12 +194,8 @@ public class AdminService implements IAdminService {
     }
 
     @Override
-    public long getProfit() {
-        List<Payment> orderpayment = PAYMENT_REPOSITORY.findAll();
-        long profit = 0;
-        for (Payment p : orderpayment)
-            profit = profit + (p.getWeb_profit());
-        return profit;
+    public float getProfit() {    
+        return ORDER_REPOSITORY.getWebProfit(); 
     }
 
     @Override

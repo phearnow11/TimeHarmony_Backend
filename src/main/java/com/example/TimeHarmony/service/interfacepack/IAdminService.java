@@ -36,7 +36,7 @@ public interface IAdminService {
 
     public String testUser();
 
-    public long getProfit();
+    public float getProfit();
 
     List<String> getAllShippingOrder();
 
