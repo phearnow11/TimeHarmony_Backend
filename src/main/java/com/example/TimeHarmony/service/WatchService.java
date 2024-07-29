@@ -173,6 +173,9 @@ public class WatchService implements IWatchService {
   @Override
   public String deleteWatch(String id, String sid) {
     try {
+      int state = WATCH_REPOSITORY.getState(id);
+      if (!(state == 1 || state == 0))
+        throw new Exception("Can not delete");
       WATCH_REPOSITORY.deleteWatch(id, UUID.fromString(sid));
       return "Watch deleted";
     } catch (Exception e) {
