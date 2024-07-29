@@ -42,9 +42,9 @@ public interface ISellerService {
 
     List<String[]> getOrderFromWatch(String wid);
 
-    public int countSellWatch (UUID sid); 
+    public int countSellWatch (String sid); 
    
-    public int countSoldWatch (UUID sid); 
+    public int countSoldWatch (String sid); 
     
 
 }

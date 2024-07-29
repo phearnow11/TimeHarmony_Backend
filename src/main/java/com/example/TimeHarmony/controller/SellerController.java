@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -142,18 +141,18 @@ public class SellerController {
         return SELLER_SERVICE.getProfitByMonth(month, year, id); 
     }
 
-    @RequestMapping(value = "get/seller-profit-by-day/{id}/day={}", method = RequestMethod.GET)
+    @RequestMapping(value = "get/seller-profit-by-day/{id}/day={day}", method = RequestMethod.GET)
     public float getSellerProfitByMonth (@PathVariable("id") String id, @PathVariable("day") String day){
         return SELLER_SERVICE.getProfitByDay(day, id); 
     }
 
     @RequestMapping(value = "count/post-watches/{sid}", method = RequestMethod.GET) 
-    public int countPostWatches (@PathVariable("sid") UUID sid){
+    public int countPostWatches (@PathVariable("sid") String sid){
         return SELLER_SERVICE.countSellWatch(sid); 
     }
 
     @RequestMapping(value = "count/sold-watches/{sid}", method = RequestMethod.GET) 
-    public int countSoldWatches (@PathVariable("sid") UUID sid){
+    public int countSoldWatches (@PathVariable("sid") String sid){
         return SELLER_SERVICE.countSoldWatch(sid); 
     }
 

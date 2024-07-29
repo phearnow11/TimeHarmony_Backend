@@ -175,7 +175,7 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
         @Modifying
         @Transactional
         @Query(value = "select * from [dbo].[Watch] where MONTH(sold_date) = :month and YEAR(sold_date) = :year and member_id = :mid and state = 6", nativeQuery = true)
-        List<Watch> getWatchSoldByMonth(@Param("month") int month, @Param("year") int year, @Param("mid") String mid); 
+        List<Watch> getWatchSoldByMonth(@Param("month") int month, @Param("year") int year, @Param("mid") UUID mid); 
 
         @Modifying
         @Transactional
@@ -185,7 +185,7 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
         @Modifying
         @Transactional
         @Query(value= "select * from [dbo].[Watch] where FORMAT(sold_date, 'yyyy-MM-dd') = :date and member_id = :mid and state = 6", nativeQuery= true)
-        List<Watch> getWatchSoldByDate(@Param("date") String date, @Param("mid") String mid); 
+        List<Watch> getWatchSoldByDate(@Param("date") String date, @Param("mid") UUID mid); 
 
 
 }
