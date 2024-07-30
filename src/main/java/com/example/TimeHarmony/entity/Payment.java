@@ -18,6 +18,7 @@ public class Payment {
     @Id
     private String transaction_no;
     private String order_id;
+    private String member_id; 
 
     private long payment_amount;
     private long web_profit ; 

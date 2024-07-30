@@ -19,12 +19,14 @@ import com.example.TimeHarmony.builder.WatchBuilder;
 import com.example.TimeHarmony.entity.Admins;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Orders;
+import com.example.TimeHarmony.entity.Payment;
 import com.example.TimeHarmony.entity.Users;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.enumf.Roles;
 import com.example.TimeHarmony.service.AdminService;
 import com.example.TimeHarmony.service.MemberService;
 import com.example.TimeHarmony.service.OrderService;
+import com.example.TimeHarmony.service.PaymentService;
 import com.example.TimeHarmony.service.ReportService;
 import com.example.TimeHarmony.service.WatchService;
 
@@ -47,6 +49,9 @@ public class AdminController {
 
   @Autowired
   private ReportService REPORT_SERVICE;
+
+  @Autowired 
+  private PaymentService PAYMENT_SERVICE; 
 
   @RequestMapping(value = "get/members", method = RequestMethod.GET)
   public List<Members> getaMembers() {
@@ -172,4 +177,8 @@ public class AdminController {
     return ADMIN_SERVICE.getAllShippingOrder();
   }
 
+  @RequestMapping(value= "get/refund-payment", method = RequestMethod.GET)
+  public List<Payment> getRefundMember() {
+    return ADMIN_SERVICE.getAllFailOrder(); 
+  }
 }

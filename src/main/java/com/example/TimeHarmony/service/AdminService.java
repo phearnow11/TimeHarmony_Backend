@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.example.TimeHarmony.builder.MemberBuilder;
 import com.example.TimeHarmony.entity.Admins;
 import com.example.TimeHarmony.entity.Members;
+import com.example.TimeHarmony.entity.Payment;
 import com.example.TimeHarmony.entity.Report;
 import com.example.TimeHarmony.entity.Sellers;
 import com.example.TimeHarmony.entity.Users;
@@ -23,6 +24,7 @@ import com.example.TimeHarmony.repository.AuthoritiesRepository;
 import com.example.TimeHarmony.repository.MemberRepository;
 import com.example.TimeHarmony.repository.OrderRepository;
 import com.example.TimeHarmony.repository.PaymentRepository;
+import com.example.TimeHarmony.repository.ReportRepository;
 import com.example.TimeHarmony.repository.StaffRepository;
 import com.example.TimeHarmony.repository.UsersRepository;
 import com.example.TimeHarmony.repository.WatchRepository;
@@ -63,6 +65,9 @@ public class AdminService implements IAdminService {
 
   @Autowired
   private OrderService ORDER_SERVICE;
+
+  @Autowired
+  private ReportRepository REPORT_REPOSITY; 
 
   @Override
   public List<Members> getMembers() {
@@ -141,8 +146,7 @@ public class AdminService implements IAdminService {
 
   @Override
   public List<Report> viewReports() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'viewReports'");
+    return REPORT_REPOSITY.findAll(); 
   }
 
   @Override
@@ -216,5 +220,10 @@ public class AdminService implements IAdminService {
   public List<String> getAllShippingOrder() {
     return ORDER_REPOSITORY.getAllShippingOrder();
   }
+
+@Override
+public List<Payment> getAllFailOrder() {
+    return PAYMENT_REPOSITORY.getAllFailOrder(); 
+}
 
 }

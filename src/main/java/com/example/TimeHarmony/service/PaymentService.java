@@ -55,6 +55,7 @@ public class PaymentService {
       paymentdetail.setBank_code(data.get("bank_code"));
       paymentdetail.setPayment_method(data.get("payment_method"));
       paymentdetail.setOrder_id(data.get("order_id"));
+      paymentdetail.setMember_id(data.get("member_id"));
       paymentdetail.setCreate_at(new Timestamp(System.currentTimeMillis()));
       PAYMENT_REPOSITORY.save(paymentdetail);
       return "Payment Created Successfully";

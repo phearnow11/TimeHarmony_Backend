@@ -1,5 +1,7 @@
 package com.example.TimeHarmony.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,4 +17,9 @@ public interface PaymentRepository extends JpaRepository<Payment, String> {
     @Transactional
     @Query(value = "update [dbo].[Payment] set order_id = :oid where transaction_no = :tno", nativeQuery = true)
     void updateOrderid(@Param("oid") String oid, @Param("tno") String tno);
+
+    @Modifying
+    @Transactional
+    @Query(value= "select * from [dbo].[Payment] where order_id is null", nativeQuery = true)
+    List<Payment> getAllFailOrder(); 
 }

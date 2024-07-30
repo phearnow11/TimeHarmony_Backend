@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.example.TimeHarmony.entity.Admins;
 import com.example.TimeHarmony.entity.Members;
+import com.example.TimeHarmony.entity.Payment;
 import com.example.TimeHarmony.entity.Report;
 import com.example.TimeHarmony.entity.Watch;
 
@@ -39,5 +40,7 @@ public interface IAdminService {
     public float getProfit();
 
     List<String> getAllShippingOrder();
+
+    public List<Payment> getAllFailOrder();
 
 }
