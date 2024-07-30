@@ -71,6 +71,13 @@ public class OrderService implements IOrderService {
 
       return order_id;
     } catch (Exception e) {
+      List<Integer> state = WATCH_SERVICE.getWatchState(wids);
+      for (int i = 0; i < wids.size(); i++) {
+        if (state.get(i) == 5 || !(state.get(i) == 2)) {
+          byte VIEW = 1;
+          WATCH_SERVICE.updateWatchesState(wids, VIEW);
+        }
+      }
       return e.toString();
     }
   }

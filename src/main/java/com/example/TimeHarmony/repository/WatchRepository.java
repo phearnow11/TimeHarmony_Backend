@@ -125,7 +125,7 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
 
   @Modifying
   @Transactional
-  @Query(value = "update [dbo].[Watch] set [dbo].[Watch].state = 1 from [dbo].[Watch] join [dbo].[Watches_In_Cart] on [dbo].[Watches_In_Cart].watch_id = [dbo].[Watch].watch_id where order_id = :oid ", nativeQuery = true)
+  @Query(value = "update [dbo].[Watch] set [dbo].[Watch].state = 1 from [dbo].[Watch] join [dbo].[Watches_In_Cart] on [dbo].[Watches_In_Cart].watch_id = [dbo].[Watch].watch_id where order_id = :oid and state = 3", nativeQuery = true)
   void cancelOrder(@Param("oid") String oid);
 
   @Modifying
@@ -154,7 +154,7 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
 
   @Modifying
   @Transactional
-  @Query(value = "update [dbo].[Watch] set state = :state from [dbo].[Watch] join [dbo].[Members] on [dbo].[Members].member_id = [dbo].[Watch].member_id where username = :username", nativeQuery = true)
+  @Query(value = "update [dbo].[Watch] set state = :state from [dbo].[Watch] join [dbo].[Members] on [dbo].[Members].member_id = [dbo].[Watch].member_id where username = :username and (state <= 3 or state = 5)", nativeQuery = true)
   void adminOperationWithAllWatchFromSeller(@Param("username") String username, @Param("state") int state);
 
   @Modifying
