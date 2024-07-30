@@ -95,7 +95,7 @@ public class PaymentController {
   }
 
   @RequestMapping(value = "/insert-payment-detail", method = RequestMethod.POST)
-  public Payment savePayment(@RequestBody Map<String, String> data) {
+  public String savePayment(@RequestBody Map<String, String> data) {
     try {
       timer.cancel();
       if (!Boolean.parseBoolean(data.get("isSuccess")))
@@ -105,7 +105,7 @@ public class PaymentController {
       byte VIEW_STATE = 1;
       WATCH_SERVICE.updateWatchesState(STRING_SERVICE.jsonArrToStringList(data.get("wids")), VIEW_STATE);
       CART_SERVICE.updateAllByIDS(STRING_SERVICE.jsonArrToStringList(data.get("wids")), VIEW_STATE);
-      return null;
+      return e.toString();
     }
   }
 
