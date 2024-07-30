@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.TimeHarmony.dtos.PaymentDTO;
 import com.example.TimeHarmony.dtos.ResponseObject;
-import com.example.TimeHarmony.entity.Payment;
 import com.example.TimeHarmony.service.CartService;
 import com.example.TimeHarmony.service.PaymentService;
 import com.example.TimeHarmony.service.StringService;

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.TimeHarmony.builder.MemberBuilder;
@@ -22,6 +23,7 @@ import com.example.TimeHarmony.entity.Orders;
 import com.example.TimeHarmony.entity.Users;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.enumf.Roles;
+import com.example.TimeHarmony.enumf.StaffRole;
 import com.example.TimeHarmony.service.AdminService;
 import com.example.TimeHarmony.service.MemberService;
 import com.example.TimeHarmony.service.OrderService;
@@ -172,4 +174,8 @@ public class AdminController {
     return ADMIN_SERVICE.getAllShippingOrder();
   }
 
+  @RequestMapping(value = "update/staff-role", method = RequestMethod.PUT)
+  public String updateStaffRole(@RequestParam("id") String id, @RequestParam("role") StaffRole role) {
+    return ADMIN_SERVICE.changeStaffRole(id, role);
+  }
 }
