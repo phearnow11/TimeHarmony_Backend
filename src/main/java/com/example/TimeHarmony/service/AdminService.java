@@ -18,6 +18,7 @@ import com.example.TimeHarmony.entity.Users;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.enumf.OrderState;
 import com.example.TimeHarmony.enumf.Roles;
+import com.example.TimeHarmony.enumf.StaffRole;
 import com.example.TimeHarmony.enumf.UserAuthenticationStatus;
 import com.example.TimeHarmony.repository.AdminRepository;
 import com.example.TimeHarmony.repository.AuthoritiesRepository;
@@ -226,4 +227,14 @@ public List<Payment> getAllFailOrder() {
     return PAYMENT_REPOSITORY.getAllFailOrder(); 
 }
 
+  @Override
+  public String changeStaffRole(String id, StaffRole role) {
+    try {
+
+      STAFF_REPOSITORY.updateStaffRole(role, UUID.fromString(id));
+      return "Staff role changed to " + role.name();
+    } catch (Exception e) {
+      return e.toString();
+    }
+  }
 }
