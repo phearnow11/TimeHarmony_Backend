@@ -277,4 +277,9 @@ public class MemberController {
     data.put("verify_email", "true");
     return MEMBER_SERVICE.updateMember(id, data);
   }
+
+  @RequestMapping(value = "delete/user/{id}", method = RequestMethod.DELETE)
+  public String deleteUser(@PathVariable("id") String id) {
+    return MEMBER_SERVICE.deleteMember(id);
+  }
 }

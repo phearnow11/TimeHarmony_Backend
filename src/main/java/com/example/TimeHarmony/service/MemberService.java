@@ -77,7 +77,7 @@ public class MemberService implements IMemberService {
   @Override
   public String deleteMember(String id) {
     try {
-      MEMBER_REPOSITORY.deleteById(UUID.fromString(id));
+      USER_REPOSOTORY.deleteMember(UUID.fromString(id));
       return "Member deleted";
     } catch (Exception e) {
       return e.toString();
