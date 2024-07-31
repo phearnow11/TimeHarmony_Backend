@@ -304,6 +304,9 @@ public class MemberService implements IMemberService {
   public String updateMember(String id, Map<String, Object> data) {
     try {
       Members cur_member = getMemberbyID(id).get();
+      if (data.get("verify_email") != null) {
+        cur_member.setGoogle_id(data.get("verify_email").toString());
+      }
       if (data.get("username") != null) {
         USER_REPOSOTORY.updateUsername(data.get("username").toString(),
             cur_member.getUser_log_info().getUsername());

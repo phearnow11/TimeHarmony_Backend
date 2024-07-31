@@ -2,6 +2,7 @@ package com.example.TimeHarmony.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -267,6 +268,13 @@ public class MemberController {
 
   @RequestMapping(value = "update/member/{id}", method = RequestMethod.PUT)
   public String updateMember(@PathVariable("id") String id, @RequestBody Map<String, Object> data) {
+    return MEMBER_SERVICE.updateMember(id, data);
+  }
+
+  @RequestMapping(value = "verify/email/{id}", method = RequestMethod.POST)
+  public String verifyEmail(@PathVariable("id") String id) {
+    Map<String, Object> data = new HashMap<>();
+    data.put("verify_email", "true");
     return MEMBER_SERVICE.updateMember(id, data);
   }
 }
