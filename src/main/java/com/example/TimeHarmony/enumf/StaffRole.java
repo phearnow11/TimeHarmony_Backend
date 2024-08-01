@@ -18,4 +18,6 @@ public enum StaffRole {
     private StaffRole(int fIELD_VALUE) {
         FIELD_VALUE = fIELD_VALUE;
     }
+
+    
 }
