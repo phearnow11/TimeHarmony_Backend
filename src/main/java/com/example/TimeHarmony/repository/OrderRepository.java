@@ -40,6 +40,11 @@ public interface OrderRepository extends JpaRepository<Orders, String> {
 
   @Modifying
   @Transactional
+  @Query(value = "update [dbo].[Payment] set order_id = null where order_id = :oid ", nativeQuery= true)
+  void deleteOrderIdInPayment(@Param("oid") String oid); 
+
+  @Modifying
+  @Transactional
   @Query(value = "update [dbo].[Orders] set state = :state where order_id = :oid", nativeQuery = true)
   void updateOrderState(@Param("state") int state, @Param("oid") String oid);
 

@@ -152,6 +152,7 @@ public class OrderService implements IOrderService {
       if (state == OrderState.PENDING) {
         WATCH_REPOSITORY.cancelOrder(oid);
         ORDER_REPOSITORY.deleteOrder(oid);
+        ORDER_REPOSITORY.deleteOrderIdInPayment(oid);
         ORDER_REPOSITORY.updateOrderState(OrderState.DELETED.getSTATE_VALUE(), oid);
         return "Order " + oid + " deleted";
       }
