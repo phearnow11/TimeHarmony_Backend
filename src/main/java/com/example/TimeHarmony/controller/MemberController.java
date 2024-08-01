@@ -29,6 +29,7 @@ import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.service.CartService;
 import com.example.TimeHarmony.service.MemberService;
 import com.example.TimeHarmony.service.OrderService;
+import com.example.TimeHarmony.service.PaymentService;
 import com.example.TimeHarmony.service.ReportService;
 import com.example.TimeHarmony.service.SellerService;
 import com.example.TimeHarmony.service.StringService;
@@ -63,6 +64,9 @@ public class MemberController {
 
   @Autowired
   private ReportService REPORT_SERVICE;
+
+  @Autowired//thinh
+  private PaymentService PAYMENT_SERVICE;
 
   @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
   public Optional<Members> getMember(@PathVariable("id") String member_id) {
@@ -281,5 +285,10 @@ public class MemberController {
   @RequestMapping(value = "delete/user/{id}", method = RequestMethod.DELETE)
   public String deleteUser(@PathVariable("id") String id) {
     return MEMBER_SERVICE.deleteMember(id);
+  }
+
+  @RequestMapping(value = "get/tno/{id}", method = RequestMethod.GET)//thinh
+  public String getTransNo(@PathVariable("id") String id) {
+    return PAYMENT_SERVICE.getTransactionNoByOrderId(id);
   }
 }

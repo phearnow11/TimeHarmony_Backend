@@ -69,4 +69,8 @@ public class PaymentService {
     PAYMENT_REPOSITORY.updateOrderid(oid, tno);
     return "update successfully!";
   }
+
+  public String getTransactionNoByOrderId(String oid) {//thinh
+      return PAYMENT_REPOSITORY.getTransactionNoByOrderId(oid);
+  }
 }
