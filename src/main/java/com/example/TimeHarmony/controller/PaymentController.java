@@ -11,6 +11,7 @@ import java.util.TimerTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -106,6 +107,11 @@ public class PaymentController {
       CART_SERVICE.updateAllByIDS(STRING_SERVICE.jsonArrToStringList(data.get("wids")), VIEW_STATE);
       return e.toString();
     }
+  }
+
+  @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+  public String delteTransaction(@PathVariable("id") String id) {
+    return PAYMENT_SERVICE.deleteTransaction(id);
   }
 
 }

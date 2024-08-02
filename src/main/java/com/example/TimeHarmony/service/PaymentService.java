@@ -70,7 +70,16 @@ public class PaymentService {
     return "update successfully!";
   }
 
-  public String getTransactionNoByOrderId(String oid) {//thinh
-      return PAYMENT_REPOSITORY.getTransactionNoByOrderId(oid);
+  public String getTransactionNoByOrderId(String oid) {// thinh
+    return PAYMENT_REPOSITORY.getTransactionNoByOrderId(oid);
+  }
+
+  public String deleteTransaction(String id) {
+    try {
+      PAYMENT_REPOSITORY.deleteTransaction(id);
+      return "Transaction " + id + "deleted";
+    } catch (Exception e) {
+      return e.toString();
+    }
   }
 }

@@ -13,18 +13,23 @@ import jakarta.transaction.Transactional;
 
 public interface PaymentRepository extends JpaRepository<Payment, String> {
 
-    @Modifying
-    @Transactional
-    @Query(value = "update [dbo].[Payment] set order_id = :oid where transaction_no = :tno", nativeQuery = true)
-    void updateOrderid(@Param("oid") String oid, @Param("tno") String tno);
+  @Modifying
+  @Transactional
+  @Query(value = "update [dbo].[Payment] set order_id = :oid where transaction_no = :tno", nativeQuery = true)
+  void updateOrderid(@Param("oid") String oid, @Param("tno") String tno);
 
-    @Modifying
-    @Transactional
-    @Query(value= "select * from [dbo].[Payment] where order_id is null", nativeQuery = true)
-    List<Payment> getAllFailOrder(); 
+  @Modifying
+  @Transactional
+  @Query(value = "select * from [dbo].[Payment] where order_id is null", nativeQuery = true)
+  List<Payment> getAllFailOrder();
 
-    // Thinh
-    @Transactional
-    @Query(value = "SELECT transaction_no FROM [dbo].[Payment] WHERE order_id = :oid", nativeQuery = true)
-    String getTransactionNoByOrderId(@Param("oid") String oid);
+  // Thinh
+  @Transactional
+  @Query(value = "SELECT transaction_no FROM [dbo].[Payment] WHERE order_id = :oid", nativeQuery = true)
+  String getTransactionNoByOrderId(@Param("oid") String oid);
+
+  @Transactional
+  @Modifying
+  @Query(value = "delete [dbo].[Payment] where transaction_no = :id", nativeQuery = true)
+  void deleteTransaction(@Param("id") String id);
 }
