@@ -10,41 +10,42 @@ import com.example.TimeHarmony.entity.Watch;
 
 public interface ISellerService {
 
-    public Sellers saveSeller(Sellers seller, Users logInfo);
+  public Sellers saveSeller(Sellers seller, Users logInfo);
 
-    public String createWatch(Watch watch, Sellers seller);
+  public String createWatch(Watch watch, Sellers seller);
 
-    public String deleteWatchById(String watch_id);
+  public String deleteWatchById(String watch_id);
 
-    public Watch updateWatchByFields(Map<String, String> data, Watch existingWatch);
+  public Watch updateWatchByFields(Map<String, String> data, Watch existingWatch);
 
-    public Watch updateWatch(Watch newWatch, Watch existingWatch);
+  public Watch updateWatch(Watch newWatch, Watch existingWatch);
 
-    public List<Watch> findAllWatchBySeller(String sid);
+  public List<Watch> findAllWatchBySeller(String sid);
 
-    public Sellers getSellerbyId(String id);
+  public Sellers getSellerbyId(String id);
 
-    String confirmShipping(String wid, String oid);
+  String confirmShipping(String wid, String oid);
 
-    List<Watch> getWaitingList(String mid);
+  List<Watch> getWaitingList(String mid);
 
-    String confirmOrder(String oid);
+  String confirmOrder(String oid);
 
-    String setRate(float incoming_rate, String sid, String rater);
+  String setRate(float incoming_rate, String sid, String rater);
 
-    Float getRate(String sid);
+  Float getRate(String sid);
 
-    public float getTotalProfitBySeller (String sid);
+  public float getTotalProfitBySeller(String sid);
 
-    public float getProfitByMonth(int month ,int year, String sid); 
+  public float getProfitByMonth(int month, int year, String sid);
 
-    public float getProfitByDay(String date, String sid); 
+  public float getProfitByDay(String date, String sid);
 
-    List<String[]> getOrderFromWatch(String wid);
+  List<String[]> getOrderFromWatch(String wid);
 
-    public int countSellWatch (String sid); 
-   
-    public int countSoldWatch (String sid); 
-    
+  public int countSellWatch(String sid);
+
+  public int countSoldWatch(String sid);
+
+  String createAppraiseRequest(String sid, Map<String, Object> data);
 
 }

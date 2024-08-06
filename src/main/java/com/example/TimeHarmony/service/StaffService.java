@@ -10,10 +10,12 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.TimeHarmony.entity.AppraiseRequest;
 import com.example.TimeHarmony.entity.OrderLocation;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.enumf.OrderState;
 import com.example.TimeHarmony.enumf.StaffRole;
+import com.example.TimeHarmony.repository.AppraiseRequestRepository;
 import com.example.TimeHarmony.repository.OrderLocationRepository;
 import com.example.TimeHarmony.repository.OrderRepository;
 import com.example.TimeHarmony.repository.StaffRepository;
@@ -34,6 +36,8 @@ public class StaffService implements IStaffService {
   private OrderLocationRepository ORDER_LOCATION_REPOSITORY;
   @Autowired
   private StringService STRING_SERVICE;
+  @Autowired
+  private AppraiseRequestRepository APPRAISE_REQUEST_REPOSITORY;
 
   @Override
   public String approveWatch(String watch_id) {
@@ -141,6 +145,15 @@ public class StaffService implements IStaffService {
       return "Location updated at " + LocalDateTime.now();
     } catch (Exception e) {
       return e.toString();
+    }
+  }
+
+  @Override
+  public List<AppraiseRequest> getRequestsFromSeller(String sid) {
+    try {
+      return APPRAISE_REQUEST_REPOSITORY.getRequestFromSeller(UUID.fromString(sid));
+    } catch (Exception e) {
+      return null;
     }
   }
 

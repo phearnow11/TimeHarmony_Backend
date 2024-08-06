@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.TimeHarmony.entity.AppraiseRequest;
 import com.example.TimeHarmony.entity.Orders;
 import com.example.TimeHarmony.entity.Report;
 import com.example.TimeHarmony.entity.Vouchers;
@@ -148,6 +149,11 @@ public class StaffController {
     System.out.println(data.get("test"));
     existingWatch = WATCH_SERVICE.updateWatch(data, existingWatch);
     return existingWatch;
+  }
+
+  @RequestMapping(value = "get/appraise-requests/from", method = RequestMethod.GET)
+  public List<AppraiseRequest> getAllRequests(@RequestParam("sid") String sid) {
+    return STAFF_SERVICE.getRequestsFromSeller(sid);
   }
 
 }
