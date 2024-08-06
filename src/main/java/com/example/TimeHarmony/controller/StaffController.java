@@ -156,4 +156,8 @@ public class StaffController {
     return STAFF_SERVICE.getRequestsFromSeller(sid);
   }
 
+  @RequestMapping(value = "accept/request/{id}", method = RequestMethod.PATCH)
+  public String acceptRequest(@PathVariable("id") String aid, @RequestParam("request_id") String request_id) {
+    return STAFF_SERVICE.acceptRequest(request_id, aid);
+  }
 }

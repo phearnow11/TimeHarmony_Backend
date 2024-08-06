@@ -157,4 +157,14 @@ public class StaffService implements IStaffService {
     }
   }
 
+  @Override
+  public String acceptRequest(String request_id, String aid) {
+    try {
+      APPRAISE_REQUEST_REPOSITORY.assignRequest(UUID.fromString(aid), request_id);
+      return "Request Accepted";
+    } catch (Exception e) {
+      return e.toString();
+    }
+  }
+
 }

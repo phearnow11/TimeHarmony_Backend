@@ -308,6 +308,8 @@ public class SellerService implements ISellerService {
     try {
       if (data.get("watch_id") == null)
         throw new Exception("Watch ID is required");
+      if (!APPRAISE_REQUEST_REPOSITORY.checkWatch(data.get("watch_id").toString()).isEmpty())
+        throw new Exception("Request of this watch is already created");
       String request_id = "R" + STRING_SERVICE.autoGenerateString(11);
       AppraiseRequest request = new AppraiseRequest(request_id, UUID.fromString(sid), null,
           data.get("watch_id").toString(),

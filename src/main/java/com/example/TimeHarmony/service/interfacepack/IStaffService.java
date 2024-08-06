@@ -22,4 +22,6 @@ public interface IStaffService {
   String updateLocation(String id, Map<String, Object> data);
 
   List<AppraiseRequest> getRequestsFromSeller(String sid);
+
+  String acceptRequest(String request_id, String aid);
 }
