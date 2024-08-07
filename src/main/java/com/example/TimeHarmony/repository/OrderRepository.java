@@ -100,6 +100,13 @@ public interface OrderRepository extends JpaRepository<Orders, String> {
   @Query(value = "select order_id from [dbo].[Watches_In_Cart] join (select watch_id from [dbo].[Watch] join [dbo].[Members] on [dbo].[Watch].member_id = [dbo].[Members].member_id where [dbo].[Members].username = :username) as M on [dbo].[Watches_In_Cart].watch_id = M.watch_id", nativeQuery = true)
   List<String> getOrderFromSeller(@Param("username") String username);
 
-  @Query(value = "select state from Orders where order_id in :oids")
+  @Query(value = "select state from Orders where order_id in :oids", nativeQuery= true)
   List<OrderState> getStatesFromOrder(@Param("oids") List<String> oids);
+
+  @Query(value = "select o from Orders o where o.state = ?1")
+  List<Orders> getOrdersByState(int state); 
+
+
+
+
 }

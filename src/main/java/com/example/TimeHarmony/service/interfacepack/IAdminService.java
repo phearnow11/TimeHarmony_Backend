@@ -5,8 +5,10 @@ import java.util.Map;
 
 import com.example.TimeHarmony.entity.Admins;
 import com.example.TimeHarmony.entity.Members;
+import com.example.TimeHarmony.entity.Orders;
 import com.example.TimeHarmony.entity.Payment;
 import com.example.TimeHarmony.entity.Report;
+import com.example.TimeHarmony.entity.Staff;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.enumf.StaffRole;
 
@@ -45,5 +47,9 @@ public interface IAdminService {
   String changeStaffRole(String id, StaffRole role);
 
   public List<Payment> getAllFailOrder();
+
+  List<Orders> getOrderByState(int state); 
+
+  List<Staff> getStaffByRole(StaffRole role); 
 
 }

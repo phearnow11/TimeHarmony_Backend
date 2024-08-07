@@ -21,6 +21,7 @@ import com.example.TimeHarmony.entity.Admins;
 import com.example.TimeHarmony.entity.Members;
 import com.example.TimeHarmony.entity.Orders;
 import com.example.TimeHarmony.entity.Payment;
+import com.example.TimeHarmony.entity.Staff;
 import com.example.TimeHarmony.entity.Users;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.enumf.Roles;
@@ -187,4 +188,16 @@ public class AdminController {
   public List<Payment> getRefundMember() {
     return ADMIN_SERVICE.getAllFailOrder(); 
   }
+
+  @RequestMapping(value= "get/orders-by-state/{state}", method= RequestMethod.GET)
+  public List<Orders> getOrdersByState(@PathVariable("state")int state){
+    return ADMIN_SERVICE.getOrderByState(state); //check enumf
+  }
+
+  @RequestMapping(value="get/staff-by-state/{role}", method = RequestMethod.GET)
+  public List<Staff> getStaffByState(@PathVariable("role") StaffRole role){
+    return ADMIN_SERVICE.getStaffByRole(role); 
+  }
+
+  
 }

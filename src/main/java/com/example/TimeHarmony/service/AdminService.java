@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 import com.example.TimeHarmony.builder.MemberBuilder;
 import com.example.TimeHarmony.entity.Admins;
 import com.example.TimeHarmony.entity.Members;
+import com.example.TimeHarmony.entity.Orders;
 import com.example.TimeHarmony.entity.Payment;
 import com.example.TimeHarmony.entity.Report;
 import com.example.TimeHarmony.entity.Sellers;
+import com.example.TimeHarmony.entity.Staff;
 import com.example.TimeHarmony.entity.Users;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.enumf.OrderState;
@@ -236,5 +238,15 @@ public List<Payment> getAllFailOrder() {
     } catch (Exception e) {
       return e.toString();
     }
+  }
+
+  @Override
+  public List<Orders> getOrderByState(int state) {
+    return ORDER_REPOSITORY.getOrderByState(state); 
+  }
+
+  @Override
+  public List<Staff> getStaffByRole(StaffRole role) {
+    return STAFF_REPOSITORY.getStaffByRole(role); 
   }
 }

@@ -1,5 +1,6 @@
 package com.example.TimeHarmony.repository;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -36,4 +37,11 @@ public interface StaffRepository extends JpaRepository<Staff, UUID> {
   @Transactional
   @Query(value = "update Staff set staff_role = :role where member_id = :id")
   void updateStaffRole(@Param("role") StaffRole role, @Param("id") UUID mid);
+
+  
+  @Query(value = "select s from Staff s where s.staff_role = :sr ")
+        List<Staff> getStaffByRole(@Param("sr") StaffRole sr ); 
+
+  
+
 }
