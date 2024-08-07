@@ -2,6 +2,7 @@ package com.example.TimeHarmony.service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import com.example.TimeHarmony.entity.Authorities;
 import com.example.TimeHarmony.entity.Sellers;
 import com.example.TimeHarmony.entity.Users;
 import com.example.TimeHarmony.entity.Watch;
+import com.example.TimeHarmony.enumf.RequestStatus;
 import com.example.TimeHarmony.enumf.Roles;
 import com.example.TimeHarmony.repository.AppraiseRequestRepository;
 import com.example.TimeHarmony.repository.AuthoritiesRepository;
@@ -308,12 +310,15 @@ public class SellerService implements ISellerService {
     try {
       if (data.get("watch_id") == null)
         throw new Exception("Watch ID is required");
-      if (!APPRAISE_REQUEST_REPOSITORY.checkWatch(data.get("watch_id").toString()).isEmpty())
+      if (APPRAISE_REQUEST_REPOSITORY.checkWatch(data.get("watch_id").toString()) != null)
         throw new Exception("Request of this watch is already created");
       String request_id = "R" + STRING_SERVICE.autoGenerateString(11);
       AppraiseRequest request = new AppraiseRequest(request_id, UUID.fromString(sid), null,
           data.get("watch_id").toString(),
-          Timestamp.valueOf(LocalDateTime.now()), data.get("note") == null ? null : data.get("note").toString());
+          null,
+          Timestamp.valueOf(LocalDateTime.now()),
+          data.get("note") == null ? null : data.get("note").toString(),
+          RequestStatus.NEW);
       APPRAISE_REQUEST_REPOSITORY.save(request);
 
       return "Request created";

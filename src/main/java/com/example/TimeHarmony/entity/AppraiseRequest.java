@@ -3,6 +3,8 @@ package com.example.TimeHarmony.entity;
 import java.sql.Timestamp;
 import java.util.UUID;
 
+import com.example.TimeHarmony.enumf.RequestStatus;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -11,6 +13,7 @@ import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * AppraiseRequest
@@ -19,6 +22,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 @Table(name = "Appraise_Request")
 public class AppraiseRequest {
 
@@ -30,7 +34,12 @@ public class AppraiseRequest {
 
   @Temporal(TemporalType.TIMESTAMP)
   private Timestamp appointment_date;
+
+  @Temporal(TemporalType.TIMESTAMP)
+  private Timestamp created_at;
+
   private String note;
+  private RequestStatus status;
 
   public AppraiseRequest() {
   }
