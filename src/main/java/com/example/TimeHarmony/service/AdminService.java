@@ -280,11 +280,30 @@ public class AdminService implements IAdminService {
 
   @Override
   public List<Orders> getOrderByState(int state) {
-    return ORDER_REPOSITORY.getOrderByState(state); 
+    return ORDER_REPOSITORY.getOrderByState(state);
   }
 
   @Override
   public List<Staff> getStaffByRole(StaffRole role) {
-    return STAFF_REPOSITORY.getStaffByRole(role); 
+    return STAFF_REPOSITORY.getStaffByRole(role);
   }
+
+  @Override
+  public String updateAssignAppraiser(String request_id, String aid, String date) {
+    try {
+      if (date == null)
+        throw new Exception("Date is required");
+      if (APPRAISE_REQUEST_REPOSITORY.getStatus(request_id) != RequestStatus.PROCESSING)
+        throw new Exception("Logic Error");
+      if (aid == null || aid.isEmpty()) {
+        APPRAISE_REQUEST_REPOSITORY.updateAppraiserADate(null, null, request_id);
+        return "Appraiser Unassgined";
+      }
+      APPRAISE_REQUEST_REPOSITORY.updateAppraiserADate(UUID.fromString(aid), Timestamp.valueOf(date), request_id);
+      return "Request Updated";
+    } catch (Exception e) {
+      return e.toString();
+    }
+  }
+
 }

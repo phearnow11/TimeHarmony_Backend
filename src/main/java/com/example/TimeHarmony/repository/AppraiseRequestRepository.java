@@ -62,4 +62,9 @@ public interface AppraiseRequestRepository extends JpaRepository<AppraiseRequest
   @Transactional
   @Query(value = "update AppraiseRequest set status = :status where appraise_watch = :wid")
   void updateStatusViaWatch(@Param("status") RequestStatus status, @Param("wid") String wid);
+
+  @Modifying
+  @Transactional
+  @Query(value = "update AppraiseRequest set appraiser_assigned = :aid, appointment_date = :date where request_id = :rid")
+  void updateAppraiserADate(@Param("aid") UUID aid, @Param("date") Timestamp date, @Param("rid") String request_id);
 }

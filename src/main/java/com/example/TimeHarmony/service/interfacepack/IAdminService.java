@@ -1,5 +1,6 @@
 package com.example.TimeHarmony.service.interfacepack;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -53,8 +54,10 @@ public interface IAdminService {
 
   List<AppraiseRequest> getAllRequest();
 
-  List<Orders> getOrderByState(int state); 
+  List<Orders> getOrderByState(int state);
 
-  List<Staff> getStaffByRole(StaffRole role); 
+  List<Staff> getStaffByRole(StaffRole role);
+
+  String updateAssignAppraiser(String request_id, String aid, String date);
 
 }

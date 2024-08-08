@@ -202,15 +202,20 @@ public class AdminController {
     return ADMIN_SERVICE.assignAppraiser(request_id, aid, data.get("appointment_date").toString());
   }
 
-  @RequestMapping(value= "get/orders-by-state/{state}", method= RequestMethod.GET)
-  public List<Orders> getOrdersByState(@PathVariable("state")int state){
-    return ADMIN_SERVICE.getOrderByState(state); //check enumf
+  @RequestMapping(value = "get/orders-by-state/{state}", method = RequestMethod.GET)
+  public List<Orders> getOrdersByState(@PathVariable("state") int state) {
+    return ADMIN_SERVICE.getOrderByState(state); // check enumf
   }
 
-  @RequestMapping(value="get/staff-by-state/{role}", method = RequestMethod.GET)
-  public List<Staff> getStaffByState(@PathVariable("role") StaffRole role){
-    return ADMIN_SERVICE.getStaffByRole(role); 
+  @RequestMapping(value = "get/staff-by-state/{role}", method = RequestMethod.GET)
+  public List<Staff> getStaffByState(@PathVariable("role") StaffRole role) {
+    return ADMIN_SERVICE.getStaffByRole(role);
   }
 
-  
+  @RequestMapping(value = "update/request", method = RequestMethod.PATCH)
+  public String updateRequest(@RequestParam("aid") String aid, @RequestParam("rid") String rid,
+      @RequestBody Map<String, String> data) {
+    return ADMIN_SERVICE.updateAssignAppraiser(rid, aid, data.get("date"));
+  }
+
 }
