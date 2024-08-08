@@ -60,4 +60,15 @@ public interface IAdminService {
 
   String updateAssignAppraiser(String request_id, String aid, String date);
 
+  int orderOfDay(String date); 
+
+  int successOrderOfDay (String date);
+
+  long totalAmountOrderOfDay(String date);
+
+  long totalAmountSuccess(String date); 
+
+  List<Map<String, Integer>> top3Brand();
+
+  float getWebProfitByDate(String date); 
 }

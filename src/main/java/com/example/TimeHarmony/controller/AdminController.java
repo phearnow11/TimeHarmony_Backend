@@ -218,4 +218,34 @@ public class AdminController {
     return ADMIN_SERVICE.updateAssignAppraiser(rid, aid, data.get("date"));
   }
 
+  @RequestMapping(value= "get/order-number/{date}", method = RequestMethod.GET)
+  public int getOrderNumber(@PathVariable("date") String date){
+    return ADMIN_SERVICE.orderOfDay(date); 
+  }
+
+  @RequestMapping(value= "get/order-success-number/{date}", method = RequestMethod.GET)
+  public int getSuccessOrderNumber(@PathVariable("date") String date){
+    return ADMIN_SERVICE.successOrderOfDay(date); 
+  }
+
+  @RequestMapping(value= "get/total-amount-success-order/{date}", method= RequestMethod.GET)
+  public long getTotalAmountSuccessOrder(@PathVariable("date") String date){
+    return ADMIN_SERVICE.totalAmountSuccess(date); 
+  }
+
+  @RequestMapping(value= "get/total-amount-order/{date}", method= RequestMethod.GET)
+  public long getTotalAmountOrder(@PathVariable("date") String date){
+    return ADMIN_SERVICE.totalAmountOrderOfDay(date); 
+  }
+
+  @RequestMapping(value= "get/top-3-brand", method = RequestMethod.GET)
+  public List<Map<String, Integer>> getTop3brand(){
+    return ADMIN_SERVICE.top3Brand(); 
+  }
+
+  @RequestMapping(value = "get/profit/{date}", method = RequestMethod.GET)
+  public float getProfit(@PathVariable("date") String date) {
+    return ADMIN_SERVICE.getWebProfitByDate(date); 
+  }
+
 }

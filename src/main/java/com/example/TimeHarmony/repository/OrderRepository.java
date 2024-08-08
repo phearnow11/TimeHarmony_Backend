@@ -94,8 +94,8 @@ public interface OrderRepository extends JpaRepository<Orders, String> {
   @Query(value = "select payment_method from [dbo].[Payment] where order_id = :oid", nativeQuery = true)
   String getPaymentMethod(@Param("oid") String oid);
 
-  @Query(value = "select sum ([dbo].[Orders].[total_price]/51) from [dbo].[Orders]", nativeQuery = true)
-  float getWebProfit();
+  @Query(value = "select sum ([dbo].[Orders].[total_price]/51) from [dbo].[Orders] where state <> 4 and state <> 5", nativeQuery = true)
+  String  getWebProfit();
 
   @Query(value = "select order_id from [dbo].[Watches_In_Cart] join (select watch_id from [dbo].[Watch] join [dbo].[Members] on [dbo].[Watch].member_id = [dbo].[Members].member_id where [dbo].[Members].username = :username) as M on [dbo].[Watches_In_Cart].watch_id = M.watch_id", nativeQuery = true)
   List<String> getOrderFromSeller(@Param("username") String username);
@@ -107,6 +107,19 @@ public interface OrderRepository extends JpaRepository<Orders, String> {
   List<Orders> getOrdersByState(int state); 
 
 
+  @Query(value= "SELECT COUNT(*) FROM [dbo].[Orders] WHERE CAST(create_time AS DATE) = :date and state = 3 ", nativeQuery=true)
+  String  NumOfOrderSuccessByDate(@Param("date") String date); 
 
+  @Query(value="Select count(*) from [dbo].[Orders] where cast(create_time as date) = :date ", nativeQuery=true)
+  String NumOfOrderByDate(@Param("date") String date); 
+
+  @Query(value = "SELECT SUM(total_price) FROM [dbo].[Orders] WHERE CAST(create_time AS DATE) = :date and state = 3 ", nativeQuery=true)
+  String totalPriceOrderSuccessByDate(@Param("date") String date); 
+
+  @Query(value = "SELECT SUM(total_price) FROM [dbo].[Orders] WHERE CAST(create_time AS DATE) = :date ", nativeQuery=true)
+  String totalPriceOrderByDate(@Param("date") String date); 
+
+  @Query(value = "select sum ([dbo].[Orders].[total_price]/51) from [dbo].[Orders] WHERE (state <> 4 and state <> 5) and CAST(create_time AS DATE) = :date ", nativeQuery = true)
+  String getWebProfitByDate(@Param("date") String date);
 
 }
