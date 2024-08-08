@@ -27,5 +27,5 @@ public interface IStaffService {
 
   List<AppraiseRequest> getMyRequests(String aid);
 
-  List<String> getMyAssignedWatch(String aid);
+  Map<String, List<String>> getMyAssignedWatch(String aid);
 }

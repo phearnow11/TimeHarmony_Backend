@@ -2,8 +2,8 @@ package com.example.TimeHarmony.service.interfacepack;
 
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
+import com.example.TimeHarmony.entity.AppraiseRequest;
 import com.example.TimeHarmony.entity.Sellers;
 import com.example.TimeHarmony.entity.Users;
 import com.example.TimeHarmony.entity.Watch;
@@ -47,5 +47,7 @@ public interface ISellerService {
   public int countSoldWatch(String sid);
 
   String createAppraiseRequest(String sid, Map<String, Object> data);
+
+  List<AppraiseRequest> getMyRequest(String sid);
 
 }

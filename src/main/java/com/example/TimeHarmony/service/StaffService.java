@@ -3,7 +3,9 @@ package com.example.TimeHarmony.service;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -18,6 +20,7 @@ import com.example.TimeHarmony.entity.AppraiseRequest;
 import com.example.TimeHarmony.entity.OrderLocation;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.enumf.OrderState;
+import com.example.TimeHarmony.enumf.RequestStatus;
 import com.example.TimeHarmony.enumf.StaffRole;
 import com.example.TimeHarmony.repository.AppraiseRequestRepository;
 import com.example.TimeHarmony.repository.OrderLocationRepository;
@@ -51,6 +54,9 @@ public class StaffService implements IStaffService {
   public String approveWatch(String watch_id) {
     byte APPROVED_STATE = 1;
     try {
+      if (APPRAISE_REQUEST_REPOSITORY.getStatusViaWatch(watch_id) != RequestStatus.PROCESSING)
+        throw new Exception("Logic Error");
+      APPRAISE_REQUEST_REPOSITORY.updateStatusViaWatch(RequestStatus.COMPLETED, watch_id);
       WATCH_REPOSITORY.approveWatch(Timestamp.valueOf(LocalDateTime.now()), watch_id, APPROVED_STATE);
       ;
       return "Watch Approved";
@@ -73,6 +79,9 @@ public class StaffService implements IStaffService {
   public String unApproveWatch(String watch_id) {
     byte UNAPPROVED_STATE = 2;
     try {
+      if (APPRAISE_REQUEST_REPOSITORY.getStatusViaWatch(watch_id) != RequestStatus.PROCESSING)
+        throw new Exception("Logic Error");
+      APPRAISE_REQUEST_REPOSITORY.updateStatusViaWatch(RequestStatus.FAILED, watch_id);
       WATCH_REPOSITORY.approveWatch(Timestamp.valueOf(LocalDateTime.now()), watch_id, UNAPPROVED_STATE);
       ;
       return "Watch Deleted";
@@ -198,9 +207,18 @@ public class StaffService implements IStaffService {
   }
 
   @Override
-  public List<String> getMyAssignedWatch(String aid) {
+  public Map<String, List<String>> getMyAssignedWatch(String aid) {
     try {
-      return APPRAISE_REQUEST_REPOSITORY.getWatchFromAppraiser(UUID.fromString(aid));
+      Map<String, List<String>> res = new HashMap<>();
+      List<String> wids = new ArrayList<>();
+      List<String> rids = new ArrayList<>();
+      for (AppraiseRequest request : APPRAISE_REQUEST_REPOSITORY.getMyAssignedRequest(UUID.fromString(aid))) {
+        wids.add(request.getAppraise_watch());
+        rids.add(request.getRequest_id());
+      }
+      res.put("wids", wids);
+      res.put("rids", rids);
+      return res;
     } catch (Exception e) {
       System.out.println(e.toString());
       return null;

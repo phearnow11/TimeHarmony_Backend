@@ -60,8 +60,8 @@ public class StaffController {
   public List<Map<String, String>> getWatches(@PathVariable("id") String aid) {
     List<Map<String, String>> res = new ArrayList<>();
     Map<String, String> watch = new Hashtable<>();
-    List<String> wids = STAFF_SERVICE.getMyAssignedWatch(aid);
-    List<Watch> ads = WATCH_SERVICE.getWatchByIds(wids);
+    Map<String, List<String>> data = STAFF_SERVICE.getMyAssignedWatch(aid);
+    List<Watch> ads = WATCH_SERVICE.getWatchByIds(data.get("wids"));
     for (Watch w : ads) {
       watch.put("id", w.getWatch_id());
       watch.put("name", w.getWatch_name());
@@ -145,11 +145,13 @@ public class StaffController {
   }
 
   @RequestMapping(value = "update/fields/{watch_id}", method = RequestMethod.PATCH)
-  public Watch updateWatch(@RequestBody Map<String, String> data, @PathVariable String watch_id) {
+  public String updateWatch(@RequestBody Map<String, String> data, @PathVariable String watch_id) {
     Watch existingWatch = WATCH_SERVICE.getWatchById(watch_id);
     System.out.println(data.get("test"));
     existingWatch = WATCH_SERVICE.updateWatch(data, existingWatch);
-    return existingWatch;
+    if (existingWatch == null)
+      return "Update error";
+    return "Updated";
   }
 
   @RequestMapping(value = "get/appraise-requests/from", method = RequestMethod.GET)

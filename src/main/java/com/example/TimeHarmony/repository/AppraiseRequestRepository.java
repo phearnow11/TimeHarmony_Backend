@@ -45,6 +45,9 @@ public interface AppraiseRequestRepository extends JpaRepository<AppraiseRequest
   @Query(value = "select r.status from AppraiseRequest r where request_id = :rid")
   RequestStatus getStatus(@Param("rid") String rid);
 
+  @Query(value = "select r.status from AppraiseRequest r where appraise_watch = :wid")
+  RequestStatus getStatusViaWatch(@Param("wid") String wid);
+
   @Modifying
   @Transactional
   @Query(value = "update [dbo].[Appraise_Request] set status = 4 where appointment_date < getdate()", nativeQuery = true)
@@ -55,4 +58,8 @@ public interface AppraiseRequestRepository extends JpaRepository<AppraiseRequest
   @Query(value = "update AppraiseRequest set status = :status where request_id = :rid")
   void updateStatus(@Param("status") RequestStatus status, @Param("rid") String request_id);
 
+  @Modifying
+  @Transactional
+  @Query(value = "update AppraiseRequest set status = :status where appraise_watch = :wid")
+  void updateStatusViaWatch(@Param("status") RequestStatus status, @Param("wid") String wid);
 }

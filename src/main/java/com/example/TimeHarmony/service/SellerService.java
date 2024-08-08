@@ -326,4 +326,14 @@ public class SellerService implements ISellerService {
     }
   }
 
+  @Override
+  public List<AppraiseRequest> getMyRequest(String sid) {
+    try {
+      return APPRAISE_REQUEST_REPOSITORY.getRequestFromSeller(UUID.fromString(sid));
+    } catch (Exception e) {
+      System.out.println(e.toString());
+      return null;
+    }
+  }
+
 }

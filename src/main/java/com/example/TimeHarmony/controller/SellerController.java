@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.TimeHarmony.builder.WatchBuilder;
+import com.example.TimeHarmony.entity.AppraiseRequest;
 import com.example.TimeHarmony.entity.Sellers;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.service.SellerService;
@@ -161,6 +161,11 @@ public class SellerController {
   @RequestMapping(value = "create/appraise-request/{id}", method = RequestMethod.POST)
   public String createAppraiseRequest(@PathVariable("id") String sid, @RequestBody Map<String, Object> data) {
     return SELLER_SERVICE.createAppraiseRequest(sid, data);
+  }
+
+  @RequestMapping(value = "get/my-request/{id}", method = RequestMethod.GET)
+  public List<AppraiseRequest> getMyRequest(@PathVariable("id") String id) {
+    return SELLER_SERVICE.getMyRequest(id);
   }
 
 }
