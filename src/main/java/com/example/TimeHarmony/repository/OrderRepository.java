@@ -119,7 +119,9 @@ public interface OrderRepository extends JpaRepository<Orders, String> {
   @Query(value = "SELECT SUM(total_price) FROM [dbo].[Orders] WHERE CAST(create_time AS DATE) = :date ", nativeQuery=true)
   String totalPriceOrderByDate(@Param("date") String date); 
 
-  @Query(value = "select sum ([dbo].[Orders].[total_price]/51) from [dbo].[Orders] WHERE (state <> 4 and state <> 5) and CAST(create_time AS DATE) = :date ", nativeQuery = true)
-  String getWebProfitByDate(@Param("date") String date);
+  @Query(value = "select sum ([dbo].[Orders].[total_price]/51) from [dbo].[Orders] WHERE (state <> 4 and state <> 5) and CAST(create_time AS DATE) between :from and :to ", nativeQuery = true)
+  String getWebProfitByDate(@Param("from") String from, @Param("to") String to);
 
+  @Query(value = "SELECT SUM([total_price]/51)  FROM [dbo].[Orders] WHERE (state <> 4 and state <> 5 ) and CONVERT(VARCHAR(7), create_time, 120) BETWEEN :fromM AND :toM", nativeQuery= true)
+  String getWebProfitByMonth(@Param("fromM") String fromM, @Param("toM") String toM);
 }

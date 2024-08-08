@@ -1,6 +1,5 @@
 package com.example.TimeHarmony.service.interfacepack;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -70,5 +69,7 @@ public interface IAdminService {
 
   List<Map<String, Integer>> top3Brand();
 
-  float getWebProfitByDate(String date); 
+  float getWebProfitByDate(String from, String to); 
+
+  float getWebProfitByMonth(String fromM, String toM); 
 }

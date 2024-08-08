@@ -243,9 +243,16 @@ public class AdminController {
     return ADMIN_SERVICE.top3Brand(); 
   }
 
-  @RequestMapping(value = "get/profit/{date}", method = RequestMethod.GET)
-  public float getProfit(@PathVariable("date") String date) {
-    return ADMIN_SERVICE.getWebProfitByDate(date); 
+  //date format yyyy-mm-dd
+  @RequestMapping(value = "get/profit-date/{from}-to-{to}", method = RequestMethod.GET)
+  public float getProfitByDate(@PathVariable("from") String from, @PathVariable("to") String to ) {
+    return ADMIN_SERVICE.getWebProfitByDate(from,to); 
+  }
+
+  //month format yyyy-mm
+  @RequestMapping(value = "get/profit-month/{fromM}-to-{toM}", method = RequestMethod.GET)
+  public float getProfitByMonth(@PathVariable("fromM") String fromM, @PathVariable("toM") String toM ) {
+    return ADMIN_SERVICE.getWebProfitByMonth(fromM,toM); 
   }
 
 }

@@ -355,8 +355,18 @@ public class AdminService implements IAdminService {
   }
 
   @Override
-  public float  getWebProfitByDate(String date) {
-    String rs = ORDER_REPOSITORY.getWebProfitByDate(date); 
+  public float  getWebProfitByDate(String from, String to) {
+    String rs = ORDER_REPOSITORY.getWebProfitByDate(from, to); 
+
+    if (rs == null) {
+      return 0 ; 
+    }
+    return Float.parseFloat(rs); 
+  }
+
+  @Override
+  public float getWebProfitByMonth(String fromM, String toM) {
+    String rs = ORDER_REPOSITORY.getWebProfitByMonth(fromM, toM); 
 
     if (rs == null) {
       return 0 ; 
