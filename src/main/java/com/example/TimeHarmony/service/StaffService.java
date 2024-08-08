@@ -2,9 +2,13 @@ package com.example.TimeHarmony.service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +42,10 @@ public class StaffService implements IStaffService {
   private StringService STRING_SERVICE;
   @Autowired
   private AppraiseRequestRepository APPRAISE_REQUEST_REPOSITORY;
+  @Autowired
+  private OrderService ORDER_SERVICE;
+
+  public Timer ORDER_SUCCESS_TIMER;
 
   @Override
   public String approveWatch(String watch_id) {
@@ -102,6 +110,19 @@ public class StaffService implements IStaffService {
         throw new Exception("You are not shipper");
       if (ORDER_REPOSITORY.getState(oid) != OrderState.SHIPPING)
         throw new Exception("Logic error");
+
+      // Auto Confirm Order after 3 days
+      LocalDateTime fifteenMinuteLater = LocalDateTime.now().plusDays(3);
+      Date fifteenMinuteLaterAsDate = Date.from(fifteenMinuteLater.atZone(ZoneId.systemDefault()).toInstant());
+      TimerTask orderSuccessTask = new TimerTask() {
+        public void run() {
+          ORDER_SERVICE.confirmOrder(oid);
+        }
+      };
+
+      ORDER_SUCCESS_TIMER = new Timer();
+      ORDER_SUCCESS_TIMER.schedule(orderSuccessTask, fifteenMinuteLaterAsDate);
+
       ORDER_REPOSITORY.shippedOrder(oid);
       STAFF_REPOSITORY.shippedOrder(oid);
       WATCH_REPOSITORY.shippedOrder(oid);
