@@ -33,7 +33,10 @@ public interface AppraiseRequestRepository extends JpaRepository<AppraiseRequest
   @Query(value = "select appraise_watch from [dbo].[Appraise_Request] where request_id = :rid", nativeQuery = true)
   String getWatch(@Param("rid") String request_id);
 
-  @Query(value = "select request_id from [dbo].[Appraise_Request] where appraiser_assigned = :aid", nativeQuery = true)
+  @Query(value = "select r.appraise_watch from AppraiseRequest r where appraiser_assigned = :aid")
+  List<String> getWatchFromAppraiser(@Param("aid") UUID aid);
+
+  @Query(value = "select * from [dbo].[Appraise_Request] where appraiser_assigned = :aid", nativeQuery = true)
   List<AppraiseRequest> getMyAssignedRequest(@Param("aid") UUID aid);
 
   @Query(value = "select appraiser_assigned from [dbo].[Appraise_Request] where request_id = :rid", nativeQuery = true)

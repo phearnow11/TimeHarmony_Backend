@@ -56,11 +56,12 @@ public class StaffController {
     return STAFF_SERVICE.unApproveWatch(watch_id);
   }
 
-  @RequestMapping(value = "get/watch", method = RequestMethod.GET)
-  public List<Map<String, String>> getWatches() {
+  @RequestMapping(value = "get/watch/{id}", method = RequestMethod.GET)
+  public List<Map<String, String>> getWatches(@PathVariable("id") String aid) {
     List<Map<String, String>> res = new ArrayList<>();
     Map<String, String> watch = new Hashtable<>();
-    List<Watch> ads = WATCH_SERVICE.getWatchesbyState();
+    List<String> wids = STAFF_SERVICE.getMyAssignedWatch(aid);
+    List<Watch> ads = WATCH_SERVICE.getWatchByIds(wids);
     for (Watch w : ads) {
       watch.put("id", w.getWatch_id());
       watch.put("name", w.getWatch_name());
@@ -159,5 +160,10 @@ public class StaffController {
   @RequestMapping(value = "accept/request/{id}", method = RequestMethod.PATCH)
   public String acceptRequest(@PathVariable("id") String aid, @RequestParam("request_id") String request_id) {
     return STAFF_SERVICE.acceptRequest(request_id, aid);
+  }
+
+  @RequestMapping(value = "get/my-request/{id}, method = RequestMethod.GET")
+  public List<AppraiseRequest> getMyRequest(@PathVariable("id") String aid) {
+    return STAFF_SERVICE.getMyRequests(aid);
   }
 }

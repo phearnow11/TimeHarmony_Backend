@@ -24,4 +24,8 @@ public interface IStaffService {
   List<AppraiseRequest> getRequestsFromSeller(String sid);
 
   String acceptRequest(String request_id, String aid);
+
+  List<AppraiseRequest> getMyRequests(String aid);
+
+  List<String> getMyAssignedWatch(String aid);
 }

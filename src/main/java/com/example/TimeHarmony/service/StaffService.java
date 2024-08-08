@@ -187,4 +187,24 @@ public class StaffService implements IStaffService {
     }
   }
 
+  @Override
+  public List<AppraiseRequest> getMyRequests(String aid) {
+    try {
+      return APPRAISE_REQUEST_REPOSITORY.getMyAssignedRequest(UUID.fromString(aid));
+    } catch (Exception e) {
+      System.out.println(e.toString());
+      return null;
+    }
+  }
+
+  @Override
+  public List<String> getMyAssignedWatch(String aid) {
+    try {
+      return APPRAISE_REQUEST_REPOSITORY.getWatchFromAppraiser(UUID.fromString(aid));
+    } catch (Exception e) {
+      System.out.println(e.toString());
+      return null;
+    }
+  }
+
 }
