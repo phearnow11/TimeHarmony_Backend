@@ -147,7 +147,6 @@ public class StaffController {
   @RequestMapping(value = "update/fields/{watch_id}", method = RequestMethod.PATCH)
   public String updateWatch(@RequestBody Map<String, String> data, @PathVariable String watch_id) {
     Watch existingWatch = WATCH_SERVICE.getWatchById(watch_id);
-    System.out.println(data.get("test"));
     existingWatch = WATCH_SERVICE.updateWatch(data, existingWatch);
     if (existingWatch == null)
       return "Update error";

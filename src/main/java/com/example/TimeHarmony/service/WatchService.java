@@ -412,7 +412,7 @@ public class WatchService implements IWatchService {
         existingWatch.setCase_shape(data.get("caseshape"));
       }
 
-      return existingWatch;
+      return WATCH_REPOSITORY.save(existingWatch);
     } catch (Exception e) {
       System.out.println(e.toString());
       return null;
