@@ -222,7 +222,12 @@ public class AdminService implements IAdminService {
 
   @Override
   public float getProfit() {
-    return ORDER_REPOSITORY.getWebProfit();
+    String rs = ORDER_REPOSITORY.getWebProfit(); 
+
+    if (rs == null) {
+      return 0 ; 
+    }
+    return Float.parseFloat(rs); 
   }
 
   @Override
@@ -304,6 +309,69 @@ public class AdminService implements IAdminService {
     } catch (Exception e) {
       return e.toString();
     }
+  }
+
+  @Override
+  public int orderOfDay(String date) {
+    String rs = ORDER_REPOSITORY.NumOfOrderByDate(date); 
+
+    if (rs == null){
+      return 0 ; 
+    }
+    return Integer.parseInt(rs); 
+  }
+
+  @Override
+  public int successOrderOfDay(String date) {
+    String rs = ORDER_REPOSITORY.NumOfOrderSuccessByDate(date); 
+    if (rs == null){
+      return 0 ; 
+    }
+    return Integer.parseInt(rs); 
+  }
+
+  @Override
+  public long totalAmountOrderOfDay(String date) {
+    String rs = ORDER_REPOSITORY.totalPriceOrderByDate(date) ; 
+    
+    if(rs == null){
+      return 0; 
+    }
+    return Long.parseLong(rs); 
+  }
+
+  @Override
+  public long totalAmountSuccess(String date) {
+    String rs = ORDER_REPOSITORY.totalPriceOrderSuccessByDate(date); 
+    if(rs == null){
+      return 0; 
+    }
+    return Long.parseLong(rs); 
+  }
+
+  @Override
+  public List<Map<String, Integer>> top3Brand() {
+    return WATCH_REPOSITORY.top3brand(); 
+  }
+
+  @Override
+  public float  getWebProfitByDate(String from, String to) {
+    String rs = ORDER_REPOSITORY.getWebProfitByDate(from, to); 
+
+    if (rs == null) {
+      return 0 ; 
+    }
+    return Float.parseFloat(rs); 
+  }
+
+  @Override
+  public float getWebProfitByMonth(String fromM, String toM) {
+    String rs = ORDER_REPOSITORY.getWebProfitByMonth(fromM, toM); 
+
+    if (rs == null) {
+      return 0 ; 
+    }
+    return Float.parseFloat(rs); 
   }
 
 }

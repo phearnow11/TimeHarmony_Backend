@@ -2,6 +2,7 @@ package com.example.TimeHarmony.repository;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.data.domain.Limit;
@@ -191,5 +192,8 @@ public interface WatchRepository extends JpaRepository<Watch, String> {
   @Transactional
   @Query(value = "update [dbo].[Watch] set state = 2 where watch_id = :wid and member_id = :mid", nativeQuery = true)
   void deleteWatch(@Param("wid") String wid, @Param("mid") UUID mid);
+
+  @Query(value = "SELECT top(3) brand, COUNT(*) FROM watch where (state <> 0 and state <> 2) and brand is not null GROUP BY brand ORDER BY COUNT(*) DESC", nativeQuery=true)
+  List<Map<String, Integer>> top3brand(); 
 
 }

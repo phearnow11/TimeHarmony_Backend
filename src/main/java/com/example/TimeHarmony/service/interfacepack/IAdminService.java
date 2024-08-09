@@ -1,6 +1,5 @@
 package com.example.TimeHarmony.service.interfacepack;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -60,4 +59,17 @@ public interface IAdminService {
 
   String updateAssignAppraiser(String request_id, String aid, String date);
 
+  int orderOfDay(String date); 
+
+  int successOrderOfDay (String date);
+
+  long totalAmountOrderOfDay(String date);
+
+  long totalAmountSuccess(String date); 
+
+  List<Map<String, Integer>> top3Brand();
+
+  float getWebProfitByDate(String from, String to); 
+
+  float getWebProfitByMonth(String fromM, String toM); 
 }
