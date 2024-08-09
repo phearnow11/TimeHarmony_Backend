@@ -321,6 +321,8 @@ public class WatchService implements IWatchService {
   public Watch updateWatch(Map<String, String> data, Watch existingWatch) {
 
     try {
+      if (existingWatch.getState() != 0)
+        throw new Exception("Logic error");
       if (data.get("description") != null) {
         existingWatch.setWatch_description(data.get("description"));
       }
