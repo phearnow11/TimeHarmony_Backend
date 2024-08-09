@@ -291,7 +291,7 @@ public class AdminService implements IAdminService {
   @Override
   public String updateAssignAppraiser(String request_id, String aid, String date) {
     try {
-      if (date == null)
+      if (date == null || date.isEmpty())
         throw new Exception("Date is required");
       if (APPRAISE_REQUEST_REPOSITORY.getStatus(request_id) != RequestStatus.PROCESSING)
         throw new Exception("Logic Error");
