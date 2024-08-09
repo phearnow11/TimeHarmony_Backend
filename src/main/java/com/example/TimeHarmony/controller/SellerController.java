@@ -57,7 +57,6 @@ public class SellerController {
         .setWatchName(data.get("name"))
         .setWatchCreateDate(Timestamp.valueOf(LocalDateTime.now()))
         .setState(DEFAULT_STATUS)
-        .setPrice(Float.parseFloat(data.get("price")))
         .setBrand(data.get("brand"))
         .setSeries(data.get("series"))
         .setModel(data.get("model"))
