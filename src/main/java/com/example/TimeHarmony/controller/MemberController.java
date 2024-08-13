@@ -191,7 +191,8 @@ public class MemberController {
     Addresses addr = MEMBER_SERVICE.getAddressByAddressId(data.get("address").toString());
 
     return ORDER_SERVICE.makeOrder(wids, member_id, data.get("notice").toString(),
-        Float.parseFloat(data.get("total_price").toString()), addr, data.get("transaction_no").toString());
+        Float.parseFloat(data.get("total_price").toString()), addr, data.get("transaction_no").toString()
+        , data.get("payment_method").toString());
   }
 
   @RequestMapping(value = "cancel/order/{oid}", method = RequestMethod.PUT)

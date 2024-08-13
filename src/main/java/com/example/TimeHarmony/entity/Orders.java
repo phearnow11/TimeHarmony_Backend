@@ -39,10 +39,12 @@ public class Orders {
     private String phone;
     private String notice;
     private float total_price;
+    
 
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp shipping_date;
     private OrderState state;
+    private String payment_method; 
 
     public Orders() {
     }

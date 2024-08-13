@@ -374,4 +374,74 @@ public class AdminService implements IAdminService {
     return Float.parseFloat(rs); 
   }
 
+  @Override
+  public int getSuccessOrderByMonth(String month) {
+    String rs1 = ORDER_REPOSITORY.numATMcompleteOrder(month);
+    String rs2 = ORDER_REPOSITORY.numCODcompleteOrder(month); 
+
+    int num1, num2 ; 
+    if(rs1 == null) {
+      num1 = 0 ; 
+    } else {
+    num1 = Integer.parseInt(rs1); 
+    }
+
+    if(rs2 == null){
+      num2 = 0 ; 
+    } else {
+    num2 = Integer.parseInt(rs2); 
+    }
+
+    return num1 + num2 ; 
+    
+  }
+
+  @Override
+  public long getTotalAmountSuccessOrderByMonth(String month) {
+    String rs1 = ORDER_REPOSITORY.totalAmountATM(month); 
+    String rs2 = ORDER_REPOSITORY.totalAmountCOD(month); 
+    long num1, num2 ; 
+
+    if(rs1 == null) {
+      num1 = 0 ; 
+    } else {
+    num1 = Long.parseLong(rs1); 
+    }
+    
+
+    if(rs2 == null) {
+      num2 = 0 ; 
+    } else {
+    num2 = Long.parseLong(rs2); 
+    }
+
+    System.out.print(num1);
+    System.out.print(",");
+    System.out.print(num2);
+    return num1 + num2; 
+
+  }
+
+  @Override
+  public long getTotalProfitOrderByMonth(String month) {
+    String rs1 = ORDER_REPOSITORY.totalProfitATM(month); 
+    String rs2 = ORDER_REPOSITORY.totalProfitCOD(month); 
+    long num1, num2 ; 
+
+    if(rs1 == null) {
+      num1 = 0 ; 
+    } else {
+    num1 = Long.parseLong(rs1); 
+    }
+
+    if(rs2 == null) {
+      num2 = 0 ; 
+    } else {
+    num2 = Long.parseLong(rs2); 
+    }
+    System.out.print(num1);
+    System.out.print(num2);
+    return num1 + num2; 
+  }
+
 }

@@ -10,7 +10,7 @@ import com.example.TimeHarmony.enumf.OrderState;
 
 public interface IOrderService {
 
-    String makeOrder(List<String> wids, String m_id, String notice, float total_price, Addresses addr, String tno);
+    String makeOrder(List<String> wids, String m_id, String notice, float total_price, Addresses addr, String tno, String pm);
 
     String updateCartOrder(List<String> wids, String cid, String oid);
 
