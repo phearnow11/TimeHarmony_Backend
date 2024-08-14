@@ -119,9 +119,9 @@ public class StaffController {
     return WATCH_SERVICE.deleteWatch(wid, sid);
   }
 
-  @RequestMapping(value = "get/pending-order", method = RequestMethod.GET)
-  public List<Orders> getPendingOrders() {
-    return ORDER_SERVICE.getPendingOrder();
+  @RequestMapping(value = "get/my-assigned-order/{id}", method = RequestMethod.GET)
+  public List<Orders> getMyAssignedOrder(@PathVariable("id") String id) {
+    return STAFF_SERVICE.getMyAssignedOrder(id);
   }
 
   @RequestMapping(value = "ship/order", method = RequestMethod.POST)

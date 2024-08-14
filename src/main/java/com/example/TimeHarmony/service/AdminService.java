@@ -222,12 +222,12 @@ public class AdminService implements IAdminService {
 
   @Override
   public float getProfit() {
-    String rs = ORDER_REPOSITORY.getWebProfit(); 
+    String rs = ORDER_REPOSITORY.getWebProfit();
 
     if (rs == null) {
-      return 0 ; 
+      return 0;
     }
-    return Float.parseFloat(rs); 
+    return Float.parseFloat(rs);
   }
 
   @Override
@@ -313,65 +313,82 @@ public class AdminService implements IAdminService {
 
   @Override
   public int orderOfDay(String date) {
-    String rs = ORDER_REPOSITORY.NumOfOrderByDate(date); 
+    String rs = ORDER_REPOSITORY.NumOfOrderByDate(date);
 
-    if (rs == null){
-      return 0 ; 
+    if (rs == null) {
+      return 0;
     }
-    return Integer.parseInt(rs); 
+    return Integer.parseInt(rs);
   }
 
   @Override
   public int successOrderOfDay(String date) {
-    String rs = ORDER_REPOSITORY.NumOfOrderSuccessByDate(date); 
-    if (rs == null){
-      return 0 ; 
+    String rs = ORDER_REPOSITORY.NumOfOrderSuccessByDate(date);
+    if (rs == null) {
+      return 0;
     }
-    return Integer.parseInt(rs); 
+    return Integer.parseInt(rs);
   }
 
   @Override
   public long totalAmountOrderOfDay(String date) {
-    String rs = ORDER_REPOSITORY.totalPriceOrderByDate(date) ; 
-    
-    if(rs == null){
-      return 0; 
+    String rs = ORDER_REPOSITORY.totalPriceOrderByDate(date);
+
+    if (rs == null) {
+      return 0;
     }
-    return Long.parseLong(rs); 
+    return Long.parseLong(rs);
   }
 
   @Override
   public long totalAmountSuccess(String date) {
-    String rs = ORDER_REPOSITORY.totalPriceOrderSuccessByDate(date); 
-    if(rs == null){
-      return 0; 
+    String rs = ORDER_REPOSITORY.totalPriceOrderSuccessByDate(date);
+    if (rs == null) {
+      return 0;
     }
-    return Long.parseLong(rs); 
+    return Long.parseLong(rs);
   }
 
   @Override
   public List<Map<String, Integer>> top3Brand() {
-    return WATCH_REPOSITORY.top3brand(); 
+    return WATCH_REPOSITORY.top3brand();
   }
 
   @Override
-  public float  getWebProfitByDate(String from, String to) {
-    String rs = ORDER_REPOSITORY.getWebProfitByDate(from, to); 
+  public float getWebProfitByDate(String from, String to) {
+    String rs = ORDER_REPOSITORY.getWebProfitByDate(from, to);
 
     if (rs == null) {
-      return 0 ; 
+      return 0;
     }
-    return Float.parseFloat(rs); 
+    return Float.parseFloat(rs);
   }
 
   @Override
   public float getWebProfitByMonth(String fromM, String toM) {
-    String rs = ORDER_REPOSITORY.getWebProfitByMonth(fromM, toM); 
+    String rs = ORDER_REPOSITORY.getWebProfitByMonth(fromM, toM);
 
     if (rs == null) {
-      return 0 ; 
+      return 0;
     }
-    return Float.parseFloat(rs); 
+    return Float.parseFloat(rs);
+  }
+
+  @Override
+  public String assignShipper(String oid, String mid) {
+    try {
+      if (STAFF_REPOSITORY.getRole(UUID.fromString(mid)) != StaffRole.SHIPPER)
+        throw new Exception("Staff selected is not shipper");
+      if (ORDER_REPOSITORY.getOrderWatchStates(oid).contains(3))
+        throw new Exception("Order is not packed");
+      if (ORDER_REPOSITORY.getState(oid) == OrderState.SHIPPING)
+        throw new Exception("Order is already shipping");
+      STAFF_REPOSITORY.assignOrderToShipper(UUID.fromString("mid"), oid);
+
+      return "Shipper Assigned";
+    } catch (Exception e) {
+      return e.toString();
+    }
   }
 
 }

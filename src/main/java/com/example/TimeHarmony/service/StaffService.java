@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.TimeHarmony.entity.AppraiseRequest;
 import com.example.TimeHarmony.entity.OrderLocation;
+import com.example.TimeHarmony.entity.Orders;
 import com.example.TimeHarmony.entity.Watch;
 import com.example.TimeHarmony.enumf.OrderState;
 import com.example.TimeHarmony.enumf.RequestStatus;
@@ -138,6 +139,19 @@ public class StaffService implements IStaffService {
       return "Order shipped confirm";
     } catch (Exception e) {
       return e.toString();
+    }
+  }
+
+  @Override
+  public List<Orders> getMyAssignedOrder(String sid) {
+    try {
+      if (STAFF_REPOSITORY.getRole(UUID.fromString(sid)) != StaffRole.SHIPPER)
+        throw new Exception("Not Shipper");
+      List<String> ids = STAFF_REPOSITORY.getMyAssignedOrder(UUID.fromString(sid));
+      return ORDER_REPOSITORY.findAllById(ids);
+    } catch (Exception e) {
+      System.out.println(e.toString());
+      return null;
     }
   }
 

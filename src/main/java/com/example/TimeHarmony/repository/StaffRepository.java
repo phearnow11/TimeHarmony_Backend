@@ -25,7 +25,15 @@ public interface StaffRepository extends JpaRepository<Staff, UUID> {
 
   @Modifying
   @Transactional
-  @Query(value = "insert [dbo].[Shipping_Order](shipper, order_id) values (:id, :oid)", nativeQuery = true)
+  @Query(value = "insert [dbo].[Shipping_Order](shipper, order_id, status) values (:id, :oid, 0)", nativeQuery = true)
+  void assignOrderToShipper(@Param("id") UUID id, @Param("oid") String oid);
+
+  @Query(value = "select order_id from [dbo].[Shipping_Order] where status = 0 and shipper = :sid", nativeQuery = true)
+  List<String> getMyAssignedOrder(@Param("sid") UUID sid);
+
+  @Modifying
+  @Transactional
+  @Query(value = "update [dbo].[Shipping_Order] set status = 1 where shipper = :id and order_id = :oid", nativeQuery = true)
   void shippingOrder(@Param("id") UUID id, @Param("oid") String oid);
 
   @Modifying
@@ -38,10 +46,7 @@ public interface StaffRepository extends JpaRepository<Staff, UUID> {
   @Query(value = "update Staff set staff_role = :role where member_id = :id")
   void updateStaffRole(@Param("role") StaffRole role, @Param("id") UUID mid);
 
-  
   @Query(value = "select s from Staff s where s.staff_role = :sr ")
-        List<Staff> getStaffByRole(@Param("sr") StaffRole sr ); 
-
-  
+  List<Staff> getStaffByRole(@Param("sr") StaffRole sr);
 
 }

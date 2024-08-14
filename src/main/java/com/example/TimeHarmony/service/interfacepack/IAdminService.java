@@ -59,17 +59,19 @@ public interface IAdminService {
 
   String updateAssignAppraiser(String request_id, String aid, String date);
 
-  int orderOfDay(String date); 
+  int orderOfDay(String date);
 
-  int successOrderOfDay (String date);
+  int successOrderOfDay(String date);
 
   long totalAmountOrderOfDay(String date);
 
-  long totalAmountSuccess(String date); 
+  long totalAmountSuccess(String date);
 
   List<Map<String, Integer>> top3Brand();
 
-  float getWebProfitByDate(String from, String to); 
+  float getWebProfitByDate(String from, String to);
 
-  float getWebProfitByMonth(String fromM, String toM); 
+  float getWebProfitByMonth(String fromM, String toM);
+
+  String assignShipper(String oid, String mid);
 }
