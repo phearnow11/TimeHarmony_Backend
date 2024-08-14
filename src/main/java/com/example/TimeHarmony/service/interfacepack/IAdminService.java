@@ -79,4 +79,6 @@ public interface IAdminService {
 
   long getTotalProfitOrderByMonth(String month); 
 
+  List<Members> getMemberByState(int state); 
+
 }

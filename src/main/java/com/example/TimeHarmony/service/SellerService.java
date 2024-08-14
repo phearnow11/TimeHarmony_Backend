@@ -57,7 +57,7 @@ public class SellerService implements ISellerService {
 
       watch.setSeller(seller);
       WATCH_REPOSITORY.save(watch);
-      return "Watch Created";
+      return watch.getWatch_id();
     } catch (Exception e) {
       return e.toString();
     }

@@ -270,6 +270,11 @@ public class AdminController {
     return ADMIN_SERVICE.getTotalProfitOrderByMonth(month); 
   }
 
-  
+  @RequestMapping(value= "get/member/by-state/{state}", method= RequestMethod.GET)
+  public List<Members> getMember(@PathVariable("state") int state){
+    return ADMIN_SERVICE.getMemberByState(state);
+  }
+
+
 
 }

@@ -444,4 +444,9 @@ public class AdminService implements IAdminService {
     return num1 + num2; 
   }
 
+  @Override
+  public List<Members> getMemberByState(int state) {
+    return MEMBER_REPOSITORY.getMemberByState(state); 
+  }
+
 }
