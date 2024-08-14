@@ -383,7 +383,7 @@ public class AdminService implements IAdminService {
         throw new Exception("Order is not packed");
       if (ORDER_REPOSITORY.getState(oid) == OrderState.SHIPPING)
         throw new Exception("Order is already shipping");
-      STAFF_REPOSITORY.assignOrderToShipper(UUID.fromString("mid"), oid);
+      STAFF_REPOSITORY.assignOrderToShipper(UUID.fromString(mid), oid);
 
       return "Shipper Assigned";
     } catch (Exception e) {
@@ -394,76 +394,75 @@ public class AdminService implements IAdminService {
   @Override
   public int getSuccessOrderByMonth(String month) {
     String rs1 = ORDER_REPOSITORY.numATMcompleteOrder(month);
-    String rs2 = ORDER_REPOSITORY.numCODcompleteOrder(month); 
+    String rs2 = ORDER_REPOSITORY.numCODcompleteOrder(month);
 
-    int num1, num2 ; 
-    if(rs1 == null) {
-      num1 = 0 ; 
+    int num1, num2;
+    if (rs1 == null) {
+      num1 = 0;
     } else {
-    num1 = Integer.parseInt(rs1); 
+      num1 = Integer.parseInt(rs1);
     }
 
-    if(rs2 == null){
-      num2 = 0 ; 
+    if (rs2 == null) {
+      num2 = 0;
     } else {
-    num2 = Integer.parseInt(rs2); 
+      num2 = Integer.parseInt(rs2);
     }
 
-    return num1 + num2 ; 
-    
+    return num1 + num2;
+
   }
 
   @Override
   public long getTotalAmountSuccessOrderByMonth(String month) {
-    String rs1 = ORDER_REPOSITORY.totalAmountATM(month); 
-    String rs2 = ORDER_REPOSITORY.totalAmountCOD(month); 
-    long num1, num2 ; 
+    String rs1 = ORDER_REPOSITORY.totalAmountATM(month);
+    String rs2 = ORDER_REPOSITORY.totalAmountCOD(month);
+    long num1, num2;
 
-    if(rs1 == null) {
-      num1 = 0 ; 
+    if (rs1 == null) {
+      num1 = 0;
     } else {
-    num1 = Long.parseLong(rs1); 
+      num1 = Long.parseLong(rs1);
     }
-    
 
-    if(rs2 == null) {
-      num2 = 0 ; 
+    if (rs2 == null) {
+      num2 = 0;
     } else {
-    num2 = Long.parseLong(rs2); 
+      num2 = Long.parseLong(rs2);
     }
 
     System.out.print(num1);
     System.out.print(",");
     System.out.print(num2);
-    return num1 + num2; 
+    return num1 + num2;
 
   }
 
   @Override
   public long getTotalProfitOrderByMonth(String month) {
-    String rs1 = ORDER_REPOSITORY.totalProfitATM(month); 
-    String rs2 = ORDER_REPOSITORY.totalProfitCOD(month); 
-    long num1, num2 ; 
+    String rs1 = ORDER_REPOSITORY.totalProfitATM(month);
+    String rs2 = ORDER_REPOSITORY.totalProfitCOD(month);
+    long num1, num2;
 
-    if(rs1 == null) {
-      num1 = 0 ; 
+    if (rs1 == null) {
+      num1 = 0;
     } else {
-    num1 = Long.parseLong(rs1); 
+      num1 = Long.parseLong(rs1);
     }
 
-    if(rs2 == null) {
-      num2 = 0 ; 
+    if (rs2 == null) {
+      num2 = 0;
     } else {
-    num2 = Long.parseLong(rs2); 
+      num2 = Long.parseLong(rs2);
     }
     System.out.print(num1);
     System.out.print(num2);
-    return num1 + num2; 
+    return num1 + num2;
   }
 
   @Override
   public List<Members> getMemberByState(int state) {
-    return MEMBER_REPOSITORY.getMemberByState(state); 
+    return MEMBER_REPOSITORY.getMemberByState(state);
   }
 
 }

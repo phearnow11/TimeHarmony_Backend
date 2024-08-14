@@ -100,6 +100,10 @@ public class StaffService implements IStaffService {
         throw new Exception("Order is not packed");
       if (ORDER_REPOSITORY.getState(oid) == OrderState.SHIPPING)
         throw new Exception("Order is already shipping");
+      if (STAFF_REPOSITORY.getShipperAssigned(oid) == null)
+        throw new Exception("Order is not assigned");
+      if (STAFF_REPOSITORY.getShipperAssigned(oid) != UUID.fromString(id))
+        throw new Exception("Order is assigned to someone else");
       ORDER_REPOSITORY.shipOrder(oid);
       STAFF_REPOSITORY.shippingOrder(UUID.fromString(id), oid);
       return "Order is shipping";

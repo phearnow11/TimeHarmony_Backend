@@ -218,63 +218,66 @@ public class AdminController {
     return ADMIN_SERVICE.updateAssignAppraiser(rid, aid, data.get("date"));
   }
 
-  @RequestMapping(value= "get/order-number/{date}", method = RequestMethod.GET)
-  public int getOrderNumber(@PathVariable("date") String date){
-    return ADMIN_SERVICE.orderOfDay(date); 
+  @RequestMapping(value = "get/order-number/{date}", method = RequestMethod.GET)
+  public int getOrderNumber(@PathVariable("date") String date) {
+    return ADMIN_SERVICE.orderOfDay(date);
   }
 
-  @RequestMapping(value= "get/order-success-number/{date}", method = RequestMethod.GET)
-  public int getSuccessOrderNumber(@PathVariable("date") String date){
-    return ADMIN_SERVICE.successOrderOfDay(date); 
+  @RequestMapping(value = "get/order-success-number/{date}", method = RequestMethod.GET)
+  public int getSuccessOrderNumber(@PathVariable("date") String date) {
+    return ADMIN_SERVICE.successOrderOfDay(date);
   }
 
-  @RequestMapping(value= "get/total-amount-success-order/{date}", method= RequestMethod.GET)
-  public long getTotalAmountSuccessOrder(@PathVariable("date") String date){
-    return ADMIN_SERVICE.totalAmountSuccess(date); 
+  @RequestMapping(value = "get/total-amount-success-order/{date}", method = RequestMethod.GET)
+  public long getTotalAmountSuccessOrder(@PathVariable("date") String date) {
+    return ADMIN_SERVICE.totalAmountSuccess(date);
   }
 
-  @RequestMapping(value= "get/total-amount-order/{date}", method= RequestMethod.GET)
-  public long getTotalAmountOrder(@PathVariable("date") String date){
-    return ADMIN_SERVICE.totalAmountOrderOfDay(date); 
+  @RequestMapping(value = "get/total-amount-order/{date}", method = RequestMethod.GET)
+  public long getTotalAmountOrder(@PathVariable("date") String date) {
+    return ADMIN_SERVICE.totalAmountOrderOfDay(date);
   }
 
-  @RequestMapping(value= "get/top-3-brand", method = RequestMethod.GET)
-  public List<Map<String, Integer>> getTop3brand(){
-    return ADMIN_SERVICE.top3Brand(); 
+  @RequestMapping(value = "get/top-3-brand", method = RequestMethod.GET)
+  public List<Map<String, Integer>> getTop3brand() {
+    return ADMIN_SERVICE.top3Brand();
   }
 
-  //date format yyyy-mm-dd
+  // date format yyyy-mm-dd
   @RequestMapping(value = "get/profit-date/{from}-to-{to}", method = RequestMethod.GET)
-  public float getProfitByDate(@PathVariable("from") String from, @PathVariable("to") String to ) {
-    return ADMIN_SERVICE.getWebProfitByDate(from,to); 
+  public float getProfitByDate(@PathVariable("from") String from, @PathVariable("to") String to) {
+    return ADMIN_SERVICE.getWebProfitByDate(from, to);
   }
 
-  //month format yyyy-mm
+  // month format yyyy-mm
   @RequestMapping(value = "get/profit-month/{fromM}-to-{toM}", method = RequestMethod.GET)
-  public float getProfitByMonth(@PathVariable("fromM") String fromM, @PathVariable("toM") String toM ) {
-    return ADMIN_SERVICE.getWebProfitByMonth(fromM,toM); 
+  public float getProfitByMonth(@PathVariable("fromM") String fromM, @PathVariable("toM") String toM) {
+    return ADMIN_SERVICE.getWebProfitByMonth(fromM, toM);
   }
 
-  @RequestMapping(value= "get/num-order-success/month={month}", method = RequestMethod.GET)
-  public int getNumOrderSuccess(@PathVariable("month") String month){
-    return ADMIN_SERVICE.getSuccessOrderByMonth(month); 
+  @RequestMapping(value = "get/num-order-success/month={month}", method = RequestMethod.GET)
+  public int getNumOrderSuccess(@PathVariable("month") String month) {
+    return ADMIN_SERVICE.getSuccessOrderByMonth(month);
   }
 
-  @RequestMapping(value= "get/total-amount-order-success/month={month}", method = RequestMethod.GET)
-  public long getTotalAmountOrderSuccess(@PathVariable("month") String month){
+  @RequestMapping(value = "get/total-amount-order-success/month={month}", method = RequestMethod.GET)
+  public long getTotalAmountOrderSuccess(@PathVariable("month") String month) {
     return ADMIN_SERVICE.getTotalAmountSuccessOrderByMonth(month);
   }
 
-  @RequestMapping(value= "get/total-amount-profit-order-success/month={month}", method = RequestMethod.GET)
-  public long getTotalProfitOrderSuccess(@PathVariable("month") String month){
-    return ADMIN_SERVICE.getTotalProfitOrderByMonth(month); 
+  @RequestMapping(value = "get/total-amount-profit-order-success/month={month}", method = RequestMethod.GET)
+  public long getTotalProfitOrderSuccess(@PathVariable("month") String month) {
+    return ADMIN_SERVICE.getTotalProfitOrderByMonth(month);
   }
 
-  @RequestMapping(value= "get/member/by-state/{state}", method= RequestMethod.GET)
-  public List<Members> getMember(@PathVariable("state") int state){
+  @RequestMapping(value = "get/member/by-state/{state}", method = RequestMethod.GET)
+  public List<Members> getMember(@PathVariable("state") int state) {
     return ADMIN_SERVICE.getMemberByState(state);
   }
 
-
+  @RequestMapping(value = "assign/shipper", method = RequestMethod.POST)
+  public String assignShipper(@RequestParam("sid") String sid, @RequestParam("oid") String oid) {
+    return ADMIN_SERVICE.assignShipper(oid, sid);
+  }
 
 }
