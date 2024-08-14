@@ -163,7 +163,7 @@ public class StaffController {
     return STAFF_SERVICE.acceptRequest(request_id, aid);
   }
 
-  @RequestMapping(value = "get/my-request/{id}, method = RequestMethod.GET")
+  @RequestMapping(value = "get/my-request/{id}", method = RequestMethod.GET)
   public List<AppraiseRequest> getMyRequest(@PathVariable("id") String aid) {
     return STAFF_SERVICE.getMyRequests(aid);
   }

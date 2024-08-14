@@ -255,4 +255,26 @@ public class AdminController {
     return ADMIN_SERVICE.getWebProfitByMonth(fromM,toM); 
   }
 
+  @RequestMapping(value= "get/num-order-success/month={month}", method = RequestMethod.GET)
+  public int getNumOrderSuccess(@PathVariable("month") String month){
+    return ADMIN_SERVICE.getSuccessOrderByMonth(month); 
+  }
+
+  @RequestMapping(value= "get/total-amount-order-success/month={month}", method = RequestMethod.GET)
+  public long getTotalAmountOrderSuccess(@PathVariable("month") String month){
+    return ADMIN_SERVICE.getTotalAmountSuccessOrderByMonth(month);
+  }
+
+  @RequestMapping(value= "get/total-amount-profit-order-success/month={month}", method = RequestMethod.GET)
+  public long getTotalProfitOrderSuccess(@PathVariable("month") String month){
+    return ADMIN_SERVICE.getTotalProfitOrderByMonth(month); 
+  }
+
+  @RequestMapping(value= "get/member/by-state/{state}", method= RequestMethod.GET)
+  public List<Members> getMember(@PathVariable("state") int state){
+    return ADMIN_SERVICE.getMemberByState(state);
+  }
+
+
+
 }

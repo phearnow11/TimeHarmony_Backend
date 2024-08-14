@@ -74,4 +74,13 @@ public interface IAdminService {
   float getWebProfitByMonth(String fromM, String toM);
 
   String assignShipper(String oid, String mid);
+
+  int getSuccessOrderByMonth(String month); 
+
+  long getTotalAmountSuccessOrderByMonth(String month); 
+
+  long getTotalProfitOrderByMonth(String month); 
+
+  List<Members> getMemberByState(int state); 
+
 }

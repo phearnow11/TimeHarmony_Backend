@@ -121,5 +121,8 @@ public interface MemberRepository extends JpaRepository<Members, UUID> {
         @Query(value = "select [password] from [dbo].[Members] join [dbo].[Users] on [dbo].[Members].username = [dbo].[Users].username where [dbo].[Members].username= :username", nativeQuery = true)
         String getPassword(@Param("username") String username);
 
+        @Query(value= "select * from [dbo].[Members] where is_active = :state", nativeQuery=true)
+        List<Members> getMemberByState(@Param("state") int state); 
+
         
 }

@@ -46,7 +46,7 @@ public class OrderService implements IOrderService {
 
   @Override
   public String makeOrder(List<String> wids, String m_id, String notice, float total_price, Addresses addr,
-      String tno) {
+      String tno, String payment_method) {
     try {
 
       for (int state : WATCH_SERVICE.getWatchState(wids))
@@ -58,7 +58,7 @@ public class OrderService implements IOrderService {
       Members m = MEMBER_SERVICE.getMemberbyID(m_id).get();
 
       Orders order = new Orders(order_id, m, Timestamp.valueOf(LocalDateTime.now()), addr.getAddress_detail(),
-          addr.getName(), addr.getPhone(), notice, total_price, null, OrderState.PENDING);
+          addr.getName(), addr.getPhone(), notice, total_price, null, OrderState.PENDING, payment_method);
       ORDER_REPOSITORY.save(order);
       updateCartOrder(wids, m.getCart_id(), order_id);
 
@@ -193,5 +193,7 @@ public class OrderService implements IOrderService {
       return null;
     }
   }
+
+  
 
 }
