@@ -30,8 +30,13 @@ public interface StaffRepository extends JpaRepository<Staff, UUID> {
 
   @Modifying
   @Transactional
-  @Query(value = "delete [dbo].[Shipping_Order] where order_id = :oid", nativeQuery = true)
+  @Query(value = "delete [dbo].[Shipping_Order] where order_id = :oid and status = 0", nativeQuery = true)
   void unassignOrderShipper(@Param("oid") String oid);
+
+  @Modifying
+  @Transactional
+  @Query(value = "select status from [dbo].[Shipping_Order] where order_id = :oid", nativeQuery = true)
+  int getAssignOrderShipperStatus(@Param("oid") String oid);
 
   @Query(value = "select order_id from [dbo].[Shipping_Order] where status = 0 and shipper = :sid", nativeQuery = true)
   List<String> getMyAssignedOrder(@Param("sid") UUID sid);
@@ -55,6 +60,6 @@ public interface StaffRepository extends JpaRepository<Staff, UUID> {
   List<Staff> getStaffByRole(@Param("sr") StaffRole sr);
 
   @Query(value = "select shipper from [dbo].[Shipping_Order] where order_id = :oid", nativeQuery = true)
-  UUID getShipperAssigned(@Param("oid") String oid);
+  String getShipperAssigned(@Param("oid") String oid);
 
 }

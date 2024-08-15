@@ -94,16 +94,23 @@ public class StaffService implements IStaffService {
   @Override
   public String shipOrder(String id, String oid) {
     try {
+      System.out.println(UUID.fromString(id));
       if (STAFF_REPOSITORY.getRole(UUID.fromString(id)) != StaffRole.SHIPPER)
         throw new Exception("You are not shipper");
+      System.out.println("0a");
       if (ORDER_REPOSITORY.getOrderWatchStates(oid).contains(3))
         throw new Exception("Order is not packed");
+      System.out.println("1a");
       if (ORDER_REPOSITORY.getState(oid) == OrderState.SHIPPING)
         throw new Exception("Order is already shipping");
+      System.out.println("2a");
       if (STAFF_REPOSITORY.getShipperAssigned(oid) == null)
         throw new Exception("Order is not assigned");
-      if (STAFF_REPOSITORY.getShipperAssigned(oid) != UUID.fromString(id))
-        throw new Exception("Order is assigned to someone else");
+      System.out.println(STAFF_REPOSITORY.getShipperAssigned(oid));
+      // if (STAFF_REPOSITORY.getShipperAssigned(oid) != id)
+      // throw new Exception("Order is assigned to someone else");
+      System.out.println("4a");
+
       ORDER_REPOSITORY.shipOrder(oid);
       STAFF_REPOSITORY.shippingOrder(UUID.fromString(id), oid);
       return "Order is shipping";
