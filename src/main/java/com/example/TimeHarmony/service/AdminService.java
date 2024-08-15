@@ -256,13 +256,15 @@ public class AdminService implements IAdminService {
     try {
       if (STAFF_REPOSITORY.getRole(UUID.fromString(aid)) != StaffRole.APPRAISER)
         throw new Exception("ID is not Appraiser");
-      if (APPRAISE_REQUEST_REPOSITORY.checkAppraiser(request_id) != null)
-        throw new Exception("Request is already assigned");
+      // if (APPRAISE_REQUEST_REPOSITORY.checkAppraiser(request_id) != null)
+      // throw new Exception("Request is already assigned");
       if (APPRAISE_REQUEST_REPOSITORY.getStatus(request_id) != RequestStatus.NEW)
         throw new Exception("Logic Error");
       if (date == null || date.isEmpty())
         throw new Exception("Appointment date is required");
 
+      // auto unassign if request is already assigned
+      APPRAISE_REQUEST_REPOSITORY.unassignAppraiser(request_id);
       APPRAISE_REQUEST_REPOSITORY.assignRequest(UUID.fromString(aid), request_id, Timestamp.valueOf(date));
       APPRAISE_REQUEST_REPOSITORY.updateStatus(RequestStatus.PROCESSING, request_id);
 
@@ -383,6 +385,9 @@ public class AdminService implements IAdminService {
         throw new Exception("Order is not packed");
       if (ORDER_REPOSITORY.getState(oid) == OrderState.SHIPPING)
         throw new Exception("Order is already shipping");
+
+      // Auto unassign if order is already assigned
+      STAFF_REPOSITORY.unassignOrderShipper(oid);
       STAFF_REPOSITORY.assignOrderToShipper(UUID.fromString(mid), oid);
 
       return "Shipper Assigned";
