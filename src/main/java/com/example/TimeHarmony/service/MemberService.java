@@ -149,8 +149,15 @@ public class MemberService implements IMemberService {
 
   @Override
   public String updateEmail(String member_id, String new_email) {
-    MEMBER_REPOSITORY.updateMemberEmail(new_email, UUID.fromString(member_id));
-    return new_email;
+    try {
+      if (MEMBER_REPOSITORY.getMemberByEmail(new_email).isPresent())
+        throw new Exception("Email has already been used");
+      MEMBER_REPOSITORY.updateMemberEmail(new_email, UUID.fromString(member_id));
+      MEMBER_REPOSITORY.removeVerify(UUID.fromString(member_id));
+      return new_email;
+    } catch (Exception e) {
+      return e.toString();
+    }
   }
 
   @Override
