@@ -311,10 +311,12 @@ public class SellerService implements ISellerService {
         throw new Exception("Watch ID is required");
       if (APPRAISE_REQUEST_REPOSITORY.checkWatch(data.get("watch_id").toString()) != null)
         throw new Exception("Request of this watch is already created");
+      if (data.get("appoinment_date") == null )
+        throw new Exception("Appoinment Date is required"); 
       String request_id = "R" + STRING_SERVICE.autoGenerateString(11);
       AppraiseRequest request = new AppraiseRequest(request_id, UUID.fromString(sid), null,
           data.get("watch_id").toString(),
-          Timestamp.valueOf(data.get("appoinmentdate").toString()), 
+          Timestamp.valueOf(data.get("appoinment_date").toString()), 
           Timestamp.valueOf(LocalDateTime.now()),
           data.get("note") == null ? null : data.get("note").toString(), 
           RequestStatus.NEW);

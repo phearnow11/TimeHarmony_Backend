@@ -50,8 +50,8 @@ public interface AppraiseRequestRepository extends JpaRepository<AppraiseRequest
 
   @Modifying
   @Transactional
-  @Query(value = "update [dbo].[Appraise_Request] set status = 4 where appointment_date < dateadd(day, 1, getdate())", nativeQuery = true)
-  void updateExpired();
+  @Query(value = "update [dbo].[Appraise_Request] set status = 4 where appointment_date < :time", nativeQuery = true)
+  void updateExpired(@Param("time") Timestamp time);
 
   @Modifying
   @Transactional

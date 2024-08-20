@@ -1,6 +1,7 @@
 package com.example.TimeHarmony.service;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -278,7 +279,7 @@ public class AdminService implements IAdminService {
   @Override
   public List<AppraiseRequest> getAllRequest() {
     try {
-      APPRAISE_REQUEST_REPOSITORY.updateExpired();
+      APPRAISE_REQUEST_REPOSITORY.updateExpired(Timestamp.valueOf(LocalDateTime.now().plusHours(2)));
       return APPRAISE_REQUEST_REPOSITORY.findAll();
     } catch (Exception e) {
       return null;
