@@ -1,5 +1,7 @@
 package com.example.TimeHarmony.service.interfacepack;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -84,6 +86,6 @@ public interface IAdminService {
 
   List<Members> getMemberByState(int state); 
 
-  List<Map<String, Long>>getDailyRevenue(LocalDate startDate, LocalDate endDate); 
+  List<Map<String, Long>>getDailyRevenue(String startDate, String endDate); 
 
 }

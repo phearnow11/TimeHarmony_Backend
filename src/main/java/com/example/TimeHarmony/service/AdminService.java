@@ -1,5 +1,6 @@
 package com.example.TimeHarmony.service;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -473,7 +474,7 @@ public class AdminService implements IAdminService {
   }
 
   @Override
-  public List<Map<String, Long>> getDailyRevenue(LocalDate startDate, LocalDate endDate) {
+  public List<Map<String, Long>> getDailyRevenue(String startDate, String endDate) {
     return ORDER_REPOSITORY.getDailyRevenueByDay(startDate, endDate);
   }
 

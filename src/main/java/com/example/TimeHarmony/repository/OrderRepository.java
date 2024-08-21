@@ -1,5 +1,6 @@
 package com.example.TimeHarmony.repository;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
@@ -145,14 +146,20 @@ public interface OrderRepository extends JpaRepository<Orders, String> {
   @Query(value = "SELECT sum([total_price]/51)  FROM [dbo].[Orders] WHERE state = 3 and payment_method = 'COD' and CONVERT(VARCHAR(7), create_time, 120) = :month", nativeQuery = true)
   String totalProfitCOD(@Param("month") String month);
 
-  @Query(value= "select convert(varchar(10), create_time, 120) as date, sum(total_price) AS daily_revenue FROM [dbo].[Orders] where create_time between convert(datetime, :startDate, 120) and convert(datetime, :endDate, 120) and (state <> 4 and state <> 5 ) and payment_method = 'ATM' GROUP BY CONVERT(VARCHAR(10), create_time, 120) ORDER BY CONVERT(VARCHAR(10), create_time, 120)", nativeQuery = true)
-  List<Objects[]> getDailyMoneyReceiveByDayATM(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);  
+  @Query(value = "select convert(varchar(10), create_time, 120) as date, sum(total_price) AS daily_revenue FROM [dbo].[Orders] where create_time between convert(datetime, :startDate, 120) and convert(datetime, :endDate, 120) and (state <> 4 and state <> 5 ) and payment_method = 'ATM' GROUP BY CONVERT(VARCHAR(10), create_time, 120) ORDER BY CONVERT(VARCHAR(10), create_time, 120)", nativeQuery = true)
+  List<Objects[]> getDailyMoneyReceiveByDayATM(@Param("startDate") LocalDate startDate,
+      @Param("endDate") LocalDate endDate);
 
-  @Query(value= "select convert(varchar(10), create_time, 120) as date, sum(total_price) AS daily_revenue FROM [dbo].[Orders] where create_time between convert(datetime, :startDate, 120) and convert(datetime, :endDate, 120) and state = 3 and payment_method = 'COD' GROUP BY CONVERT(VARCHAR(10), create_time, 120) ORDER BY CONVERT(VARCHAR(10), create_time, 120)", nativeQuery= true)
-  List<Objects[]> getDailyMoneyReceiveByDayCOD(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate); 
+  @Query(value = "select convert(varchar(10), create_time, 120) as date, sum(total_price) AS daily_revenue FROM [dbo].[Orders] where create_time between convert(datetime, :startDate, 120) and convert(datetime, :endDate, 120) and state = 3 and payment_method = 'COD' GROUP BY CONVERT(VARCHAR(10), create_time, 120) ORDER BY CONVERT(VARCHAR(10), create_time, 120)", nativeQuery = true)
+  List<Objects[]> getDailyMoneyReceiveByDayCOD(@Param("startDate") LocalDate startDate,
+      @Param("endDate") LocalDate endDate);
 
-  @Query(value = "select convert(varchar(10), received_date, 120) as date, sum(total_price) AS daily_revenue FROM [dbo].[Orders] where received_date between convert(datetime, :startDate, 120) and convert(datetime, :endDate, 120) and state = 3 GROUP BY CONVERT(VARCHAR(10), received_date, 120) ORDER BY CONVERT(VARCHAR(10), received_date, 120)", nativeQuery = true)
-  List<Map<String, Long>> getDailyRevenueByDay(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate); 
-
+  @Query(value = "SELECT received_date AS date, SUM(total_price)/51 AS daily_revenue \r\n" + //
+      "FROM [dbo].[Orders]\r\n" + //
+      "WHERE received_date BETWEEN :startDate AND :endDate \r\n" + //
+      "  AND state = 3\r\n" + //
+      "GROUP BY received_date\r\n" + //
+      "ORDER BY received_date", nativeQuery = true)
+  List<Map<String, Long>> getDailyRevenueByDay(@Param("startDate") String startDate, @Param("endDate") String endDate);
 
 }

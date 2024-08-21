@@ -1,5 +1,6 @@
 package com.example.TimeHarmony.controller;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -283,8 +284,8 @@ public class AdminController {
   }
 
   @RequestMapping(value = "get/daily-revenue/{startDate}to{endDate}", method = RequestMethod.GET)
-  public List<Map<String, Long>> getDailyRevenue(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate){
+  public List<Map<String, Long>> getDailyRevenue(@PathVariable("startDate") String startDate,
+      @PathVariable("endDate") String endDate) {
     return ADMIN_SERVICE.getDailyRevenue(startDate, endDate);
   }
-
 }
