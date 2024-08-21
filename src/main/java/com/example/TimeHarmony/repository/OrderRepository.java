@@ -3,10 +3,10 @@ package com.example.TimeHarmony.repository;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
-import org.antlr.v4.runtime.ListTokenSource;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -152,7 +152,7 @@ public interface OrderRepository extends JpaRepository<Orders, String> {
   List<Objects[]> getDailyMoneyReceiveByDayCOD(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate); 
 
   @Query(value = "select convert(varchar(10), received_date, 120) as date, sum(total_price) AS daily_revenue FROM [dbo].[Orders] where received_date between convert(datetime, :startDate, 120) and convert(datetime, :endDate, 120) and state = 3 GROUP BY CONVERT(VARCHAR(10), received_date, 120) ORDER BY CONVERT(VARCHAR(10), received_date, 120)", nativeQuery = true)
-  List<Objects[]> getDailyRevenueByDay(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate); 
+  List<Map<String, Long>> getDailyRevenueByDay(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate); 
 
 
 }

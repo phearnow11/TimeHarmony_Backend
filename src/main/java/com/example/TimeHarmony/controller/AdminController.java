@@ -1,12 +1,14 @@
 package com.example.TimeHarmony.controller;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -278,6 +280,11 @@ public class AdminController {
   @RequestMapping(value = "assign/shipper", method = RequestMethod.POST)
   public String assignShipper(@RequestParam("sid") String sid, @RequestParam("oid") String oid) {
     return ADMIN_SERVICE.assignShipper(oid, sid);
+  }
+
+  @RequestMapping(value = "get/daily-revenue/{startDate}to{endDate}", method = RequestMethod.GET)
+  public List<Map<String, Long>> getDailyRevenue(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate){
+    return ADMIN_SERVICE.getDailyRevenue(startDate, endDate);
   }
 
 }
