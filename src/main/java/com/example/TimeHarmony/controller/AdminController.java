@@ -216,9 +216,9 @@ public class AdminController {
   }
 
   @RequestMapping(value = "update/request", method = RequestMethod.PATCH)
-  public String updateRequest(@RequestParam("aid") String aid, @RequestParam("rid") String rid,
+  public String updateRequest(@RequestParam("rid") String rid,
       @RequestBody Map<String, String> data) {
-    return ADMIN_SERVICE.updateAssignAppraiser(rid, aid, data.get("date"));
+    return ADMIN_SERVICE.updateAssignAppraiser(rid, data.get("appraiser_id"), data.get("date"));
   }
 
   @RequestMapping(value = "get/order-number/{date}", method = RequestMethod.GET)
