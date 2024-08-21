@@ -65,7 +65,7 @@ public class MemberController {
   @Autowired
   private ReportService REPORT_SERVICE;
 
-  @Autowired//thinh
+  @Autowired // thinh
   private PaymentService PAYMENT_SERVICE;
 
   @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
@@ -139,6 +139,9 @@ public class MemberController {
   @RequestMapping(value = "add/to-cart/{id}", method = RequestMethod.POST)
   public String addToCart(@PathVariable("id") String member_id, @RequestParam("watch_id") String watch_id) {
     Members m = MEMBER_SERVICE.getMemberbyID(member_id).get();
+    if (!(m.getUser_log_info().getAuthorities().getAuthority().matches("ROLE_USER")
+        || m.getUser_log_info().getAuthorities().getAuthority().matches("ROLE_SELLER")))
+      return "Only User and Seller can add to cart";
     return CART_SERVICE.insertToCart(m.getCart_id(), watch_id, member_id);
   }
 
@@ -191,8 +194,8 @@ public class MemberController {
     Addresses addr = MEMBER_SERVICE.getAddressByAddressId(data.get("address").toString());
 
     return ORDER_SERVICE.makeOrder(wids, member_id, data.get("notice").toString(),
-        Float.parseFloat(data.get("total_price").toString()), addr, data.get("transaction_no").toString()
-        , data.get("payment_method").toString());
+        Float.parseFloat(data.get("total_price").toString()), addr, data.get("transaction_no").toString(),
+        data.get("payment_method").toString());
   }
 
   @RequestMapping(value = "cancel/order/{oid}", method = RequestMethod.PUT)
@@ -288,7 +291,7 @@ public class MemberController {
     return MEMBER_SERVICE.deleteMember(id);
   }
 
-  @RequestMapping(value = "get/tno/{id}", method = RequestMethod.GET)//thinh
+  @RequestMapping(value = "get/tno/{id}", method = RequestMethod.GET) // thinh
   public String getTransNo(@PathVariable("id") String id) {
     return PAYMENT_SERVICE.getTransactionNoByOrderId(id);
   }
